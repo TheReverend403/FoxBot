@@ -2,10 +2,16 @@ package uk.co.revthefox.foxbot;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
+import org.pircbotx.User;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
+
+import java.io.IOException;
 
 public class FoxBot
 {
@@ -22,16 +28,56 @@ public class FoxBot
         me.start(args);
     }
 
-    public void start(String[] args)
+    private void start(String[] args)
     {
         configFile = ConfigFactory.load("bot");
         permissionsFile = ConfigFactory.load("permissions");
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
+        registerListeners();
+        setBotInfo();
+        connectToServer();
+        joinChannels();
     }
 
-    public void registerListeners()
+    private void setBotInfo()
+    {
+        bot.setVerbose(config.getDebug());
+        bot.setAutoNickChange(config.getAutoNickChange());
+        bot.setAutoReconnect(config.getAutoReconnect());
+        bot.setName(config.getBotNick());
+    }
+
+    private void connectToServer()
+    {
+        try
+        {
+            bot.connect(config.getServerAddress(), config.getServerPort());
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+        catch (NickAlreadyInUseException ex)
+        {
+
+        }
+        catch (IrcException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    private void joinChannels()
+    {
+        for (String channel : config.getChannels())
+        {
+            bot.joinChannel(channel);
+        }
+    }
+
+    private void registerListeners()
     {
         bot.getListenerManager().addListener(new MessageListener(this));
     }
