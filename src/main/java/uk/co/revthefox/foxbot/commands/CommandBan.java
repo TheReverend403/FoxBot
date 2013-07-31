@@ -1,15 +1,5 @@
 package uk.co.revthefox.foxbot.commands;
 
-public class CommandBan extends Command
+public class CommandBan
 {
-    public CommandBan()
-    {
-        super("ban");
-    }
-
-    @Override
-    public void execute(CommandSender sender, String[] args)
-    {
-
-    }
 }

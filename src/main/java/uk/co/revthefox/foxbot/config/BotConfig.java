@@ -2,13 +2,13 @@ package uk.co.revthefox.foxbot.config;
 
 import uk.co.revthefox.foxbot.FoxBot;
 
-public class Config
+public class BotConfig
 {
     private FoxBot foxbot;
 
     private boolean debugMode;
 
-    private String botName;
+    private String botNick;
     private String botIdent;
     private String botRealName;
 
@@ -23,14 +23,14 @@ public class Config
     private String nickservPassword;
 
 
-    public Config(FoxBot foxBot)
+    public BotConfig(FoxBot foxBot)
     {
         this.foxbot = foxBot;
     }
 
     private void loadConfig()
     {
-
+        debugMode = foxbot.getConfigFile().getBoolean("misc.debug");
     }
 
     public String getCommandPrefix()
