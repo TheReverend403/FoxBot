@@ -28,29 +28,7 @@ public class MessageListener extends ListenerAdapter
 
         if (message.length() > 0 && message.startsWith(foxbot.getConfig().getCommandPrefix()))
         {
-            commandHandler(user, channel, message.substring(1));
+            foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));
         }
-    }
-
-    public void commandHandler(User commandSender, Channel channel, String commandLine)
-    {
-        foxbot.getCommandManager().dispatchCommand(commandSender, channel, commandLine);
-        /*
-        if (command.equalsIgnoreCase("ban"))
-        {
-            final CommandBan ban = new CommandBan(foxbot);
-            ban.execute(channel, commandSender, args);
-        }
-        if (command.equalsIgnoreCase("kick"))
-        {
-            final CommandKick kick = new CommandKick(foxbot);
-            kick.execute(channel, commandSender, args);
-        }
-        if (command.equalsIgnoreCase("kill"))
-        {
-            final CommandKill kill = new CommandKill(foxbot);
-            kill.execute(channel, commandSender, args);
-        }
-        */
     }
 }
