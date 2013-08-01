@@ -7,6 +7,8 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
+import uk.co.revthefox.foxbot.commands.CommandBan;
+import uk.co.revthefox.foxbot.commands.CommandInsult;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
@@ -21,6 +23,7 @@ public class FoxBot
     private Config permissionsFile;
     private BotConfig config;
     private PermissionManager permissions;
+    private CommandManager commandManager;
 
     public static void main(String[] args)
     {
@@ -35,7 +38,9 @@ public class FoxBot
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
+        commandManager = new CommandManager(this);
         registerListeners();
+        registerCommands();
         setBotInfo();
         connectToServer();
         joinChannels();
@@ -82,6 +87,11 @@ public class FoxBot
         bot.getListenerManager().addListener(new MessageListener(this));
     }
 
+    private void registerCommands()
+    {
+        this.getCommandManager().registerCommand(new CommandInsult());
+    }
+
     public PircBotX getBot()
     {
         return bot;
@@ -105,5 +115,10 @@ public class FoxBot
     public Config getPermissionsFile()
     {
         return permissionsFile;
+    }
+
+    public CommandManager getCommandManager()
+    {
+        return commandManager;
     }
 }

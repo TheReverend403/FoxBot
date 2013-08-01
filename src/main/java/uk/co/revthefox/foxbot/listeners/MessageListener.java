@@ -26,22 +26,16 @@ public class MessageListener extends ListenerAdapter
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        if (message.startsWith(foxbot.getConfig().getCommandPrefix()))
+        if (message.length() > 0 && message.startsWith(foxbot.getConfig().getCommandPrefix()))
         {
-            String[] args = message.split(" ");
-            String command = args[0].substring(1);
-            if (args.length > 1)
-            {
-                args = message.substring(args[0].length()+1).split(" ");
-                commandHandler(command, channel, user, args);
-                return;
-            }
-            commandHandler(command, channel, user, new String[0]);
+            commandHandler(user, channel, message.substring(1));
         }
     }
 
-    public void commandHandler(String command, Channel channel, User commandSender, String[] args)
+    public void commandHandler(User commandSender, Channel channel, String commandLine)
     {
+        foxbot.getCommandManager().dispatchCommand(commandSender, channel, commandLine);
+        /*
         if (command.equalsIgnoreCase("ban"))
         {
             final CommandBan ban = new CommandBan(foxbot);
@@ -57,5 +51,6 @@ public class MessageListener extends ListenerAdapter
             final CommandKill kill = new CommandKill(foxbot);
             kill.execute(channel, commandSender, args);
         }
+        */
     }
 }
