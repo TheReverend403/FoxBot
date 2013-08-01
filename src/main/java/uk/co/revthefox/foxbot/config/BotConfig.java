@@ -24,9 +24,10 @@ public class BotConfig
     private Boolean usersMustBeVerified;
 
     private Boolean debug;
+    private String commandPrefix;
     private Boolean autoNickChange;
     private Boolean autoReconnect;
-    private String commandPrefix;
+    private Long messageDelay;
 
 
     public BotConfig(FoxBot foxBot)
@@ -51,6 +52,8 @@ public class BotConfig
         commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
         autoNickChange = foxbot.getConfigFile().getBoolean("misc.autoNickChange");
         autoReconnect = foxbot.getConfigFile().getBoolean("misc.autoReconnect");
+        messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
+
     }
 
     public String getBotNick()
@@ -88,6 +91,11 @@ public class BotConfig
         return usersMustBeVerified;
     }
 
+    public Boolean getDebug()
+    {
+        return debug;
+    }
+
     public String getCommandPrefix()
     {
         return commandPrefix;
@@ -102,9 +110,8 @@ public class BotConfig
     {
         return autoReconnect;
     }
-
-    public Boolean getDebug()
+    public Long getMessageDelay()
     {
-        return debug;
+        return messageDelay;
     }
 }

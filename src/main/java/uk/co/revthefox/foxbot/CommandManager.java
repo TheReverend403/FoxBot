@@ -34,15 +34,10 @@ public class CommandManager
 
     public boolean dispatchCommand(User sender, Channel channel, String commandLine)
     {
-        channel.sendMessage("Attempting to dispatch command...");
-
-        channel.sendMessage("Separating args from main command...");
         String[] split = argsSplit.split(commandLine);
-        channel.sendMessage("Getting command name...");
         String commandName = split[0].toLowerCase();
 
         Command command = commandMap.get(commandName);
-        channel.sendMessage("Command is: " + commandName);
 
 
         if (command == null)
@@ -50,27 +45,20 @@ public class CommandManager
             return false;
         }
 
-        channel.sendMessage("Checking permissions...");
         String permission = command.getPermission();
         if (permission != null && !permission.isEmpty())
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
-                channel.sendMessage("Permission check result: false (This is a good thing)");
-                //foxbot.getBot().sendNotice(sender, "You do not have permission to do that!");
+                foxbot.getBot().sendNotice(sender, "You do not have permission to do that!");
                 return false;
             }
         }
 
         String[] args = Arrays.copyOfRange(split, 1, split.length);
 
-        for (String arg : args)
-        {
-            channel.sendMessage("Arg: " + arg);
-        }
         try
         {
-            channel.sendMessage("Executing command...");
             command.execute(sender, channel, args);
         }
         catch (Exception ex)

@@ -31,10 +31,14 @@ public class PermissionManager
         {
             return false;
         }
+        if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
+        {
+            return true;
+        }
         if (foxbot.getPermissionsFile().getStringList("permissions." + user.getRealName()).contains(permission))
         {
             return true;
         }
-        return true;
+        return false;
     }
 }

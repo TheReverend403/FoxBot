@@ -2,13 +2,10 @@ package uk.co.revthefox.foxbot;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
-import org.pircbotx.User;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
-import uk.co.revthefox.foxbot.commands.CommandBan;
-import uk.co.revthefox.foxbot.commands.CommandInsult;
+import uk.co.revthefox.foxbot.commands.*;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
@@ -51,7 +48,9 @@ public class FoxBot
         bot.setVerbose(config.getDebug());
         bot.setAutoNickChange(config.getAutoNickChange());
         bot.setAutoReconnect(config.getAutoReconnect());
+        bot.setMessageDelay(config.getMessageDelay());
         bot.setName(config.getBotNick());
+        bot.setLogin(config.getBotRealName());
     }
 
     private void connectToServer()
@@ -89,7 +88,12 @@ public class FoxBot
 
     private void registerCommands()
     {
-        this.getCommandManager().registerCommand(new CommandInsult());
+        this.getCommandManager().registerCommand(new CommandInsult(this));
+        this.getCommandManager().registerCommand(new CommandKick(this));
+        this.getCommandManager().registerCommand(new CommandBan(this));
+        this.getCommandManager().registerCommand(new CommandKill(this));
+        this.getCommandManager().registerCommand(new CommandPing(this));
+        this.getCommandManager().registerCommand(new CommandDelay(this));
     }
 
     public PircBotX getBot()

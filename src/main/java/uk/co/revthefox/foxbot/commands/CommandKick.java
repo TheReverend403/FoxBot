@@ -4,29 +4,26 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
-public class CommandKick
+public class CommandKick extends Command
 {
     private FoxBot foxbot;
 
     public CommandKick(FoxBot foxbot)
     {
+        super("kick", "command.kick");
         this.foxbot = foxbot;
     }
 
-    public void execute(Channel channel, User commandSender, String[] args)
+    @Override
+    public void execute(User sender, Channel channel, String[] args)
     {
-        if (!foxbot.getPermissionManager().userHasPermission(commandSender, "command.kick"))
-        {
-            foxbot.getBot().sendNotice(commandSender, "You do not have permission to do this.");
-            return;
-        }
         if (args.length == 0)
         {
-            foxbot.getBot().sendNotice(commandSender, String.format("Wrong number of args! use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
         }
         if (foxbot.getBot().getUser(args[0]).equals(null))
         {
-            foxbot.getBot().sendNotice(commandSender, "That user does not exist!");
+            foxbot.getBot().sendNotice(sender, "That user does not exist!");
             return;
         }
         if (args[1] != null)
