@@ -19,7 +19,9 @@ public class CommandKick extends Command
     {
         if (args.length == 0)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skick <nick> [reason]",
+                    foxbot.getConfig().getCommandPrefix()));
+            return;
         }
         if (foxbot.getBot().getUser(args[0]).equals(null))
         {

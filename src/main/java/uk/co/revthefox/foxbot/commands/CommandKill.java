@@ -20,7 +20,8 @@ public class CommandKill extends Command
     {
         if (args.length != 0)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skill", foxbot.getConfig().getCommandPrefix()));
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skill",
+                    foxbot.getConfig().getCommandPrefix()));
             return;
         }
         for (Channel botChannel : foxbot.getBot().getChannels())

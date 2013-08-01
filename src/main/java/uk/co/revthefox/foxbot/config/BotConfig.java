@@ -110,6 +110,7 @@ public class BotConfig
     {
         return autoReconnect;
     }
+
     public Long getMessageDelay()
     {
         return messageDelay;

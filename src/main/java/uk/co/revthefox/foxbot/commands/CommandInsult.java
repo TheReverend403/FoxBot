@@ -5,7 +5,7 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
-public class CommandInsult  extends Command
+public class CommandInsult extends Command
 {
     private FoxBot foxbot;
 

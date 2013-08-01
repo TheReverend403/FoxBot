@@ -63,7 +63,8 @@ public class CommandManager
         }
         catch (Exception ex)
         {
-            foxbot.getBot().sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
+            foxbot.getBot().sendNotice(sender, "An internal error occurred whilst executing this command, " +
+                    "please alert a bot admin.");
             System.out.println("Error in dispatching command: " + command.getName());
             ex.printStackTrace();
         }

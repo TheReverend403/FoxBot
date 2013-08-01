@@ -4,9 +4,6 @@ import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.HashMap;
-import java.util.List;
-
 public class PermissionManager
 {
     private FoxBot foxbot;

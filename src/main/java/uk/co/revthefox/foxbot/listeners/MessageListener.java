@@ -4,11 +4,7 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
-import org.pircbotx.hooks.events.PrivateMessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.commands.CommandBan;
-import uk.co.revthefox.foxbot.commands.CommandKick;
-import uk.co.revthefox.foxbot.commands.CommandKill;
 
 public class MessageListener extends ListenerAdapter
 {

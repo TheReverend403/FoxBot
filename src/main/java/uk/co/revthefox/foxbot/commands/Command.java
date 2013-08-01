@@ -12,7 +12,7 @@ public abstract class Command
 
     public Command(String name)
     {
-        this( name, null );
+        this(name, null);
     }
 
     public Command(String name, String permission, String... aliases)
