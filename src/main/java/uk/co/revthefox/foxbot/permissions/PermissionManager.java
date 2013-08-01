@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.permissions;
 
+import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
@@ -17,27 +18,34 @@ public class PermissionManager
 
     public Boolean userHasPermission(User user, String permission)
     {
+        String userName = user.getNick();
+
         if (foxbot.getConfig().getUsersMustBeVerified() && (!user.isVerified()))
         {
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
         }
-        if (foxbot.getPermissionsFile().getStringList("permissions." + user.getRealName()).isEmpty()
-                && (!foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission)))
+        try
         {
-            return false;
+            if (foxbot.getPermissionsFile().getStringList("permissions." + userName).contains("-" + permission))
+            {
+                return false;
+            }
+            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
+            {
+                return true;
+            }
+            if (foxbot.getPermissionsFile().getStringList("permissions." + userName).contains(permission))
+            {
+                return true;
+            }
         }
-        if (foxbot.getPermissionsFile().getStringList("permissions." + user.getRealName()).contains("-" + permission))
+        catch (ConfigException ex)
         {
-            return false;
-        }
-        if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
-        {
-            return true;
-        }
-        if (foxbot.getPermissionsFile().getStringList("permissions." + user.getRealName()).contains(permission))
-        {
-            return true;
+            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
+            {
+                return true;
+            }
         }
         return false;
     }
