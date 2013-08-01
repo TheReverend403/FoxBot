@@ -17,9 +17,9 @@ public class PermissionManager
 
     public Boolean userHasPermission(User user, String permission)
     {
-        if (foxbot.getConfig().getUsersMustBeLoggedIn() && (!user.isVerified()))
+        if (foxbot.getConfig().getUsersMustMatchHostmask() && (!verifyUser(user)))
         {
-            foxbot.getBot().sendNotice(user, "You are not logged in. Please log in to nickserv before performing any bot commands.");
+            foxbot.getBot().sendNotice(user, "Your hostmask does not match the one in the bot's permission file.");
             return false;
         }
         if (foxbot.getPermissionsFile().getStringList("permissions." + user.getRealName()).isEmpty()
@@ -36,5 +36,14 @@ public class PermissionManager
             return true;
         }
         return true;
+    }
+
+    public Boolean verifyUser(User user)
+    {
+        if (foxbot.getPermissionsFile().getString(user.getRealName() + ".hostmask").equals(user.getHostmask()))
+        {
+            return true;
+        }
+        return false;
     }
 }

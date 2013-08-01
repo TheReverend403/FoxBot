@@ -21,7 +21,7 @@ public class BotConfig
 
     private String nickservUsername;
     private String nickservPassword;
-    private Boolean usersMustBeLoggedIn;
+    private Boolean usersMustMatchHostmask;
 
     private Boolean debug;
     private Boolean autoNickChange;
@@ -45,7 +45,7 @@ public class BotConfig
         serverPort = foxbot.getConfigFile().getInt("server.port");
         serverChannels = foxbot.getConfigFile().getStringList("server.channels");
 
-        usersMustBeLoggedIn = foxbot.getConfigFile().getBoolean("auth.usersMustBeLoggedIn");
+        usersMustMatchHostmask = foxbot.getConfigFile().getBoolean("auth.usersMustMatchHostmask");
 
         debug = foxbot.getConfigFile().getBoolean("misc.debug");
         commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
@@ -83,9 +83,9 @@ public class BotConfig
         return serverChannels;
     }
 
-    public Boolean getUsersMustBeLoggedIn()
+    public Boolean getUsersMustMatchHostmask()
     {
-        return usersMustBeLoggedIn;
+        return usersMustMatchHostmask;
     }
 
     public String getCommandPrefix()
