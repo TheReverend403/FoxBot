@@ -28,7 +28,7 @@ public class CommandKick extends Command
             foxbot.getBot().sendNotice(sender, "That user does not exist!");
             return;
         }
-        if (args[1] != null)
+        if (args.length > 1)
         {
             StringBuilder reason = new StringBuilder(args[1]);
 
