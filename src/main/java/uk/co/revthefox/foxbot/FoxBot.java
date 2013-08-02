@@ -88,12 +88,30 @@ public class FoxBot
 
     private void registerCommands()
     {
+        /*
+        for (Class clazz : reflections.getSubTypesOf(Command.class))
+        {
+            try
+            {
+                this.getCommandManager().registerCommand((Command) clazz.getConstructor().newInstance(FoxBot.class));
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+        */
+
         this.getCommandManager().registerCommand(new CommandInsult(this));
         this.getCommandManager().registerCommand(new CommandKick(this));
         this.getCommandManager().registerCommand(new CommandBan(this));
         this.getCommandManager().registerCommand(new CommandKill(this));
         this.getCommandManager().registerCommand(new CommandPing(this));
         this.getCommandManager().registerCommand(new CommandDelay(this));
+        this.getCommandManager().registerCommand(new CommandTitle(this));
+        this.getCommandManager().registerCommand(new CommandSay(this));
+        this.getCommandManager().registerCommand(new CommandJoin(this));
+        this.getCommandManager().registerCommand(new CommandPart(this));
     }
 
     public PircBotX getBot()
