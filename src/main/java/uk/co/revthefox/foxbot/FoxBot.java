@@ -119,6 +119,7 @@ public class FoxBot
         this.getCommandManager().registerCommand(new CommandSay(this));
         this.getCommandManager().registerCommand(new CommandJoin(this));
         this.getCommandManager().registerCommand(new CommandPart(this));
+        this.getCommandManager().registerCommand(new CommandUptime(this));
     }
 
     public PircBotX getBot()
