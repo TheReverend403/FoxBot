@@ -26,7 +26,7 @@ public class Utils
 
     public String parseChatUrl(String stringToParse, User sender, Channel channel)
     {
-        String pattern = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+        String pattern = "^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
         Pattern patt = Pattern.compile(pattern);
         Matcher matcher = patt.matcher(stringToParse);
