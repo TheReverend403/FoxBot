@@ -19,15 +19,16 @@ public class CommandSay extends Command
     {
         if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [channel] <message>",
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message>",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }
 
+        StringBuilder message;
+
         if (args[0].startsWith("#"))
         {
-
-            StringBuilder message = new StringBuilder(args[1]);
+            message = new StringBuilder(args[1]);
 
             for (int arg = 2; arg < args.length; arg++)
             {
@@ -37,16 +38,13 @@ public class CommandSay extends Command
                 }
             }
 
-            if (!foxbot.getBot().getChannels().contains(foxbot.getBot().getChannel(args[0])))
+            if (!foxbot.getBot().getChannel(args[0]).isInviteOnly())
             {
-                if (!foxbot.getBot().getChannel(args[0]).isInviteOnly())
+                foxbot.getBot().joinChannel(args[0]);
+                foxbot.getBot().sendMessage(args[0], message.toString());
+                if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.getBot().joinChannel(args[0]);
-                    foxbot.getBot().sendMessage(args[0], message.toString());
-                    if (!args[args.length - 1].equalsIgnoreCase("-s"))
-                    {
-                        foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                    }
+                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
                     return;
                 }
                 foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[0]));
@@ -57,7 +55,7 @@ public class CommandSay extends Command
             return;
         }
 
-        StringBuilder message = new StringBuilder(args[0]);
+        message = new StringBuilder(args[0]);
 
         for (int arg = 1; arg < args.length; arg++)
         {
