@@ -60,7 +60,7 @@ public class Utils
 
         try
         {
-            stringToParse = response.getResponseBody().toString();
+            stringToParse = response.getResponseBody();
         }
         catch (IOException ex)
         {
