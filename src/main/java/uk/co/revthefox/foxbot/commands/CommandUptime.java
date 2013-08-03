@@ -36,6 +36,7 @@ public class CommandUptime extends Command
                 foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found!");
                 return;
             }
+            return;
         }
         foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %suptime",
                 foxbot.getConfig().getCommandPrefix()));
