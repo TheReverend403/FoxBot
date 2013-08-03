@@ -20,6 +20,7 @@ public class FoxBot
     private Config permissionsFile;
     private BotConfig config;
     private PermissionManager permissions;
+    private Utils utils;
     private CommandManager commandManager;
 
     public static void main(String[] args)
@@ -35,6 +36,7 @@ public class FoxBot
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
+        utils = new Utils(this);
         commandManager = new CommandManager(this);
         registerListeners();
         registerCommands();
@@ -137,6 +139,11 @@ public class FoxBot
     public Config getPermissionsFile()
     {
         return permissionsFile;
+    }
+
+    public Utils getUtils()
+    {
+        return utils;
     }
 
     public CommandManager getCommandManager()

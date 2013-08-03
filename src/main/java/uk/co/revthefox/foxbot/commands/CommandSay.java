@@ -37,14 +37,19 @@ public class CommandSay extends Command
                 }
             }
 
-            if (!foxbot.getBot().getChannels().contains(args[0]) && !foxbot.getBot().getChannel(args[0]).isInviteOnly())
+            if (!foxbot.getBot().getChannels().contains(foxbot.getBot().getChannel(args[0])))
             {
-                foxbot.getBot().joinChannel(args[0]);
-                foxbot.getBot().sendMessage(args[0], message.toString());
-                if (!args[args.length - 1].equalsIgnoreCase("-s"))
+                if (!foxbot.getBot().getChannel(args[0]).isInviteOnly())
                 {
-                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
+                    foxbot.getBot().joinChannel(args[0]);
+                    foxbot.getBot().sendMessage(args[0], message.toString());
+                    if (!args[args.length - 1].equalsIgnoreCase("-s"))
+                    {
+                        foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
+                    }
+                    return;
                 }
+                foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[0]));
                 return;
             }
             foxbot.getBot().sendMessage(args[0], message.toString());

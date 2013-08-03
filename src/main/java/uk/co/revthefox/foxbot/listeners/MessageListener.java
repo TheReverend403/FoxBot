@@ -10,6 +10,8 @@ public class MessageListener extends ListenerAdapter
 {
     private FoxBot foxbot;
 
+    private String urlInfo;
+
     public MessageListener(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -22,9 +24,19 @@ public class MessageListener extends ListenerAdapter
         User user = event.getUser();
         Channel channel = event.getChannel();
 
+
         if (message.length() > 0 && message.startsWith(foxbot.getConfig().getCommandPrefix()))
         {
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));
+        }
+
+        if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
+        {
+            urlInfo = foxbot.getUtils().parseChatUrl(message, user, channel);
+            if (!urlInfo.isEmpty())
+            {
+                channel.sendMessage(urlInfo);
+            }
         }
     }
 }

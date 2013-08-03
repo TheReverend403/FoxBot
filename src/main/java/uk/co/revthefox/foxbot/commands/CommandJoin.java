@@ -19,30 +19,31 @@ public class CommandJoin extends Command
     {
         if (args.length == 0)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ...]",
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 " +
+                    "#channel3 ...]",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }
 
-        Outer:
-        for (int arg = 1; arg < args.length; arg++)
+        for (int arg = 0; arg < args.length; arg++)
         {
             if (args[arg].startsWith("#"))
             {
-                if (!foxbot.getBot().getChannels().contains(args[arg]))
+                //if (!foxbot.getBot().getChannels().contains(foxbot.getBot().getChannel(args[arg])))
+                //{
+                if (!foxbot.getBot().getChannel(args[arg]).isInviteOnly())
                 {
-                    if (!foxbot.getBot().getChannel(args[arg]).isInviteOnly())
-                    {
-                        foxbot.getBot().joinChannel(args[arg]);
-                        foxbot.getBot().sendNotice(sender, String.format("Successfully joined %s", args[arg]));
-                        break Outer;
-                    }
-                    foxbot.getBot().sendNotice(sender, String.format("The channel %s is invite only!", args[arg]));
+                    foxbot.getBot().joinChannel(args[arg]);
+                    foxbot.getBot().sendNotice(sender, String.format("Successfully joined %s!", args[arg]));
+                    continue;
                 }
-                foxbot.getBot().sendNotice(sender, String.format("I am already in the channel %s", args[arg]));
-                break Outer;
+                foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[arg]));
+                continue;
             }
+            //foxbot.getBot().sendNotice(sender, String.format("I am already in %s", args[arg]));
+            //continue;
             foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[arg]));
+            continue;
         }
     }
 }

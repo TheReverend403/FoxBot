@@ -26,7 +26,7 @@ public class CommandKill extends Command
         }
         for (Channel botChannel : foxbot.getBot().getChannels())
         {
-            foxbot.getBot().partChannel(botChannel, "Killed by: " + sender.getNick());
+            foxbot.getBot().partChannel(botChannel, "Killed by " + sender.getNick());
         }
         foxbot.getBot().disconnect();
     }
