@@ -30,13 +30,13 @@ public class CommandUptime extends Command
                 String uptime = new Scanner(new FileInputStream("/proc/uptime")).next();
                 Double unixTime = Double.valueOf(uptime) / 60 / 60 / 24;
                 channel.sendMessage(String.format("%sSystem uptime: %s%s days", Colors.GREEN, Colors.NORMAL, roundTwoDecimals(unixTime)));
+                return;
             }
             catch (FileNotFoundException ex)
             {
                 foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found!");
                 return;
             }
-            return;
         }
         foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %suptime",
                 foxbot.getConfig().getCommandPrefix()));
