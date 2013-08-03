@@ -19,7 +19,7 @@ public class BotConfig
     private String serverUsername;
     private String serverPassword;
 
-    private String nickservUsername;
+    private Boolean useNickserv;
     private String nickservPassword;
     private Boolean usersMustBeVerified;
 
@@ -46,6 +46,8 @@ public class BotConfig
         serverPort = foxbot.getConfigFile().getInt("server.port");
         serverChannels = foxbot.getConfigFile().getStringList("server.channels");
 
+        useNickserv = foxbot.getConfigFile().getBoolean("auth.useNickserv");
+        nickservPassword = foxbot.getConfigFile().getString("auth.nickservPassword");
         usersMustBeVerified = foxbot.getConfigFile().getBoolean("auth.usersMustBeVerified");
 
         debug = foxbot.getConfigFile().getBoolean("misc.debug");
@@ -84,6 +86,16 @@ public class BotConfig
     public List<String> getChannels()
     {
         return serverChannels;
+    }
+
+    public Boolean useNickserv()
+    {
+        return useNickserv;
+    }
+
+    public String getNickservPassword()
+    {
+        return nickservPassword;
     }
 
     public Boolean getUsersMustBeVerified()

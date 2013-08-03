@@ -61,6 +61,11 @@ public class FoxBot
         try
         {
             bot.connect(config.getServerAddress(), config.getServerPort());
+
+            if (config.useNickserv())
+            {
+                bot.identify(config.getNickservPassword());
+            }
         }
         catch (IOException ex)
         {
