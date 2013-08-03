@@ -32,7 +32,7 @@ public class MessageListener extends ListenerAdapter
 
         if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
         {
-            urlInfo = foxbot.getUtils().parseChatUrl(message, user, channel);
+            urlInfo = foxbot.getUtils().parseChatUrl(message, user);
             if (!urlInfo.isEmpty())
             {
                 channel.sendMessage(urlInfo);

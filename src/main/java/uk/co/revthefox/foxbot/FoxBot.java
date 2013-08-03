@@ -111,7 +111,6 @@ public class FoxBot
         this.getCommandManager().registerCommand(new CommandKill(this));
         this.getCommandManager().registerCommand(new CommandPing(this));
         this.getCommandManager().registerCommand(new CommandDelay(this));
-        this.getCommandManager().registerCommand(new CommandTitle(this));
         this.getCommandManager().registerCommand(new CommandSay(this));
         this.getCommandManager().registerCommand(new CommandJoin(this));
         this.getCommandManager().registerCommand(new CommandPart(this));
