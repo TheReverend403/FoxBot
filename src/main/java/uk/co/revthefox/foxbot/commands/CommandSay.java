@@ -19,7 +19,7 @@ public class CommandSay extends Command
     {
         if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message>",
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> [flags]",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }

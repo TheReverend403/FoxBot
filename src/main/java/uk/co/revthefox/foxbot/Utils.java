@@ -16,14 +16,8 @@ public class Utils
 {
     private FoxBot foxbot;
 
-    private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-    private Response response;
-
     private String urlPattern = ".*((https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
     private Pattern patt = Pattern.compile(urlPattern);
-    private Matcher matcher;
-
-    private Future<Response> future;
 
     public Utils(FoxBot foxbot)
     {
@@ -32,6 +26,11 @@ public class Utils
 
     public String parseChatUrl(String stringToParse, User sender)
     {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        Matcher matcher;
+        Future<Response> future;
+        Response response;
+
         matcher = patt.matcher(stringToParse);
         if (!matcher.matches())
         {
