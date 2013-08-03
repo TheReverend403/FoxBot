@@ -19,6 +19,9 @@ public class Utils
     private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
     private Response response;
 
+    private String urlPattern = "^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    private Future<Response> future;
+
     public Utils(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -26,9 +29,7 @@ public class Utils
 
     public String parseChatUrl(String stringToParse, User sender, Channel channel)
     {
-        String pattern = "^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-
-        Pattern patt = Pattern.compile(pattern);
+        Pattern patt = Pattern.compile(urlPattern);
         Matcher matcher = patt.matcher(stringToParse);
         if (!matcher.matches())
         {
@@ -37,7 +38,7 @@ public class Utils
         stringToParse = matcher.group();
         try
         {
-            Future<Response> future = asyncHttpClient.prepareGet(stringToParse).execute();
+            future = asyncHttpClient.prepareGet(stringToParse).execute();
             response = future.get();
         }
         catch (IOException ex)
