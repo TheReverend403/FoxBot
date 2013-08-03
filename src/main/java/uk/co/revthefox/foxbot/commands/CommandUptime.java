@@ -29,7 +29,8 @@ public class CommandUptime extends Command
             {
                 String uptime = new Scanner(new FileInputStream("/proc/uptime")).next();
                 Double unixTime = Double.valueOf(uptime) / 60 / 60 / 24;
-                channel.sendMessage(String.format("%sSystem uptime: %s%s days", Colors.GREEN, Colors.NORMAL, roundTwoDecimals(unixTime)));
+                channel.sendMessage(String.format("%sSystem uptime: %s%s days", Colors.GREEN, Colors.NORMAL,
+                        roundTwoDecimals(unixTime)));
                 return;
             }
             catch (FileNotFoundException ex)
@@ -42,7 +43,8 @@ public class CommandUptime extends Command
                 foxbot.getConfig().getCommandPrefix()));
     }
 
-    double roundTwoDecimals(double d) {
+    double roundTwoDecimals(double d)
+    {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
     }
