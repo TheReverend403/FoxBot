@@ -34,7 +34,7 @@ public class CommandJoin extends Command
                 if (!foxbot.getBot().getChannel(args[arg]).isInviteOnly())
                 {
                     foxbot.getBot().joinChannel(args[arg]);
-                    foxbot.getBot().sendNotice(sender, String.format("Successfully joined %s!", args[arg]));
+                    foxbot.getBot().sendNotice(sender, String.format("Joined %s", args[arg]));
                     continue;
                 }
                 foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[arg]));

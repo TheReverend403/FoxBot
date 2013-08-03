@@ -25,7 +25,7 @@ public class CommandKick extends Command
         }
         if (foxbot.getBot().getUser(args[0]).equals(null))
         {
-            foxbot.getBot().sendNotice(sender, "That user does not exist!");
+            foxbot.getBot().sendNotice(sender, "That user is not in this channel");
             return;
         }
         if (args.length > 1)
