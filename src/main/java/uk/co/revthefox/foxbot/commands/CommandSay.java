@@ -19,7 +19,8 @@ public class CommandSay extends Command
     {
         if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> [flags]",
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> " +
+                    "[flags]",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }
@@ -50,7 +51,8 @@ public class CommandSay extends Command
             {
                 foxbot.getBot().sendMessage(args[0], message.toString());
                 foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                foxbot.getBot().sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
+                foxbot.getBot().sendNotice(sender, String.format("Message sent to %s, and channel has been left",
+                        args[0]));
                 return;
             }
 

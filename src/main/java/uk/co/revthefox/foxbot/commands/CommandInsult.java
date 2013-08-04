@@ -8,7 +8,6 @@ import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +65,8 @@ public class CommandInsult extends Command
 
         matcher = titlePattern.matcher(insult);
 
-        while (matcher.find()) {
+        while (matcher.find())
+        {
             insult = matcher.group(1);
         }
 
@@ -84,9 +84,11 @@ public class CommandInsult extends Command
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", ""));
+                    foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s",
+                            ""));
                     foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                    foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
+                    foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s, and channel has been left",
+                            args[0]));
                     return;
                 }
 

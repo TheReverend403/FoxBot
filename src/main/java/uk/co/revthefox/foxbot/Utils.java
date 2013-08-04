@@ -2,7 +2,6 @@ package uk.co.revthefox.foxbot;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
-import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
@@ -67,13 +66,16 @@ public class Utils
             ex.printStackTrace();
         }
 
-        Pattern titlePattern = Pattern.compile(".*?<title.*?>(.*)</title>.*?", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+        Pattern titlePattern = Pattern.compile(".*?<title.*?>(.*)</title>.*?",
+                Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
         Matcher m = titlePattern.matcher(stringToParse);
-        while (m.find()) {
+        while (m.find())
+        {
             stringToParse = m.group(1);
         }
 
-        return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN, Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType().replaceAll("(;.*)", ""));
+        return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN,
+                Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType().replaceAll("(;.*)", ""));
     }
 
 }

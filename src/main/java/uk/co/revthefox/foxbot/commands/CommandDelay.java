@@ -20,7 +20,8 @@ public class CommandDelay extends Command
     {
         if (args.length != 1)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of " +
+                    "milliseconds>", foxbot.getConfig().getCommandPrefix()));
             return;
         }
         try
