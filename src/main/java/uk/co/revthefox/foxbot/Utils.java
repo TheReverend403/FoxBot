@@ -67,7 +67,7 @@ public class Utils
             ex.printStackTrace();
         }
 
-        Pattern titlePattern = Pattern.compile("<head>.*?<title>(.*?)</title>.*?</head>", Pattern.DOTALL);
+        Pattern titlePattern = Pattern.compile(".*?<title.*?>(.*)</title>.*?", Pattern.DOTALL);
         Matcher m = titlePattern.matcher(stringToParse);
         while (m.find()) {
             stringToParse = m.group(1);
