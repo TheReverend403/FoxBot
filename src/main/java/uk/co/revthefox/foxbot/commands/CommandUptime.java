@@ -28,7 +28,7 @@ public class CommandUptime extends Command
         {
             try
             {
-                String uptime = new Scanner(new FileInputStream("/proc/uptime")).next();
+                String uptime = new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", "");
 
                 int seconds = Integer.valueOf(uptime);
                 int day = (int) TimeUnit.SECONDS.toDays(seconds);
@@ -46,11 +46,5 @@ public class CommandUptime extends Command
         }
         foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %suptime",
                 foxbot.getConfig().getCommandPrefix()));
-    }
-
-    double roundTwoDecimals(double d)
-    {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
     }
 }
