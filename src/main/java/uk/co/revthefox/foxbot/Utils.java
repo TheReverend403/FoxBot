@@ -73,7 +73,7 @@ public class Utils
             stringToParse = m.group(1);
         }
 
-        return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN, Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType());
+        return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN, Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType().replaceAll("(;.*)", ""));
     }
 
 }
