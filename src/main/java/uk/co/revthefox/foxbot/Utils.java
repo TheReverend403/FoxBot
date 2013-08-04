@@ -40,6 +40,10 @@ public class Utils
         {
             future = asyncHttpClient.prepareGet(stringToParse).execute();
             response = future.get();
+            if (!response.getStatusText().contains("OK"))
+            {
+                return String.format("(%s's URL) %sError: %s%s %s ", sender.getNick(), Colors.RED, Colors.NORMAL,response.getStatusCode(), response.getStatusText());
+            }
         }
         catch (IOException ex)
         {
