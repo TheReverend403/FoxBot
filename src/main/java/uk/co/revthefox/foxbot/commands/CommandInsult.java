@@ -62,7 +62,7 @@ public class CommandInsult extends Command
             ex.printStackTrace();
         }
 
-        Pattern titlePattern = Pattern.compile(".*?<font.*>(.*)</font>.*?", Pattern.DOTALL);
+        Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
 
         matcher = titlePattern.matcher(insult);
 
