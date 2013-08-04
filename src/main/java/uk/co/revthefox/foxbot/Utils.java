@@ -68,10 +68,10 @@ public class Utils
 
         Pattern titlePattern = Pattern.compile(".*?<title.*?>(.*)</title>.*?",
                 Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-        Matcher m = titlePattern.matcher(stringToParse);
-        while (m.find())
+        Matcher titleMatcher = titlePattern.matcher(stringToParse);
+        while (titleMatcher.find())
         {
-            stringToParse = m.group(1);
+            stringToParse = titleMatcher.group(1);
         }
 
         return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN,

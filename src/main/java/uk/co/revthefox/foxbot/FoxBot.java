@@ -96,19 +96,6 @@ public class FoxBot
 
     private void registerCommands()
     {
-        /*
-        for (Class clazz : reflections.getSubTypesOf(Command.class))
-        {
-            try
-            {
-                this.getCommandManager().registerCommand((Command) clazz.getConstructor().newInstance(FoxBot.class));
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-        }
-        */
 
         this.getCommandManager().registerCommand(new CommandInsult(this));
         this.getCommandManager().registerCommand(new CommandKick(this));
@@ -120,6 +107,7 @@ public class FoxBot
         this.getCommandManager().registerCommand(new CommandJoin(this));
         this.getCommandManager().registerCommand(new CommandPart(this));
         this.getCommandManager().registerCommand(new CommandUptime(this));
+        this.getCommandManager().registerCommand(new CommandAction(this));
     }
 
     public PircBotX getBot()
