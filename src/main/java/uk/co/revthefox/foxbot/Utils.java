@@ -40,7 +40,7 @@ public class Utils
         {
             future = asyncHttpClient.prepareGet(stringToParse).execute();
             response = future.get();
-            if (!response.getStatusText().contains("OK"))
+            if (!response.getStatusText().contains("OK") && !response.getStatusText().contains("Moved Permanently"))
             {
                 return String.format("(%s's URL) %sError: %s%s %s ", sender.getNick(), Colors.RED, Colors.NORMAL,response.getStatusCode(), response.getStatusText());
             }

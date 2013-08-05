@@ -84,8 +84,7 @@ public class CommandInsult extends Command
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s",
-                            ""));
+                    foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
                     foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
                     foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s, and channel has been left",
                             args[0]));
