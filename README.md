@@ -8,6 +8,7 @@ Features:
 * Bukkit-like permissions system
 * Easy command registration/development
 * Async http requests
+* Easy to read config, with comments explaining each setting
 
 Default Commands:
 
@@ -21,7 +22,13 @@ Key:
 
 | Command       | Usage         | Result| Permission |
 | ------------- |:-------------:|:-----:|-----------:|
-| say      | say [#channel] \<message\> [-s] | Makes the bot send a message to the specified channel. Will attempt to join, say the message, then leave, unless the -s flag is used. If no channel is specified, the message will be sent to the channel the command was used in. | command.say |
+| say      | say [#channel] \<message\> [-s] | Makes the bot send a message to the specified channel. Will attempt to join, say the message, and then leave, unless the -s flag is used. If no channel is specified, the message will be sent to the channel the command was used in. | command.say |
 | ping     | ping | Makes the bot say "Pong!" Only really useful for making sure the bot is still running. | command.ping |
 | join     | join <#channel> [#channel2 #channel3 ...] | Makes the bot join the specified channels. | command.join |
 | part     | part [#channel #channel2 ...] | Makes the bot leave the specified channels. If no channel is specified, it will leave the channel the command was used in. | command.part |
+| kill     | kill | Makes the bot leave all channels and then disconnect | command.kill
+| uptime   | uptime | Displays system uptime. Only works on Unix operating systems. | command.uptime
+| action   | action [#channel] \<action\> | Makes the bot send an action to the specified channel. Will attempt to join, do the action and then leave, unless the -s flag is used. If no channel is specified, the action will be sent to the channel the command was used in. | command.action
+| reload   | reload | Reloads config variables. Some settings can only take effect when the bot restarts. | command.reload
+| insult   | insult [#channel] | Makes the bot send a random shakespearean insult to the specified channel. Will attempt to join, send the insult and then leave, unless the -s flag is used. If no channel is specified, the insult will be sent to the channel the command was used in. | command.insult
+| kick     | kick \<user\> [reason] | Makes the bot kick the specified user from the channel the command is used i with an optional reason. | command.kick
