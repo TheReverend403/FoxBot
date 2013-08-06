@@ -40,7 +40,7 @@ public class CommandUptime extends Command
             }
             catch (FileNotFoundException ex)
             {
-                foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found!");
+                foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
                 return;
             }
         }

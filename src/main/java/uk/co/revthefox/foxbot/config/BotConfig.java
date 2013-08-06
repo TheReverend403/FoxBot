@@ -58,6 +58,17 @@ public class BotConfig
 
     }
 
+    public void reload()
+    {
+        foxbot.loadConfigFiles();
+        usersMustBeVerified = foxbot.getConfigFile().getBoolean("auth.usersMustBeVerified");
+        debug = foxbot.getConfigFile().getBoolean("misc.debug");
+        foxbot.getBot().setVerbose(foxbot.getConfigFile().getBoolean("misc.debug"));
+        commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
+        messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
+        foxbot.getBot().setMessageDelay(foxbot.getConfigFile().getLong("misc.messageDelay"));
+    }
+
     public String getBotNick()
     {
         return botNick;

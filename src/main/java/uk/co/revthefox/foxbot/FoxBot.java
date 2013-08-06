@@ -10,7 +10,7 @@ import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
-import java.io.IOException;
+import java.io.*;
 
 public class FoxBot
 {
@@ -31,8 +31,58 @@ public class FoxBot
 
     private void start(String[] args)
     {
-        configFile = ConfigFactory.load("bot");
-        permissionsFile = ConfigFactory.load("permissions");
+
+        if (!new File("bot.conf").exists())
+        {
+            System.out.println("Generating default config!");
+            InputStream confInStream = this.getClass().getResourceAsStream("/bot.conf");
+
+            OutputStream confOutStream;
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            try
+            {
+                confOutStream = new FileOutputStream(new File("bot.conf"));
+                while ((readBytes = confInStream.read(buffer)) > 0)
+                {
+                    confOutStream.write(buffer, 0, readBytes);
+                }
+                confInStream.close();
+                confOutStream.close();
+            }
+            catch (IOException ex)
+            {
+
+                ex.printStackTrace();
+                bot.disconnect();
+            }
+        }
+        if (!new File("permissions.conf").exists())
+        {
+            System.out.println("Generating default permissions!");
+            InputStream permsInStream = this.getClass().getResourceAsStream("/permissions.conf");
+
+            OutputStream permsOutStream;
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            try
+            {
+                permsOutStream = new FileOutputStream(new File("permissions.conf"));
+                while ((readBytes = permsInStream.read(buffer)) > 0)
+                {
+                    permsOutStream.write(buffer, 0, readBytes);
+                }
+                permsInStream.close();
+                permsOutStream.close();
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                bot.disconnect();
+            }
+        }
+
+        loadConfigFiles();
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
@@ -108,6 +158,13 @@ public class FoxBot
         this.getCommandManager().registerCommand(new CommandPart(this));
         this.getCommandManager().registerCommand(new CommandUptime(this));
         this.getCommandManager().registerCommand(new CommandAction(this));
+        this.getCommandManager().registerCommand(new CommandReload(this));
+    }
+
+    public void loadConfigFiles()
+    {
+        configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
+        permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
     }
 
     public PircBotX getBot()
