@@ -31,7 +31,7 @@ Key:
 | uptime   | uptime | Displays system uptime. Only works on Unix operating systems. | command.uptime
 | action   | action [#channel] \<action\> | Makes the bot send an action to the specified channel. Will attempt to join, do the action and then leave, unless the -s flag is used. If no channel is specified, the action will be sent to the channel the command was used in. | command.action
 | reload   | reload | Reloads config variables. Some settings can only take effect when the bot restarts. | command.reload
-| insult   | insult [#channel] | Makes the bot send a random shakespearean insult to the specified channel. Will attempt to join, send the insult and then leave, unless the -s flag is used. If no channel is specified, the insult will be sent to the channel the command was used in. | command.insult
+| insult   | insult [#channel] [-s] | Makes the bot send a random shakespearean insult to the specified channel. Will attempt to join, send the insult and then leave, unless the -s flag is used. If no channel is specified, the insult will be sent to the channel the command was used in. | command.insult
 | kick     | kick \<user\> [reason] | Makes the bot kick the specified user from the channel the command is used i with an optional reason. | command.kick
 
 Non-command Features
