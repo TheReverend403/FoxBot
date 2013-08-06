@@ -29,13 +29,13 @@ public class CommandUptime extends Command
             {
                 String uptime = new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", "");
 
-                int seconds = Integer.valueOf(uptime);
-                int day = (int) TimeUnit.SECONDS.toDays(seconds);
-                long hours = TimeUnit.SECONDS.toHours(seconds) - (day * 24);
-                long minute = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds) * 60);
-                long second = TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.SECONDS.toMinutes(seconds) * 60);
+                int unixTime = Integer.valueOf(uptime);
+                int day = (int) TimeUnit.SECONDS.toDays(unixTime);
+                long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
+                long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
+                long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
                 channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds",
-                        Colors.GREEN, Colors.NORMAL, day, hours, minute, second));
+                        Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
                 return;
             }
             catch (FileNotFoundException ex)
