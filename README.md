@@ -16,6 +16,7 @@ All commands should be executed with the command prefix you set in the config, f
 Key: 
 
 [] - Optional argument
+
 <> - Required argument
 
 | Command       | Usage         | Result| Permission |
