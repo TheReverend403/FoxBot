@@ -10,7 +10,7 @@ Features:
 * Async http requests
 * Easy to read config, with comments explaining each setting
 
-Default Commands:
+**Default Commands**
 
 All commands should be executed with the command prefix you set in the config, for example, commandPrefix: "." would mean you ran commands like ".say"
 
@@ -32,3 +32,8 @@ Key:
 | reload   | reload | Reloads config variables. Some settings can only take effect when the bot restarts. | command.reload
 | insult   | insult [#channel] | Makes the bot send a random shakespearean insult to the specified channel. Will attempt to join, send the insult and then leave, unless the -s flag is used. If no channel is specified, the insult will be sent to the channel the command was used in. | command.insult
 | kick     | kick \<user\> [reason] | Makes the bot kick the specified user from the channel the command is used i with an optional reason. | command.kick
+
+**Non-command Features**
+
+If a user sends a http/https link to a channel the bot is in and they have the chat.urls permission, the bot will attempt to parse their URL and print the page title and content type to the channel.
+
