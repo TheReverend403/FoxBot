@@ -37,7 +37,7 @@ public class Utils
             String output = response.getResponseBody("UTF-8");
             URLConnection conn = new URL(stringToParse).openConnection();
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
-            String size = (conn.getContentLengthLong() / 1024) + "kb";
+            String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
             String content_type = conn.getContentType().contains(";") ? conn.getContentType().split(";")[0] : conn.getContentType();
             
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
