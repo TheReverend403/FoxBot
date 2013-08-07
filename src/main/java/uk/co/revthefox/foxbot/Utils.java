@@ -29,37 +29,37 @@ public class Utils
     {
         try
         {
-            AsyncHttpClientConfig cf = new AsyncHttpClientConfig.Builder().setUserAgent("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36").build();
-            AsyncHttpClient client = new AsyncHttpClient(cf);
+            AsyncHttpClientConfig clientConf = new AsyncHttpClientConfig.Builder().setUserAgent("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36").build();
+            AsyncHttpClient client = new AsyncHttpClient(clientConf);
             Future<Response> future = client.prepareGet(stringToParse).setFollowRedirects(true).execute();
             Response response = future.get();
             String output = response.getResponseBody("UTF-8");
             URLConnection conn = new URL(stringToParse).openConnection();
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
             String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
-            String content_type = conn.getContentType().contains(";") ? conn.getContentType().split(";")[0] : conn.getContentType();
+            String contentType = conn.getContentType().contains(";") ? conn.getContentType().split(";")[0] : conn.getContentType();
             
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
                 return String.format("(%s's URL) %sError: %s%s %s ", sender.getNick(), Colors.RED, Colors.NORMAL, response.getStatusCode(), response.getStatusText());
             }
-            if (!content_type.contains("html"))
+            if (!contentType.contains("html"))
             {
-                return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + content_type + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
+                return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
             
-            Pattern p = Pattern.compile("<title>.+</title>");
-            Matcher m;
+            Pattern pattern = Pattern.compile("<title>.+</title>");
+            Matcher matcher;
             String title = "No title found";
             for (String line : output.split("\n"))
             {
-                m = p.matcher(line);
-                if (m.find())
+                matcher = pattern.matcher(line);
+                if (matcher.find())
                 {
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), StringEscapeUtils.unescapeHtml4(title), content_type, size);
+            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), StringEscapeUtils.unescapeHtml4(title), contentType, size);
         } catch (Exception ex)
         {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
