@@ -44,12 +44,12 @@ public class Utils
             }
             if (!content_type.contains("html"))
             {
-                return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + "Content Type: " + Colors.NORMAL + content_type + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
+                return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + content_type + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
             
             Pattern p = Pattern.compile("<title>.+</title>");
             Matcher m;
-            String title = "Error?";
+            String title = "No title found";
             for (String line : output.split("\n"))
             {
                 m = p.matcher(line);
