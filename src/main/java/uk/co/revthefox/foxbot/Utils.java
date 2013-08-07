@@ -6,10 +6,8 @@ import com.ning.http.client.Response;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
