@@ -58,7 +58,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), title, content_type, size).replace("&#039;", "'");
+            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), title.replace("&#039;", "'"), content_type, size);
         } catch (Exception ex)
         {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
