@@ -38,7 +38,7 @@ public class Utils
         stringToParse = matcher.group(1);
         try
         {
-            future = asyncHttpClient.prepareGet(stringToParse).execute();
+            future = asyncHttpClient.prepareGet(stringToParse).setFollowRedirects(true).execute();
             response = future.get();
             if (!response.getStatusText().contains("OK") && !response.getStatusText().contains("Moved Permanently"))
             {
