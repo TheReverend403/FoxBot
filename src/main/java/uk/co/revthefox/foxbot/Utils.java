@@ -78,6 +78,10 @@ public class Utils
             stringToParse = titleMatcher.group(1);
         }
 
+        if (stringToParse.length() > 100)
+        {
+            return String.format("(%s's URL) Content too big. This would have caused me to flood out.", sender.getNick());
+        }
         return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN,
                 Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType().replaceAll("(;.*)", ""));
     }
