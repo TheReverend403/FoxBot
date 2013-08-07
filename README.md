@@ -33,7 +33,7 @@ Key:
 | reload   | reload | Reloads config variables. Some settings can only take effect when the bot restarts. | command.reload
 | insult   | insult [#channel] [-s] | Makes the bot send a random shakespearean insult to the specified channel. Will attempt to join, send the insult and then leave, unless the -s flag is used. If no channel is specified, the insult will be sent to the channel the command was used in. | command.insult
 | kick     | kick \<user\> [reason] | Makes the bot kick the specified user from the channel the command is used in with an optional reason. | command.kick
-
+| delay    | delay \<time in milliseconds|> | Sets the bot's message delay to the specified time | command.delay |
 Non-command Features
 --------------------
 
