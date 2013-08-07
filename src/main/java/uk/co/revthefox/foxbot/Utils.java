@@ -15,9 +15,6 @@ public class Utils
 {
     private FoxBot foxbot;
 
-    private String urlPattern = ".*((https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
-    private Pattern patt = Pattern.compile(urlPattern);
-
     public Utils(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -26,16 +23,9 @@ public class Utils
     public String parseChatUrl(String stringToParse, User sender)
     {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        Matcher matcher;
         Future<Response> future;
         Response response;
 
-        matcher = patt.matcher(stringToParse);
-        if (!matcher.matches())
-        {
-            return "";
-        }
-        stringToParse = matcher.group(1);
         try
         {
             future = asyncHttpClient.prepareGet(stringToParse).setFollowRedirects(true).execute();
@@ -80,7 +70,7 @@ public class Utils
 
         if (stringToParse.length() > 100)
         {
-            return String.format("(%s's URL) Content too big. This would have caused me to flood out.", sender.getNick());
+            return String.format("(%s's URL) %sContent too big. This would have caused me to flood out.", sender.getNick(), Colors.RED);
         }
         return String.format("(%s's URL) %sTitle: %s%s %sContent type: %s%s", sender.getNick(), Colors.GREEN,
                 Colors.NORMAL, stringToParse.replace("&#039;", "'"), Colors.GREEN, Colors.NORMAL, response.getContentType().replaceAll("(;.*)", ""));
