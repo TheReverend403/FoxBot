@@ -23,7 +23,7 @@ public class CommandUptime extends Command
     @Override
     public void execute(User sender, Channel channel, String[] args)
     {       
-            if(!System.getProperty("os.name").toLowerCase().contains("linux")){
+            if(System.getProperty("os.name").toLowerCase().contains("win")){
                 foxbot.getBot().sendNotice(sender, "This command is only supported on linux based systems.");
                 return;
             }
