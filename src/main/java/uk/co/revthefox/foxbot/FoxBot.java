@@ -158,8 +158,8 @@ public class FoxBot
             {
                 ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
                 Constructor clazzConstructor = clazz.getConstructor(FoxBot.class);
-                Command c = (Command) clazzConstructor.newInstance(this);
-                this.getCommandManager().registerCommand(c);
+                Command command = (Command) clazzConstructor.newInstance(this);
+                this.getCommandManager().registerCommand(command);
             }
         }
         catch (Exception e)
