@@ -5,12 +5,14 @@ import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
-import uk.co.revthefox.foxbot.commands.*;
+import org.reflections.Reflections;
+import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
 
 public class FoxBot
 {
@@ -22,6 +24,9 @@ public class FoxBot
     private PermissionManager permissions;
     private Utils utils;
     private CommandManager commandManager;
+
+    Reflections reflections = new Reflections("uk.co.revthefox");
+
 
     public static void main(String[] args)
     {
@@ -147,6 +152,22 @@ public class FoxBot
     private void registerCommands()
     {
 
+        try
+        {
+            for (Class clazz : reflections.getSubTypesOf(Command.class))
+            {
+                ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
+                Constructor clazzConstructor = clazz.getConstructor(FoxBot.class);
+                Command c = (Command) clazzConstructor.newInstance(this);
+                this.getCommandManager().registerCommand(c);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        /*
         this.getCommandManager().registerCommand(new CommandInsult(this));
         this.getCommandManager().registerCommand(new CommandKick(this));
         this.getCommandManager().registerCommand(new CommandBan(this));
@@ -159,6 +180,7 @@ public class FoxBot
         this.getCommandManager().registerCommand(new CommandUptime(this));
         this.getCommandManager().registerCommand(new CommandAction(this));
         this.getCommandManager().registerCommand(new CommandReload(this));
+        */
     }
 
     public void loadConfigFiles()
