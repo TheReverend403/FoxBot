@@ -4,6 +4,9 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandBan extends Command
 {
     private FoxBot foxbot;

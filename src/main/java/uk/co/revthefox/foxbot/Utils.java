@@ -38,7 +38,7 @@ public class Utils
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
             String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
             String contentType = conn.getContentType().contains(";") ? conn.getContentType().split(";")[0] : conn.getContentType();
-            
+
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
                 return String.format("(%s's URL) %sError: %s%s %s ", sender.getNick(), Colors.RED, Colors.NORMAL, response.getStatusCode(), response.getStatusText());
@@ -47,7 +47,7 @@ public class Utils
             {
                 return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
-            
+
             Pattern pattern = Pattern.compile("<title>.+</title>");
             Matcher matcher;
             String title = "No title found";
@@ -60,7 +60,8 @@ public class Utils
                 }
             }
             return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), StringEscapeUtils.unescapeHtml4(title), contentType, size);
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }

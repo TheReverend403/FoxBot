@@ -91,13 +91,13 @@ public class CommandInsult extends Command
                     return;
                 }
 
-                foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", ""));
+                foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
                 foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s", args[0]));
                 return;
             }
             foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[0]));
             return;
         }
-        foxbot.getBot().sendMessage(channel, insult.replace("[", "").replace("]", "").replaceAll("^\\s", ""));
+        foxbot.getBot().sendMessage(channel, insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
     }
 }
