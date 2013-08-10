@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot;
 
+import com.google.common.collect.Lists;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
@@ -13,6 +14,9 @@ import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FoxBot
 {
@@ -25,8 +29,9 @@ public class FoxBot
     private Utils utils;
     private CommandManager commandManager;
 
-    Reflections reflections = new Reflections("uk.co.revthefox");
+    private Reflections reflections = new Reflections("uk.co.revthefox");
 
+    List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
 
     public static void main(String[] args)
     {
@@ -37,53 +42,31 @@ public class FoxBot
     private void start(String[] args)
     {
 
-        if (!new File("bot.conf").exists())
+        for (String file : files)
         {
-            System.out.println("Generating default config!");
-            InputStream confInStream = this.getClass().getResourceAsStream("/bot.conf");
-
-            OutputStream confOutStream;
-            int readBytes;
-            byte[] buffer = new byte[4096];
-            try
+            if (!new File(file).exists())
             {
-                confOutStream = new FileOutputStream(new File("bot.conf"));
-                while ((readBytes = confInStream.read(buffer)) > 0)
+                System.out.println(String.format("Generating default %s!", file));
+                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
+
+                OutputStream confOutStream;
+                int readBytes;
+                byte[] buffer = new byte[4096];
+                try
                 {
-                    confOutStream.write(buffer, 0, readBytes);
+                    confOutStream = new FileOutputStream(new File(file));
+                    while ((readBytes = confInStream.read(buffer)) > 0)
+                    {
+                        confOutStream.write(buffer, 0, readBytes);
+                    }
+                    confInStream.close();
+                    confOutStream.close();
                 }
-                confInStream.close();
-                confOutStream.close();
-            }
-            catch (IOException ex)
-            {
-
-                ex.printStackTrace();
-                bot.disconnect();
-            }
-        }
-        if (!new File("permissions.conf").exists())
-        {
-            System.out.println("Generating default permissions!");
-            InputStream permsInStream = this.getClass().getResourceAsStream("/permissions.conf");
-
-            OutputStream permsOutStream;
-            int readBytes;
-            byte[] buffer = new byte[4096];
-            try
-            {
-                permsOutStream = new FileOutputStream(new File("permissions.conf"));
-                while ((readBytes = permsInStream.read(buffer)) > 0)
+                catch (IOException ex)
                 {
-                    permsOutStream.write(buffer, 0, readBytes);
+                    ex.printStackTrace();
+                    bot.disconnect();
                 }
-                permsInStream.close();
-                permsOutStream.close();
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
-                bot.disconnect();
             }
         }
 
@@ -151,7 +134,6 @@ public class FoxBot
 
     private void registerCommands()
     {
-
         try
         {
             for (Class clazz : reflections.getSubTypesOf(Command.class))
@@ -162,25 +144,10 @@ public class FoxBot
                 this.getCommandManager().registerCommand(command);
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-
-        /*
-        this.getCommandManager().registerCommand(new CommandInsult(this));
-        this.getCommandManager().registerCommand(new CommandKick(this));
-        this.getCommandManager().registerCommand(new CommandBan(this));
-        this.getCommandManager().registerCommand(new CommandKill(this));
-        this.getCommandManager().registerCommand(new CommandPing(this));
-        this.getCommandManager().registerCommand(new CommandDelay(this));
-        this.getCommandManager().registerCommand(new CommandSay(this));
-        this.getCommandManager().registerCommand(new CommandJoin(this));
-        this.getCommandManager().registerCommand(new CommandPart(this));
-        this.getCommandManager().registerCommand(new CommandUptime(this));
-        this.getCommandManager().registerCommand(new CommandAction(this));
-        this.getCommandManager().registerCommand(new CommandReload(this));
-        */
     }
 
     public void loadConfigFiles()

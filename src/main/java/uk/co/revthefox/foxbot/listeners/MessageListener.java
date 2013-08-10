@@ -38,6 +38,11 @@ public class MessageListener extends ListenerAdapter
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));
         }
 
+        if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))
+        {
+            foxbot.getBot().kick(channel, user, "We don't use that language round 'ere.");
+        }
+
         matcher = patt.matcher(message);
         if (!matcher.matches())
         {
@@ -53,6 +58,7 @@ public class MessageListener extends ListenerAdapter
             {
                 channel.sendMessage(urlInfo);
             }
+            return;
         }
     }
 }

@@ -20,7 +20,7 @@ public class CommandPart extends Command
         if (args.length == 0)
         {
             foxbot.getBot().partChannel(channel);
-            foxbot.getBot().sendNotice(sender, String.format("Leaving %s", channel));
+            foxbot.getBot().sendNotice(sender, String.format("Leaving %s", channel.getName()));
         }
 
         for (int arg = 0; arg < args.length; arg++)

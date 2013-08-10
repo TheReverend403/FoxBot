@@ -14,10 +14,9 @@ public class BotConfig
 
     private String serverAddress;
     private Integer serverPort;
-    private List<String> serverChannels;
-
     private String serverUsername;
     private String serverPassword;
+    private List<String> serverChannels;
 
     private Boolean useNickserv;
     private String nickservPassword;
