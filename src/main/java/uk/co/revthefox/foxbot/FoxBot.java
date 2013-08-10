@@ -112,20 +112,13 @@ public class FoxBot
             {
                 bot.connect(config.getServerAddress(), config.getServerPort(), SSLSocketFactory.getDefault());
             }
+
             if (config.useNickserv())
             {
                 bot.identify(config.getNickservPassword());
             }
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-        catch (NickAlreadyInUseException ex)
-        {
-
-        }
-        catch (IrcException ex)
+        catch (IOException | IrcException ex)
         {
             ex.printStackTrace();
         }
