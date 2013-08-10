@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
+import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
 import org.reflections.Reflections;
@@ -12,6 +13,7 @@ import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -98,8 +100,18 @@ public class FoxBot
     {
         try
         {
-            bot.connect(config.getServerAddress(), config.getServerPort());
-
+            if (!config.getServerSsl())
+            {
+                bot.connect(config.getServerAddress(), config.getServerPort());
+            }
+            else if (config.getAcceptInvalidSsl())
+            {
+                bot.connect(config.getServerAddress(), config.getServerPort(), new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman());
+            }
+            else
+            {
+                bot.connect(config.getServerAddress(), config.getServerPort(), SSLSocketFactory.getDefault());
+            }
             if (config.useNickserv())
             {
                 bot.identify(config.getNickservPassword());
