@@ -92,6 +92,7 @@ public class FoxBot
         bot.setAutoReconnect(config.getAutoReconnect());
         bot.setMessageDelay(config.getMessageDelay());
         bot.setVersion("FoxBot - A Java IRC bot written by TheReverend403 - https://github.com/TheReverend403/FoxBot");
+        bot.setAutoSplitMessage(true);
         bot.setName(config.getBotNick());
         bot.setLogin(config.getBotIdent());
     }
