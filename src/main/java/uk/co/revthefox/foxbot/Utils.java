@@ -41,11 +41,11 @@ public class Utils
 
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
-                return String.format("(%s's URL) %sError: %s%s %s ", sender.getNick(), Colors.RED, Colors.NORMAL, response.getStatusCode(), response.getStatusText());
+                return String.format("(%s's URL) %sError: %s%s %s ", foxbot.getUtils().munge(sender.getNick()), Colors.RED, Colors.NORMAL, response.getStatusCode(), response.getStatusText());
             }
             if (!contentType.contains("html"))
             {
-                return "(" + sender.getNick() + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size:" + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
+                return "(" + foxbot.getUtils().munge(sender.getNick()) + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size: " + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
 
             Pattern pattern = Pattern.compile("<title>.+</title>");
@@ -59,12 +59,17 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", sender.getNick(), StringEscapeUtils.unescapeHtml4(title), contentType, size);
+            return String.format("(%s's URL) " + Colors.GREEN + "Title: " + Colors.NORMAL + "%s " + Colors.GREEN + "Content type: " + Colors.NORMAL + "%s " + Colors.GREEN + "Size: " + Colors.NORMAL + "%s", foxbot.getUtils().munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size);
         }
         catch (Exception ex)
         {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "null";
+    }
+
+    public String munge(String stringToMunge)
+    {
+        return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", " à").replace("e", "è").replace("o", "").replace("u", "ù").replace("s", " š") : stringToMunge;
     }
 }
