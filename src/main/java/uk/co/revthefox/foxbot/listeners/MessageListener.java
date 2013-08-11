@@ -6,14 +6,13 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MessageListener extends ListenerAdapter
 {
     private FoxBot foxbot;
-
-    private String urlInfo;
 
     public MessageListener(FoxBot foxbot)
     {
@@ -22,6 +21,8 @@ public class MessageListener extends ListenerAdapter
 
     private String urlPattern = ".*((https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
     private Pattern patt = Pattern.compile(urlPattern);
+
+    Random rand = new Random();
 
     @Override
     public void onMessage(MessageEvent event)
@@ -36,6 +37,11 @@ public class MessageListener extends ListenerAdapter
         if (message.length() > 0 && message.startsWith(foxbot.getConfig().getCommandPrefix()))
         {
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));
+        }
+
+        if (rand.nextInt(100) < 5)
+        {
+            foxbot.getBot().sendMessage(channel, "O)_(O");
         }
 
         if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))
@@ -53,12 +59,11 @@ public class MessageListener extends ListenerAdapter
 
         if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
         {
-            urlInfo = foxbot.getUtils().parseChatUrl(message, user);
+            String urlInfo = foxbot.getUtils().parseChatUrl(message, user);
             if (!urlInfo.isEmpty())
             {
                 channel.sendMessage(urlInfo);
             }
-            return;
         }
     }
 }
