@@ -37,6 +37,7 @@ public class MessageListener extends ListenerAdapter
         {
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));
         }
+
         if (message.length() > 0 && message.startsWith(foxbot.getConfig().getBotNick() + ", "))
         {
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(foxbot.getConfig().getBotNick().length() + 2));
