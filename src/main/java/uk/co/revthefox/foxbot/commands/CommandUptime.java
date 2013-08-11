@@ -38,12 +38,10 @@ public class CommandUptime extends Command
                 long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
                 channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds",
                         Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
-                return;
             }
             catch (FileNotFoundException ex)
             {
                 foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
-                return;
             }
     }
 }

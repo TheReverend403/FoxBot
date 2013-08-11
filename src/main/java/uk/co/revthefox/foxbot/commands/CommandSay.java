@@ -70,6 +70,6 @@ public class CommandSay extends Command
                 message.append(" ").append(args[arg]);
             }
         }
-        foxbot.getBot().sendMessage(channel, message.toString());
+        channel.sendMessage(message.toString());
     }
 }

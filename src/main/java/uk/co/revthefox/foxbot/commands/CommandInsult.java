@@ -98,6 +98,6 @@ public class CommandInsult extends Command
             foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[0]));
             return;
         }
-        foxbot.getBot().sendMessage(channel, insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+        channel.sendMessage(insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
     }
 }

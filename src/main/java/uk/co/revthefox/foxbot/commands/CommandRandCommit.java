@@ -50,7 +50,7 @@ public class CommandRandCommit extends Command
             catch (Exception ex)
             {
                 ex.printStackTrace();
-                foxbot.getBot().sendMessage(channel, "Something went wrong...");
+                channel.sendMessage("Something went wrong...");
                 return;
             }
 
@@ -71,7 +71,7 @@ public class CommandRandCommit extends Command
             {
                 commitMessage = matcher.group(1);
             }
-            foxbot.getBot().sendMessage(channel, String.format("(%s) %sRandom commit message: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, commitMessage));
+            channel.sendMessage(String.format("(%s) %sRandom commit message: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, commitMessage));
             return;
         }
         foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %swtc",

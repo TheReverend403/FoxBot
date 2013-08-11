@@ -43,13 +43,13 @@ public class CommandHaspaid extends Command
         catch (Exception ex)
         {
             ex.printStackTrace();
-            foxbot.getBot().sendMessage(channel, "Something went wrong...");
+            channel.sendMessage("Something went wrong...");
             return;
         }
 
         try
         {
-            foxbot.getBot().sendMessage(channel, response.getResponseBody().contains("true") ? String.format("(%s) The account \"%s\"' is a %spremium%s Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0], Colors.GREEN, Colors.NORMAL) : String.format("(%s) The account \"%s\" is %sNOT%s a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0], Colors.RED, Colors.NORMAL));
+            channel.sendMessage(response.getResponseBody().contains("true") ? String.format("(%s) The account \"%s\"' is a %spremium%s Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0], Colors.GREEN, Colors.NORMAL) : String.format("(%s) The account \"%s\" is %sNOT%s a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0], Colors.RED, Colors.NORMAL));
         }
         catch (IOException ex)
         {
