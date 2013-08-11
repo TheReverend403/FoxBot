@@ -28,6 +28,7 @@ public class BotConfig
     private Boolean autoNickChange;
     private Boolean autoReconnect;
     private Long messageDelay;
+    private Boolean mungeUsernames;
 
 
     public BotConfig(FoxBot foxBot)
@@ -58,6 +59,7 @@ public class BotConfig
         autoNickChange = foxbot.getConfigFile().getBoolean("misc.autoNickChange");
         autoReconnect = foxbot.getConfigFile().getBoolean("misc.autoReconnect");
         messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
+        mungeUsernames = foxbot.getConfigFile().getBoolean("misc.mungeUsernames");
 
     }
 
@@ -70,6 +72,7 @@ public class BotConfig
         commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
         messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
         foxbot.getBot().setMessageDelay(foxbot.getConfigFile().getLong("misc.messageDelay"));
+        mungeUsernames = foxbot.getConfigFile().getBoolean("misc.mungeUsernames");
     }
 
     public String getBotNick()
@@ -150,5 +153,10 @@ public class BotConfig
     public Long getMessageDelay()
     {
         return messageDelay;
+    }
+
+    public Boolean getMungeUsernames()
+    {
+        return mungeUsernames;
     }
 }

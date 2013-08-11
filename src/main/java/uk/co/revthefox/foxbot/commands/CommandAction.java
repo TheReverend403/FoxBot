@@ -20,7 +20,7 @@ public class CommandAction extends Command
         if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
         {
             foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %saction [#channel] <action> " +
-                    "[flags]",
+                    "[-s]",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }

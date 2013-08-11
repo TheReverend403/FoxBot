@@ -33,7 +33,6 @@ public class MessageListener extends ListenerAdapter
         Channel channel = event.getChannel();
         Matcher matcher;
 
-
         if (message.length() > 0 && message.startsWith(foxbot.getConfig().getCommandPrefix()))
         {
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(1));

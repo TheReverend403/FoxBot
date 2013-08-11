@@ -27,7 +27,7 @@ public class CommandInsult extends Command
     {
         if (args.length > 2)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %sinsult [#channel] [flags]",
+            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %sinsult [#channel] [-s]",
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }
