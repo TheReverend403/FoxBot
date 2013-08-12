@@ -32,33 +32,47 @@ public class CommandRandomImgur extends Command
             Future<Response> future;
             Response response;
 
-            Matcher matcher;
+            String link;
 
             channel.sendMessage(String.format("(%s) Generating a working Imgur link...", foxbot.getUtils().munge(sender.getNick())));
 
-            String imgurLink = new Random().nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
+            for (;;)
+            {
+                link = generateLink(channel);
 
-            try
-            {
-                future = asyncHttpClient.prepareGet(imgurLink).execute();
-                response = future.get();
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-                foxbot.getBot().sendMessage(channel, "Something went wrong...");
-                return;
+                if (!link.equalsIgnoreCase(""))
+                {
+                    break;
+                }
             }
 
-            if (!String.valueOf(response.getStatusCode()).contains("404"))
-            {
-                channel.sendMessage(new Random().nextBoolean() ? String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, imgurLink) : String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, imgurLink));
-                return;
-            }
-
-            this.execute(sender, channel, args);
-
-            //channel.sendMessage(new Random().nextBoolean() ? String.format("(%s) %sRandom Imgur: %shttp://imgur.com/gallery/%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, RandomStringUtils.randomAlphanumeric(5)) : String.format("(%s) %sRandom Imgur: %shttp://imgur.com/gallery/%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, RandomStringUtils.randomAlphanumeric(7)));
+            channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
         }
+    }
+
+    private String generateLink(Channel channel)
+    {
+        Future<Response> future;
+        Response response;
+
+        String imgurLink = new Random().nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
+
+        try
+        {
+            future = asyncHttpClient.prepareGet(imgurLink).execute();
+            response = future.get();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            channel.sendMessage("Something went wrong...");
+            return "";
+        }
+
+        if (!String.valueOf(response.getStatusCode()).contains("404"))
+        {
+            return imgurLink;
+        }
+        return "";
     }
 }
