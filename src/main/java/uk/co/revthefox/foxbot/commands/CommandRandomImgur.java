@@ -33,11 +33,9 @@ public class CommandRandomImgur extends Command
 
             channel.sendMessage(String.format("(%s) Generating a working Imgur link...", foxbot.getUtils().munge(sender.getNick())));
 
-            for (;;)
-            {
                 for (;;)
                 {
-                    link = generateLink(channel);
+                    link = generateLink();
 
                     if (!link.equalsIgnoreCase(""))
                     {
@@ -45,12 +43,16 @@ public class CommandRandomImgur extends Command
                     }
                 }
 
+            if (!link.equalsIgnoreCase("exception"))
+            {
                 channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
+                return;
             }
+            channel.sendMessage("Something went wrong...");
         }
     }
 
-    private String generateLink(Channel channel)
+    private String generateLink()
     {
         Future<Response> future;
         Response response;
@@ -65,8 +67,7 @@ public class CommandRandomImgur extends Command
         catch (Exception ex)
         {
             ex.printStackTrace();
-            channel.sendMessage("Something went wrong...");
-            return "";
+            return "exception";
         }
 
         if (!String.valueOf(response.getStatusCode()).contains("404"))
