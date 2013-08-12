@@ -54,9 +54,10 @@ public class FoxBot
                 OutputStream confOutStream;
                 int readBytes;
                 byte[] buffer = new byte[4096];
+
                 try
                 {
-                    confOutStream = new FileOutputStream(new File(file));
+                    confOutStream = new FileOutputStream(file);
                     while ((readBytes = confInStream.read(buffer)) > 0)
                     {
                         confOutStream.write(buffer, 0, readBytes);

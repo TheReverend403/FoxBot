@@ -39,7 +39,6 @@ public class CommandManager
 
         Command command = commandMap.get(commandName);
 
-
         if (command == null)
         {
             return false;
