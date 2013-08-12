@@ -29,24 +29,24 @@ public class CommandRandomImgur extends Command
     {
         if (args.length == 0)
         {
-            Future<Response> future;
-            Response response;
-
             String link;
 
             channel.sendMessage(String.format("(%s) Generating a working Imgur link...", foxbot.getUtils().munge(sender.getNick())));
 
             for (;;)
             {
-                link = generateLink(channel);
-
-                if (!link.equalsIgnoreCase(""))
+                for (;;)
                 {
-                    break;
-                }
-            }
+                    link = generateLink(channel);
 
-            channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
+                    if (!link.equalsIgnoreCase(""))
+                    {
+                        break;
+                    }
+                }
+
+                channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
+            }
         }
     }
 
