@@ -70,6 +70,6 @@ public class Utils
 
     public String munge(String stringToMunge)
     {
-        return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", " à").replace("e", "è").replace("o", "").replace("u", "ù").replace("s", " š") : stringToMunge;
+        return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", " ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", " š") : stringToMunge;
     }
 }
