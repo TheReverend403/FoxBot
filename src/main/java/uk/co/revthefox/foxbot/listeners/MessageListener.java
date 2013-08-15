@@ -43,7 +43,7 @@ public class MessageListener extends ListenerAdapter
             foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(foxbot.getConfig().getBotNick().length() + 2));
         }
 
-        if (rand.nextInt(100) < 5)
+        if (rand.nextInt(100) == 50)
         {
             foxbot.getBot().sendMessage(channel, "O)_(O");
         }
