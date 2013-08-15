@@ -17,7 +17,7 @@ public class PermissionManager
     {
         String userName = user.getNick();
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && (!user.isVerified()))
+        if (foxbot.getConfig().getUsersMustBeVerified() && !user.isVerified())
         {
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
@@ -28,7 +28,7 @@ public class PermissionManager
             {
                 return false;
             }
-            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission)|| foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*"))
+            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*"))
             {
                 return true;
             }

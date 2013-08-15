@@ -43,7 +43,6 @@ public class FoxBot
 
     private void start(String[] args)
     {
-
         for (String file : files)
         {
             if (!new File(file).exists())
