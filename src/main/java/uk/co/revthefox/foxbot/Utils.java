@@ -45,7 +45,7 @@ public class Utils
             }
             if (!contentType.contains("html"))
             {
-                return String.format("(%s's URL) %sContent Type: %s%s %sSize: %s%skb", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
+                return String.format("(%s's URL) %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
                 // return "(" + foxbot.getUtils().munge(sender.getNick()) + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size: " + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
 
@@ -60,7 +60,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return String.format("(%s's URL) %sTitle: %s%s %sContent Type: %s%s %sSize: %s%skb", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, StringEscapeUtils.unescapeHtml4(title), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
+            return String.format("(%s's URL) %sTitle: %s%s %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, StringEscapeUtils.unescapeHtml4(title), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
         }
         catch (Exception ex)
         {
