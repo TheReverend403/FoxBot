@@ -10,6 +10,7 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
+import uk.co.revthefox.foxbot.listeners.InviteListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
@@ -135,6 +136,7 @@ public class FoxBot
     private void registerListeners()
     {
         bot.getListenerManager().addListener(new MessageListener(this));
+        bot.getListenerManager().addListener(new InviteListener(this));
     }
 
     private void registerCommands()

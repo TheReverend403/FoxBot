@@ -19,7 +19,7 @@ public class MessageListener extends ListenerAdapter
         this.foxbot = foxbot;
     }
 
-    private String urlPattern = ".*((https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
+    private String urlPattern = ".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
     private Pattern patt = Pattern.compile(urlPattern);
 
     Random rand = new Random();
@@ -27,7 +27,6 @@ public class MessageListener extends ListenerAdapter
     @Override
     public void onMessage(MessageEvent event)
     {
-
         String message = event.getMessage();
         User user = event.getUser();
         Channel channel = event.getChannel();

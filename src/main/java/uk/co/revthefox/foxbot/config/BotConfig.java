@@ -2,7 +2,9 @@ package uk.co.revthefox.foxbot.config;
 
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class BotConfig
 {
@@ -25,11 +27,11 @@ public class BotConfig
 
     private Boolean debug;
     private String commandPrefix;
+    private Boolean autoJoinOnInvite;
     private Boolean autoNickChange;
     private Boolean autoReconnect;
     private Long messageDelay;
     private Boolean mungeUsernames;
-
 
     public BotConfig(FoxBot foxBot)
     {
@@ -56,6 +58,7 @@ public class BotConfig
 
         debug = foxbot.getConfigFile().getBoolean("misc.debug");
         commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
+        autoJoinOnInvite = foxbot.getConfigFile().getBoolean("misc.autoJoinOnInvite");
         autoNickChange = foxbot.getConfigFile().getBoolean("misc.autoNickChange");
         autoReconnect = foxbot.getConfigFile().getBoolean("misc.autoReconnect");
         messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
@@ -70,6 +73,7 @@ public class BotConfig
         debug = foxbot.getConfigFile().getBoolean("misc.debug");
         foxbot.getBot().setVerbose(foxbot.getConfigFile().getBoolean("misc.debug"));
         commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
+        autoJoinOnInvite = foxbot.getConfigFile().getBoolean("misc.autoJoinOnInvite");
         messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
         foxbot.getBot().setMessageDelay(foxbot.getConfigFile().getLong("misc.messageDelay"));
         mungeUsernames = foxbot.getConfigFile().getBoolean("misc.mungeUsernames");
@@ -138,6 +142,11 @@ public class BotConfig
     public String getCommandPrefix()
     {
         return commandPrefix;
+    }
+
+    public Boolean getAutoJoinOnInvite()
+    {
+        return autoJoinOnInvite;
     }
 
     public Boolean getAutoNickChange()
