@@ -5,3 +5,5 @@ before_install:
   - mvn clean package
 jdk:
   - openjdk7
+notifications:
+  irc: "irc.esper.net#thereverend403"
