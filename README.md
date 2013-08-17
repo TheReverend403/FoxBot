@@ -1,5 +1,6 @@
 FoxBot
 ======
+[![Build Status](http://bots.zack6849.com:8123/buildStatus/icon?job=FoxBot)](http://bots.zack6849.com:8123/job/FoxBot/)
 
 IRC bot written in Java
 
