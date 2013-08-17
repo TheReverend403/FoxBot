@@ -2,7 +2,6 @@ package uk.co.revthefox.foxbot.commands;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import bsh.UtilEvalError;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +27,7 @@ public class CommandExec extends Command
             Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public CommandExec(FoxBot foxbot)
     {
         super("exec", "command.exec");
@@ -44,7 +44,6 @@ public class CommandExec extends Command
             interpreter.set("bot", foxbot.getBot());
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());
-            
         }
         catch (EvalError ex)
         {
