@@ -29,7 +29,6 @@ public class CommandRandomImgur extends Command
         if (args.length == 0)
         {
             String link;
-
             for (; ; )
             {
                 link = generateLink();
