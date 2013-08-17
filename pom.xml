@@ -6,7 +6,7 @@
 
     <groupId>FoxBot</groupId>
     <artifactId>FoxBot</artifactId>
-    <version>0.1</version>
+    <version>0.9</version>
 
     <dependencies>
         <dependency>
