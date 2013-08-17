@@ -67,7 +67,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>${artifactId}-${version}</finalName>
+                    <finalName>${artifactId}</finalName>
                     <minimizeJar>true</minimizeJar>
                 </configuration>
             </plugin>
