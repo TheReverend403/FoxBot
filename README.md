@@ -1,8 +1,6 @@
 FoxBot
 ======
 
-[![Build Status](https://travis-ci.org/TheReverend403/FoxBot.png?branch=master)](https://travis-ci.org/TheReverend403/FoxBot)
-
 IRC bot written in Java
 
 Features:
