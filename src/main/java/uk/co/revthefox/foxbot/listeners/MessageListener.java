@@ -70,5 +70,3 @@ public class MessageListener extends ListenerAdapter
         }
     }
 }
-
-// asdf
