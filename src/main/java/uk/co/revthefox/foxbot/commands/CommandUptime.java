@@ -24,7 +24,7 @@ public class CommandUptime extends Command
     public void execute(User sender, Channel channel, String[] args)
     {       
             if(System.getProperty("os.name").toLowerCase().contains("win")){
-                foxbot.getBot().sendNotice(sender, "This command is only supported on linux based systems.");
+                foxbot.getBot().sendNotice(sender, "This command is only supported on Unix based systems.");
                 return;
             }
             try
