@@ -34,8 +34,6 @@ public class FoxBot
 
     private Reflections reflections = new Reflections("uk.co.revthefox");
 
-    List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
-
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
@@ -44,40 +42,13 @@ public class FoxBot
 
     private void start(String[] args)
     {
-        for (String file : files)
-        {
-            if (!new File(file).exists())
-            {
-                System.out.println(String.format("Generating default %s!", file));
-                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
-
-                OutputStream confOutStream;
-                int readBytes;
-                byte[] buffer = new byte[4096];
-                try
-                {
-                    confOutStream = new FileOutputStream(new File(file));
-                    while ((readBytes = confInStream.read(buffer)) > 0)
-                    {
-                        confOutStream.write(buffer, 0, readBytes);
-                    }
-                    confInStream.close();
-                    confOutStream.close();
-                }
-                catch (IOException ex)
-                {
-                    ex.printStackTrace();
-                    bot.disconnect();
-                }
-            }
-        }
-
         loadConfigFiles();
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
         utils = new Utils(this);
         commandManager = new CommandManager(this);
+        config.loadDefaultConfig();
         registerListeners();
         registerCommands();
         setBotInfo();
