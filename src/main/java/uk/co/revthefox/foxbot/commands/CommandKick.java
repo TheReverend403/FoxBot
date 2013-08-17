@@ -23,7 +23,7 @@ public class CommandKick extends Command
                     foxbot.getConfig().getCommandPrefix()));
             return;
         }
-        if (foxbot.getBot().getUser(args[0]).equals(null))
+        if (foxbot.getBot().getUser(args[0]) == null)
         {
             foxbot.getBot().sendNotice(sender, "That user is not in this channel");
             return;

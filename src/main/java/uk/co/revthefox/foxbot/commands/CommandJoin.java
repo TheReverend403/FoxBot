@@ -28,8 +28,6 @@ public class CommandJoin extends Command
         {
             if (args[arg].startsWith("#"))
             {
-                //if (!foxbot.getBot().getChannels().contains(foxbot.getBot().getChannel(args[arg])))
-                //{
                 if (!foxbot.getBot().getChannel(args[arg]).isInviteOnly())
                 {
                     foxbot.getBot().joinChannel(args[arg]);
@@ -39,10 +37,7 @@ public class CommandJoin extends Command
                 foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[arg]));
                 continue;
             }
-            //foxbot.getBot().sendNotice(sender, String.format("I am already in %s", args[arg]));
-            //continue;
             foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[arg]));
-            continue;
         }
     }
 }

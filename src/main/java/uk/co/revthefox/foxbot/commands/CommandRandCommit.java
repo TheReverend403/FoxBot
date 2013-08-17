@@ -12,13 +12,6 @@ import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created with IntelliJ IDEA.
- * User: thereverend403
- * Date: 11/08/13
- * Time: 22:57
- * To change this template use File | Settings | File Templates.
- */
 public class CommandRandCommit extends Command
 {
     private FoxBot foxbot;

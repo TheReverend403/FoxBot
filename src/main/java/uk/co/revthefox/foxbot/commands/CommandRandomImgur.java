@@ -31,8 +31,6 @@ public class CommandRandomImgur extends Command
         {
             String link;
 
-            // channel.sendMessage(String.format("(%s) Generating a working Imgur link...", foxbot.getUtils().munge(sender.getNick())));
-
                 for (;;)
                 {
                     link = generateLink();
