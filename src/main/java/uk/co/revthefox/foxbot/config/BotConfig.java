@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class BotConfig
 {

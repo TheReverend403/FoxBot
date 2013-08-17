@@ -2,12 +2,13 @@ package uk.co.revthefox.foxbot.commands;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandExec extends Command
 {
@@ -40,7 +41,7 @@ public class CommandExec extends Command
         try
         {
             interpreter.set("sender", sender);
-            interpreter.set("channel", channel);            
+            interpreter.set("channel", channel);
             interpreter.set("bot", foxbot.getBot());
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());

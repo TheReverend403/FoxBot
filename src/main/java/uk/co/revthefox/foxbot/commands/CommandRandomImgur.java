@@ -10,7 +10,6 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Random;
 import java.util.concurrent.Future;
-import java.util.regex.Matcher;
 
 public class CommandRandomImgur extends Command
 {
@@ -31,15 +30,15 @@ public class CommandRandomImgur extends Command
         {
             String link;
 
-                for (;;)
-                {
-                    link = generateLink();
+            for (; ; )
+            {
+                link = generateLink();
 
-                    if (!link.equalsIgnoreCase(""))
-                    {
-                        break;
-                    }
+                if (!link.equalsIgnoreCase(""))
+                {
+                    break;
                 }
+            }
 
             if (!link.equalsIgnoreCase("exception"))
             {
