@@ -14,12 +14,17 @@ public class CommandExec extends Command
 {
     private static FoxBot foxbot;
     private static Interpreter interpreter;
-    static{
-        try {
+
+    static
+    {
+        try
+        {
             interpreter = new Interpreter();
             interpreter.getNameSpace().doSuperImport();
             interpreter.setStrictJava(false);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -32,14 +37,17 @@ public class CommandExec extends Command
     @Override
     public void execute(User sender, Channel channel, String[] args)
     {
-        try {
+        try
+        {
             interpreter.set("sender", sender);
             interpreter.set("channel", channel);            
             interpreter.set("bot", foxbot.getBot());
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());
             
-        } catch (EvalError ex) {
+        }
+        catch (EvalError ex)
+        {
             foxbot.getBot().sendMessage(channel, ex.getLocalizedMessage());
             Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
         }
