@@ -100,15 +100,15 @@ public class FoxBot
         {
             if (!config.getServerSsl())
             {
-                bot.connect(config.getServerAddress(), config.getServerPort());
+                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
             else if (config.getAcceptInvalidSsl())
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman());
+                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman());
             }
             else
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), SSLSocketFactory.getDefault());
+                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), SSLSocketFactory.getDefault());
             }
 
             if (config.useNickserv())

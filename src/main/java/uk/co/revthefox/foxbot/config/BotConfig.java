@@ -18,6 +18,7 @@ public class BotConfig
     private Integer serverPort;
     private Boolean serverSsl;
     private Boolean acceptInvalidSsl;
+    private String serverPassword;
     private List<String> serverChannels;
 
 
@@ -49,6 +50,7 @@ public class BotConfig
         serverPort = foxbot.getConfigFile().getInt("server.port");
         serverSsl = foxbot.getConfigFile().getBoolean("server.ssl");
         acceptInvalidSsl = foxbot.getConfigFile().getBoolean("server.acceptInvalidSslCert");
+        serverPassword = foxbot.getConfigFile().getString("server.password");
         serverChannels = foxbot.getConfigFile().getStringList("server.channels");
 
 
@@ -112,6 +114,11 @@ public class BotConfig
     public Boolean getAcceptInvalidSsl()
     {
         return acceptInvalidSsl;
+    }
+
+    public String getServerPassword()
+    {
+        return serverPassword;
     }
 
     public List<String> getChannels()
