@@ -22,8 +22,6 @@ public class MessageListener extends ListenerAdapter
     private String urlPattern = ".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
     private Pattern patt = Pattern.compile(urlPattern);
 
-    Random rand = new Random();
-
     @Override
     public void onMessage(MessageEvent event)
     {
@@ -43,6 +41,7 @@ public class MessageListener extends ListenerAdapter
         }
 
         matcher = patt.matcher(message);
+
         if (!matcher.matches())
         {
             return;
