@@ -8,6 +8,7 @@ import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
+import uk.co.revthefox.foxbot.commands.CommandExec;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.listeners.InviteListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
@@ -142,10 +143,14 @@ public class FoxBot
         {
             for (Class clazz : reflections.getSubTypesOf(Command.class))
             {
-                ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
-                Constructor clazzConstructor = clazz.getConstructor(FoxBot.class);
-                Command command = (Command) clazzConstructor.newInstance(this);
-                this.getCommandManager().registerCommand(command);
+                if (!clazz.getName().toLowerCase().contains("exec"))
+                {
+                    ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
+                    Constructor clazzConstructor = clazz.getConstructor(FoxBot.class);
+                    Command command = (Command) clazzConstructor.newInstance(this);
+                    this.getCommandManager().registerCommand(command);
+                }
+                this.commandManager.registerCommand(new CommandExec(this));
             }
         }
         catch (Exception ex)
