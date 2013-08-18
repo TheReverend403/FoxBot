@@ -42,19 +42,17 @@ public class MessageListener extends ListenerAdapter
 
         matcher = patt.matcher(message);
 
-        if (!matcher.matches())
+        if (matcher.matches())
         {
-            return;
-        }
+            message = matcher.group(1);
 
-        message = matcher.group(1);
-
-        if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
-        {
-            String urlInfo = foxbot.getUtils().parseChatUrl(message, user);
-            if (!urlInfo.isEmpty())
+            if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
             {
-                channel.sendMessage(urlInfo);
+                String urlInfo = foxbot.getUtils().parseChatUrl(message, user);
+                if (!urlInfo.isEmpty())
+                {
+                    channel.sendMessage(urlInfo);
+                }
             }
         }
     }
