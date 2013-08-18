@@ -18,21 +18,21 @@ public class CommandDelay extends Command
     @Override
     public void execute(User sender, Channel channel, String[] args)
     {
-        if (args.length != 1)
+        if (args.length == 1)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
+            try
+            {
+                foxbot.getBot().setMessageDelay(Long.valueOf(args[0]));
+                foxbot.getBot().sendNotice(sender, String.format("Message delay set to %sms",
+                        foxbot.getBot().getMessageDelay()));
+            }
+            catch (NumberFormatException ex)
+            {
+                foxbot.getBot().sendNotice(sender, "That is not a number!");
+                foxbot.getBot().setMessageDelay(foxbot.getConfig().getMessageDelay());
+            }
             return;
         }
-        try
-        {
-            foxbot.getBot().setMessageDelay(Long.valueOf(args[0]));
-            foxbot.getBot().sendNotice(sender, String.format("Message delay set to %sms",
-                    foxbot.getBot().getMessageDelay()));
-        }
-        catch (NumberFormatException ex)
-        {
-            foxbot.getBot().sendNotice(sender, "That is not a number!");
-            foxbot.getBot().setMessageDelay(foxbot.getConfig().getMessageDelay());
-        }
+        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
     }
 }

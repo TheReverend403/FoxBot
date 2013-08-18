@@ -23,26 +23,31 @@ public class CommandUptime extends Command
     @Override
     public void execute(User sender, Channel channel, String[] args)
     {
-        if (!System.getProperty("os.name").toLowerCase().contains("win"))
+        if (args.length == 0)
         {
-            try
+            if (!System.getProperty("os.name").toLowerCase().contains("win"))
             {
-                String uptime = new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", "");
+                try
+                {
+                    String uptime = new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", "");
 
-                int unixTime = Integer.valueOf(uptime);
-                int day = (int) TimeUnit.SECONDS.toDays(unixTime);
-                long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
-                long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
-                long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
-                channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds",
-                        Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
+                    int unixTime = Integer.valueOf(uptime);
+                    int day = (int) TimeUnit.SECONDS.toDays(unixTime);
+                    long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
+                    long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
+                    long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
+                    channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds",
+                            Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
+                }
+                catch (FileNotFoundException ex)
+                {
+                    foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
+                }
+                return;
             }
-            catch (FileNotFoundException ex)
-            {
-                foxbot.getBot().sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
-            }
+            foxbot.getBot().sendNotice(sender, "This command is only supported on Unix based systems.");
             return;
         }
-        foxbot.getBot().sendNotice(sender, "This command is only supported on Unix based systems.");
+        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %suptime", foxbot.getConfig().getCommandPrefix()));
     }
 }
