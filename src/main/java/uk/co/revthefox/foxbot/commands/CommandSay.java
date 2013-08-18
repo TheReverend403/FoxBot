@@ -39,24 +39,23 @@ public class CommandSay extends Command
                 }
             }
 
-            if (foxbot.getBot().getChannel(args[0]).isInviteOnly())
+            if (!foxbot.getBot().getChannel(args[0]).isInviteOnly())
             {
-                foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[0]));
-                return;
-            }
-
-            foxbot.getBot().joinChannel(args[0]);
-
-            if (!args[args.length - 1].equalsIgnoreCase("-s"))
-            {
+                foxbot.getBot().joinChannel(args[0]);
                 foxbot.getBot().sendMessage(args[0], message.toString());
-                foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                foxbot.getBot().sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
+
+                if (!args[args.length - 1].equalsIgnoreCase("-s"))
+                {
+                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
+                    foxbot.getBot().sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
+                    return;
+                }
+
+                foxbot.getBot().sendMessage(args[0], message.toString());
+                foxbot.getBot().sendNotice(sender, String.format("Message sent to %s", args[0]));
                 return;
             }
-
-            foxbot.getBot().sendMessage(args[0], message.toString());
-            foxbot.getBot().sendNotice(sender, String.format("Message sent to %s", args[0]));
+            foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[0]));
             return;
         }
 

@@ -17,22 +17,22 @@ public class CommandPart extends Command
     @Override
     public void execute(User sender, Channel channel, String[] args)
     {
-        if (args.length == 0)
+        if (args.length != 0)
         {
-            foxbot.getBot().partChannel(channel);
-            foxbot.getBot().sendNotice(sender, String.format("Leaving %s", channel.getName()));
-        }
-
-        for (int arg = 0; arg < args.length; arg++)
-        {
-            if (args[arg].startsWith("#"))
+            for (int arg = 0; arg < args.length; arg++)
             {
-                foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[arg]),
-                        String.format("Part command used by %s", sender.getNick()));
-                foxbot.getBot().sendNotice(sender, String.format("Leaving %s", args[arg]));
-                continue;
+                if (args[arg].startsWith("#"))
+                {
+                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[arg]),
+                            String.format("Part command used by %s", sender.getNick()));
+                    foxbot.getBot().sendNotice(sender, String.format("Leaving %s", args[arg]));
+                    continue;
+                }
+                foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[arg]));
             }
-            foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[arg]));
+            return;
         }
+        foxbot.getBot().partChannel(channel);
+        foxbot.getBot().sendNotice(sender, String.format("Leaving %s", channel.getName()));
     }
 }
