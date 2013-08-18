@@ -44,21 +44,13 @@ public class CommandInsult extends Command
         {
             future = asyncHttpClient.prepareGet("http://www.pangloss.com/seidel/Shaker/").execute();
             response = future.get();
+            insult = response.getResponseBody();
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
             foxbot.getBot().sendMessage(channel, "Something went wrong...");
             return;
-        }
-
-        try
-        {
-            insult = response.getResponseBody();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
         }
 
         Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
