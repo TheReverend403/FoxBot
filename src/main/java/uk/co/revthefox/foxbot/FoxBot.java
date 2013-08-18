@@ -30,6 +30,7 @@ public class FoxBot
     private CommandManager commandManager;
 
     private Reflections reflections = new Reflections("uk.co.revthefox");
+
     List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
 
     public static void main(String[] args)
