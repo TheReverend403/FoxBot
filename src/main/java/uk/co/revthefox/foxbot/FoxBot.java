@@ -9,6 +9,7 @@ import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
+import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.InviteListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
@@ -28,6 +29,7 @@ public class FoxBot
     private PermissionManager permissions;
     private Utils utils;
     private CommandManager commandManager;
+    private Database database;
 
     private Reflections reflections = new Reflections("uk.co.revthefox");
 
@@ -75,6 +77,7 @@ public class FoxBot
         permissions = new PermissionManager(this);
         utils = new Utils(this);
         commandManager = new CommandManager(this);
+        database = new Database(this);
         registerListeners();
         registerCommands();
         setBotInfo();

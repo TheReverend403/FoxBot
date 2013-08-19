@@ -1,10 +1,19 @@
 package uk.co.revthefox.foxbot.database;
 
+import uk.co.revthefox.foxbot.FoxBot;
+
 import java.sql.*;
 
 public class Database
 {
-    public static void main( String args[] )
+    private FoxBot foxbot;
+
+    public Database(FoxBot foxbot)
+    {
+        this.foxbot = foxbot;
+    }
+
+    public void connect()
     {
         Connection conn = null;
         try
