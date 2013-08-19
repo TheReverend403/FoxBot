@@ -10,6 +10,8 @@ public class BotConfig
 {
     private FoxBot foxbot;
 
+    List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
+
     private String botNick;
     private String botIdent;
     private String botRealName;
@@ -38,6 +40,37 @@ public class BotConfig
     {
         this.foxbot = foxBot;
         loadConfig();
+    }
+
+    public void loadDefaultConfig()
+    {
+        for (String file : files)
+        {
+            if (!new File(file).exists())
+            {
+                System.out.println(String.format("Generating default %s!", file));
+                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
+
+                OutputStream confOutStream;
+                int readBytes;
+                byte[] buffer = new byte[4096];
+                try
+                {
+                    confOutStream = new FileOutputStream(new File(file));
+                    while ((readBytes = confInStream.read(buffer)) > 0)
+                    {
+                        confOutStream.write(buffer, 0, readBytes);
+                    }
+                    confInStream.close();
+                    confOutStream.close();
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                    foxbot.getBot().disconnect();
+                }
+            }
+        }
     }
 
     private void loadConfig()
