@@ -2,6 +2,7 @@ package uk.co.revthefox.foxbot.database;
 
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.io.File;
 import java.sql.*;
 
 public class Database
@@ -28,7 +29,13 @@ public class Database
 
         try
         {
-            connection = DriverManager.getConnection("jdbc:sqlite:bot.db");
+            File path = new File("data");
+
+            if (!path.exists())
+            {
+                path.mkdirs();
+            }
+            connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
