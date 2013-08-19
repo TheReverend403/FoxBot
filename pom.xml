@@ -73,7 +73,6 @@
                 </executions>
                 <configuration>
                     <finalName>${artifactId}</finalName>
-                    <minimizeJar>true</minimizeJar>
                 </configuration>
             </plugin>
             <plugin>

@@ -15,17 +15,28 @@ public class Database
 
     public void connect()
     {
-        Connection conn = null;
         try
         {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
         }
-        catch ( Exception e )
+        catch (ClassNotFoundException ex)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            ex.printStackTrace();
         }
-        System.out.println("Opened database successfully");
+
+        Connection connection = null;
+
+        try
+        {
+            connection = DriverManager.getConnection("jdbc:sqlite:bot.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            statement.executeUpdate("create table if not exists tells;");
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 }
