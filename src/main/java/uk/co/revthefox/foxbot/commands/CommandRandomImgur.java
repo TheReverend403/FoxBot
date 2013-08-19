@@ -50,15 +50,13 @@ public class CommandRandomImgur extends Command
 
     private String generateLink()
     {
-        Future<Response> future;
         Response response;
 
         String imgurLink = new Random().nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
 
         try
         {
-            future = asyncHttpClient.prepareGet(imgurLink).execute();
-            response = future.get();
+            response = asyncHttpClient.prepareGet(imgurLink).execute().get();
         }
         catch (Exception ex)
         {

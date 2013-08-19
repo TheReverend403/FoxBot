@@ -28,8 +28,6 @@ public class CommandRandCommit extends Command
         if (args.length == 0)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-            Future<Response> future;
-            Response response;
 
             Matcher matcher;
 
@@ -37,9 +35,7 @@ public class CommandRandCommit extends Command
 
             try
             {
-                future = asyncHttpClient.prepareGet("http://whatthecommit.com/").execute();
-                response = future.get();
-                commitMessage = response.getResponseBody();
+                commitMessage = asyncHttpClient.prepareGet("http://whatthecommit.com/").execute().get().getResponseBody();
             }
             catch (Exception ex)
             {
