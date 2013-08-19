@@ -78,6 +78,7 @@ public class FoxBot
         utils = new Utils(this);
         commandManager = new CommandManager(this);
         database = new Database(this);
+        database.connect();
         registerListeners();
         registerCommands();
         setBotInfo();
