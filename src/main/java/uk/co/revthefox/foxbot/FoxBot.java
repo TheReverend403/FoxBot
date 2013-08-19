@@ -165,4 +165,5 @@ public class FoxBot
     {
         return commandManager;
     }
+    // Fuck your CPU, this needs testing.
 }
