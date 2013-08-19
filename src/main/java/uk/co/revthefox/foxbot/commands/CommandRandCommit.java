@@ -39,21 +39,13 @@ public class CommandRandCommit extends Command
             {
                 future = asyncHttpClient.prepareGet("http://whatthecommit.com/").execute();
                 response = future.get();
+                commitMessage = response.getResponseBody();
             }
             catch (Exception ex)
             {
                 ex.printStackTrace();
                 channel.sendMessage("Something went wrong...");
                 return;
-            }
-
-            try
-            {
-                commitMessage = response.getResponseBody();
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
             }
 
             Pattern titlePattern = Pattern.compile("<p>(.*)</p>.*<p class=\"permalink\">.*</p>", Pattern.DOTALL);
