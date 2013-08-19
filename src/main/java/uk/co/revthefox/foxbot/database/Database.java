@@ -32,8 +32,8 @@ public class Database
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            statement.executeUpdate("create table if not exists customCommands;");
-            statement.executeUpdate("create table if not exists tells;");
+            statement.executeUpdate("create table if not exists customCommands");
+            statement.executeUpdate("create table if not exists tells");
         }
         catch(SQLException e)
         {
