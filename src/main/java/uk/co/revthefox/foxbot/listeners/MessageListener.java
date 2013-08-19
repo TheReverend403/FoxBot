@@ -42,7 +42,7 @@ public class MessageListener extends ListenerAdapter
 
         matcher = patt.matcher(message);
 
-        if (matcher.matches())
+        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()))
         {
             message = matcher.group(1);
 
