@@ -28,9 +28,7 @@ public class CommandInsult extends Command
         if (args.length < 3)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
             Matcher matcher;
-
             String insult;
 
             try
