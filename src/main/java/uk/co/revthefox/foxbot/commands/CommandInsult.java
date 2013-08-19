@@ -28,18 +28,14 @@ public class CommandInsult extends Command
         if (args.length < 3)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-            Future<Response> future;
-            Response response;
 
             Matcher matcher;
 
-            String insult = "";
+            String insult;
 
             try
             {
-                future = asyncHttpClient.prepareGet("http://www.pangloss.com/seidel/Shaker/").execute();
-                response = future.get();
-                insult = response.getResponseBody();
+                insult = asyncHttpClient.prepareGet("http://www.pangloss.com/seidel/Shaker/").execute().get().getResponseBody();
             }
             catch (Exception ex)
             {

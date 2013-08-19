@@ -1,14 +1,11 @@
 package uk.co.revthefox.foxbot.commands;
 
 import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.Response;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.io.IOException;
-import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,9 +25,7 @@ public class CommandRandCommit extends Command
         if (args.length == 0)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
             Matcher matcher;
-
             String commitMessage;
 
             try

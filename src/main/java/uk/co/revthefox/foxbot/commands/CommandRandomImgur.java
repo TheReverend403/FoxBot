@@ -9,7 +9,6 @@ import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Random;
-import java.util.concurrent.Future;
 
 public class CommandRandomImgur extends Command
 {
