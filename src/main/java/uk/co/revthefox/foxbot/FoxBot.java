@@ -18,11 +18,13 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class FoxBot
 {
 
     private PircBotX bot;
+    private Logger logger;
     private Config configFile;
     private Config permissionsFile;
     private BotConfig config;
@@ -73,6 +75,7 @@ public class FoxBot
 
         loadConfigFiles();
         bot = new PircBotX();
+        logger = Logger.getLogger(FoxBot.class.getName());
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
         utils = new Utils(this);

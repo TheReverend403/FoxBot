@@ -39,12 +39,12 @@ public class Database
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS customCommands (command string, text string)");
+            //statement.executeUpdate("CREATE TABLE IF NOT EXISTS customCommands (command string, text string)");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (user string, text string, used boolean)");
         }
-        catch(SQLException e)
+        catch(SQLException ex)
         {
-            System.err.println(e.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -54,13 +54,11 @@ public class Database
         {
             PreparedStatement statement;
             connection.setAutoCommit(false);
-
             statement = connection.prepareStatement("INSERT INTO tells (user, text, used) VALUES (?,?, 'false');");
             statement.setString(1, name);
             statement.setString(2, message);
             statement.executeUpdate();
             connection.commit();
-            //statement.executeUpdate(String.format("INSERT INTO tells (user, text, used)\nVALUES ('%s','%s', 'false');", name, message));
         }
         catch (SQLException ex)
         {
