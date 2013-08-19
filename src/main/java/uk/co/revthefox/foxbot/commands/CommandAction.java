@@ -62,7 +62,7 @@ public class CommandAction extends Command
 
         for (int arg = 1; arg < args.length; arg++)
         {
-            if (!args[arg].equals("-s"))
+            if (!args[arg].equalsIgnoreCase("-s"))
             {
                 message.append(" ").append(args[arg]);
             }

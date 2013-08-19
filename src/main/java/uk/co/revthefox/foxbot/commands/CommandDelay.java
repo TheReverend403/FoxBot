@@ -23,8 +23,7 @@ public class CommandDelay extends Command
             try
             {
                 foxbot.getBot().setMessageDelay(Long.valueOf(args[0]));
-                foxbot.getBot().sendNotice(sender, String.format("Message delay set to %sms",
-                        foxbot.getBot().getMessageDelay()));
+                foxbot.getBot().sendNotice(sender, String.format("Message delay set to %sms", foxbot.getBot().getMessageDelay()));
             }
             catch (NumberFormatException ex)
             {

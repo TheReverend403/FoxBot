@@ -36,8 +36,7 @@ public class CommandUptime extends Command
                     long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
                     long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
                     long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
-                    channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds",
-                            Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
+                    channel.sendMessage(String.format("%sSystem uptime: %s%s days %s hours %s minutes %s seconds", Colors.GREEN, Colors.NORMAL, day, hours, minute, seconds));
                 }
                 catch (FileNotFoundException ex)
                 {

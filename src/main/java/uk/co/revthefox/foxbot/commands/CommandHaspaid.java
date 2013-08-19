@@ -43,7 +43,6 @@ public class CommandHaspaid extends Command
             }
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %shaspaid <user>",
-                foxbot.getConfig().getCommandPrefix()));
+        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

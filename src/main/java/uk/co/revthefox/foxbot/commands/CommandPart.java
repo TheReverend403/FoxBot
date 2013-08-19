@@ -23,8 +23,7 @@ public class CommandPart extends Command
             {
                 if (args[arg].startsWith("#"))
                 {
-                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[arg]),
-                            String.format("Part command used by %s", sender.getNick()));
+                    foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[arg]), String.format("Part command used by %s", sender.getNick()));
                     foxbot.getBot().sendNotice(sender, String.format("Leaving %s", args[arg]));
                     continue;
                 }

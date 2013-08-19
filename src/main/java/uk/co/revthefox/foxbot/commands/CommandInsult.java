@@ -73,8 +73,7 @@ public class CommandInsult extends Command
                     {
                         foxbot.getBot().sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
                         foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                        foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s, and channel has been left",
-                                args[0]));
+                        foxbot.getBot().sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
 
@@ -88,7 +87,6 @@ public class CommandInsult extends Command
             channel.sendMessage(insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %sinsult [#channel] [-s]",
-                foxbot.getConfig().getCommandPrefix()));
+        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

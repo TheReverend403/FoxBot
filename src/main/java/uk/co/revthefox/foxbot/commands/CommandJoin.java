@@ -36,7 +36,6 @@ public class CommandJoin extends Command
             }
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ...]",
-                foxbot.getConfig().getCommandPrefix()));
+        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ...]", foxbot.getConfig().getCommandPrefix()));
     }
 }
