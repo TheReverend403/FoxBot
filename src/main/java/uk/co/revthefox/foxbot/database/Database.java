@@ -21,14 +21,7 @@ public class Database
         try
         {
             Class.forName("org.sqlite.JDBC");
-        }
-        catch (ClassNotFoundException ex)
-        {
-            ex.printStackTrace();
-        }
 
-        try
-        {
             File path = new File("data");
 
             if (!path.exists())
@@ -41,7 +34,7 @@ public class Database
 
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (user string, text string, used boolean)");
         }
-        catch(SQLException ex)
+        catch(SQLException | ClassNotFoundException ex)
         {
             ex.printStackTrace();
         }
