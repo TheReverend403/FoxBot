@@ -46,7 +46,6 @@ public class Utils
             if (!contentType.contains("html"))
             {
                 return String.format("(%s's URL) %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
-                // return "(" + foxbot.getUtils().munge(sender.getNick()) + "'s URL)" + Colors.GREEN + " Content Type: " + Colors.NORMAL + contentType + Colors.GREEN + " Size: " + Colors.NORMAL + (conn.getContentLengthLong() / 1024) + "kb";
             }
 
             Pattern pattern = Pattern.compile("<title>.+</title>");
