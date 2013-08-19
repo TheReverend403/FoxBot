@@ -198,4 +198,9 @@ public class FoxBot
     {
         return commandManager;
     }
+
+    public Database getDatabase()
+    {
+        return database;
+    }
 }
