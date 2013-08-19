@@ -24,7 +24,6 @@ public class FoxBot
 {
 
     private PircBotX bot;
-    private Logger logger;
     private Config configFile;
     private Config permissionsFile;
     private BotConfig config;
@@ -75,7 +74,6 @@ public class FoxBot
 
         loadConfigFiles();
         bot = new PircBotX();
-        logger = Logger.getLogger(FoxBot.class.getName());
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
         utils = new Utils(this);
