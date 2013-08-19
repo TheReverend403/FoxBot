@@ -33,7 +33,7 @@ public class CommandRandCommit extends Command
 
             Matcher matcher;
 
-            String commitMessage = "";
+            String commitMessage;
 
             try
             {
