@@ -37,13 +37,34 @@ public class Database
             }
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            statement.setQueryTimeout(30);
 
-            statement.executeUpdate("create table customCommands (command string, text string)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS customCommands (command string, text string)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (user string, text string, used boolean)");
         }
         catch(SQLException e)
         {
             System.err.println(e.getMessage());
+        }
+    }
+
+    public void addTell(String name, String message)
+    {
+        try
+        {
+            PreparedStatement statement;
+            connection.setAutoCommit(false);
+
+            statement = connection.prepareStatement("INSERT INTO tells (user, text, used) VALUES (?,?, 'false');");
+            statement.setString(1, name);
+            statement.setString(2, message);
+            statement.executeUpdate();
+            connection.commit();
+            //statement.executeUpdate(String.format("INSERT INTO tells (user, text, used)\nVALUES ('%s','%s', 'false');", name, message));
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
         }
     }
 
