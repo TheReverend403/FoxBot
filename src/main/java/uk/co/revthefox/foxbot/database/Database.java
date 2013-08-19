@@ -39,7 +39,6 @@ public class Database
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            //statement.executeUpdate("CREATE TABLE IF NOT EXISTS customCommands (command string, text string)");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (user string, text string, used boolean)");
         }
         catch(SQLException ex)
