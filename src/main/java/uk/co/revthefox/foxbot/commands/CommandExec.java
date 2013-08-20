@@ -2,6 +2,7 @@ package uk.co.revthefox.foxbot.commands;
 
 import bsh.EvalError;
 import bsh.Interpreter;
+import bsh.UtilEvalError;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
@@ -46,13 +47,14 @@ public class CommandExec extends Command
 
         try
         {
+            interpreter.getNameSpace().doSuperImport();
             interpreter.set("sender", sender);
             interpreter.set("channel", channel);
             interpreter.set("bot", bot);
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());
         }
-        catch (EvalError ex)
+        catch (EvalError | UtilEvalError ex)
         {
             bot.sendMessage(channel, ex.getLocalizedMessage());
             Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
