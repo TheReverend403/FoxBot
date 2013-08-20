@@ -28,7 +28,6 @@ public class MessageListener extends ListenerAdapter
         String message = event.getMessage();
         User user = event.getUser();
         Channel channel = event.getChannel();
-        Matcher matcher;
 
         if (message.length() > 0 && (message.startsWith(foxbot.getConfig().getCommandPrefix()) || message.startsWith(foxbot.getConfig().getBotNick() + ", ")))
         {
@@ -40,7 +39,7 @@ public class MessageListener extends ListenerAdapter
             foxbot.getBot().kick(channel, user, "We don't use that language round 'ere.");
         }
 
-        matcher = patt.matcher(message);
+        Matcher matcher = patt.matcher(message);
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()))
         {
