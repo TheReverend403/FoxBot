@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class CommandUptime extends Command
 {
     private FoxBot foxbot;
-    private PircBotX bot;
 
     public CommandUptime(FoxBot foxbot)
     {
