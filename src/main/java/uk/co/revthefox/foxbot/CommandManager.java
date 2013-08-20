@@ -1,6 +1,5 @@
 package uk.co.revthefox.foxbot;
 
-import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.commands.Command;
