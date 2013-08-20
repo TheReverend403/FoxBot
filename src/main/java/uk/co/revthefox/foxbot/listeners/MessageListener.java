@@ -32,7 +32,7 @@ public class MessageListener extends ListenerAdapter
 
         if (message.length() > 0 && (message.startsWith(foxbot.getConfig().getCommandPrefix()) || message.startsWith(foxbot.getConfig().getBotNick() + ", ")))
         {
-            foxbot.getCommandManager().dispatchCommand(user, channel, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
+            foxbot.getCommandManager().dispatchCommand(event, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
         }
 
         if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))

@@ -1,7 +1,7 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
-import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandPing extends Command
@@ -15,8 +15,9 @@ public class CommandPing extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        Channel channel = event.getChannel();
         channel.sendMessage("Pong!");
     }
 }

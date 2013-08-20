@@ -32,7 +32,7 @@ public class Database
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (user string, text string, used boolean)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (sender string, receiver string, text string, used boolean)");
         }
         catch(SQLException | ClassNotFoundException ex)
         {
@@ -40,15 +40,16 @@ public class Database
         }
     }
 
-    public void addTell(String name, String message)
+    public void addTell(String sender, String receiver, String message)
     {
         try
         {
             PreparedStatement statement;
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO tells (user, text, used) VALUES (?,?, 'false');");
-            statement.setString(1, name);
-            statement.setString(2, message);
+            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, text, used) VALUES (?,?,?, 'false');");
+            statement.setString(1, sender);
+            statement.setString(2, receiver);
+            statement.setString(3, message);
             statement.executeUpdate();
             connection.commit();
         }

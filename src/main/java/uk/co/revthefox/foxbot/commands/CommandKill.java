@@ -1,7 +1,9 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandKill extends Command
@@ -16,18 +18,21 @@ public class CommandKill extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length != 0)
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %skill", foxbot.getConfig().getCommandPrefix()));
+            bot.sendNotice(sender, String.format("Wrong number of args! use %skill", foxbot.getConfig().getCommandPrefix()));
             return;
         }
-        for (Channel botChannel : foxbot.getBot().getChannels())
+        for (Channel botChannel : bot.getChannels())
         {
-            foxbot.getBot().partChannel(botChannel, "Killed by " + sender.getNick());
+            bot.partChannel(botChannel, "Killed by " + sender.getNick());
         }
-        foxbot.getBot().disconnect();
+        bot.disconnect();
         foxbot.getDatabase().disconnect();
     }
 }

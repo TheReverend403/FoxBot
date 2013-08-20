@@ -3,7 +3,9 @@ package uk.co.revthefox.foxbot.commands;
 import com.ning.http.client.AsyncHttpClient;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.regex.Matcher;
@@ -20,8 +22,12 @@ public class CommandRandCommit extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length == 0)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -50,6 +56,6 @@ public class CommandRandCommit extends Command
             channel.sendMessage(String.format("(%s) %sRandom commit message: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, commitMessage));
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %swtc", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! use %swtc", foxbot.getConfig().getCommandPrefix()));
     }
 }

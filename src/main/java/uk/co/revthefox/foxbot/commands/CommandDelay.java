@@ -1,8 +1,8 @@
 package uk.co.revthefox.foxbot.commands;
 
-
-import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandDelay extends Command
@@ -16,22 +16,25 @@ public class CommandDelay extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length == 1)
         {
             try
             {
-                foxbot.getBot().setMessageDelay(Long.valueOf(args[0]));
-                foxbot.getBot().sendNotice(sender, String.format("Message delay set to %sms", foxbot.getBot().getMessageDelay()));
+                bot.setMessageDelay(Long.valueOf(args[0]));
+                bot.sendNotice(sender, String.format("Message delay set to %sms", bot.getMessageDelay()));
             }
             catch (NumberFormatException ex)
             {
-                foxbot.getBot().sendNotice(sender, "That is not a number!");
-                foxbot.getBot().setMessageDelay(foxbot.getConfig().getMessageDelay());
+                bot.sendNotice(sender, "That is not a number!");
+                bot.setMessageDelay(foxbot.getConfig().getMessageDelay());
             }
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
     }
 }

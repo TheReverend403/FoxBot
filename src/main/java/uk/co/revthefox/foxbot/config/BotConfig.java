@@ -1,14 +1,14 @@
 package uk.co.revthefox.foxbot.config;
 
-import com.google.common.collect.Lists;
+import com.typesafe.config.Config;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.io.*;
 import java.util.List;
 
 public class BotConfig
 {
     private FoxBot foxbot;
+    private Config botConfig;
 
     private String botNick;
     private String botIdent;
@@ -37,48 +37,49 @@ public class BotConfig
     public BotConfig(FoxBot foxBot)
     {
         this.foxbot = foxBot;
+        botConfig = foxBot.getConfigFile();
         loadConfig();
     }
 
     private void loadConfig()
     {
-        botNick = foxbot.getConfigFile().getString("bot.nick");
-        botIdent = foxbot.getConfigFile().getString("bot.ident");
-        botRealName = foxbot.getConfigFile().getString("bot.realName");
+        botNick = botConfig.getString("bot.nick");
+        botIdent = botConfig.getString("bot.ident");
+        botRealName = botConfig.getString("bot.realName");
 
-        serverAddress = foxbot.getConfigFile().getString("server.address");
-        serverPort = foxbot.getConfigFile().getInt("server.port");
-        serverSsl = foxbot.getConfigFile().getBoolean("server.ssl");
-        acceptInvalidSsl = foxbot.getConfigFile().getBoolean("server.acceptInvalidSslCert");
-        serverPassword = foxbot.getConfigFile().getString("server.password");
-        serverChannels = foxbot.getConfigFile().getStringList("server.channels");
+        serverAddress = botConfig.getString("server.address");
+        serverPort = botConfig.getInt("server.port");
+        serverSsl = botConfig.getBoolean("server.ssl");
+        acceptInvalidSsl = botConfig.getBoolean("server.acceptInvalidSslCert");
+        serverPassword = botConfig.getString("server.password");
+        serverChannels = botConfig.getStringList("server.channels");
 
 
-        useNickserv = foxbot.getConfigFile().getBoolean("auth.useNickserv");
-        nickservPassword = foxbot.getConfigFile().getString("auth.nickservPassword");
-        usersMustBeVerified = foxbot.getConfigFile().getBoolean("auth.usersMustBeVerified");
+        useNickserv = botConfig.getBoolean("auth.useNickserv");
+        nickservPassword = botConfig.getString("auth.nickservPassword");
+        usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
 
-        debug = foxbot.getConfigFile().getBoolean("misc.debug");
-        commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
-        autoJoinOnInvite = foxbot.getConfigFile().getBoolean("misc.autoJoinOnInvite");
-        autoNickChange = foxbot.getConfigFile().getBoolean("misc.autoNickChange");
-        autoReconnect = foxbot.getConfigFile().getBoolean("misc.autoReconnect");
-        messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
-        mungeUsernames = foxbot.getConfigFile().getBoolean("misc.mungeUsernames");
+        debug = botConfig.getBoolean("misc.debug");
+        commandPrefix = botConfig.getString("misc.commandPrefix");
+        autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        autoNickChange = botConfig.getBoolean("misc.autoNickChange");
+        autoReconnect = botConfig.getBoolean("misc.autoReconnect");
+        messageDelay = botConfig.getLong("misc.messageDelay");
+        mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
 
     }
 
     public void reload()
     {
         foxbot.loadConfigFiles();
-        usersMustBeVerified = foxbot.getConfigFile().getBoolean("auth.usersMustBeVerified");
-        debug = foxbot.getConfigFile().getBoolean("misc.debug");
-        foxbot.getBot().setVerbose(foxbot.getConfigFile().getBoolean("misc.debug"));
-        commandPrefix = foxbot.getConfigFile().getString("misc.commandPrefix");
-        autoJoinOnInvite = foxbot.getConfigFile().getBoolean("misc.autoJoinOnInvite");
-        messageDelay = foxbot.getConfigFile().getLong("misc.messageDelay");
-        foxbot.getBot().setMessageDelay(foxbot.getConfigFile().getLong("misc.messageDelay"));
-        mungeUsernames = foxbot.getConfigFile().getBoolean("misc.mungeUsernames");
+        usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
+        debug = botConfig.getBoolean("misc.debug");
+        foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
+        commandPrefix = botConfig.getString("misc.commandPrefix");
+        autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        messageDelay = botConfig.getLong("misc.messageDelay");
+        foxbot.getBot().setMessageDelay(botConfig.getLong("misc.messageDelay"));
+        mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
     }
 
     public String getBotNick()

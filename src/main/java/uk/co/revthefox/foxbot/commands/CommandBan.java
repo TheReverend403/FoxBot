@@ -2,6 +2,7 @@ package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandBan extends Command
@@ -15,8 +16,10 @@ public class CommandBan extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        Channel channel = event.getChannel();
+
         if (args.length == 0)
         {
             channel.sendMessage("Ban command executed successfully without args!");

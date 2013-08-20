@@ -1,7 +1,6 @@
 package uk.co.revthefox.foxbot.commands;
 
-import org.pircbotx.Channel;
-import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 
 public abstract class Command
 {
@@ -37,5 +36,5 @@ public abstract class Command
         return aliases;
     }
 
-    public abstract void execute(User sender, Channel channel, String[] args);
+    public abstract void execute(MessageEvent event, String[] args);
 }

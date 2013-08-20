@@ -1,11 +1,12 @@
 package uk.co.revthefox.foxbot.commands;
 
-
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.io.IOException;
@@ -22,8 +23,12 @@ public class CommandHaspaid extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length == 1)
         {
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -39,6 +44,6 @@ public class CommandHaspaid extends Command
             }
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

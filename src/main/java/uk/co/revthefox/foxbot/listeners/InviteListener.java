@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.listeners;
 
+import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.InviteEvent;
 import org.pircbotx.hooks.events.NickChangeEvent;
@@ -17,10 +18,12 @@ public class InviteListener extends ListenerAdapter
     @Override
     public void onInvite(InviteEvent event)
     {
-        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getBot().getUser(event.getUser()), "bot.invite"))
+        PircBotX bot = foxbot.getBot();
+
+        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(bot.getUser(event.getUser()), "bot.invite"))
         {
-            foxbot.getBot().joinChannel(event.getChannel());
-            foxbot.getBot().sendNotice(foxbot.getBot().getUser(event.getUser()), String.format("Joined %s", event.getChannel()));
+            bot.joinChannel(event.getChannel());
+            bot.sendNotice(bot.getUser(event.getUser()), String.format("Joined %s", event.getChannel()));
         }
     }
 }

@@ -1,7 +1,8 @@
 package uk.co.revthefox.foxbot.commands;
 
-import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandJoin extends Command
@@ -15,27 +16,30 @@ public class CommandJoin extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length != 0)
         {
             for (int arg = 0; arg < args.length; arg++)
             {
                 if (args[arg].startsWith("#"))
                 {
-                    if (!foxbot.getBot().getChannel(args[arg]).isInviteOnly())
+                    if (!bot.getChannel(args[arg]).isInviteOnly())
                     {
-                        foxbot.getBot().joinChannel(args[arg]);
-                        foxbot.getBot().sendNotice(sender, String.format("Joined %s", args[arg]));
+                        bot.joinChannel(args[arg]);
+                        bot.sendNotice(sender, String.format("Joined %s", args[arg]));
                         continue;
                     }
-                    foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[arg]));
+                    bot.sendNotice(sender, String.format("%s is invite only!", args[arg]));
                     continue;
                 }
-                foxbot.getBot().sendNotice(sender, String.format("%s is not a channel...", args[arg]));
+                bot.sendNotice(sender, String.format("%s is not a channel...", args[arg]));
             }
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ...]", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ...]", foxbot.getConfig().getCommandPrefix()));
     }
 }

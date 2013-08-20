@@ -1,7 +1,8 @@
 package uk.co.revthefox.foxbot.commands;
 
-import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandTell extends Command
@@ -15,8 +16,11 @@ public class CommandTell extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length > 2)
         {
             String nick = args[0];
@@ -27,10 +31,10 @@ public class CommandTell extends Command
             {
                 message.append(" ").append(args[arg]);
             }
-            foxbot.getDatabase().addTell(nick, message.toString());
-            foxbot.getBot().sendNotice(sender, String .format("Tell added for %s", args[0]));
+            foxbot.getDatabase().addTell(sender.getNick(), nick, message.toString());
+            bot.sendNotice(sender, String.format("Tell added for %s", args[0]));
             return;
         }
-        foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %stell <nick> <message>", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! use %stell <nick> <message>", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Random;
@@ -23,8 +24,11 @@ public class CommandRandomImgur extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
+
         if (args.length == 0)
         {
             String link;

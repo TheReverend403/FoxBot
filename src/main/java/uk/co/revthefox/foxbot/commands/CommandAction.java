@@ -1,7 +1,9 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandAction extends Command
@@ -15,11 +17,15 @@ public class CommandAction extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
+        PircBotX bot = foxbot.getBot();
+
         if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
         {
-            foxbot.getBot().sendNotice(sender, String.format("Wrong number of args! use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
+            bot.sendNotice(sender, String.format("Wrong number of args! use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
             return;
         }
 
@@ -37,24 +43,24 @@ public class CommandAction extends Command
                 }
             }
 
-            if (foxbot.getBot().getChannel(args[0]).isInviteOnly())
+            if (bot.getChannel(args[0]).isInviteOnly())
             {
-                foxbot.getBot().sendNotice(sender, String.format("%s is invite only!", args[0]));
+                bot.sendNotice(sender, String.format("%s is invite only!", args[0]));
                 return;
             }
 
-            foxbot.getBot().joinChannel(args[0]);
+            bot.joinChannel(args[0]);
 
             if (!args[args.length - 1].equalsIgnoreCase("-s"))
             {
-                foxbot.getBot().sendAction(args[0], message.toString());
-                foxbot.getBot().partChannel(foxbot.getBot().getChannel(args[0]));
-                foxbot.getBot().sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
+                bot.sendAction(args[0], message.toString());
+                bot.partChannel(bot.getChannel(args[0]));
+                bot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                 return;
             }
 
-            foxbot.getBot().sendAction(args[0], message.toString());
-            foxbot.getBot().sendNotice(sender, String.format("Action sent to %s", args[0]));
+            bot.sendAction(args[0], message.toString());
+            bot.sendNotice(sender, String.format("Action sent to %s", args[0]));
             return;
         }
 
@@ -67,6 +73,6 @@ public class CommandAction extends Command
                 message.append(" ").append(args[arg]);
             }
         }
-        foxbot.getBot().sendAction(channel, message.toString());
+        bot.sendAction(channel, message.toString());
     }
 }

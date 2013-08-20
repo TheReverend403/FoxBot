@@ -4,7 +4,9 @@ import bsh.EvalError;
 import bsh.Interpreter;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.logging.Level;
@@ -36,19 +38,23 @@ public class CommandExec extends Command
     }
 
     @Override
-    public void execute(User sender, Channel channel, String[] args)
+    public void execute(MessageEvent event, String[] args)
     {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
+        PircBotX bot = foxbot.getBot();
+
         try
         {
             interpreter.set("sender", sender);
             interpreter.set("channel", channel);
-            interpreter.set("bot", foxbot.getBot());
+            interpreter.set("bot", bot);
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());
         }
         catch (EvalError ex)
         {
-            foxbot.getBot().sendMessage(channel, ex.getLocalizedMessage());
+            bot.sendMessage(channel, ex.getLocalizedMessage());
             Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

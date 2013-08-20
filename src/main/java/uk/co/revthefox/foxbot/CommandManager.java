@@ -2,6 +2,7 @@ package uk.co.revthefox.foxbot;
 
 import org.pircbotx.Channel;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.commands.Command;
 
 import java.util.Arrays;
@@ -32,9 +33,10 @@ public class CommandManager
         }
     }
 
-    public boolean dispatchCommand(User sender, Channel channel, String commandLine)
+    public boolean dispatchCommand(MessageEvent event, String commandLine)
     {
         String[] split = argsSplit.split(commandLine);
+        User sender = event.getUser();
         String commandName = split[0].toLowerCase();
 
         Command command = commandMap.get(commandName);
@@ -58,7 +60,7 @@ public class CommandManager
 
         try
         {
-            command.execute(sender, channel, args);
+            command.execute(event, args);
         }
         catch (Exception ex)
         {
