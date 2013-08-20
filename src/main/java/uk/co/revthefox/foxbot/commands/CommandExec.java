@@ -50,6 +50,7 @@ public class CommandExec extends Command
             interpreter.getNameSpace().doSuperImport();
             interpreter.set("sender", sender);
             interpreter.set("channel", channel);
+            interpreter.set("event", event);
             interpreter.set("bot", bot);
             interpreter.set("foxbot", foxbot);
             interpreter.eval(StringUtils.join(args, " ").trim());
