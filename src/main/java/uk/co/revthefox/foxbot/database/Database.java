@@ -28,6 +28,7 @@ public class Database
             {
                 path.mkdirs();
             }
+
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
@@ -45,6 +46,7 @@ public class Database
         try
         {
             PreparedStatement statement;
+
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, text, used) VALUES (?,?,?, 'false');");
             statement.setString(1, sender);

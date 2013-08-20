@@ -31,7 +31,6 @@ public class FoxBot
     private Utils utils;
     private CommandManager commandManager;
     private Database database;
-
     private Reflections reflections = new Reflections("uk.co.revthefox");
 
     List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
@@ -50,10 +49,10 @@ public class FoxBot
             {
                 System.out.println(String.format("Generating default %s!", file));
                 InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
-
                 OutputStream confOutStream;
                 int readBytes;
                 byte[] buffer = new byte[4096];
+
                 try
                 {
                     confOutStream = new FileOutputStream(new File(file));
@@ -84,7 +83,6 @@ public class FoxBot
         registerCommands();
         setBotInfo();
         connectToServer();
-        joinChannels();
     }
 
     private void setBotInfo()
@@ -125,10 +123,7 @@ public class FoxBot
         {
             ex.printStackTrace();
         }
-    }
 
-    private void joinChannels()
-    {
         for (String channel : config.getChannels())
         {
             bot.joinChannel(channel);
