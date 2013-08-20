@@ -35,9 +35,7 @@ public class CommandUptime extends Command
             {
                 try
                 {
-                    String uptime = new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", "");
-
-                    int unixTime = Integer.valueOf(uptime);
+                    int unixTime = Integer.valueOf(new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", ""));
                     int day = (int) TimeUnit.SECONDS.toDays(unixTime);
                     long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
                     long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
