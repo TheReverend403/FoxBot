@@ -37,7 +37,6 @@ public class CommandManager
         String[] split = argsSplit.split(commandLine);
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
-
         Command command = commandMap.get(commandName);
 
         if (command == null)

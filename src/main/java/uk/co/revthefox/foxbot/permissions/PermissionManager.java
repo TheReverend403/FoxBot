@@ -4,9 +4,14 @@ import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PermissionManager
 {
     private FoxBot foxbot;
+
+    private List<User> authedUsers = new ArrayList<>();
 
     public PermissionManager(FoxBot foxbot)
     {
@@ -17,7 +22,12 @@ public class PermissionManager
     {
         String userName = user.getNick();
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && !user.isVerified())
+        if (!authedUsers.contains(user) && user.isVerified())
+        {
+            authedUsers.add(user);
+        }
+
+        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.contains(user))
         {
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
