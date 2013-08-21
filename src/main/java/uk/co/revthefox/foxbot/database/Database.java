@@ -18,6 +18,8 @@ public class Database
 
     public void connect()
     {
+        Statement statement = null;
+
         try
         {
             Class.forName("org.sqlite.JDBC");
@@ -32,22 +34,35 @@ public class Database
             }
 
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.setQueryTimeout(30);
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (sender string, receiver string, text string, used boolean)");
-            statement.close();
         }
         catch(SQLException | ClassNotFoundException ex)
         {
             ex.printStackTrace();
         }
+        finally
+        {
+            try
+            {
+                if (statement != null)
+                {
+                    statement.close();
+                }
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void addTell(String sender, String receiver, String message)
     {
+        PreparedStatement statement = null;
         try
         {
-            PreparedStatement statement;
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, text, used) VALUES (?,?,?, 'false');");
             statement.setString(1, sender);
@@ -55,11 +70,24 @@ public class Database
             statement.setString(3, message);
             statement.executeUpdate();
             connection.commit();
-            statement.close();
         }
         catch (SQLException ex)
         {
             ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if (statement != null)
+                {
+                    statement.close();
+                }
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
         }
     }
 
