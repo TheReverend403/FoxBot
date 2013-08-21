@@ -32,6 +32,7 @@ public class PermissionManager
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
         }
+
         try
         {
             if (foxbot.getPermissionsFile().getStringList("permissions." + userName).contains("-" + permission))
@@ -55,5 +56,13 @@ public class PermissionManager
             }
         }
         return false;
+    }
+
+    public void removeAuthedUser(User user)
+    {
+        if (authedUsers.contains(user))
+        {
+            authedUsers.remove(user);
+        }
     }
 }
