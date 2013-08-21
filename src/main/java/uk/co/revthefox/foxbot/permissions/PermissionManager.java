@@ -1,15 +1,11 @@
 package uk.co.revthefox.foxbot.permissions;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class PermissionManager
 {
@@ -24,7 +20,7 @@ public class PermissionManager
 
     public Boolean userHasPermission(User user, String permission)
     {
-        String userName = user.getHostmask();
+        String hostMask = user.getHostmask();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
@@ -39,7 +35,7 @@ public class PermissionManager
 
         try
         {
-            if (foxbot.getPermissionsFile().getStringList("permissions." + userName).contains("-" + permission))
+            if (foxbot.getPermissionsFile().getStringList("permissions." + hostMask).contains("-" + permission))
             {
                 return false;
             }
@@ -47,7 +43,7 @@ public class PermissionManager
             {
                 return true;
             }
-            if (foxbot.getPermissionsFile().getStringList("permissions." + userName).contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + userName).contains("permissions.*"))
+            if (foxbot.getPermissionsFile().getStringList("permissions." + hostMask).contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + hostMask).contains("permissions.*"))
             {
                 return true;
             }
