@@ -24,9 +24,11 @@ public class Database
 
             File path = new File("data");
 
-            if (!path.exists())
+            if (!path.exists() && !path.mkdirs())
             {
-                path.mkdirs();
+                System.out.println("Couldn't create data folder. Shutting down.");
+                foxbot.getBot().disconnect();
+                return;
             }
 
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
@@ -52,8 +54,8 @@ public class Database
             statement.setString(2, receiver);
             statement.setString(3, message);
             statement.executeUpdate();
-            statement.close();
             connection.commit();
+            statement.close();
         }
         catch (SQLException ex)
         {
