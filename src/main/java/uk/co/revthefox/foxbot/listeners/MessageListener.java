@@ -6,7 +6,6 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,8 +18,7 @@ public class MessageListener extends ListenerAdapter
         this.foxbot = foxbot;
     }
 
-    private String urlPattern = ".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*";
-    private Pattern patt = Pattern.compile(urlPattern);
+    private static final Pattern PATTERN = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
 
     @Override
     public void onMessage(MessageEvent event)
@@ -39,7 +37,7 @@ public class MessageListener extends ListenerAdapter
             foxbot.getBot().kick(channel, user, "We don't use that language round 'ere.");
         }
 
-        Matcher matcher = patt.matcher(message);
+        Matcher matcher = PATTERN.matcher(message);
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()))
         {

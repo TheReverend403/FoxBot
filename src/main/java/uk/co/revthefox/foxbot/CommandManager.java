@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class CommandManager
 {
 
-    private static final Pattern argsSplit = Pattern.compile(" ");
+    private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
 
     private FoxBot foxbot;
 
@@ -34,7 +34,7 @@ public class CommandManager
 
     public boolean dispatchCommand(MessageEvent event, String commandLine)
     {
-        String[] split = argsSplit.split(commandLine);
+        String[] split = ARGS_SPLIT.split(commandLine);
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
