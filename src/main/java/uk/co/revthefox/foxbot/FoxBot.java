@@ -22,8 +22,6 @@ import java.util.List;
 public class FoxBot
 {
     private static PircBotX bot;
-    private static BotConfig config;
-    private static PermissionManager permissions;
     private static Utils utils;
     private static CommandManager commandManager;
     private static Database database;
@@ -31,6 +29,8 @@ public class FoxBot
 
     private Config configFile;
     private Config permissionsFile;
+    private BotConfig config;
+    private PermissionManager permissions;
 
     public static void main(String[] args)
     {
