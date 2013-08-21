@@ -34,10 +34,10 @@ public class BotConfig
     private Long messageDelay;
     private Boolean mungeUsernames;
 
-    public BotConfig(FoxBot foxBot)
+    public BotConfig(FoxBot foxbot)
     {
-        this.foxbot = foxBot;
-        botConfig = foxBot.getConfigFile();
+        this.foxbot = foxbot;
+        botConfig = foxbot.getConfigFile();
         loadConfig();
     }
 
@@ -71,6 +71,7 @@ public class BotConfig
     public void reload()
     {
         foxbot.loadConfigFiles();
+        botConfig = foxbot.getConfigFile();
         usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
         debug = botConfig.getBoolean("misc.debug");
         foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
