@@ -15,13 +15,7 @@ public class PermissionManager
 {
     private FoxBot foxbot;
 
-    private LoadingCache<User, String> authedUsers = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build(new CacheLoader<User, String>()
-    {
-        public String load(User user)
-        {
-            return user.getHostmask();
-        }
-    });
+    private List<User> authedUsers = new ArrayList<>();
 
     public PermissionManager(FoxBot foxbot)
     {
@@ -32,12 +26,12 @@ public class PermissionManager
     {
         String userName = user.getHostmask();
 
-        if (!authedUsers.asMap().containsKey(user) && user.isVerified())
+        if (!authedUsers.contains(user) && user.isVerified())
         {
-            authedUsers.asMap().put(user, userName);
+            authedUsers.add(user);
         }
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.asMap().containsKey(user))
+        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.contains(user))
         {
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
@@ -66,13 +60,5 @@ public class PermissionManager
             }
         }
         return false;
-    }
-
-    public void removeAuthedUser(User user)
-    {
-        if (authedUsers.asMap().containsKey(user))
-        {
-            authedUsers.asMap().remove(user);
-        }
     }
 }
