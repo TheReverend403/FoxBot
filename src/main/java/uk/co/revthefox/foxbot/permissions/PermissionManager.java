@@ -1,17 +1,27 @@
 package uk.co.revthefox.foxbot.permissions;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PermissionManager
 {
     private FoxBot foxbot;
 
-    private List<User> authedUsers = new ArrayList<>();
+    private LoadingCache<User, String> authedUsers = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build(new CacheLoader<User, String>()
+    {
+        public String load(User user)
+        {
+            return user.getNick();
+        }
+    });
 
     public PermissionManager(FoxBot foxbot)
     {
@@ -22,12 +32,12 @@ public class PermissionManager
     {
         String userName = user.getNick();
 
-        if (!authedUsers.contains(user) && user.isVerified())
+        if (!authedUsers.asMap().containsKey(user) && user.isVerified())
         {
-            authedUsers.add(user);
+            authedUsers.asMap().put(user, userName);
         }
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.contains(user))
+        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.asMap().containsKey(user))
         {
             foxbot.getBot().sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
@@ -60,9 +70,9 @@ public class PermissionManager
 
     public void removeAuthedUser(User user)
     {
-        if (authedUsers.contains(user))
+        if (authedUsers.asMap().containsKey(user))
         {
-            authedUsers.remove(user);
+            authedUsers.asMap().remove(user);
         }
     }
 }
