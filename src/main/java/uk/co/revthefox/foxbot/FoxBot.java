@@ -31,8 +31,6 @@ public class FoxBot
     private Database database;
     private Reflections reflections = new Reflections("uk.co.revthefox");
 
-    List<String> files = Lists.newArrayList("bot.conf", "permissions.conf");
-
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
@@ -41,7 +39,7 @@ public class FoxBot
 
     private void start(String[] args)
     {
-        for (String file : files)
+        for (String file : Lists.newArrayList("bot.conf", "permissions.conf"))
         {
             if (!new File(file).exists())
             {
