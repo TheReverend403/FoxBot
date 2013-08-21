@@ -21,7 +21,7 @@ public class CommandTell extends Command
         User sender = event.getUser();
         PircBotX bot = foxbot.getBot();
 
-        if (args.length > 2)
+        if (args.length > 1)
         {
             String nick = args[0];
 
