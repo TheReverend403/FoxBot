@@ -16,6 +16,6 @@ public class NickListener extends ListenerAdapter
     @Override
     public void onNickChange(NickChangeEvent event)
     {
-        foxbot.getPermissionManager().removeAuthedUser(event.getUser());
+        //foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 }

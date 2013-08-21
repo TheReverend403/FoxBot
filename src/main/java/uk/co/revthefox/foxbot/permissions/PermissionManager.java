@@ -19,7 +19,7 @@ public class PermissionManager
     {
         public String load(User user)
         {
-            return user.getNick();
+            return user.getHostmask();
         }
     });
 
