@@ -18,11 +18,9 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class FoxBot
 {
-
     private PircBotX bot;
     private Config configFile;
     private Config permissionsFile;
@@ -101,17 +99,13 @@ public class FoxBot
     {
         try
         {
-            if (!config.getServerSsl())
+            if (config.getServerSsl())
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
-            }
-            else if (config.getAcceptInvalidSsl())
-            {
-                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman());
+                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
             else
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), SSLSocketFactory.getDefault());
+                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
 
             if (config.useNickserv())

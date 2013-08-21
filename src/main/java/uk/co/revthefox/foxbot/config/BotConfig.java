@@ -66,7 +66,6 @@ public class BotConfig
         autoReconnect = botConfig.getBoolean("misc.autoReconnect");
         messageDelay = botConfig.getLong("misc.messageDelay");
         mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
-
     }
 
     public void reload()
