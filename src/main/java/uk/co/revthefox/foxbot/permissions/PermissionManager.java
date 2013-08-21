@@ -30,7 +30,7 @@ public class PermissionManager
 
     public Boolean userHasPermission(User user, String permission)
     {
-        String userName = user.getNick();
+        String userName = user.getHostmask();
 
         if (!authedUsers.asMap().containsKey(user) && user.isVerified())
         {
