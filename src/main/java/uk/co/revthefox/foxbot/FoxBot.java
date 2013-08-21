@@ -21,15 +21,15 @@ import java.util.List;
 
 public class FoxBot
 {
-    private PircBotX bot;
-    private Config configFile;
-    private Config permissionsFile;
-    private BotConfig config;
-    private PermissionManager permissions;
-    private Utils utils;
-    private CommandManager commandManager;
-    private Database database;
-    private Reflections reflections = new Reflections("uk.co.revthefox");
+    private static PircBotX bot;
+    private static Config configFile;
+    private static Config permissionsFile;
+    private static BotConfig config;
+    private static PermissionManager permissions;
+    private static Utils utils;
+    private static CommandManager commandManager;
+    private static Database database;
+    private static Reflections reflections = new Reflections("uk.co.revthefox");
 
     public static void main(String[] args)
     {
