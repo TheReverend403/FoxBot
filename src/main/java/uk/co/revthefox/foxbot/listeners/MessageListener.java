@@ -39,18 +39,13 @@ public class MessageListener extends ListenerAdapter
 
         Matcher matcher = PATTERN.matcher(message);
 
-        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()))
+        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()) && foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
         {
-            message = matcher.group(1);
+            message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
 
-            if (foxbot.getPermissionManager().userHasPermission(user, "chat.urls"))
+            if (!message.isEmpty())
             {
-                message = foxbot.getUtils().parseChatUrl(message, user);
-
-                if (!message.isEmpty())
-                {
-                    channel.sendMessage(message);
-                }
+                channel.sendMessage(message);
             }
         }
     }
