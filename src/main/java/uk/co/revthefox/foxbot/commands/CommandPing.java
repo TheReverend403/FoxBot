@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 public class CommandPing extends Command
 {
@@ -45,13 +46,19 @@ public class CommandPing extends Command
                 }
                 return;
             }
-            catch (MalformedURLException e1)
+            catch (MalformedURLException ex)
             {
                 bot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
+                ex.printStackTrace();
+            }
+            catch (UnknownHostException ex)
+            {
+                bot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
+                ex.printStackTrace();
             }
             catch (IOException ex)
             {
-                bot.sendNotice(sender, String.format("Something went wrong. Bad address? Timeout?"));
+                channel.sendMessage("Something went wrong...");
                 ex.printStackTrace();
             }
             return;
