@@ -43,6 +43,7 @@ public class CommandPing extends Command
                     channel.sendMessage(String.format("%sPing response time: %s%sms", Colors.GREEN, Colors.NORMAL, (endTime - startTime)));
                     return;
                 }
+                return;
             }
             catch (MalformedURLException e1)
             {
@@ -53,7 +54,8 @@ public class CommandPing extends Command
                 channel.sendMessage("Something went wrong...");
                 ex.printStackTrace();
             }
-            bot.sendNotice(sender, String.format("Wrong number of args! use %sping <address>", foxbot.getConfig().getCommandPrefix()));
+            return;
         }
+        bot.sendNotice(sender, String.format("Wrong number of args! use %sping <address>", foxbot.getConfig().getCommandPrefix()));
     }
 }
