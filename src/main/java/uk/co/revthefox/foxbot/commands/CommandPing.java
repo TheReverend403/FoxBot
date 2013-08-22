@@ -34,7 +34,7 @@ public class CommandPing extends Command
         {
             try
             {
-                URL url = new URL(args[0].startsWith("http://") ? args[0] : "http://" + args[0]);
+                URL url = new URL(args[0]);
                 HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
                 urlConn.setConnectTimeout(10000);
                 long startTime = System.currentTimeMillis();
@@ -50,16 +50,19 @@ public class CommandPing extends Command
             {
                 bot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
                 ex.printStackTrace();
+                return;
             }
             catch (UnknownHostException ex)
             {
                 bot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
                 ex.printStackTrace();
+                return;
             }
             catch (IOException ex)
             {
                 channel.sendMessage("Something went wrong...");
                 ex.printStackTrace();
+                return;
             }
             return;
         }
