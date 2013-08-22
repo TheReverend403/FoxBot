@@ -10,14 +10,13 @@ import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.database.Database;
-import uk.co.revthefox.foxbot.listeners.InviteListener;
+import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.util.List;
 
 public class FoxBot
 {
@@ -126,7 +125,7 @@ public class FoxBot
     private void registerListeners()
     {
         bot.getListenerManager().addListener(new MessageListener(this));
-        bot.getListenerManager().addListener(new InviteListener(this));
+        bot.getListenerManager().addListener(new UserListener(this));
     }
 
     private void registerCommands()

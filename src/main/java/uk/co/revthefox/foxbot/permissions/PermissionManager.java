@@ -57,4 +57,12 @@ public class PermissionManager
         }
         return false;
     }
+
+    public void removeAuthedUser(User user)
+    {
+        if (authedUsers.contains(user))
+        {
+            authedUsers.remove(user);
+        }
+    }
 }

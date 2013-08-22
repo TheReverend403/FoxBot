@@ -2,17 +2,22 @@ package uk.co.revthefox.foxbot.listeners;
 
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.InviteEvent;
-import org.pircbotx.hooks.events.NickChangeEvent;
+import org.pircbotx.hooks.events.*;
 import uk.co.revthefox.foxbot.FoxBot;
 
-public class InviteListener extends ListenerAdapter
+public class UserListener extends ListenerAdapter
 {
     private FoxBot foxbot;
 
-    public InviteListener(FoxBot foxbot)
+    public UserListener(FoxBot foxbot)
     {
         this.foxbot = foxbot;
+    }
+
+    @Override
+    public void onQuit(QuitEvent event)
+    {
+        foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
     @Override
@@ -23,7 +28,7 @@ public class InviteListener extends ListenerAdapter
         if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(bot.getUser(event.getUser()), "bot.invite"))
         {
             bot.joinChannel(event.getChannel());
-            bot.sendNotice(bot.getUser(event.getUser()), String.format("Joined %s", event.getChannel()));
+            bot.sendNotice(event.getUser(), String.format("Joined %s", event.getChannel()));
         }
     }
 }
