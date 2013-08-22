@@ -6,12 +6,14 @@ import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
+import uk.co.revthefox.foxbot.logger.Logger;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -27,6 +29,7 @@ public class FoxBot
     private static CommandManager commandManager;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
+    private static BackgroundListenerManager backgroundListenerManager = new BackgroundListenerManager();
 
     private Config configFile;
     private Config permissionsFile;
@@ -124,6 +127,7 @@ public class FoxBot
 
     private void registerListeners()
     {
+        backgroundListenerManager.addListener(new Logger(this), true);
         bot.getListenerManager().addListener(new MessageListener(this));
         bot.getListenerManager().addListener(new UserListener(this));
     }
