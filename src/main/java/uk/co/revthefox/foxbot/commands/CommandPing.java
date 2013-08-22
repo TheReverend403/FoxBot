@@ -51,7 +51,7 @@ public class CommandPing extends Command
             }
             catch (IOException ex)
             {
-                channel.sendMessage("Something went wrong...");
+                bot.sendNotice(sender, String.format("Something went wrong. Bad address? Timeout?"));
                 ex.printStackTrace();
             }
             return;
