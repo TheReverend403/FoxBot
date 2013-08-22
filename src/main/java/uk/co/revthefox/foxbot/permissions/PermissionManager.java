@@ -35,10 +35,6 @@ public class PermissionManager
 
         try
         {
-            for (String perm : foxbot.getPermissionsFile().getStringList("permissions." + "\"" + foxbot.getBot().getUser("Alphabot").getHostmask() + "\""))
-            {
-                foxbot.getBot().sendMessage("#thereverend403", perm);
-            }
             if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains("-" + permission))
             {
                 return false;
