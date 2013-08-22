@@ -36,15 +36,15 @@ public class CommandPing extends Command
             {
                 URL url = new URL(args[0].startsWith("http://") ? args[0] : "http://" + args[0]);
                 HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-                urlConn.setConnectTimeout(1000 * 10);
+                urlConn.setConnectTimeout(10000);
                 long startTime = System.currentTimeMillis();
                 urlConn.connect();
                 long endTime = System.currentTimeMillis();
-                if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
+                {
                     channel.sendMessage(String.format("%sPing response time: %s%sms", Colors.GREEN, Colors.NORMAL, (endTime - startTime)));
                     return;
                 }
-                return;
             }
             catch (MalformedURLException ex)
             {
