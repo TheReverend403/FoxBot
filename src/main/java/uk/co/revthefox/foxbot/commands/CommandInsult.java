@@ -1,15 +1,12 @@
 package uk.co.revthefox.foxbot.commands;
 
 import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.Response;
 import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.io.IOException;
-import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +19,8 @@ public class CommandInsult extends Command
         super("insult", "command.insult");
         this.foxbot = foxbot;
     }
+
+    private static final Pattern TITLE_PATTERN = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
 
     @Override
     public void execute(MessageEvent event, String[] args)
@@ -47,9 +46,7 @@ public class CommandInsult extends Command
                 return;
             }
 
-            Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
-
-            matcher = titlePattern.matcher(insult);
+            matcher = TITLE_PATTERN.matcher(insult);
 
             while (matcher.find())
             {
