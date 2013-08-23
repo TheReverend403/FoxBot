@@ -43,7 +43,7 @@ public class PermissionManager
             {
                 return true;
             }
-            if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + hostMask).contains("permissions.*"))
+            if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains("permissions.*"))
             {
                 return true;
             }
