@@ -52,6 +52,7 @@ public class PermissionManager
         {
             if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
             {
+                ex.printStackTrace();
                 return true;
             }
         }
