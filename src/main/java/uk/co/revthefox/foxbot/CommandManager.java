@@ -13,8 +13,8 @@ public class CommandManager
 {
     private FoxBot foxbot;
 
-    private final Map<String, Command> commandMap = new HashMap<>();
     private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
+    private final Map<String, Command> commandMap = new HashMap<>();
 
     public CommandManager(FoxBot foxbot)
     {
