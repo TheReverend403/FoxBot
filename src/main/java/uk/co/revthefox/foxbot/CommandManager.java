@@ -11,12 +11,10 @@ import java.util.regex.Pattern;
 
 public class CommandManager
 {
-
-    private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
-
     private FoxBot foxbot;
 
     private final Map<String, Command> commandMap = new HashMap<>();
+    private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
 
     public CommandManager(FoxBot foxbot)
     {
