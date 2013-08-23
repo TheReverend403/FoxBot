@@ -33,6 +33,11 @@ public class PermissionManager
             return false;
         }
 
+        for (String perm : foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\""))
+        {
+            foxbot.getBot().getChannel("#thereverend403").sendMessage(foxbot.getUtils().munge(user.getNick()) + perm);
+        }
+
         try
         {
             if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains("-" + permission))
