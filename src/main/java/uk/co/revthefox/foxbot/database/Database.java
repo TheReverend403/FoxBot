@@ -101,7 +101,7 @@ public class Database
 
         try
         {
-            statement = connection.prepareStatement("SELECT * FROM tells WHERE receiver = ?, used = false");
+            statement = connection.prepareStatement("SELECT * FROM tells WHERE receiver = ? AND used = false");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             ResultSet rs = statement.executeQuery();
