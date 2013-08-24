@@ -94,14 +94,14 @@ public class Database
         }
     }
 
-    public List<String> getTells(String user, Boolean used)
+    public List<String> getTells(String user, Boolean showAll)
     {
         List<String> tells = new ArrayList<>();
         PreparedStatement statement = null;
 
         try
         {
-            statement = connection.prepareStatement(used ? "SELECT * FROM tells WHERE receiver = ? AND used = 0" : "SELECT * FROM tells WHERE receiver = ?");
+            statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ? AND used = 0" : "SELECT * FROM tells WHERE receiver = ?");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             ResultSet rs = statement.executeQuery();
@@ -111,18 +111,15 @@ public class Database
                 tells.add(String.format("%sMessage from: %s%s %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
             }
 
-            if (used)
-            {
-                statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
-                statement.setString(1, user);
-                statement.executeUpdate();
-            }
+            statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
+            statement.setString(1, user);
+            statement.executeUpdate();
+
         }
         catch (SQLException ex)
         {
             ex.printStackTrace();
         }
-
         finally
         {
             try
