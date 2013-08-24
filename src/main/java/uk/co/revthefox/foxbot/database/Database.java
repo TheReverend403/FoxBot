@@ -39,7 +39,7 @@ public class Database
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (sender string, receiver string, text string, used boolean)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (sender string, receiver string, message string, used boolean)");
         }
         catch(SQLException | ClassNotFoundException ex)
         {
@@ -67,7 +67,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, text, used) VALUES (?,?,?, 'false');");
+            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, message, used) VALUES (?,?,?, 'false');");
             statement.setString(1, sender);
             statement.setString(2, receiver);
             statement.setString(3, message);
@@ -101,7 +101,7 @@ public class Database
 
         try
         {
-            statement = connection.prepareStatement("SELECT * FROM tells WHERE receiver = ?");
+            statement = connection.prepareStatement("SELECT * FROM tells WHERE receiver = ?, used = false");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             ResultSet rs = statement.executeQuery();
