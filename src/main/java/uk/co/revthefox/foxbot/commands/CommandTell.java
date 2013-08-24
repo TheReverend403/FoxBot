@@ -36,6 +36,7 @@ public class CommandTell extends Command
                 return;
             }
             bot.sendNotice(sender, "No messages for you :<");
+            return;
         }
 
         if (args.length > 1)
