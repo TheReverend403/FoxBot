@@ -32,7 +32,7 @@ public class CommandKill extends Command
         {
             bot.partChannel(botChannel, "Killed by " + sender.getNick());
         }
-        bot.disconnect();
         foxbot.getDatabase().disconnect();
+        bot.disconnect();
     }
 }

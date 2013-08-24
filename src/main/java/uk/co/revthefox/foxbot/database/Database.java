@@ -66,6 +66,7 @@ public class Database
     public void addTell(String sender, String receiver, String message)
     {
         PreparedStatement statement = null;
+
         try
         {
             connection.setAutoCommit(false);
