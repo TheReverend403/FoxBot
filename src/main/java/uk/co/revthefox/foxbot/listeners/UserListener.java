@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.listeners;
 
+import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
@@ -39,8 +40,18 @@ public class UserListener extends ListenerAdapter
     public void onNickChange(NickChangeEvent event)
     {
         User user = event.getUser();
+        String newNick = event.getNewNick();
         PircBotX bot = foxbot.getBot();
         List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
+
+        if (foxbot.getPermissionManager().isNickProtected(newNick))
+        {
+            for (Channel channel : bot.getChannels())
+            {
+                bot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+            }
+            return;
+        }
 
         if (!tells.isEmpty())
         {
@@ -55,8 +66,18 @@ public class UserListener extends ListenerAdapter
     public void onJoin(JoinEvent event)
     {
         User user = event.getUser();
+        String nick = user.getNick();
         PircBotX bot = foxbot.getBot();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
+        List<String> tells = foxbot.getDatabase().getTells(nick, false);
+
+        if (foxbot.getPermissionManager().isNickProtected(nick))
+        {
+            for (Channel channel : bot.getChannels())
+            {
+                bot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+            }
+            return;
+        }
 
         if (!tells.isEmpty())
         {

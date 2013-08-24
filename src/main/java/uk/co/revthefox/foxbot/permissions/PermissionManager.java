@@ -58,6 +58,11 @@ public class PermissionManager
         return false;
     }
 
+    public Boolean isNickProtected(String nick)
+    {
+        return foxbot.getNickProtectionFile().hasPath("protection." + nick) && !foxbot.getBot().getUser(nick).getHostmask().equals(foxbot.getNickProtectionFile().getString("protection." + nick + ".hostmask"));
+    }
+
     public void removeAuthedUser(User user)
     {
         if (authedUsers.contains(user))
