@@ -5,7 +5,9 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 import java.io.File;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Database
@@ -39,7 +41,7 @@ public class Database
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (sender STRING, receiver STRING, message STRING, used TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
         }
         catch(SQLException | ClassNotFoundException ex)
         {
@@ -67,10 +69,11 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, message, used) VALUES (?,?,?, 0);");
-            statement.setString(1, sender);
-            statement.setString(2, receiver);
-            statement.setString(3, message);
+            statement = connection.prepareStatement("INSERT INTO tells (time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
+            statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTime()));
+            statement.setString(2, sender);
+            statement.setString(3, receiver);
+            statement.setString(4, message);
             statement.executeUpdate();
             connection.commit();
         }
@@ -108,7 +111,7 @@ public class Database
 
             while(rs.next())
             {
-                tells.add(String.format("%sMessage from: %s%s %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
+                tells.add(String.format("%s %sMessage from: %s%s %sMessage: %s%s",rs.getString("time"), Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
             }
 
             statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
