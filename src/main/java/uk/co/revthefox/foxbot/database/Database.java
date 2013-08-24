@@ -41,7 +41,7 @@ public class Database
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (id MEDIUMINT NOT NULL AUTO_INCREMENT, time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
         }
         catch(SQLException | ClassNotFoundException ex)
         {
@@ -138,6 +138,37 @@ public class Database
             }
         }
         return tells;
+    }
+
+    public void cleanTells(String user)
+    {
+        PreparedStatement statement = null;
+
+        try
+        {
+            statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
+            statement.setString(1, user);
+            connection.setAutoCommit(true);
+            statement.executeQuery();
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if (statement != null)
+                {
+                    statement.close();
+                }
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void disconnect()

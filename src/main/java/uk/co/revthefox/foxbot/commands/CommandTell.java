@@ -23,20 +23,30 @@ public class CommandTell extends Command
         User sender = event.getUser();
         PircBotX bot = foxbot.getBot();
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("list"))
+        if (args.length == 1)
         {
-            List<String> tells = foxbot.getDatabase().getTells(sender.getNick(), true);
-
-            if (!tells.isEmpty())
+            if (args[0].equalsIgnoreCase("list"))
             {
-                for (String tell : tells)
+                List<String> tells = foxbot.getDatabase().getTells(sender.getNick(), true);
+
+                if (!tells.isEmpty())
                 {
-                    bot.sendNotice(sender, tell);
+                    for (String tell : tells)
+                    {
+                        bot.sendNotice(sender, tell);
+                    }
+                    return;
                 }
+                bot.sendNotice(sender, "No messages for you :<");
                 return;
             }
-            bot.sendNotice(sender, "No messages for you :<");
-            return;
+
+            if (args[0].equalsIgnoreCase("clean"))
+            {
+                foxbot.getDatabase().cleanTells(sender.getNick());
+                bot.sendNotice(sender, "Deleted all of your read messages.");
+                return;
+            }
         }
 
         if (args.length > 1)
