@@ -108,8 +108,13 @@ public class Database
 
             while(rs.next())
             {
-                tells.add(String.format("%sMessage from: %s%s | %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
+                tells.add(String.format("%sMessage from: %s%s %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
             }
+
+            statement = connection.prepareStatement("UPDATE tells SET used = 'true' WHERE receiver = ? AND used = 'false'");
+            statement.setString(1, user);
+            statement.executeUpdate();
+            connection.setAutoCommit(true);
         }
         catch (SQLException ex)
         {
