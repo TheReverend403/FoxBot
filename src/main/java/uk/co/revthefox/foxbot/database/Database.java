@@ -41,7 +41,7 @@ public class Database
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (id MEDIUMINT NOT NULL AUTOINCREMENT, time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
         }
         catch(SQLException | ClassNotFoundException ex)
         {
