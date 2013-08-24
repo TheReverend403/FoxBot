@@ -67,7 +67,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, message, used) VALUES (?,?,?, '0');");
+            statement = connection.prepareStatement("INSERT INTO tells (sender, receiver, message, used) VALUES (?,?,?, 0);");
             statement.setString(1, sender);
             statement.setString(2, receiver);
             statement.setString(3, message);
@@ -101,7 +101,7 @@ public class Database
 
         try
         {
-            statement = connection.prepareStatement(used ? "SELECT * FROM tells WHERE receiver = ? AND used = '0'" : "SELECT * FROM tells WHERE receiver = ?");
+            statement = connection.prepareStatement(used ? "SELECT * FROM tells WHERE receiver = ? AND used = 0" : "SELECT * FROM tells WHERE receiver = ?");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             ResultSet rs = statement.executeQuery();
@@ -113,7 +113,7 @@ public class Database
 
             if (used)
             {
-                statement = connection.prepareStatement("UPDATE tells SET used = '1' WHERE receiver = ? AND used = '0'");
+                statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
                 statement.setString(1, user);
                 statement.executeUpdate();
             }
