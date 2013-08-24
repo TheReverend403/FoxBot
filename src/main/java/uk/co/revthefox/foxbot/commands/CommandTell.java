@@ -23,7 +23,7 @@ public class CommandTell extends Command
 
         if (args.length == 1 && args[0].equalsIgnoreCase("list"))
         {
-            for (String tell : foxbot.getDatabase().getTells(sender.getNick()))
+            for (String tell : foxbot.getDatabase().getTells(sender.getNick(), false))
             {
                 bot.sendNotice(sender, tell);
             }

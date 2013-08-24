@@ -40,13 +40,13 @@ public class UserListener extends ListenerAdapter
     {
         User user = event.getUser();
         PircBotX bot = foxbot.getBot();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick());
+        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), true);
 
         if (!tells.isEmpty())
         {
             for (String tell : tells)
             {
-                bot.sendNotice(user, tell);
+                bot.sendMessage(user, tell);
             }
         }
     }
@@ -56,13 +56,13 @@ public class UserListener extends ListenerAdapter
     {
         User user = event.getUser();
         PircBotX bot = foxbot.getBot();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick());
+        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), true);
 
         if (!tells.isEmpty())
         {
             for (String tell : tells)
             {
-                bot.sendNotice(user, tell);
+                bot.sendMessage(user, tell);
             }
         }
     }

@@ -94,7 +94,7 @@ public class Database
         }
     }
 
-    public List<String> getTells(String user)
+    public List<String> getTells(String user, Boolean used)
     {
         List<String> tells = new ArrayList<>();
         PreparedStatement statement = null;
@@ -111,10 +111,12 @@ public class Database
                 tells.add(String.format("%sMessage from: %s%s %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
             }
 
-            statement = connection.prepareStatement("UPDATE tells SET used = 'true' WHERE receiver = ? AND used = 'false'");
-            statement.setString(1, user);
-            statement.executeUpdate();
-            connection.setAutoCommit(true);
+            if (used)
+            {
+                statement = connection.prepareStatement("UPDATE tells SET used = 'true' WHERE receiver = ? AND used = 'false'");
+                statement.setString(1, user);
+                statement.executeUpdate();
+            }
         }
         catch (SQLException ex)
         {
