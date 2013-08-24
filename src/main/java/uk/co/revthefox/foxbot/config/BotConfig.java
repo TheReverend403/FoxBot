@@ -25,6 +25,7 @@ public class BotConfig
     private Boolean useNickserv;
     private String nickservPassword;
     private Boolean usersMustBeVerified;
+    private Boolean matchUsersByHostmask;
 
     private Boolean debug;
     private String commandPrefix;
@@ -58,6 +59,7 @@ public class BotConfig
         useNickserv = botConfig.getBoolean("auth.useNickserv");
         nickservPassword = botConfig.getString("auth.nickservPassword");
         usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
+        matchUsersByHostmask = botConfig.getBoolean("auth.matchUsersByHostmask");
 
         debug = botConfig.getBoolean("misc.debug");
         commandPrefix = botConfig.getString("misc.commandPrefix");
@@ -73,6 +75,7 @@ public class BotConfig
         foxbot.loadConfigFiles();
         botConfig = foxbot.getConfigFile();
         usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
+        matchUsersByHostmask = botConfig.getBoolean("auth.matchUsersByHostmask");
         debug = botConfig.getBoolean("misc.debug");
         foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
         commandPrefix = botConfig.getString("misc.commandPrefix");
@@ -140,6 +143,10 @@ public class BotConfig
     public Boolean getUsersMustBeVerified()
     {
         return usersMustBeVerified;
+    }
+    public Boolean getMatchUsersByHostmask()
+    {
+        return matchUsersByHostmask;
     }
 
     public Boolean getDebug()

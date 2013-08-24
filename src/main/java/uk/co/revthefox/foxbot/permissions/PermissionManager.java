@@ -20,7 +20,7 @@ public class PermissionManager
 
     public Boolean userHasPermission(User user, String permission)
     {
-        String hostMask = user.getHostmask();
+        String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
@@ -35,7 +35,7 @@ public class PermissionManager
 
         try
         {
-            if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains("-" + permission))
+            if (foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("-" + permission))
             {
                 return false;
             }
@@ -43,7 +43,7 @@ public class PermissionManager
             {
                 return true;
             }
-            if (foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + "\"" + hostMask + "\"").contains("permissions.*"))
+            if (foxbot.getPermissionsFile().getStringList("permissions." + authType).contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("permissions.*"))
             {
                 return true;
             }
