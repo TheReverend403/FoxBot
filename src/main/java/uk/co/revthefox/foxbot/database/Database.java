@@ -1,9 +1,12 @@
 package uk.co.revthefox.foxbot.database;
 
+import org.pircbotx.Colors;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database
 {
@@ -89,6 +92,44 @@ public class Database
                 ex.printStackTrace();
             }
         }
+    }
+
+    public List<String> getTells(String user)
+    {
+        List<String> tells = new ArrayList<>();
+        PreparedStatement statement = null;
+
+        try
+        {
+            statement = connection.prepareStatement("SELECT * FROM tells WHERE receiver = ?");
+            statement.setString(1, user);
+            connection.setAutoCommit(true);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next())
+            {
+                tells.add(String.format("%sMessage from: %s%s | %sMessage: %s%s", Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if (statement != null)
+                {
+                    statement.close();
+                }
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+        return tells;
     }
 
     public void disconnect()

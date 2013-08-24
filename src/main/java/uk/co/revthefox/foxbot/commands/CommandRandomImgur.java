@@ -54,7 +54,6 @@ public class CommandRandomImgur extends Command
     private String generateLink()
     {
         Response response;
-
         String imgurLink = new Random().nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
 
         try

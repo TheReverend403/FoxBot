@@ -146,6 +146,7 @@ public class FoxBot
         }
         catch (Exception ex)
         {
+            // This can never happen.
             ex.printStackTrace();
         }
     }
