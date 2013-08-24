@@ -5,6 +5,8 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.List;
+
 public class CommandTell extends Command
 {
     private FoxBot foxbot;
@@ -23,11 +25,17 @@ public class CommandTell extends Command
 
         if (args.length == 1 && args[0].equalsIgnoreCase("list"))
         {
-            for (String tell : foxbot.getDatabase().getTells(sender.getNick(), false))
+            List<String> tells = foxbot.getDatabase().getTells(sender.getNick(), false);
+
+            if (!tells.isEmpty())
             {
-                bot.sendNotice(sender, tell);
+                for (String tell : tells)
+                {
+                    bot.sendNotice(sender, tell);
+                }
+                return;
             }
-            return;
+            bot.sendNotice(sender, "No messages for you :<");
         }
 
         if (args.length > 1)
