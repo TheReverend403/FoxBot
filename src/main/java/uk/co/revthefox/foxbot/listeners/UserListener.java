@@ -40,7 +40,7 @@ public class UserListener extends ListenerAdapter
     {
         User user = event.getUser();
         PircBotX bot = foxbot.getBot();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), true);
+        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
 
         if (!tells.isEmpty())
         {
@@ -56,7 +56,7 @@ public class UserListener extends ListenerAdapter
     {
         User user = event.getUser();
         PircBotX bot = foxbot.getBot();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), true);
+        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
 
         if (!tells.isEmpty())
         {

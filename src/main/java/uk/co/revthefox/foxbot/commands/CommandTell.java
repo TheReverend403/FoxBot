@@ -25,7 +25,7 @@ public class CommandTell extends Command
 
         if (args.length == 1 && args[0].equalsIgnoreCase("list"))
         {
-            List<String> tells = foxbot.getDatabase().getTells(sender.getNick(), false);
+            List<String> tells = foxbot.getDatabase().getTells(sender.getNick(), true);
 
             if (!tells.isEmpty())
             {
