@@ -146,7 +146,7 @@ public class Database
 
         try
         {
-            statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
+            statement = connection.prepareStatement("DELETE * FROM tells WHERE receiver = ? AND used = 1");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             statement.executeQuery();
