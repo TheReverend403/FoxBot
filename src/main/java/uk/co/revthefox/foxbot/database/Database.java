@@ -120,6 +120,7 @@ public class Database
         {
             ex.printStackTrace();
         }
+
         finally
         {
             try
