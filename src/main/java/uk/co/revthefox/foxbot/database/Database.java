@@ -101,7 +101,7 @@ public class Database
 
         try
         {
-            statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ? AND used = 0" : "SELECT * FROM tells WHERE receiver = ?");
+            statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
             statement.setString(1, user);
             connection.setAutoCommit(true);
             ResultSet rs = statement.executeQuery();
@@ -114,7 +114,6 @@ public class Database
             statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
             statement.setString(1, user);
             statement.executeUpdate();
-
         }
         catch (SQLException ex)
         {
