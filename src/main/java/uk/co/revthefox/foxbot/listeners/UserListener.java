@@ -90,7 +90,7 @@ public class UserListener extends ListenerAdapter
             return;
         }
 
-        if (!foxbot.getConfig().getGreetingChannels().isEmpty() && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
+        if (!nick.equals(bot.getNick()) && !foxbot.getConfig().getGreetingChannels().isEmpty() && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
