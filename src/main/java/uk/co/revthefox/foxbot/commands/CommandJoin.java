@@ -23,20 +23,20 @@ public class CommandJoin extends Command
 
         if (args.length != 0)
         {
-            for (int arg = 0; arg < args.length; arg++)
+            for (String chan : args)
             {
-                if (args[arg].startsWith("#"))
+                if (chan.startsWith("#"))
                 {
-                    if (!bot.getChannel(args[arg]).isInviteOnly())
+                    if (!bot.getChannel(chan).isInviteOnly())
                     {
-                        bot.joinChannel(args[arg]);
-                        bot.sendNotice(sender, String.format("Joined %s", args[arg]));
+                        bot.joinChannel(chan);
+                        bot.sendNotice(sender, String.format("Joined %s", chan));
                         continue;
                     }
-                    bot.sendNotice(sender, String.format("%s is invite only!", args[arg]));
+                    bot.sendNotice(sender, String.format("%s is invite only!", chan));
                     continue;
                 }
-                bot.sendNotice(sender, String.format("%s is not a channel...", args[arg]));
+                bot.sendNotice(sender, String.format("%s is not a channel...", chan));
             }
             return;
         }
