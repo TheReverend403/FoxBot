@@ -81,7 +81,7 @@ public class UserListener extends ListenerAdapter
             {
                 if (!channel.getOps().contains(bot.getUser(bot.getNick())))
                 {
-                    bot.partChannel(channel, String.format("'%s' is on my protected nick list. I was not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+                    bot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                     continue;
                 }
                 bot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
