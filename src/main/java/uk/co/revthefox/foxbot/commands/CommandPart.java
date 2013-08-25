@@ -30,7 +30,7 @@ public class CommandPart extends Command
                 if (chan.startsWith("#"))
                 {
                     bot.partChannel(bot.getChannel(chan), String.format("Part command used by %s", sender.getNick()));
-                    bot.sendNotice(sender, String.format("Leaving %s", chan));
+                    bot.sendNotice(sender, String.format("Left %s", chan));
                     continue;
                 }
                 bot.sendNotice(sender, String.format("%s is not a channel...", chan));
@@ -38,6 +38,6 @@ public class CommandPart extends Command
             return;
         }
         bot.partChannel(channel);
-        bot.sendNotice(sender, String.format("Leaving %s", channel.getName()));
+        bot.sendNotice(sender, String.format("Left %s", channel.getName()));
     }
 }
