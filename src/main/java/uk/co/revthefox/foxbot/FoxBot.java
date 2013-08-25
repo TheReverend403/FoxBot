@@ -140,7 +140,7 @@ public class FoxBot
             for (Class clazz : reflections.getSubTypesOf(Command.class))
             {
                 ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
-                Constructor clazzConstructor = clazz.getConstructor(FoxBot.class);
+                Constructor clazzConstructor = clazz.getConstructor(this.getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
                 this.getCommandManager().registerCommand(command);
             }

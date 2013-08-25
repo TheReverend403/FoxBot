@@ -59,6 +59,7 @@ public class CommandTell extends Command
             {
                 message.append(" ").append(args[arg]);
             }
+
             foxbot.getDatabase().addTell(sender.getNick(), nick, message.toString());
             bot.sendNotice(sender, String.format("Tell added for %s", nick));
             return;
