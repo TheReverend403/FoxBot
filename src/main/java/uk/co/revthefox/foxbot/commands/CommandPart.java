@@ -25,15 +25,15 @@ public class CommandPart extends Command
 
         if (args.length != 0)
         {
-            for (int arg = 0; arg < args.length; arg++)
+            for (String chan : args)
             {
-                if (args[arg].startsWith("#"))
+                if (chan.startsWith("#"))
                 {
-                    bot.partChannel(bot.getChannel(args[arg]), String.format("Part command used by %s", sender.getNick()));
-                    bot.sendNotice(sender, String.format("Leaving %s", args[arg]));
+                    bot.partChannel(bot.getChannel(chan), String.format("Part command used by %s", sender.getNick()));
+                    bot.sendNotice(sender, String.format("Leaving %s", chan));
                     continue;
                 }
-                bot.sendNotice(sender, String.format("%s is not a channel...", args[arg]));
+                bot.sendNotice(sender, String.format("%s is not a channel...", chan));
             }
             return;
         }
