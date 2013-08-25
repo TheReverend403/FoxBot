@@ -23,56 +23,54 @@ public class CommandSay extends Command
         Channel channel = event.getChannel();
         PircBotX bot = foxbot.getBot();
 
-        if (args.length == 0 || (args[0].startsWith("#") && args.length == 1))
+        if (args.length > 0 && !(args[0].startsWith("#") && args.length == 1))
         {
-            bot.sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
-            return;
-        }
+            StringBuilder message;
 
-        StringBuilder message;
+            if (args[0].startsWith("#"))
+            {
+                message = new StringBuilder(args[1]);
 
-        if (args[0].startsWith("#"))
-        {
-            message = new StringBuilder(args[1]);
+                for (int arg = 2; arg < args.length; arg++)
+                {
+                    if (!args[arg].equalsIgnoreCase("-s"))
+                    {
+                        message.append(" ").append(args[arg]);
+                    }
+                }
 
-            for (int arg = 2; arg < args.length; arg++)
+                if (bot.getChannel(args[0]).isInviteOnly())
+                {
+                    bot.sendNotice(sender, String.format("%s is invite only!", args[0]));
+                    return;
+                }
+
+                bot.joinChannel(args[0]);
+
+                if (!args[args.length - 1].equalsIgnoreCase("-s"))
+                {
+                    bot.sendMessage(args[0], message.toString());
+                    bot.partChannel(bot.getChannel(args[0]));
+                    bot.sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
+                    return;
+                }
+
+                bot.sendMessage(args[0], message.toString());
+                bot.sendNotice(sender, String.format("Message sent to %s", args[0]));
+                return;
+            }
+
+            message = new StringBuilder(args[0]);
+
+            for (int arg = 1; arg < args.length; arg++)
             {
                 if (!args[arg].equalsIgnoreCase("-s"))
                 {
                     message.append(" ").append(args[arg]);
                 }
             }
-
-            if (bot.getChannel(args[0]).isInviteOnly())
-            {
-                bot.sendNotice(sender, String.format("%s is invite only!", args[0]));
-                return;
-            }
-
-            bot.joinChannel(args[0]);
-
-            if (!args[args.length - 1].equalsIgnoreCase("-s"))
-            {
-                bot.sendMessage(args[0], message.toString());
-                bot.partChannel(bot.getChannel(args[0]));
-                bot.sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
-                return;
-            }
-
-            bot.sendMessage(args[0], message.toString());
-            bot.sendNotice(sender, String.format("Message sent to %s", args[0]));
-            return;
+            channel.sendMessage(message.toString());
         }
-
-        message = new StringBuilder(args[0]);
-
-        for (int arg = 1; arg < args.length; arg++)
-        {
-            if (!args[arg].equalsIgnoreCase("-s"))
-            {
-                message.append(" ").append(args[arg]);
-            }
-        }
-        channel.sendMessage(message.toString());
+        bot.sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }
