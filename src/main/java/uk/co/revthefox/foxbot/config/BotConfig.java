@@ -34,6 +34,9 @@ public class BotConfig
     private Boolean autoReconnect;
     private Long messageDelay;
     private Boolean mungeUsernames;
+    private List<String> greetingChannels;
+    private String greetingMessage;
+    private Boolean greetingNotice;
 
     public BotConfig(FoxBot foxbot)
     {
@@ -68,6 +71,9 @@ public class BotConfig
         autoReconnect = botConfig.getBoolean("misc.autoReconnect");
         messageDelay = botConfig.getLong("misc.messageDelay");
         mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
+        greetingChannels = botConfig.getStringList("misc.channelsToGreet");
+        greetingMessage = botConfig.getString("misc.greetingMessage");
+        greetingNotice = botConfig.getBoolean("misc.sendGreetingAsNotice");
     }
 
     public void reload()
@@ -83,6 +89,9 @@ public class BotConfig
         messageDelay = botConfig.getLong("misc.messageDelay");
         foxbot.getBot().setMessageDelay(botConfig.getLong("misc.messageDelay"));
         mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
+        greetingChannels = botConfig.getStringList("misc.channelsToGreet");
+        greetingMessage = botConfig.getString("misc.greetingMessage");
+        greetingNotice = botConfig.getBoolean("misc.sendGreetingAsNotice");
     }
 
     public String getBotNick()
@@ -182,5 +191,20 @@ public class BotConfig
     public Boolean getMungeUsernames()
     {
         return mungeUsernames;
+    }
+
+    public List<String> getGreetingChannels()
+    {
+        return greetingChannels;
+    }
+
+    public String getGreetingMessage()
+    {
+        return greetingMessage;
+    }
+
+    public Boolean getGreetingNotice()
+    {
+        return greetingNotice;
     }
 }

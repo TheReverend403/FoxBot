@@ -72,21 +72,34 @@ public class UserListener extends ListenerAdapter
     {
         User user = event.getUser();
         String nick = user.getNick();
+        Channel channel = event.getChannel();
         PircBotX bot = foxbot.getBot();
         List<String> tells = foxbot.getDatabase().getTells(nick, false);
 
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
-            for (Channel channel : bot.getChannels())
+            for (Channel chan : bot.getChannels())
             {
-                if (!channel.getOps().contains(bot.getUser(bot.getNick())))
+                if (!chan.getOps().contains(bot.getUser(bot.getNick())))
                 {
-                    bot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+                    bot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                     continue;
                 }
-                bot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+                bot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
             }
             return;
+        }
+
+        if (!foxbot.getConfig().getGreetingChannels().isEmpty() && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
+        {
+            if (foxbot.getConfig().getGreetingNotice())
+            {
+                bot.sendNotice(user, foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size())));
+            }
+            else
+            {
+                channel.sendMessage(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size())));
+            }
         }
 
         if (!tells.isEmpty())
