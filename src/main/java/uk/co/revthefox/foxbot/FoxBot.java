@@ -20,6 +20,13 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 
+/**
+* FoxBot - An IRC bot written in Java
+* @author TheReverend403 (Lee Watson)
+* @website http://revthefox.co.uk
+* @repo https://github.com/TheReverend403/FoxBot
+*/
+
 public class FoxBot
 {
     private static PircBotX bot;
@@ -34,13 +41,6 @@ public class FoxBot
     private Config configFile;
     private Config permissionsFile;
     private Config nickProtectionFile;
-
-
-    /**
-     * @author TheReverend403 (Lee Watson)
-     * @website http://revthefox.co.uk
-     * @repo https://github.com/TheReverend403/FoxBot
-     */
 
     public static void main(String[] args)
     {
