@@ -35,6 +35,13 @@ public class FoxBot
     private Config permissionsFile;
     private Config nickProtectionFile;
 
+
+    /**
+     * @author TheReverend403 (Lee Watson)
+     * @website http://revthefox.co.uk
+     * @repo https://github.com/TheReverend403/FoxBot
+     */
+
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
