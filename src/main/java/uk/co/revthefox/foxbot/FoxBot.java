@@ -20,7 +20,7 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 
-public class FoxBot extends PircBotX
+public class FoxBot
 {
     private static PircBotX bot;
     private static BotConfig config;
