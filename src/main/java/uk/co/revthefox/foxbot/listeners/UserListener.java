@@ -90,7 +90,7 @@ public class UserListener extends ListenerAdapter
             return;
         }
 
-        if (!nick.equals(bot.getNick())  && !foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
+        if (!nick.equals(bot.getNick())  && !foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
