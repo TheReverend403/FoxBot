@@ -30,6 +30,11 @@ public class CommandKick extends Command
                 bot.sendNotice(sender, "That user is not in this channel");
                 return;
             }
+            if (foxbot.getPermissionManager().userHasQuietPermission(bot.getUser(args[0]), "protection.kick"))
+            {
+                bot.sendNotice(sender, "You cannot kick that user!");
+                return;
+            }
             if (args.length > 1)
             {
                 StringBuilder reason = new StringBuilder(args[1]);
