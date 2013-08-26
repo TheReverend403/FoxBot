@@ -33,7 +33,7 @@ public class FoxBot
 
     private Config configFile;
     private Config permissionsFile;
-    private Config nickprotectionFile;
+    private Config nickProtectionFile;
 
     public static void main(String[] args)
     {
@@ -156,7 +156,7 @@ public class FoxBot
     {
         configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
         permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
-        nickprotectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
+        nickProtectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
     }
 
     public PircBotX getBot()
@@ -186,7 +186,7 @@ public class FoxBot
 
     public Config getNickProtectionFile()
     {
-        return nickprotectionFile;
+        return nickProtectionFile;
     }
 
     public Utils getUtils()

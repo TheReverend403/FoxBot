@@ -21,7 +21,7 @@ public class CommandRandCommit extends Command
         this.foxbot = foxbot;
     }
 
-    private static final Pattern COMMIT_PATTERN = Pattern.compile("<p>(.*)</p>.*<p class=\"permalink\">.*</p>", Pattern.DOTALL);
+    private Pattern commitPattern = Pattern.compile("<p>(.*)</p>.*<p class=\"permalink\">.*</p>", Pattern.DOTALL);
 
     @Override
     public void execute(MessageEvent event, String[] args)
@@ -47,7 +47,7 @@ public class CommandRandCommit extends Command
                 return;
             }
 
-            matcher = COMMIT_PATTERN.matcher(commitMessage);
+            matcher = commitPattern.matcher(commitMessage);
 
             while (matcher.find())
             {

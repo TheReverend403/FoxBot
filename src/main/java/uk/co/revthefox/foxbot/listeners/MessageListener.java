@@ -18,7 +18,7 @@ public class MessageListener extends ListenerAdapter
         this.foxbot = foxbot;
     }
 
-    private static final Pattern URL_PATTERN = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
+    private Pattern urlPattern = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
 
     @Override
     public void onMessage(MessageEvent event)
@@ -37,7 +37,7 @@ public class MessageListener extends ListenerAdapter
             foxbot.getBot().kick(channel, user, "We don't use that language round 'ere.");
         }
 
-        Matcher matcher = URL_PATTERN.matcher(message);
+        Matcher matcher = urlPattern.matcher(message);
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
