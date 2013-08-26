@@ -55,3 +55,4 @@ public class CommandKick extends Command
         bot.sendNotice(sender, String.format("Wrong number of args! use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
     }
 }
+// Test commit
