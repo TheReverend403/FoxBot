@@ -244,6 +244,6 @@ public class CommandStallman extends Command
             channel.sendMessage(String.format("%sRandom Stallman Fact: %s%s", Colors.GREEN, Colors.NORMAL, stallmanFacts[rand.nextInt(stallmanFacts.length)]));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %suptime", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! use %sstallman", foxbot.getConfig().getCommandPrefix()));
     }
 }
