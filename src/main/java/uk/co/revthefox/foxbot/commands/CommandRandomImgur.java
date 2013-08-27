@@ -16,6 +16,7 @@ public class CommandRandomImgur extends Command
     private FoxBot foxbot;
 
     private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+    private Random rand = new Random();
 
     public CommandRandomImgur(FoxBot foxbot)
     {
@@ -54,7 +55,7 @@ public class CommandRandomImgur extends Command
     private String generateLink()
     {
         Response response;
-        String imgurLink = new Random().nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
+        String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
 
         try
         {
