@@ -1,6 +1,7 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -240,7 +241,7 @@ public class CommandStallman extends Command
 
         if (args.length == 0)
         {
-            channel.sendMessage(stallmanFacts[rand.nextInt(stallmanFacts.length)]);
+            channel.sendMessage(String.format("%sRandom Stallman Fact: %s%s", Colors.GREEN, Colors.NORMAL, stallmanFacts[rand.nextInt(stallmanFacts.length)]));
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! use %suptime", foxbot.getConfig().getCommandPrefix()));
