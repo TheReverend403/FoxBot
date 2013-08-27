@@ -63,6 +63,7 @@ public class Utils
         }
         catch (IllegalArgumentException ex)
         {
+            // Who cares?
         }
         catch (Exception ex)
         {
