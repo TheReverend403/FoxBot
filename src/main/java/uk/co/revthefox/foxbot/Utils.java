@@ -61,6 +61,9 @@ public class Utils
             }
             return String.format("(%s's URL) %sTitle: %s%s %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, StringEscapeUtils.unescapeHtml4(title), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
         }
+        catch (IllegalArgumentException ex)
+        {
+        }
         catch (Exception ex)
         {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
