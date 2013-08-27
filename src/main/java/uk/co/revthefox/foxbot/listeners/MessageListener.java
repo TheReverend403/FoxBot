@@ -43,7 +43,7 @@ public class MessageListener extends ListenerAdapter
         {
             message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
 
-            if (!message.isEmpty())
+            if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
             {
                 channel.sendMessage(message);
             }
