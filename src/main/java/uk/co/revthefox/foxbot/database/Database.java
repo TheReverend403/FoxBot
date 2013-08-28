@@ -29,15 +29,6 @@ public class Database
         {
             Class.forName("org.sqlite.JDBC");
 
-            File path = new File("data");
-
-            if (!path.exists() && !path.mkdirs())
-            {
-                System.out.println("Couldn't create data folder. Shutting down.");
-                foxbot.getBot().disconnect();
-                return;
-            }
-
             connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
             statement = connection.createStatement();
             statement.setQueryTimeout(30);

@@ -79,6 +79,15 @@ public class FoxBot
             }
         }
 
+        File path = new File("data/customcmds/");
+
+        if (!path.exists() && !path.mkdirs())
+        {
+            System.out.println("Couldn't create data folder. Shutting down.");
+            bot.disconnect();
+            return;
+        }
+
         loadConfigFiles();
         bot = new PircBotX();
         config = new BotConfig(this);
