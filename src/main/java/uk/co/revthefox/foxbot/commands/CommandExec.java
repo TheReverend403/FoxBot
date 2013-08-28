@@ -35,7 +35,7 @@ public class CommandExec extends Command
     public CommandExec(FoxBot foxbot)
     {
         super("exec", "command.exec");
-        this.foxbot = foxbot;
+        CommandExec.foxbot = foxbot;
     }
 
     @Override
