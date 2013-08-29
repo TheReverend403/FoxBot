@@ -80,7 +80,7 @@ public class UserListener extends ListenerAdapter
         {
             for (Channel chan : bot.getChannels())
             {
-                if (!chan.getOps().contains(bot.getUser(bot.getNick())))
+                if (!chan.getOps().contains(bot.getUser(bot.getNick())) && chan.getUsers().contains(user))
                 {
                     bot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                     continue;
