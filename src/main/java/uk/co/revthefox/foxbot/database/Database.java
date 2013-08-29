@@ -58,8 +58,6 @@ public class Database
     {
         PreparedStatement statement = null;
 
-        connect();
-
         try
         {
             connection.setAutoCommit(false);
@@ -89,15 +87,12 @@ public class Database
                 ex.printStackTrace();
             }
         }
-        disconnect();
     }
 
     public List<String> getTells(String user, Boolean showAll)
     {
         List<String> tells = new ArrayList<>();
         PreparedStatement statement = null;
-
-        connect();
 
         try
         {
@@ -133,14 +128,12 @@ public class Database
                 ex.printStackTrace();
             }
         }
-        disconnect();
         return tells;
     }
 
     public void cleanTells(String user)
     {
         PreparedStatement statement = null;
-        connect();
 
         try
         {
@@ -167,7 +160,6 @@ public class Database
                 ex.printStackTrace();
             }
         }
-        disconnect();
     }
 
     public void disconnect()
