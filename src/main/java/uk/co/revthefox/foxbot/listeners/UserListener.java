@@ -76,6 +76,11 @@ public class UserListener extends ListenerAdapter
         PircBotX bot = foxbot.getBot();
         List<String> tells = foxbot.getDatabase().getTells(nick, false);
 
+        if (nick.equals(bot.getNick()))
+        {
+            return;
+        }
+
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
             for (Channel chan : bot.getChannels())
@@ -90,7 +95,7 @@ public class UserListener extends ListenerAdapter
             return;
         }
 
-        if (!nick.equals(bot.getNick())  && !foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
+        if (!foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
