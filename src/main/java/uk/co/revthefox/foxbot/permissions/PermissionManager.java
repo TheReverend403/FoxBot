@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.permissions;
 
+import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
@@ -21,45 +22,29 @@ public class PermissionManager
     public Boolean userHasQuietPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
+        Config permissions = foxbot.getPermissionsFile();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
             authedUsers.add(user);
         }
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.contains(user))
-        {
-            return false;
-        }
+        return !(foxbot.getConfig().getUsersMustBeVerified()
+                && !authedUsers.contains(user))
+                && !(!permissions.hasPath("permissions." + authType)
+                && !permissions.getStringList("permissions.default").contains(permission))
+                && !permissions.getStringList("permissions." + authType).contains("-" + permission)
+                && (permissions.getStringList("permissions.default").contains(permission)
+                || permissions.getStringList("permissions.default").contains("permissions.*")
+                || permissions.getStringList("permissions." + authType).contains(permission)
+                || permissions.getStringList("permissions." + authType).contains("permissions.*"));
 
-        try
-        {
-            if (foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("-" + permission))
-            {
-                return false;
-            }
-            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*"))
-            {
-                return true;
-            }
-            if (foxbot.getPermissionsFile().getStringList("permissions." + authType).contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("permissions.*"))
-            {
-                return true;
-            }
-        }
-        catch (ConfigException ex)
-        {
-            if (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     public Boolean userHasPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
+        Config permissions = foxbot.getPermissionsFile();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
@@ -73,12 +58,12 @@ public class PermissionManager
         }
 
         return !(!foxbot.getPermissionsFile().hasPath("permissions." + authType)
-                && !foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
-                && !foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("-" + permission)
-                && (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission)
-                || foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*")
-                || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains(permission)
-                || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("permissions.*"));
+                && !permissions.getStringList("permissions.default").contains(permission))
+                && !permissions.getStringList("permissions." + authType).contains("-" + permission)
+                && (permissions.getStringList("permissions.default").contains(permission)
+                || permissions.getStringList("permissions.default").contains("permissions.*")
+                || permissions.getStringList("permissions." + authType).contains(permission)
+                || permissions.getStringList("permissions." + authType).contains("permissions.*"));
     }
 
     public Boolean isNickProtected(String nick)
