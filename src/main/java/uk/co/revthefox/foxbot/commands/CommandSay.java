@@ -54,7 +54,6 @@ public class CommandSay extends Command
                     bot.sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
                     return;
                 }
-
                 bot.sendMessage(args[0], message.toString());
                 bot.sendNotice(sender, String.format("Message sent to %s", args[0]));
                 return;

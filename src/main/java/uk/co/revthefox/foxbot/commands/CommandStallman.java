@@ -32,7 +32,7 @@ public class CommandStallman extends Command
             "Richard Stallman's DNA is in binary.",
             "Richard Stallman's nervous system is completely wireless.",
             "Richard Stallman's brain accepts UNIX commands.",
-            "If Richard Stallman has 1GB of RAM, and if you have 1GB of RAM, Richard Stallman has more RAM than you.",
+            "If Richard Stallman has 1GB of RAM, and you have 1GB of RAM, Richard Stallman has more RAM than you.",
             "Richard Stallman eats ethernet cables. That's why they invented wireless.",
             "Richard Stallman has a katana. 'Nuff said.",
             "Richard Stallman wrote a program that divides by zero.",

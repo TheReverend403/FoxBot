@@ -54,7 +54,6 @@ public class CommandAction extends Command
                     bot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
-
                 bot.sendAction(args[0], message.toString());
                 bot.sendNotice(sender, String.format("Action sent to %s", args[0]));
                 return;

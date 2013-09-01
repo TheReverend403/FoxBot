@@ -45,7 +45,6 @@ public class CommandKick extends Command
                 {
                     reason.append(" ").append(args[arg]);
                 }
-
                 bot.kick(channel, bot.getUser(args[0]), reason.toString());
                 return;
             }

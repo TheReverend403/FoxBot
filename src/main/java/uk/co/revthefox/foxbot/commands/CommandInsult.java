@@ -72,7 +72,6 @@ public class CommandInsult extends Command
                         bot.sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
-
                     bot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
                     bot.sendNotice(sender, String.format("Insult sent to %s", args[0]));
                     return;
