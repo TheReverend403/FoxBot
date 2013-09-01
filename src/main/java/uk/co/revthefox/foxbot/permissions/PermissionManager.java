@@ -72,7 +72,13 @@ public class PermissionManager
             return false;
         }
 
-        return !(!foxbot.getPermissionsFile().hasPath("permissions." + authType) && !foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission)) && !foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("-" + permission) && (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission) || foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*") || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains(permission) || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("permissions.*"));
+        return !(!foxbot.getPermissionsFile().hasPath("permissions." + authType)
+                && !foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission))
+                && !foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("-" + permission)
+                && (foxbot.getPermissionsFile().getStringList("permissions.default").contains(permission)
+                || foxbot.getPermissionsFile().getStringList("permissions.default").contains("permissions.*")
+                || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains(permission)
+                || foxbot.getPermissionsFile().getStringList("permissions." + authType).contains("permissions.*"));
     }
 
     public Boolean isNickProtected(String nick)
