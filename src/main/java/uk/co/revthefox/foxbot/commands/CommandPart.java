@@ -12,7 +12,7 @@ public class CommandPart extends Command
 
     public CommandPart(FoxBot foxbot)
     {
-        super("part", "command.part");
+        super("part", "command.part", "leave");
         this.foxbot = foxbot;
     }
 
