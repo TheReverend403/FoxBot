@@ -15,28 +15,28 @@ public class BotConfig
     private String botRealName;
 
     private String serverAddress;
-    private Integer serverPort;
-    private Boolean serverSsl;
-    private Boolean acceptInvalidSsl;
+    private int serverPort;
+    private boolean serverSsl;
+    private boolean acceptInvalidSsl;
     private String serverPassword;
     private List<String> serverChannels;
 
 
-    private Boolean useNickserv;
+    private boolean useNickserv;
     private String nickservPassword;
-    private Boolean usersMustBeVerified;
-    private Boolean matchUsersByHostmask;
+    private boolean usersMustBeVerified;
+    private boolean matchUsersByHostmask;
 
-    private Boolean debug;
+    private boolean debug;
     private String commandPrefix;
-    private Boolean autoJoinOnInvite;
-    private Boolean autoNickChange;
-    private Boolean autoReconnect;
+    private boolean autoJoinOnInvite;
+    private boolean autoNickChange;
+    private boolean autoReconnect;
     private Long messageDelay;
-    private Boolean mungeUsernames;
+    private boolean mungeUsernames;
     private List<String> greetingChannels;
     private String greetingMessage;
-    private Boolean greetingNotice;
+    private boolean greetingNotice;
 
     public BotConfig(FoxBot foxbot)
     {
@@ -114,17 +114,17 @@ public class BotConfig
         return serverAddress;
     }
 
-    public Integer getServerPort()
+    public int getServerPort()
     {
         return serverPort;
     }
 
-    public Boolean getServerSsl()
+    public boolean getServerSsl()
     {
         return serverSsl;
     }
 
-    public Boolean getAcceptInvalidSsl()
+    public boolean getAcceptInvalidSsl()
     {
         return acceptInvalidSsl;
     }
@@ -139,7 +139,7 @@ public class BotConfig
         return serverChannels;
     }
 
-    public Boolean useNickserv()
+    public boolean useNickserv()
     {
         return useNickserv;
     }
@@ -149,16 +149,16 @@ public class BotConfig
         return nickservPassword;
     }
 
-    public Boolean getUsersMustBeVerified()
+    public boolean getUsersMustBeVerified()
     {
         return usersMustBeVerified;
     }
-    public Boolean getMatchUsersByHostmask()
+    public boolean getMatchUsersByHostmask()
     {
         return matchUsersByHostmask;
     }
 
-    public Boolean getDebug()
+    public boolean getDebug()
     {
         return debug;
     }
@@ -168,17 +168,17 @@ public class BotConfig
         return commandPrefix;
     }
 
-    public Boolean getAutoJoinOnInvite()
+    public boolean getAutoJoinOnInvite()
     {
         return autoJoinOnInvite;
     }
 
-    public Boolean getAutoNickChange()
+    public boolean getAutoNickChange()
     {
         return autoNickChange;
     }
 
-    public Boolean getAutoReconnect()
+    public boolean getAutoReconnect()
     {
         return autoReconnect;
     }
@@ -188,7 +188,7 @@ public class BotConfig
         return messageDelay;
     }
 
-    public Boolean getMungeUsernames()
+    public boolean getMungeUsernames()
     {
         return mungeUsernames;
     }
@@ -203,7 +203,7 @@ public class BotConfig
         return greetingMessage;
     }
 
-    public Boolean getGreetingNotice()
+    public boolean getGreetingNotice()
     {
         return greetingNotice;
     }

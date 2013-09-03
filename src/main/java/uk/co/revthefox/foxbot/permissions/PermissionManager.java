@@ -19,7 +19,7 @@ public class PermissionManager
     }
 
     // Exactly the same as userHasPermission(), except this gives no output.
-    public Boolean userHasQuietPermission(User user, String permission)
+    public boolean userHasQuietPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
         Config permissions = foxbot.getPermissionsFile();
@@ -41,7 +41,7 @@ public class PermissionManager
 
     }
 
-    public Boolean userHasPermission(User user, String permission)
+    public boolean userHasPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
         Config permissions = foxbot.getPermissionsFile();
@@ -66,7 +66,7 @@ public class PermissionManager
                 || permissions.getStringList("permissions." + authType).contains("permissions.*"));
     }
 
-    public Boolean isNickProtected(String nick)
+    public boolean isNickProtected(String nick)
     {
         return foxbot.getNickProtectionFile().hasPath("protection." + nick) && !foxbot.getBot().getUser(nick).getHostmask().equals(foxbot.getNickProtectionFile().getString("protection." + nick + ".hostmask"));
     }
