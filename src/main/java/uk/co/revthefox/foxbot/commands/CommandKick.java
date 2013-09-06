@@ -56,28 +56,28 @@ public class CommandKick extends Command
                         // Delay the kick to prevent whois throttling due to the permission check on both users
                         try
                         {
-                            Thread.sleep(1000);
+                            Thread.sleep(foxbot.getConfig().getKickDelay());
                         }
                         catch (InterruptedException ex)
                         {
                             ex.printStackTrace();
                         }
 
-                        bot.kick(channel, target, reason.toString());
+                        bot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), reason.toString()));
                         return;
                     }
 
                     // Delay the kick to prevent whois throttling due to the permission check on both users
                     try
                     {
-                        Thread.sleep(1000);
+                        Thread.sleep(foxbot.getConfig().getKickDelay());
                     }
                     catch (InterruptedException ex)
                     {
                         ex.printStackTrace();
                     }
 
-                    bot.kick(channel, target);
+                    bot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));
                     return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));

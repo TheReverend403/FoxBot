@@ -30,6 +30,7 @@ public class BotConfig
     private boolean debug;
     private String commandPrefix;
     private boolean autoJoinOnInvite;
+    private long kickDelay;
     private boolean autoNickChange;
     private boolean autoReconnect;
     private Long messageDelay;
@@ -67,6 +68,7 @@ public class BotConfig
         debug = botConfig.getBoolean("misc.debug");
         commandPrefix = botConfig.getString("misc.commandPrefix");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        kickDelay = botConfig.getLong("misc.kickDelay");
         autoNickChange = botConfig.getBoolean("misc.autoNickChange");
         autoReconnect = botConfig.getBoolean("misc.autoReconnect");
         messageDelay = botConfig.getLong("misc.messageDelay");
@@ -86,6 +88,7 @@ public class BotConfig
         foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
         commandPrefix = botConfig.getString("misc.commandPrefix");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        kickDelay = botConfig.getLong("misc.kickDelay");
         messageDelay = botConfig.getLong("misc.messageDelay");
         foxbot.getBot().setMessageDelay(botConfig.getLong("misc.messageDelay"));
         mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
@@ -171,6 +174,11 @@ public class BotConfig
     public boolean getAutoJoinOnInvite()
     {
         return autoJoinOnInvite;
+    }
+
+    public long getKickDelay()
+    {
+        return kickDelay;
     }
 
     public boolean getAutoNickChange()
