@@ -21,6 +21,7 @@ public class CommandKick extends Command
     {
         new Thread(new Runnable()
         {
+            @Override
             public void run()
             {
                 User sender = event.getUser();
