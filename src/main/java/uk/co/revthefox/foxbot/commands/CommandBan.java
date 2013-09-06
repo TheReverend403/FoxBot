@@ -9,6 +9,7 @@ import uk.co.revthefox.foxbot.utils.UnbanTimer;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class CommandBan extends Command
 {
@@ -28,13 +29,15 @@ public class CommandBan extends Command
             public void run()
             {
                 User sender = event.getUser();
-                final Channel channel = event.getChannel();
-                final PircBotX bot = foxbot.getBot();
-                final User target;
+                Channel channel = event.getChannel();
+                PircBotX bot = foxbot.getBot();
+                User target;
+                String hostmask;
 
                 if (args.length != 0)
                 {
                     target = bot.getUser(args[0]);
+                    hostmask = target.getHostmask();
 
                     if (!channel.getUsers().contains(target))
                     {
@@ -61,36 +64,32 @@ public class CommandBan extends Command
                         try
                         {
                             Thread.sleep(foxbot.getConfig().getKickDelay());
-                            bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
-                            bot.ban(channel, target.getHostmask());
                         }
                         catch (InterruptedException ex)
                         {
                             ex.printStackTrace();
                         }
-                        finally
-                        {
-                            scheduleUnban(channel, target.getHostmask());
-                        }
+                        bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
+                        bot.ban(channel, hostmask);
+                        scheduleUnban(channel, hostmask);
                         return;
                     }
-
-                    // Delay the kick to prevent whois throttling due to the permission check on both users
-                    try
+                    else
                     {
-                        Thread.sleep(foxbot.getConfig().getKickDelay());
+                        // Delay the kick to prevent whois throttling due to the permission check on both users
+                        try
+                        {
+                            Thread.sleep(foxbot.getConfig().getKickDelay());
+                        }
+                        catch (InterruptedException ex)
+                        {
+                            ex.printStackTrace();
+                        }
                         bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
-                        bot.ban(channel, target.getHostmask());
+                        bot.ban(channel, hostmask);
+                        scheduleUnban(channel, hostmask);
+                        return;
                     }
-                    catch (InterruptedException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                    finally
-                    {
-                        scheduleUnban(channel, target.getHostmask());
-                    }
-                    return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
