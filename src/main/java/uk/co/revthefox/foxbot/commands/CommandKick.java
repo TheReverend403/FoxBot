@@ -29,7 +29,7 @@ public class CommandKick extends Command
         {
             if (!channel.getUsers().contains(target))
             {
-                bot.sendNotice(sender, "That user is not in this channel");
+                bot.sendNotice(sender, "That user is not in this channel!");
                 return;
             }
 
