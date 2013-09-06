@@ -36,5 +36,5 @@ public abstract class Command
         return aliases;
     }
 
-    public abstract void execute(MessageEvent event, String[] args);
+    public abstract void execute(final MessageEvent event, final String[] args);
 }
