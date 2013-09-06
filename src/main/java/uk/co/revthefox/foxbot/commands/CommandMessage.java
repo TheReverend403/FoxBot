@@ -11,7 +11,7 @@ public class CommandMessage extends Command
 
     public CommandMessage(FoxBot foxbot)
     {
-        super("message", "command.message", "pm");
+        super("pm", "command.message", "message");
         this.foxbot = foxbot;
     }
 
@@ -40,6 +40,6 @@ public class CommandMessage extends Command
             bot.sendNotice(sender, "That user does not exist!");
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %smessage <user> <message>", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
     }
 }
