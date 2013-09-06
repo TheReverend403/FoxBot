@@ -10,7 +10,7 @@ import uk.co.revthefox.foxbot.utils.Utils;
 
 import java.util.List;
 
-public class UserListener extends ListenerAdapter
+public class UserListener extends ListenerAdapter<FoxBot>
 {
     private FoxBot foxbot;
 
@@ -20,13 +20,13 @@ public class UserListener extends ListenerAdapter
     }
 
     @Override
-    public void onQuit(QuitEvent event)
+    public void onQuit(QuitEvent<FoxBot> event)
     {
         foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
     @Override
-    public void onInvite(InviteEvent event)
+    public void onInvite(InviteEvent<FoxBot> event)
     {
         PircBotX bot = foxbot.getBot();
 
@@ -38,7 +38,7 @@ public class UserListener extends ListenerAdapter
     }
 
     @Override
-    public void onNickChange(NickChangeEvent event)
+    public void onNickChange(NickChangeEvent<FoxBot> event)
     {
         User user = event.getUser();
         String newNick = event.getNewNick();

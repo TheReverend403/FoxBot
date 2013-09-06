@@ -19,7 +19,6 @@ public class CommandJoin extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length != 0)
         {
@@ -27,19 +26,19 @@ public class CommandJoin extends Command
             {
                 if (chan.startsWith("#"))
                 {
-                    if (!bot.getChannel(chan).isInviteOnly())
+                    if (!foxbot.getChannel(chan).isInviteOnly())
                     {
-                        bot.joinChannel(chan);
-                        bot.sendNotice(sender, String.format("Joined %s", chan));
+                        foxbot.joinChannel(chan);
+                        foxbot.sendNotice(sender, String.format("Joined %s", chan));
                         continue;
                     }
-                    bot.sendNotice(sender, String.format("%s is invite only!", chan));
+                    foxbot.sendNotice(sender, String.format("%s is invite only!", chan));
                     continue;
                 }
-                bot.sendNotice(sender, String.format("%s is not a channel...", chan));
+                foxbot.sendNotice(sender, String.format("%s is not a channel...", chan));
             }
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
     }
 }

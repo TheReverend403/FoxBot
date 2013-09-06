@@ -48,7 +48,6 @@ public class CommandExec extends Command
             {
                 User sender = event.getUser();
                 Channel channel = event.getChannel();
-                PircBotX bot = foxbot.getBot();
 
                 try
                 {
@@ -56,13 +55,12 @@ public class CommandExec extends Command
                     interpreter.set("sender", sender);
                     interpreter.set("channel", channel);
                     interpreter.set("event", event);
-                    interpreter.set("bot", bot);
                     interpreter.set("foxbot", foxbot);
                     interpreter.eval(StringUtils.join(args, " ").trim());
                 }
                 catch (EvalError | UtilEvalError ex)
                 {
-                    bot.sendMessage(channel, ex.getLocalizedMessage());
+                    foxbot.sendMessage(channel, ex.getLocalizedMessage());
                     Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

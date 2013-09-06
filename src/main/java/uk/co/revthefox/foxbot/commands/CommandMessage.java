@@ -20,11 +20,10 @@ public class CommandMessage extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length > 1)
         {
-            User target = bot.getUser(args[0]);
+            User target = foxbot.getUser(args[0]);
             StringBuilder message = new StringBuilder(args[1]);
 
             for (int arg = 2; arg < args.length; arg++)
@@ -32,9 +31,9 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-            bot.sendMessage(target, Utils.colourise(message.toString()));
+            foxbot.sendMessage(target, Utils.colourise(message.toString()));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
     }
 }

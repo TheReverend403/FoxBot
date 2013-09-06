@@ -22,7 +22,6 @@ public class CommandAction extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length > 0 && !(args[0].startsWith("#") && args.length == 1))
         {
@@ -40,23 +39,23 @@ public class CommandAction extends Command
                     }
                 }
 
-                if (bot.getChannel(args[0]).isInviteOnly())
+                if (foxbot.getChannel(args[0]).isInviteOnly())
                 {
-                    bot.sendNotice(sender, String.format("%s is invite only!", args[0]));
+                    foxbot.sendNotice(sender, String.format("%s is invite only!", args[0]));
                     return;
                 }
 
-                bot.joinChannel(args[0]);
+                foxbot.joinChannel(args[0]);
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    bot.sendAction(args[0], Utils.colourise(message.toString()));
-                    bot.partChannel(bot.getChannel(args[0]));
-                    bot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
+                    foxbot.sendAction(args[0], Utils.colourise(message.toString()));
+                    foxbot.partChannel(foxbot.getChannel(args[0]));
+                    foxbot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                bot.sendAction(args[0], Utils.colourise(message.toString()));
-                bot.sendNotice(sender, String.format("Action sent to %s", args[0]));
+                foxbot.sendAction(args[0], Utils.colourise(message.toString()));
+                foxbot.sendNotice(sender, String.format("Action sent to %s", args[0]));
                 return;
             }
 
@@ -69,9 +68,9 @@ public class CommandAction extends Command
                     message.append(" ").append(args[arg]);
                 }
             }
-            bot.sendAction(channel, Utils.colourise(message.toString()));
+            foxbot.sendAction(channel, Utils.colourise(message.toString()));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

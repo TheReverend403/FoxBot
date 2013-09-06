@@ -28,7 +28,6 @@ public class CommandPing extends Command
     {
         Channel channel = event.getChannel();
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 1)
         {
@@ -50,12 +49,12 @@ public class CommandPing extends Command
             }
             catch (MalformedURLException ex)
             {
-                bot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
+                foxbot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
                 ex.printStackTrace();
             }
             catch (UnknownHostException ex)
             {
-                bot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
+                foxbot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
                 ex.printStackTrace();
             }
             catch (IOException ex)
@@ -65,6 +64,6 @@ public class CommandPing extends Command
             }
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address>", foxbot.getConfig().getCommandPrefix()));
     }
 }

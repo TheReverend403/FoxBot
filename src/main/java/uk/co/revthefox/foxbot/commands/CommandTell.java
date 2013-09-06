@@ -22,7 +22,6 @@ public class CommandTell extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 1)
         {
@@ -34,18 +33,18 @@ public class CommandTell extends Command
                 {
                     for (String tell : tells)
                     {
-                        bot.sendNotice(sender, Utils.colourise(tell));
+                        foxbot.sendNotice(sender, Utils.colourise(tell));
                     }
                     return;
                 }
-                bot.sendNotice(sender, "No messages for you :<");
+                foxbot.sendNotice(sender, "No messages for you :<");
                 return;
             }
 
             if (args[0].equalsIgnoreCase("clean"))
             {
                 foxbot.getDatabase().cleanTells(sender.getNick());
-                bot.sendNotice(sender, "Deleted all of your read messages.");
+                foxbot.sendNotice(sender, "Deleted all of your read messages.");
                 return;
             }
         }
@@ -62,9 +61,9 @@ public class CommandTell extends Command
             }
 
             foxbot.getDatabase().addTell(sender.getNick(), nick, message.toString());
-            bot.sendNotice(sender, String.format("Tell added for %s", nick));
+            foxbot.sendNotice(sender, String.format("Tell added for %s", nick));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %stell <nick> <message> or %stell list", foxbot.getConfig().getCommandPrefix(), foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %stell <nick> <message> or %stell list", foxbot.getConfig().getCommandPrefix(), foxbot.getConfig().getCommandPrefix()));
     }
 }

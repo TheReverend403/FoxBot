@@ -26,16 +26,14 @@ public class CommandKick extends Command
             {
                 User sender = event.getUser();
                 Channel channel = event.getChannel();
-                PircBotX bot = foxbot.getBot();
-                User target;
 
                 if (args.length != 0)
                 {
-                    target = bot.getUser(args[0]);
+                    User target = foxbot.getUser(args[0]);
 
                     if (!channel.getUsers().contains(target))
                     {
-                        bot.sendNotice(sender, "That user is not in this channel!");
+                        foxbot.sendNotice(sender, "That user is not in this channel!");
                         return;
                     }
 
@@ -51,7 +49,7 @@ public class CommandKick extends Command
 
                     if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
                     {
-                        bot.sendNotice(sender, "You cannot kick that user!");
+                        foxbot.sendNotice(sender, "You cannot kick that user!");
                         return;
                     }
 
@@ -64,13 +62,13 @@ public class CommandKick extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        bot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), reason.toString()));
+                        foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), reason.toString()));
                         return;
                     }
-                    bot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));
+                    foxbot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));
                     return;
                 }
-                bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+                foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
         }).start();
     }

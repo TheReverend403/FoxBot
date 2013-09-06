@@ -10,7 +10,7 @@ import uk.co.revthefox.foxbot.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MessageListener extends ListenerAdapter
+public class MessageListener extends ListenerAdapter<FoxBot>
 {
     private FoxBot foxbot;
 
@@ -22,7 +22,7 @@ public class MessageListener extends ListenerAdapter
     private Pattern urlPattern = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
 
     @Override
-    public void onMessage(MessageEvent event)
+    public void onMessage(MessageEvent<FoxBot> event)
     {
         String message = event.getMessage();
         User user = event.getUser();

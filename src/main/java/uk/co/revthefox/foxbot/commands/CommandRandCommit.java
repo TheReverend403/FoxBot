@@ -28,7 +28,6 @@ public class CommandRandCommit extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 0)
         {
@@ -56,6 +55,6 @@ public class CommandRandCommit extends Command
             channel.sendMessage(Utils.colourise(String.format("(%s) &aRandom commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -33,7 +33,6 @@ public class CommandManager
 
     public boolean dispatchCommand(MessageEvent event, String commandLine)
     {
-        PircBotX bot = foxbot.getBot();
         String[] split = ARGS_SPLIT.split(commandLine);
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
@@ -48,9 +47,9 @@ public class CommandManager
         String permission = command.getPermission();
         if (permission != null && !permission.isEmpty())
         {
-            if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
+            if (!this.foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
-                bot.sendNotice(sender, "You do not have permission to do that!");
+                foxbot.sendNotice(sender, "You do not have permission to do that!");
                 return false;
             }
         }
@@ -63,7 +62,7 @@ public class CommandManager
         }
         catch (Exception ex)
         {
-            bot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
+            foxbot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
             System.out.println("Error in dispatching command: " + command.getName());
             ex.printStackTrace();
         }

@@ -19,22 +19,21 @@ public class CommandDelay extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 1)
         {
             try
             {
-                bot.setMessageDelay(Long.valueOf(args[0]));
-                bot.sendNotice(sender, String.format("Message delay set to %sms", bot.getMessageDelay()));
+                foxbot.setMessageDelay(Long.valueOf(args[0]));
+                foxbot.sendNotice(sender, String.format("Message delay set to %sms", foxbot.getMessageDelay()));
             }
             catch (NumberFormatException ex)
             {
-                bot.sendNotice(sender, "That is not a number!");
-                bot.setMessageDelay(foxbot.getConfig().getMessageDelay());
+                foxbot.sendNotice(sender, "That is not a number!");
+                foxbot.setMessageDelay(foxbot.getConfig().getMessageDelay());
             }
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -27,7 +27,6 @@ public class CommandUptime extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 0)
         {
@@ -44,13 +43,13 @@ public class CommandUptime extends Command
                 }
                 catch (FileNotFoundException ex)
                 {
-                    bot.sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
+                    foxbot.sendNotice(sender, "File \"/proc/uptime\" not found. Are you sure you're using Linux?");
                 }
                 return;
             }
-            bot.sendNotice(sender, "This command is only supported on Unix based systems.");
+            foxbot.sendNotice(sender, "This command is only supported on Unix based systems.");
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %suptime", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %suptime", this.foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -91,13 +91,13 @@ public class BotConfig
         usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
         matchUsersByHostmask = botConfig.getBoolean("auth.matchUsersByHostmask");
         debug = botConfig.getBoolean("misc.debug");
-        foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
+        foxbot.setVerbose(botConfig.getBoolean("misc.debug"));
         commandPrefix = botConfig.getString("misc.commandPrefix");
         colourChar = botConfig.getString("misc.colourChar");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
         kickDelay = botConfig.getLong("misc.kickDelay");
         messageDelay = botConfig.getLong("misc.messageDelay");
-        foxbot.getBot().setMessageDelay(botConfig.getLong("misc.messageDelay"));
+        foxbot.setMessageDelay(botConfig.getLong("misc.messageDelay"));
         mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
         greetingChannels = botConfig.getStringList("misc.channelsToGreet");
         greetingMessage = botConfig.getString("misc.greetingMessage");

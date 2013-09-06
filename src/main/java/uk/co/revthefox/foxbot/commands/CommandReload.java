@@ -19,15 +19,14 @@ public class CommandReload extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 0)
         {
-            bot.sendNotice(sender, "Reloading...");
+            foxbot.sendNotice(sender, "Reloading...");
             foxbot.getConfig().reload();
-            bot.sendNotice(sender, "Reloaded! Some options will only take effect when you restart the bot.");
+            foxbot.sendNotice(sender, "Reloaded! Some options will only take effect when you restart the bot.");
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sreload", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sreload", foxbot.getConfig().getCommandPrefix()));
     }
 }

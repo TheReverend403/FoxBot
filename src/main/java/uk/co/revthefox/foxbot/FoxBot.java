@@ -27,9 +27,8 @@ import java.util.Arrays;
  * @repo https://github.com/TheReverend403/FoxBot
  */
 
-public class FoxBot
+public class FoxBot extends PircBotX
 {
-    private static PircBotX bot;
     private static BotConfig config;
     private static PermissionManager permissions;
     private static CommandManager commandManager;
@@ -71,7 +70,7 @@ public class FoxBot
                 catch (IOException ex)
                 {
                     ex.printStackTrace();
-                    bot.disconnect();
+                    this.disconnect();
                 }
             }
         }
@@ -81,12 +80,11 @@ public class FoxBot
         if (!path.exists() && !path.mkdirs())
         {
             System.out.println("Couldn't create data folder. Shutting down.");
-            bot.disconnect();
+            this.disconnect();
             return;
         }
 
         loadConfigFiles();
-        bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
         commandManager = new CommandManager(this);
@@ -100,14 +98,14 @@ public class FoxBot
 
     private void setBotInfo()
     {
-        bot.setVerbose(config.getDebug());
-        bot.setAutoNickChange(config.getAutoNickChange());
-        bot.setAutoReconnect(config.getAutoReconnect());
-        bot.setMessageDelay(config.getMessageDelay());
-        bot.setVersion("FoxBot - A Java IRC bot written by TheReverend403 - https://github.com/TheReverend403/FoxBot");
-        bot.setAutoSplitMessage(true);
-        bot.setName(config.getBotNick());
-        bot.setLogin(config.getBotIdent());
+        this.setVerbose(config.getDebug());
+        this.setAutoNickChange(config.getAutoNickChange());
+        this.setAutoReconnect(config.getAutoReconnect());
+        this.setMessageDelay(config.getMessageDelay());
+        this.setVersion("FoxBot - A Java IRC bot written by TheReverend403 - https://github.com/TheReverend403/FoxBot");
+        this.setAutoSplitMessage(true);
+        this.setName(config.getBotNick());
+        this.setLogin(config.getBotIdent());
     }
 
     private void connectToServer()
@@ -116,16 +114,16 @@ public class FoxBot
         {
             if (config.getServerSsl())
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
+                this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
             else
             {
-                bot.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
+                this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
 
             if (config.useNickserv())
             {
-                bot.identify(config.getNickservPassword());
+                this.identify(config.getNickservPassword());
             }
         }
         catch (IOException | IrcException ex)
@@ -135,14 +133,14 @@ public class FoxBot
 
         for (String channel : config.getChannels())
         {
-            bot.joinChannel(channel);
+            this.joinChannel(channel);
         }
     }
 
     private void registerListeners()
     {
-        bot.getListenerManager().addListener(new MessageListener(this));
-        bot.getListenerManager().addListener(new UserListener(this));
+        this.getListenerManager().addListener(new MessageListener(this));
+        this.getListenerManager().addListener(new UserListener(this));
     }
 
     private void registerCommands()
@@ -169,11 +167,6 @@ public class FoxBot
         configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
         permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
         nickProtectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
-    }
-
-    public PircBotX getBot()
-    {
-        return bot;
     }
 
     public BotConfig getConfig()

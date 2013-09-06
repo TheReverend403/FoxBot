@@ -28,18 +28,15 @@ public class CommandBan extends Command
             {
                 User sender = event.getUser();
                 Channel channel = event.getChannel();
-                PircBotX bot = foxbot.getBot();
-                User target;
-                String hostmask = null;
 
                 if (args.length != 0)
                 {
-                    target = bot.getUser(args[0]);
-                    hostmask = target.getHostmask();
+                    User target = foxbot.getUser(args[0]);
+                    String hostmask = target.getHostmask();
 
                     if (!channel.getUsers().contains(target))
                     {
-                        bot.sendNotice(sender, "That user is not in this channel!");
+                        foxbot.sendNotice(sender, "That user is not in this channel!");
                         return;
                     }
 
@@ -55,7 +52,7 @@ public class CommandBan extends Command
 
                     if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getBot().getNick()))
                     {
-                        bot.sendNotice(sender, "You cannot ban that user!");
+                        foxbot.sendNotice(sender, "You cannot ban that user!");
                         return;
                     }
 
@@ -68,8 +65,8 @@ public class CommandBan extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
-                        bot.ban(channel, hostmask);
+                        foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
+                        foxbot.ban(channel, hostmask);
 
                         if (foxbot.getConfig().getUnbanTimer() > 0)
                         {
@@ -77,8 +74,8 @@ public class CommandBan extends Command
                         }
                         return;
                     }
-                    bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
-                    bot.ban(channel, hostmask);
+                    foxbot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
+                    foxbot.ban(channel, hostmask);
 
                     if (foxbot.getConfig().getUnbanTimer() > 0)
                     {
@@ -86,7 +83,7 @@ public class CommandBan extends Command
                     }
                     return;
                 }
-                bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+                foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
         }).start();
     }
@@ -99,7 +96,7 @@ public class CommandBan extends Command
                     @Override
                     public void run()
                     {
-                        foxbot.getBot().unBan(channel, hostmask);
+                        foxbot.unBan(channel, hostmask);
                     }
                 },
                 foxbot.getConfig().getUnbanTimer() * 1000

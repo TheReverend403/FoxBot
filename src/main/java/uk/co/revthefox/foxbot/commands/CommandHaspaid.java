@@ -23,7 +23,6 @@ public class CommandHaspaid extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length == 1)
         {
@@ -40,6 +39,6 @@ public class CommandHaspaid extends Command
             }
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

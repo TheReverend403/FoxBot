@@ -21,7 +21,6 @@ public class CommandPart extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length != 0)
         {
@@ -29,15 +28,15 @@ public class CommandPart extends Command
             {
                 if (chan.startsWith("#"))
                 {
-                    bot.partChannel(bot.getChannel(chan), String.format("Part command used by %s", sender.getNick()));
-                    bot.sendNotice(sender, String.format("Left %s", chan));
+                    foxbot.partChannel(foxbot.getChannel(chan), String.format("Part command used by %s", sender.getNick()));
+                    foxbot.sendNotice(sender, String.format("Left %s", chan));
                     continue;
                 }
-                bot.sendNotice(sender, String.format("%s is not a channel...", chan));
+                foxbot.sendNotice(sender, String.format("%s is not a channel...", chan));
             }
             return;
         }
-        bot.partChannel(channel);
-        bot.sendNotice(sender, String.format("Left %s", channel.getName()));
+        foxbot.partChannel(channel);
+        foxbot.sendNotice(sender, String.format("Left %s", channel.getName()));
     }
 }

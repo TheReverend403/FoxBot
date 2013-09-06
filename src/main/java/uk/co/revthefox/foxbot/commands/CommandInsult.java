@@ -27,7 +27,6 @@ public class CommandInsult extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
 
         if (args.length < 3)
         {
@@ -42,7 +41,7 @@ public class CommandInsult extends Command
             catch (Exception ex)
             {
                 ex.printStackTrace();
-                bot.sendMessage(channel, "Something went wrong...");
+                foxbot.sendMessage(channel, "Something went wrong...");
                 return;
             }
 
@@ -57,31 +56,31 @@ public class CommandInsult extends Command
             {
                 if (args[0].startsWith("#"))
                 {
-                    if (bot.getChannel(args[0]).isInviteOnly())
+                    if (foxbot.getChannel(args[0]).isInviteOnly())
                     {
-                        bot.sendNotice(sender, String.format("%s is invite only!", args[0]));
+                        foxbot.sendNotice(sender, String.format("%s is invite only!", args[0]));
                         return;
                     }
 
-                    bot.joinChannel(args[0]);
+                    foxbot.joinChannel(args[0]);
 
                     if (!args[args.length - 1].equalsIgnoreCase("-s"))
                     {
-                        bot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
-                        bot.partChannel(bot.getChannel(args[0]));
-                        bot.sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
+                        foxbot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+                        foxbot.partChannel(foxbot.getChannel(args[0]));
+                        foxbot.sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
-                    bot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
-                    bot.sendNotice(sender, String.format("Insult sent to %s", args[0]));
+                    foxbot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+                    foxbot.sendNotice(sender, String.format("Insult sent to %s", args[0]));
                     return;
                 }
-                bot.sendNotice(sender, String.format("%s is not a channel...", args[0]));
+                foxbot.sendNotice(sender, String.format("%s is not a channel...", args[0]));
                 return;
             }
             channel.sendMessage(insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }
