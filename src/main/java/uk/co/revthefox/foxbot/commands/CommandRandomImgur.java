@@ -37,7 +37,7 @@ public class CommandRandomImgur extends Command
             {
                 link = generateLink();
 
-                if (!link.equalsIgnoreCase(""))
+                if (!link.equals(""))
                 {
                     // I feel this might be necessary...
                     System.gc();
@@ -45,7 +45,7 @@ public class CommandRandomImgur extends Command
                 }
             }
 
-            if (!link.equalsIgnoreCase("exception"))
+            if (!link.equals("exception"))
             {
                 channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
                 return;
