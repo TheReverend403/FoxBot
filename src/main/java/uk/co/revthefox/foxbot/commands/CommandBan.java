@@ -44,6 +44,16 @@ public class CommandBan extends Command
                         return;
                     }
 
+                    // Please don't throttle me ;_;
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+
                     if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getBot().getNick()))
                     {
                         bot.sendNotice(sender, "You cannot ban that user!");
@@ -59,31 +69,13 @@ public class CommandBan extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        // Delay the kick to prevent whois throttling due to the permission check on both users
-                        try
-                        {
-                            Thread.sleep(foxbot.getConfig().getKickDelay());
-                            hostmask = target.getHostmask();
-                        }
-                        catch (InterruptedException ex)
-                        {
-                            ex.printStackTrace();
-                        }
+                        hostmask = target.getHostmask();
                         bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
                         bot.ban(channel, hostmask);
                         scheduleUnban(channel, hostmask);
                         return;
                     }
-                    // Delay the kick to prevent whois throttling due to the permission check on both users
-                    try
-                    {
-                        Thread.sleep(foxbot.getConfig().getKickDelay());
-                        hostmask = target.getHostmask();
-                    }
-                    catch (InterruptedException ex)
-                    {
-                        ex.printStackTrace();
-                    }
+                    hostmask = target.getHostmask();
                     bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
                     bot.ban(channel, hostmask);
                     scheduleUnban(channel, hostmask);
