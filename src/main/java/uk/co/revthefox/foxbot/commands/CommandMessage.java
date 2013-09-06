@@ -24,20 +24,14 @@ public class CommandMessage extends Command
         if (args.length > 1)
         {
             User target = bot.getUser(args[0]);
+            StringBuilder message = new StringBuilder(args[1]);
 
-            if (target != null)
+            for (int arg = 2; arg < args.length; arg++)
             {
-                StringBuilder message = new StringBuilder(args[1]);
-
-                for (int arg = 2; arg < args.length; arg++)
-                {
-                    message.append(" ").append(args[arg]);
-                }
-
-                bot.sendMessage(target, message.toString());
-                return;
+                message.append(" ").append(args[arg]);
             }
-            bot.sendNotice(sender, "That user does not exist!");
+
+            bot.sendMessage(target, message.toString());
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
