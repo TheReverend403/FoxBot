@@ -22,7 +22,7 @@ public class CommandKick extends Command
         User sender = event.getUser();
         final Channel channel = event.getChannel();
         final PircBotX bot = foxbot.getBot();
-        final User target = bot.getUser(args[0]);
+        final User target = args.length > 0 ? bot.getUser(args[0]) : null;
 
 
         if (args.length != 0)
