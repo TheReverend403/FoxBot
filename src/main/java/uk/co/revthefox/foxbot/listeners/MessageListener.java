@@ -5,6 +5,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +42,7 @@ public class MessageListener extends ListenerAdapter
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
-            message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
+            message = Utils.parseChatUrl(matcher.group(1), user);
 
             if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
             {

@@ -18,14 +18,14 @@ import java.util.regex.Pattern;
 public class Utils
 {
 
-    private FoxBot foxbot;
+    private static FoxBot foxbot;
 
     public Utils(FoxBot foxbot)
     {
-        this.foxbot = foxbot;
+        Utils.foxbot = foxbot;
     }
 
-    public String parseChatUrl(String stringToParse, User sender)
+    public static String parseChatUrl(String stringToParse, User sender)
     {
         try
         {
@@ -70,7 +70,7 @@ public class Utils
         return "null";
     }
 
-    public String munge(String stringToMunge)
+    public static String munge(String stringToMunge)
     {
         return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
     }

@@ -1,6 +1,5 @@
 package uk.co.revthefox.foxbot;
 
-import com.google.common.collect.Lists;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
@@ -19,7 +18,7 @@ import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
-
+import java.util.Arrays;
 /**
  * FoxBot - An IRC bot written in Java
  *
@@ -51,7 +50,7 @@ public class FoxBot
 
     private void start(String[] args)
     {
-        for (String file : Lists.newArrayList("bot.conf", "permissions.conf", "nickprotection.conf"))
+        for (String file : Arrays.asList("bot.conf", "permissions.conf", "nickprotection.conf"))
         {
             if (!new File(file).exists())
             {

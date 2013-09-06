@@ -5,6 +5,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 public class CommandGit extends Command
 {
@@ -22,6 +23,6 @@ public class CommandGit extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        channel.sendMessage(String.format("(%s) %sI'm on GitHub! %shttps://github.com/TheReverend403/FoxBot", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL));
+        channel.sendMessage(String.format("(%s) %sI'm on GitHub! %shttps://github.com/TheReverend403/FoxBot", Utils.munge(sender.getNick()), Colors.GREEN, Colors.NORMAL));
     }
 }

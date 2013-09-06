@@ -8,6 +8,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.util.Random;
 
@@ -47,7 +48,7 @@ public class CommandRandomImgur extends Command
 
             if (!link.equals("exception"))
             {
-                channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
+                channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", Utils.munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
                 return;
             }
             channel.sendMessage("Something went wrong...");

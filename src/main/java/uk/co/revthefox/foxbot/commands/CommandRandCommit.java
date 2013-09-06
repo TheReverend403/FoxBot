@@ -7,6 +7,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,7 +54,7 @@ public class CommandRandCommit extends Command
             {
                 commitMessage = matcher.group(1);
             }
-            channel.sendMessage(String.format("(%s) %sRandom commit message: %s%s", foxbot.getUtils().munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, commitMessage));
+            channel.sendMessage(String.format("(%s) %sRandom commit message: %s%s", Utils.munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, commitMessage));
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));

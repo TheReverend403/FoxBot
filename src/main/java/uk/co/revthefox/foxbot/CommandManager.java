@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot;
 
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.commands.Command;
@@ -32,10 +33,12 @@ public class CommandManager
 
     public boolean dispatchCommand(MessageEvent event, String commandLine)
     {
+        PircBotX bot = foxbot.getBot();
         String[] split = ARGS_SPLIT.split(commandLine);
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
+
 
         if (command == null)
         {
@@ -47,7 +50,7 @@ public class CommandManager
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
-                foxbot.getBot().sendNotice(sender, "You do not have permission to do that!");
+                bot.sendNotice(sender, "You do not have permission to do that!");
                 return false;
             }
         }
@@ -60,7 +63,7 @@ public class CommandManager
         }
         catch (Exception ex)
         {
-            foxbot.getBot().sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
+            bot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
             System.out.println("Error in dispatching command: " + command.getName());
             ex.printStackTrace();
         }
