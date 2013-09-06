@@ -48,7 +48,7 @@ public class CommandBan extends Command
                     // Please don't throttle me ;_;
                     try
                     {
-                        Thread.sleep(1000);
+                        Thread.sleep(foxbot.getConfig().getKickDelay());
                     }
                     catch (InterruptedException ex)
                     {
