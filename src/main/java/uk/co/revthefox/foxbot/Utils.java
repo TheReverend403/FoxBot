@@ -34,10 +34,8 @@ public class Utils
             Future<Response> future = client.prepareGet(stringToParse).setFollowRedirects(true).execute();
             Response response = future.get();
             String output = response.getResponseBody("UTF-8");
-            URLConnection conn = new URL(stringToParse).openConnection();
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
             String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
-            String contentType = conn.getContentType().contains(";") ? conn.getContentType().split(";")[0] : conn.getContentType();
+            String contentType = response.getContentType().contains(";") ? response.getContentType().split(";")[0] : response.getContentType();
 
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
