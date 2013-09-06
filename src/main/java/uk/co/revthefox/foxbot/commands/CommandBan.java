@@ -69,6 +69,7 @@ public class CommandBan extends Command
 
                         bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
                         bot.ban(channel, target.getHostmask());
+                        scheduleUnban(channel, target.getHostmask());
                         return;
                     }
 
