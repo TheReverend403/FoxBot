@@ -25,7 +25,7 @@ public class CommandKill extends Command
 
         if (args.length != 0)
         {
-            bot.sendNotice(sender, String.format("Wrong number of args! use %skill", foxbot.getConfig().getCommandPrefix()));
+            bot.sendNotice(sender, String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
             return;
         }
 

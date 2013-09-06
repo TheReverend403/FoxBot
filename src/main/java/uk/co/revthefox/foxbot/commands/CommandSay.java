@@ -71,6 +71,6 @@ public class CommandSay extends Command
             channel.sendMessage(message.toString());
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

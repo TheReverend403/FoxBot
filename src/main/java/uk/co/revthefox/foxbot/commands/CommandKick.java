@@ -51,6 +51,6 @@ public class CommandKick extends Command
             bot.kick(channel, bot.getUser(args[0]));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
     }
 }

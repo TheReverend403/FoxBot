@@ -82,6 +82,6 @@ public class CommandInsult extends Command
             channel.sendMessage(insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

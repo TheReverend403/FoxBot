@@ -28,6 +28,6 @@ public class CommandReload extends Command
             bot.sendNotice(sender, "Reloaded! Some options will only take effect when you restart the bot.");
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %sreload", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %sreload", foxbot.getConfig().getCommandPrefix()));
     }
 }

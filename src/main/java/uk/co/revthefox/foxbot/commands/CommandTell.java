@@ -64,6 +64,6 @@ public class CommandTell extends Command
             bot.sendNotice(sender, String.format("Tell added for %s", nick));
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %stell <nick> <message> or %stell list", foxbot.getConfig().getCommandPrefix(), foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %stell <nick> <message> or %stell list", foxbot.getConfig().getCommandPrefix(), foxbot.getConfig().getCommandPrefix()));
     }
 }

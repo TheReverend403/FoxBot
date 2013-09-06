@@ -65,6 +65,6 @@ public class CommandPing extends Command
             }
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %sping <address>", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address>", foxbot.getConfig().getCommandPrefix()));
     }
 }

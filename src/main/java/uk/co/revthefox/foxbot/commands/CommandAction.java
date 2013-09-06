@@ -71,6 +71,6 @@ public class CommandAction extends Command
             bot.sendAction(channel, message.toString());
             return;
         }
-        bot.sendNotice(sender, String.format("Wrong number of args! use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
+        bot.sendNotice(sender, String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }
