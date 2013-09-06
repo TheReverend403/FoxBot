@@ -40,6 +40,8 @@ public class BotConfig
     private String greetingMessage;
     private boolean greetingNotice;
 
+    private int unbanTimer;
+
     public BotConfig(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -78,6 +80,8 @@ public class BotConfig
         greetingChannels = botConfig.getStringList("misc.channelsToGreet");
         greetingMessage = botConfig.getString("misc.greetingMessage");
         greetingNotice = botConfig.getBoolean("misc.sendGreetingAsNotice");
+
+        unbanTimer = botConfig.getInt("bans.unbanTimer");
     }
 
     public void reload()
@@ -98,6 +102,7 @@ public class BotConfig
         greetingChannels = botConfig.getStringList("misc.channelsToGreet");
         greetingMessage = botConfig.getString("misc.greetingMessage");
         greetingNotice = botConfig.getBoolean("misc.sendGreetingAsNotice");
+        unbanTimer = botConfig.getInt("bans.unbanTimer");
     }
 
     public String getBotNick()
@@ -222,5 +227,10 @@ public class BotConfig
     public boolean getGreetingNotice()
     {
         return greetingNotice;
+    }
+
+    public int getUnbanTimer()
+    {
+        return unbanTimer;
     }
 }

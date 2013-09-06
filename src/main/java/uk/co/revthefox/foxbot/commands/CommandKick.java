@@ -39,6 +39,16 @@ public class CommandKick extends Command
                         return;
                     }
 
+                    // Delay the kick to prevent whois throttling due to the permission check on both users
+                    try
+                    {
+                        Thread.sleep(foxbot.getConfig().getKickDelay());
+                    }
+                    catch (InterruptedException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+
                     if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
                     {
                         bot.sendNotice(sender, "You cannot kick that user!");
@@ -54,30 +64,9 @@ public class CommandKick extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        // Delay the kick to prevent whois throttling due to the permission check on both users
-                        try
-                        {
-                            Thread.sleep(foxbot.getConfig().getKickDelay());
-                        }
-                        catch (InterruptedException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-
                         bot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), reason.toString()));
                         return;
                     }
-
-                    // Delay the kick to prevent whois throttling due to the permission check on both users
-                    try
-                    {
-                        Thread.sleep(foxbot.getConfig().getKickDelay());
-                    }
-                    catch (InterruptedException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-
                     bot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));
                     return;
                 }

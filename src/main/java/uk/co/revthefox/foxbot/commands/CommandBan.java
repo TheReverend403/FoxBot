@@ -37,6 +37,7 @@ public class CommandBan extends Command
                 if (args.length != 0)
                 {
                     target = bot.getUser(args[0]);
+                    hostmask = target.getHostmask();
 
                     if (!channel.getUsers().contains(target))
                     {
@@ -69,16 +70,22 @@ public class CommandBan extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        hostmask = target.getHostmask();
                         bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
                         bot.ban(channel, hostmask);
-                        scheduleUnban(channel, hostmask);
+
+                        if (foxbot.getConfig().getUnbanTimer() > 0)
+                        {
+                            scheduleUnban(channel, hostmask);
+                        }
                         return;
                     }
-                    hostmask = target.getHostmask();
                     bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
                     bot.ban(channel, hostmask);
-                    scheduleUnban(channel, hostmask);
+
+                    if (foxbot.getConfig().getUnbanTimer() > 0)
+                    {
+                        scheduleUnban(channel, hostmask);
+                    }
                     return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
@@ -97,7 +104,7 @@ public class CommandBan extends Command
                         foxbot.getBot().unBan(channel, hostmask);
                     }
                 },
-                5 * 1000
+                foxbot.getConfig().getUnbanTimer() * 1000
         );
     }
 }
