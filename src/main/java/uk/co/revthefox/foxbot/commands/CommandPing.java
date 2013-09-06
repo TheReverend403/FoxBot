@@ -26,45 +26,52 @@ public class CommandPing extends Command
     @Override
     public void execute(final MessageEvent event, final String[] args)
     {
-        Channel channel = event.getChannel();
-        User sender = event.getUser();
-        PircBotX bot = foxbot.getBot();
-
-        if (args.length == 1)
+        new Thread(new Runnable()
         {
-            try
+            @Override
+            public void run()
             {
-                URL url = new URL(args[0].startsWith("http://") ? args[0] : "http://" + args[0]);
-                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-                urlConn.setConnectTimeout(10000);
-                urlConn.setInstanceFollowRedirects(true);
-                long startTime = System.currentTimeMillis();
-                urlConn.connect();
-                long endTime = System.currentTimeMillis();
-                if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
+                Channel channel = event.getChannel();
+                User sender = event.getUser();
+                PircBotX bot = foxbot.getBot();
+
+                if (args.length == 1)
                 {
-                    channel.sendMessage(String.format("%sPing response time: %s%sms", Colors.GREEN, Colors.NORMAL, (endTime - startTime)));
-                    urlConn.disconnect();
+                    try
+                    {
+                        URL url = new URL(args[0].startsWith("http://") ? args[0] : "http://" + args[0]);
+                        HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+                        urlConn.setConnectTimeout(10000);
+                        urlConn.setInstanceFollowRedirects(true);
+                        long startTime = System.currentTimeMillis();
+                        urlConn.connect();
+                        long endTime = System.currentTimeMillis();
+                        if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
+                        {
+                            channel.sendMessage(String.format("%sPing response time: %s%sms", Colors.GREEN, Colors.NORMAL, (endTime - startTime)));
+                            urlConn.disconnect();
+                            return;
+                        }
+                    }
+                    catch (MalformedURLException ex)
+                    {
+                        bot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
+                        ex.printStackTrace();
+                    }
+                    catch (UnknownHostException ex)
+                    {
+                        bot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
+                        ex.printStackTrace();
+                    }
+                    catch (IOException ex)
+                    {
+                        channel.sendMessage("Something went wrong...");
+                        ex.printStackTrace();
+                    }
                     return;
                 }
+                bot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address>", foxbot.getConfig().getCommandPrefix()));
             }
-            catch (MalformedURLException ex)
-            {
-                bot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
-                ex.printStackTrace();
-            }
-            catch (UnknownHostException ex)
-            {
-                bot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
-                ex.printStackTrace();
-            }
-            catch (IOException ex)
-            {
-                channel.sendMessage("Something went wrong...");
-                ex.printStackTrace();
-            }
-            return;
-        }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address>", foxbot.getConfig().getCommandPrefix()));
+        }).start();
     }
 }
