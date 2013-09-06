@@ -19,41 +19,44 @@ public class CommandKick extends Command
     @Override
     public void execute(MessageEvent event, String[] args)
     {
-        User sender = event.getUser();
-        final Channel channel = event.getChannel();
-        final PircBotX bot = foxbot.getBot();
-        final User target = args.length > 0 ? bot.getUser(args[0]) : null;
+        final MessageEvent threadEvent = event;
+        final String[] threadArgs = args;
 
-
-        if (args.length != 0)
+        new Thread(new Runnable()
         {
-            if (!channel.getUsers().contains(target))
+            public void run()
             {
-                bot.sendNotice(sender, "That user is not in this channel!");
-                return;
-            }
+                User sender = threadEvent.getUser();
+                Channel channel = threadEvent.getChannel();
+                PircBotX bot = foxbot.getBot();
+                User target;
 
-            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
-            {
-                bot.sendNotice(sender, "You cannot kick that user!");
-                return;
-            }
-
-            if (args.length > 1)
-            {
-                final StringBuilder reason = new StringBuilder(args[1]);
-
-                for (int arg = 2; arg < args.length; arg++)
+                if (threadArgs.length != 0)
                 {
-                    reason.append(" ").append(args[arg]);
-                }
+                    target = bot.getUser(threadArgs[0]);
 
-                // Delay the kick to prevent whois throttling due to the permission check on both users
-
-                new Thread(new Runnable()
-                {
-                    public void run()
+                    if (!channel.getUsers().contains(target))
                     {
+                        bot.sendNotice(sender, "That user is not in this channel!");
+                        return;
+                    }
+
+                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || threadArgs[0].equals(foxbot.getBot().getNick()))
+                    {
+                        bot.sendNotice(sender, "You cannot kick that user!");
+                        return;
+                    }
+
+                    if (threadArgs.length > 1)
+                    {
+                        final StringBuilder reason = new StringBuilder(threadArgs[1]);
+
+                        for (int arg = 2; arg < threadArgs.length; arg++)
+                        {
+                            reason.append(" ").append(threadArgs[arg]);
+                        }
+
+                        // Delay the kick to prevent whois throttling due to the permission check on both users
                         try
                         {
                             Thread.sleep(1000);
@@ -62,16 +65,12 @@ public class CommandKick extends Command
                         {
                             ex.printStackTrace();
                         }
-                        bot.kick(channel, target, reason.toString());
-                    }
-                }).start();
-                return;
-            }
 
-            new Thread(new Runnable()
-            {
-                public void run()
-                {
+                        bot.kick(channel, target, reason.toString());
+                        return;
+                    }
+
+                    // Delay the kick to prevent whois throttling due to the permission check on both users
                     try
                     {
                         Thread.sleep(1000);
@@ -80,11 +79,12 @@ public class CommandKick extends Command
                     {
                         ex.printStackTrace();
                     }
+
                     bot.kick(channel, target);
+                    return;
                 }
-            }).start();
-            return;
-        }
-        bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+                bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+            }
+        }).start();
     }
 }
