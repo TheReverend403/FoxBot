@@ -20,18 +20,20 @@ public class CommandKick extends Command
     public void execute(MessageEvent event, String[] args)
     {
         User sender = event.getUser();
-        Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
+        final Channel channel = event.getChannel();
+        final PircBotX bot = foxbot.getBot();
+        final User target = bot.getUser(args[0]);
+
 
         if (args.length != 0)
         {
-            if (bot.getUser(args[0]) == null)
+            if (!channel.getUsers().contains(target))
             {
                 bot.sendNotice(sender, "That user is not in this channel");
                 return;
             }
 
-            if (foxbot.getPermissionManager().userHasQuietPermission(bot.getUser(args[0]), "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
+            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
             {
                 bot.sendNotice(sender, "You cannot kick that user!");
                 return;
@@ -39,16 +41,48 @@ public class CommandKick extends Command
 
             if (args.length > 1)
             {
-                StringBuilder reason = new StringBuilder(args[1]);
+                final StringBuilder reason = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
                 {
                     reason.append(" ").append(args[arg]);
                 }
-                bot.kick(channel, bot.getUser(args[0]), reason.toString());
+
+                // Delay the kick to prevent whois throttling due to the permission check on both users
+
+                new Thread(new Runnable()
+                {
+                    public void run()
+                    {
+                        try
+                        {
+                            Thread.sleep(1000);
+                        }
+                        catch (InterruptedException ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                        bot.kick(channel, target, reason.toString());
+                    }
+                }).start();
                 return;
             }
-            bot.kick(channel, bot.getUser(args[0]));
+
+            new Thread(new Runnable()
+            {
+                public void run()
+                {
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    bot.kick(channel, target);
+                }
+            }).start();
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
