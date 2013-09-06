@@ -39,6 +39,8 @@ public class CommandRandomImgur extends Command
 
                 if (!link.equalsIgnoreCase(""))
                 {
+                    // I feel this might be necessary...
+                    System.gc();
                     break;
                 }
             }

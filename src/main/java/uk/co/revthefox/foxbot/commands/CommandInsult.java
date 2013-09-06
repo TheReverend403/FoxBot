@@ -20,7 +20,7 @@ public class CommandInsult extends Command
         this.foxbot = foxbot;
     }
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
+    private Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
 
     @Override
     public void execute(MessageEvent event, String[] args)
@@ -46,7 +46,7 @@ public class CommandInsult extends Command
                 return;
             }
 
-            matcher = TITLE_PATTERN.matcher(insult);
+            matcher = titlePattern.matcher(insult);
 
             while (matcher.find())
             {
