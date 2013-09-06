@@ -24,7 +24,7 @@ public class CommandPing extends Command
     }
 
     @Override
-    public void execute(MessageEvent event, String[] args)
+    public void execute(final MessageEvent event, final String[] args)
     {
         Channel channel = event.getChannel();
         User sender = event.getUser();

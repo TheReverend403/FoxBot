@@ -24,7 +24,7 @@ public class CommandRandCommit extends Command
     private Pattern commitPattern = Pattern.compile("<p>(.*)</p>.*<p class=\"permalink\">.*</p>", Pattern.DOTALL);
 
     @Override
-    public void execute(MessageEvent event, String[] args)
+    public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();

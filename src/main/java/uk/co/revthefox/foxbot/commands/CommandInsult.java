@@ -23,7 +23,7 @@ public class CommandInsult extends Command
     private Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
 
     @Override
-    public void execute(MessageEvent event, String[] args)
+    public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();

@@ -17,23 +17,20 @@ public class CommandKick extends Command
     }
 
     @Override
-    public void execute(MessageEvent event, String[] args)
+    public void execute(final MessageEvent event, final String[] args)
     {
-        final MessageEvent threadEvent = event;
-        final String[] threadArgs = args;
-
         new Thread(new Runnable()
         {
             public void run()
             {
-                User sender = threadEvent.getUser();
-                Channel channel = threadEvent.getChannel();
+                User sender = event.getUser();
+                Channel channel = event.getChannel();
                 PircBotX bot = foxbot.getBot();
                 User target;
 
-                if (threadArgs.length != 0)
+                if (args.length != 0)
                 {
-                    target = bot.getUser(threadArgs[0]);
+                    target = bot.getUser(args[0]);
 
                     if (!channel.getUsers().contains(target))
                     {
@@ -41,19 +38,19 @@ public class CommandKick extends Command
                         return;
                     }
 
-                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || threadArgs[0].equals(foxbot.getBot().getNick()))
+                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
                     {
                         bot.sendNotice(sender, "You cannot kick that user!");
                         return;
                     }
 
-                    if (threadArgs.length > 1)
+                    if (args.length > 1)
                     {
-                        final StringBuilder reason = new StringBuilder(threadArgs[1]);
+                        final StringBuilder reason = new StringBuilder(args[1]);
 
-                        for (int arg = 2; arg < threadArgs.length; arg++)
+                        for (int arg = 2; arg < args.length; arg++)
                         {
-                            reason.append(" ").append(threadArgs[arg]);
+                            reason.append(" ").append(args[arg]);
                         }
 
                         // Delay the kick to prevent whois throttling due to the permission check on both users
