@@ -32,12 +32,11 @@ public class CommandBan extends Command
                 Channel channel = event.getChannel();
                 PircBotX bot = foxbot.getBot();
                 User target;
-                String hostmask;
+                String hostmask = null;
 
                 if (args.length != 0)
                 {
                     target = bot.getUser(args[0]);
-                    hostmask = target.getHostmask();
 
                     if (!channel.getUsers().contains(target))
                     {
@@ -64,6 +63,7 @@ public class CommandBan extends Command
                         try
                         {
                             Thread.sleep(foxbot.getConfig().getKickDelay());
+                            hostmask = target.getHostmask();
                         }
                         catch (InterruptedException ex)
                         {
@@ -74,22 +74,20 @@ public class CommandBan extends Command
                         scheduleUnban(channel, hostmask);
                         return;
                     }
-                    else
+                    // Delay the kick to prevent whois throttling due to the permission check on both users
+                    try
                     {
-                        // Delay the kick to prevent whois throttling due to the permission check on both users
-                        try
-                        {
-                            Thread.sleep(foxbot.getConfig().getKickDelay());
-                        }
-                        catch (InterruptedException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-                        bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
-                        bot.ban(channel, hostmask);
-                        scheduleUnban(channel, hostmask);
-                        return;
+                        Thread.sleep(foxbot.getConfig().getKickDelay());
+                        hostmask = target.getHostmask();
                     }
+                    catch (InterruptedException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
+                    bot.ban(channel, hostmask);
+                    scheduleUnban(channel, hostmask);
+                    return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
