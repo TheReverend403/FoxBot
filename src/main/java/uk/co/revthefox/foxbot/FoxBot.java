@@ -12,7 +12,6 @@ import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
-import uk.co.revthefox.foxbot.logger.Logger;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import uk.co.revthefox.foxbot.utils.Utils;
 
@@ -145,7 +144,6 @@ public class FoxBot
 
     private void registerListeners()
     {
-        backgroundListenerManager.addListener(new Logger(this), true);
         bot.getListenerManager().addListener(new MessageListener(this));
         bot.getListenerManager().addListener(new UserListener(this));
     }

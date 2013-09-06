@@ -5,11 +5,9 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.utils.UnbanTimer;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class CommandBan extends Command
 {
