@@ -39,11 +39,11 @@ public class Utils
 
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
-                return String.format("(%s's URL) %sError: %s%s %s ", munge(sender.getNick()), Colors.RED, Colors.NORMAL, response.getStatusCode(), response.getStatusText());
+                return Utils.colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
             }
             if (!contentType.contains("html"))
             {
-                return String.format("(%s's URL) %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
+                return Utils.colourise(String.format("(%s's URL) &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), contentType, size));
             }
 
             Pattern pattern = Pattern.compile("<title>.+</title>");
@@ -57,7 +57,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return String.format("(%s's URL) %sTitle: %s%s %sContent Type: %s%s %sSize: %s%s", munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, StringEscapeUtils.unescapeHtml4(title), Colors.GREEN, Colors.NORMAL, contentType, Colors.GREEN, Colors.NORMAL, size);
+            return Utils.colourise(String.format("(%s's URL) &aTitle: &r%s &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ex)
         {
