@@ -69,18 +69,7 @@ public class CommandBan extends Command
 
                         bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
                         bot.ban(channel, target.getHostmask());
-
-                        new Timer().schedule(
-                                new TimerTask()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        bot.unBan(channel, target.getHostmask());
-                                    }
-                                },
-                                5 * 1000
-                        );
+                        scheduleUnban(channel, target.getHostmask());
                         return;
                     }
 
@@ -96,22 +85,26 @@ public class CommandBan extends Command
 
                     bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
                     bot.ban(channel, target.getHostmask());
-
-                    new Timer().schedule(
-                            new TimerTask()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    bot.unBan(channel, target.getHostmask());
-                                }
-                            },
-                            5 * 1000
-                    );
+                    scheduleUnban(channel, target.getHostmask());
                     return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
         }).start();
+    }
+
+    public void scheduleUnban(final Channel channel, final String hostmask)
+    {
+        new Timer().schedule(
+                new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        foxbot.getBot().unBan(channel, hostmask);
+                    }
+                },
+                5 * 1000
+        );
     }
 }
