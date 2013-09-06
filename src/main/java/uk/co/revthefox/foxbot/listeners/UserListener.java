@@ -6,6 +6,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.*;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class UserListener extends ListenerAdapter
         {
             for (String tell : tells)
             {
-                bot.sendMessage(user, tell);
+                bot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }
@@ -111,7 +112,7 @@ public class UserListener extends ListenerAdapter
         {
             for (String tell : tells)
             {
-                bot.sendMessage(user, tell);
+                bot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }

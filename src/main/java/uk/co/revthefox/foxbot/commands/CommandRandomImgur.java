@@ -48,10 +48,10 @@ public class CommandRandomImgur extends Command
 
             if (!link.equals("exception"))
             {
-                channel.sendMessage(String.format("(%s) %sRandom Imgur: %s%s", Utils.munge(sender.getNick()), Colors.GREEN, Colors.NORMAL, link));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &aRandom Imgur: &r%s", Utils.munge(sender.getNick()), link)));
                 return;
             }
-            channel.sendMessage("Something went wrong...");
+            channel.sendMessage(Utils.colourise("&cSomething went wrong..."));
         }
     }
 

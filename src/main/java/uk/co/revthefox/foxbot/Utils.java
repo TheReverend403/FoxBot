@@ -74,4 +74,29 @@ public class Utils
     {
         return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
     }
+
+    public static String colourise(String stringToColour)
+    {
+        String colourChar = foxbot.getConfig().getColourChar();
+
+        return stringToColour.replace(colourChar + "0", Colors.BLACK)
+                .replace(colourChar + "1", Colors.DARK_BLUE)
+                .replace(colourChar + "2", Colors.DARK_GREEN)
+                .replace(colourChar + "3", Colors.TEAL)
+                .replace(colourChar + "4", Colors.RED)
+                .replace(colourChar + "5", Colors.PURPLE)
+                .replace(colourChar + "6", Colors.BLACK)
+                .replace(colourChar + "7", Colors.LIGHT_GRAY)
+                .replace(colourChar + "8", Colors.DARK_GRAY)
+                .replace(colourChar + "9", Colors.BLUE)
+                .replace(colourChar + "a", Colors.GREEN)
+                .replace(colourChar + "b", Colors.CYAN)
+                .replace(colourChar + "c", Colors.RED)
+                .replace(colourChar + "d", Colors.PURPLE)
+                .replace(colourChar + "e", Colors.YELLOW)
+                .replace(colourChar + "f", Colors.WHITE)
+                .replace(colourChar + "r", Colors.NORMAL)
+                .replace(colourChar + "l", Colors.BOLD)
+                .replace(colourChar + "n", Colors.UNDERLINE);
+    }
 }

@@ -4,6 +4,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CommandTell extends Command
                 {
                     for (String tell : tells)
                     {
-                        bot.sendNotice(sender, tell);
+                        bot.sendNotice(sender, Utils.colourise(tell));
                     }
                     return;
                 }

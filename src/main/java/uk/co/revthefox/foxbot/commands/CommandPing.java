@@ -6,6 +6,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -48,7 +49,7 @@ public class CommandPing extends Command
                         long endTime = System.currentTimeMillis();
                         if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
                         {
-                            channel.sendMessage(String.format("%sPing response time: %s%sms", Colors.GREEN, Colors.NORMAL, (endTime - startTime)));
+                            channel.sendMessage(Utils.colourise(String.format("&aPing response time: &r%sms", (endTime - startTime))));
                             urlConn.disconnect();
                             return;
                         }

@@ -4,6 +4,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 public class CommandMessage extends Command
 {
@@ -31,7 +32,7 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-            bot.sendMessage(target, message.toString());
+            bot.sendMessage(target, Utils.colourise(message.toString()));
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));

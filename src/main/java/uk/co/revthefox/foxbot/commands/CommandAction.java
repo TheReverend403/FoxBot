@@ -5,6 +5,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.Utils;
 
 public class CommandAction extends Command
 {
@@ -49,12 +50,12 @@ public class CommandAction extends Command
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    bot.sendAction(args[0], message.toString());
+                    bot.sendAction(args[0], Utils.colourise(message.toString()));
                     bot.partChannel(bot.getChannel(args[0]));
                     bot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                bot.sendAction(args[0], message.toString());
+                bot.sendAction(args[0], Utils.colourise(message.toString()));
                 bot.sendNotice(sender, String.format("Action sent to %s", args[0]));
                 return;
             }
@@ -68,7 +69,7 @@ public class CommandAction extends Command
                     message.append(" ").append(args[arg]);
                 }
             }
-            bot.sendAction(channel, message.toString());
+            bot.sendAction(channel, Utils.colourise(message.toString()));
             return;
         }
         bot.sendNotice(sender, String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));

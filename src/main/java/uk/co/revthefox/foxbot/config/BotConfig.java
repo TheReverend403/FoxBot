@@ -29,6 +29,7 @@ public class BotConfig
 
     private boolean debug;
     private String commandPrefix;
+    private String colourChar;
     private boolean autoJoinOnInvite;
     private long kickDelay;
     private boolean autoNickChange;
@@ -67,6 +68,7 @@ public class BotConfig
 
         debug = botConfig.getBoolean("misc.debug");
         commandPrefix = botConfig.getString("misc.commandPrefix");
+        colourChar = botConfig.getString("misc.colourChar");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
         kickDelay = botConfig.getLong("misc.kickDelay");
         autoNickChange = botConfig.getBoolean("misc.autoNickChange");
@@ -87,6 +89,7 @@ public class BotConfig
         debug = botConfig.getBoolean("misc.debug");
         foxbot.getBot().setVerbose(botConfig.getBoolean("misc.debug"));
         commandPrefix = botConfig.getString("misc.commandPrefix");
+        colourChar = botConfig.getString("misc.colourChar");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
         kickDelay = botConfig.getLong("misc.kickDelay");
         messageDelay = botConfig.getLong("misc.messageDelay");
@@ -169,6 +172,11 @@ public class BotConfig
     public String getCommandPrefix()
     {
         return commandPrefix;
+    }
+
+    public String getColourChar()
+    {
+        return colourChar;
     }
 
     public boolean getAutoJoinOnInvite()
