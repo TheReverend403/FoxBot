@@ -32,7 +32,6 @@ public class FoxBot
     private static PircBotX bot;
     private static BotConfig config;
     private static PermissionManager permissions;
-    private static Utils utils;
     private static CommandManager commandManager;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
@@ -90,7 +89,6 @@ public class FoxBot
         bot = new PircBotX();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
-        utils = new Utils(this);
         commandManager = new CommandManager(this);
         database = new Database(this);
         database.connect();
@@ -201,11 +199,6 @@ public class FoxBot
     public Config getNickProtectionFile()
     {
         return nickProtectionFile;
-    }
-
-    public Utils getUtils()
-    {
-        return utils;
     }
 
     public CommandManager getCommandManager()
