@@ -42,7 +42,7 @@ public class CommandPing extends Command
                 long endTime = System.currentTimeMillis();
                 if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
                 {
-                    channel.sendMessage(Utils.colourise(String.format("&aPing response time: &r%sms", (endTime - startTime))));
+                    channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", (endTime - startTime))));
                     urlConn.disconnect();
                     return;
                 }

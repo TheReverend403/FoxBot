@@ -42,7 +42,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
-            message = Utils.parseChatUrl(matcher.group(1), user);
+            message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
 
             if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
             {

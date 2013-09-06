@@ -32,6 +32,7 @@ public class FoxBot extends PircBotX
     private static BotConfig config;
     private static PermissionManager permissions;
     private static CommandManager commandManager;
+    private static Utils utils;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
 
@@ -88,6 +89,7 @@ public class FoxBot extends PircBotX
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
         commandManager = new CommandManager(this);
+        utils = new Utils(this);
         database = new Database(this);
         database.connect();
         registerListeners();
@@ -197,6 +199,11 @@ public class FoxBot extends PircBotX
     public CommandManager getCommandManager()
     {
         return commandManager;
+    }
+
+    public Utils getUtils()
+    {
+        return utils;
     }
 
     public Database getDatabase()

@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
 public class Utils
 {
 
-    private static FoxBot foxbot;
+    private FoxBot foxbot;
 
     public Utils(FoxBot foxbot)
     {
-        Utils.foxbot = foxbot;
+       this.foxbot = foxbot;
     }
 
-    public static String parseChatUrl(String stringToParse, User sender)
+    public String parseChatUrl(String stringToParse, User sender)
     {
         try
         {
@@ -38,11 +38,11 @@ public class Utils
 
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
-                return Utils.colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
+                return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
             }
             if (!contentType.contains("html"))
             {
-                return Utils.colourise(String.format("(%s's URL) &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), contentType, size));
+                return colourise(String.format("(%s's URL) &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), contentType, size));
             }
 
             Pattern pattern = Pattern.compile("<title>.+</title>");
@@ -56,7 +56,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return Utils.colourise(String.format("(%s's URL) &aTitle: &r%s &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
+            return colourise(String.format("(%s's URL) &aTitle: &r%s &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ex)
         {
@@ -69,12 +69,12 @@ public class Utils
         return "null";
     }
 
-    public static String munge(String stringToMunge)
+    public String munge(String stringToMunge)
     {
         return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
     }
 
-    public static String colourise(String stringToColour)
+    public String colourise(String stringToColour)
     {
         String colourChar = foxbot.getConfig().getColourChar();
 

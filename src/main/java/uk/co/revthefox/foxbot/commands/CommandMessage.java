@@ -31,7 +31,7 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-            foxbot.sendMessage(target, Utils.colourise(message.toString()));
+            foxbot.sendMessage(target, foxbot.getUtils().colourise(message.toString()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));

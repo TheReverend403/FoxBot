@@ -33,7 +33,7 @@ public class CommandTell extends Command
                 {
                     for (String tell : tells)
                     {
-                        foxbot.sendNotice(sender, Utils.colourise(tell));
+                        foxbot.sendNotice(sender, foxbot.getUtils().colourise(tell));
                     }
                     return;
                 }

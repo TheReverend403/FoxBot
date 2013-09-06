@@ -30,12 +30,12 @@ public class CommandHaspaid extends Command
 
             try
             {
-                channel.sendMessage(asyncHttpClient.prepareGet("https://minecraft.net/haspaid.jsp?user=" + args[0]).execute().get().getResponseBody().contains("true") ? Utils.colourise(String.format("(%s) The account \"%s\"' is a &apremium&r Minecraft account!", Utils.munge(sender.getNick()), args[0])) : Utils.colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", Utils.munge(sender.getNick()), args[0])));
+                channel.sendMessage(asyncHttpClient.prepareGet("https://minecraft.net/haspaid.jsp?user=" + args[0]).execute().get().getResponseBody().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\"' is a &apremium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
             }
             catch (Exception ex)
             {
                 ex.printStackTrace();
-                channel.sendMessage(Utils.colourise("&cSomething went wrong..."));
+                channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
             }
             return;
         }

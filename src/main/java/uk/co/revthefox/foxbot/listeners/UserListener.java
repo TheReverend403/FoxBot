@@ -60,7 +60,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                foxbot.sendMessage(user, Utils.colourise(tell));
+                foxbot.sendMessage(user, foxbot.getUtils().colourise(tell));
             }
         }
     }
@@ -108,7 +108,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                foxbot.sendMessage(user, Utils.colourise(tell));
+                foxbot.sendMessage(user, foxbot.getUtils().colourise(tell));
             }
         }
     }
