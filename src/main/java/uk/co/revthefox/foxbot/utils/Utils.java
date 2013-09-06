@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot;
+package uk.co.revthefox.foxbot.utils;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
@@ -6,9 +6,8 @@ import com.ning.http.client.Response;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+import uk.co.revthefox.foxbot.FoxBot;
 
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;

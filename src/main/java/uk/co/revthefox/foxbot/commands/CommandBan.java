@@ -5,6 +5,10 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.utils.UnbanTimer;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CommandBan extends Command
 {
@@ -24,9 +28,9 @@ public class CommandBan extends Command
             public void run()
             {
                 User sender = event.getUser();
-                Channel channel = event.getChannel();
-                PircBotX bot = foxbot.getBot();
-                User target;
+                final Channel channel = event.getChannel();
+                final PircBotX bot = foxbot.getBot();
+                final User target;
 
                 if (args.length != 0)
                 {
@@ -65,6 +69,18 @@ public class CommandBan extends Command
 
                         bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
                         bot.ban(channel, target.getHostmask());
+
+                        new Timer().schedule(
+                                new TimerTask()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        bot.unBan(channel, target.getHostmask());
+                                    }
+                                },
+                                5 * 1000
+                        );
                         return;
                     }
 
@@ -80,6 +96,18 @@ public class CommandBan extends Command
 
                     bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
                     bot.ban(channel, target.getHostmask());
+
+                    new Timer().schedule(
+                            new TimerTask()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    bot.unBan(channel, target.getHostmask());
+                                }
+                            },
+                            5 * 1000
+                    );
                     return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));

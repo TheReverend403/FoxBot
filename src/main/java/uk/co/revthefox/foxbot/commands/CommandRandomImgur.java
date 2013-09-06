@@ -4,11 +4,10 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.Utils;
+import uk.co.revthefox.foxbot.utils.Utils;
 
 import java.util.Random;
 

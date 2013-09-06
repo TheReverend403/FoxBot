@@ -1,11 +1,10 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.Utils;
+import uk.co.revthefox.foxbot.utils.Utils;
 
 public class CommandGit extends Command
 {

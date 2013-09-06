@@ -14,6 +14,7 @@ import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.logger.Logger;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
+import uk.co.revthefox.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;

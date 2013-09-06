@@ -6,7 +6,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.*;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.Utils;
+import uk.co.revthefox.foxbot.utils.Utils;
 
 import java.util.List;
 
