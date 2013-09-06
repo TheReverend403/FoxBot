@@ -35,12 +35,12 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))
         {
-            foxbot.getBot().kick(channel, user, "We don't use that language round 'ere.");
+            foxbot.kick(channel, user, "We don't use that language round 'ere.");
         }
 
         Matcher matcher = urlPattern.matcher(message);
 
-        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getBot().getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
+        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
             message = Utils.parseChatUrl(matcher.group(1), user);
 

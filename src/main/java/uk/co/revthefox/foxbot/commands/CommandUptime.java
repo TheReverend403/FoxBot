@@ -50,6 +50,6 @@ public class CommandUptime extends Command
             foxbot.sendNotice(sender, "This command is only supported on Unix based systems.");
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %suptime", this.foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %suptime", foxbot.getConfig().getCommandPrefix()));
     }
 }

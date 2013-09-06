@@ -47,7 +47,7 @@ public class CommandKick extends Command
                         ex.printStackTrace();
                     }
 
-                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getBot().getNick()))
+                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getNick()))
                     {
                         foxbot.sendNotice(sender, "You cannot kick that user!");
                         return;

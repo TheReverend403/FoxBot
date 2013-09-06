@@ -47,7 +47,7 @@ public class CommandManager
         String permission = command.getPermission();
         if (permission != null && !permission.isEmpty())
         {
-            if (!this.foxbot.getPermissionManager().userHasPermission(sender, permission))
+            if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
                 foxbot.sendNotice(sender, "You do not have permission to do that!");
                 return false;

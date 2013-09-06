@@ -50,7 +50,7 @@ public class CommandBan extends Command
                         ex.printStackTrace();
                     }
 
-                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getBot().getNick()))
+                    if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getNick()))
                     {
                         foxbot.sendNotice(sender, "You cannot ban that user!");
                         return;

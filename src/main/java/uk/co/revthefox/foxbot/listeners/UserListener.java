@@ -28,12 +28,10 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onInvite(InviteEvent<FoxBot> event)
     {
-        PircBotX bot = foxbot.getBot();
-
-        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(bot.getUser(event.getUser()), "bot.invite"))
+        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getUser(event.getUser()), "bot.invite"))
         {
-            bot.joinChannel(event.getChannel());
-            bot.sendNotice(event.getUser(), String.format("Joined %s", event.getChannel()));
+            foxbot.joinChannel(event.getChannel());
+            foxbot.sendNotice(event.getUser(), String.format("Joined %s", event.getChannel()));
         }
     }
 
@@ -42,19 +40,18 @@ public class UserListener extends ListenerAdapter<FoxBot>
     {
         User user = event.getUser();
         String newNick = event.getNewNick();
-        PircBotX bot = foxbot.getBot();
         List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
-            for (Channel channel : bot.getChannels())
+            for (Channel channel : foxbot.getChannels())
             {
-                if (!channel.getOps().contains(bot.getUser(bot.getNick())))
+                if (!channel.getOps().contains(foxbot.getUser(foxbot.getNick())))
                 {
-                    bot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
+                    foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
                 }
-                bot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+                foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
             }
             return;
         }
@@ -63,7 +60,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                bot.sendMessage(user, Utils.colourise(tell));
+                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }
@@ -74,24 +71,23 @@ public class UserListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         String nick = user.getNick();
         Channel channel = event.getChannel();
-        PircBotX bot = foxbot.getBot();
         List<String> tells = foxbot.getDatabase().getTells(nick, false);
 
-        if (nick.equals(bot.getNick()))
+        if (nick.equals(foxbot.getNick()))
         {
             return;
         }
 
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
-            for (Channel chan : bot.getChannels())
+            for (Channel chan : foxbot.getChannels())
             {
-                if (chan.getUsers().contains(user) && !chan.getOps().contains(bot.getUser(bot.getNick())))
+                if (chan.getUsers().contains(user) && !chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
                 {
-                    bot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+                    foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                     continue;
                 }
-                bot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+                foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
             }
             return;
         }
@@ -100,7 +96,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
-                bot.sendNotice(user, foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size())));
+                foxbot.sendNotice(user, foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size())));
             }
             else
             {
@@ -112,7 +108,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                bot.sendMessage(user, Utils.colourise(tell));
+                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }
