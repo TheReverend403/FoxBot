@@ -61,15 +61,17 @@ public class CommandBan extends Command
                         try
                         {
                             Thread.sleep(foxbot.getConfig().getKickDelay());
+                            bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
+                            bot.ban(channel, target.getHostmask());
                         }
                         catch (InterruptedException ex)
                         {
                             ex.printStackTrace();
                         }
-
-                        bot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
-                        bot.ban(channel, target.getHostmask());
-                        scheduleUnban(channel, target.getHostmask());
+                        finally
+                        {
+                            scheduleUnban(channel, target.getHostmask());
+                        }
                         return;
                     }
 
@@ -77,15 +79,17 @@ public class CommandBan extends Command
                     try
                     {
                         Thread.sleep(foxbot.getConfig().getKickDelay());
+                        bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
+                        bot.ban(channel, target.getHostmask());
                     }
                     catch (InterruptedException ex)
                     {
                         ex.printStackTrace();
                     }
-
-                    bot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
-                    bot.ban(channel, target.getHostmask());
-                    scheduleUnban(channel, target.getHostmask());
+                    finally
+                    {
+                        scheduleUnban(channel, target.getHostmask());
+                    }
                     return;
                 }
                 bot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
