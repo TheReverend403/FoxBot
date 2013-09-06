@@ -36,7 +36,6 @@ public class FoxBot
     private static CommandManager commandManager;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
-    private static BackgroundListenerManager backgroundListenerManager = new BackgroundListenerManager();
 
     private Config configFile;
     private Config permissionsFile;
