@@ -1,8 +1,9 @@
-package uk.co.revthefox.foxbot;
+package uk.co.revthefox.foxbot.plugin;
 
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
+import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.commands.Command;
 
 import java.util.Arrays;
@@ -10,14 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class CommandManager
+public class PluginManager
 {
     private FoxBot foxbot;
 
     private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
     private final Map<String, Command> commandMap = new HashMap<>();
 
-    public CommandManager(FoxBot foxbot)
+    public PluginManager(FoxBot foxbot)
     {
         this.foxbot = foxbot;
     }

@@ -5,7 +5,6 @@ import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
-import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
@@ -13,6 +12,7 @@ import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
+import uk.co.revthefox.foxbot.plugin.PluginManager;
 import uk.co.revthefox.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -31,7 +31,7 @@ public class FoxBot extends PircBotX
 {
     private static BotConfig config;
     private static PermissionManager permissions;
-    private static CommandManager commandManager;
+    private static PluginManager pluginManager;
     private static Utils utils;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
@@ -88,7 +88,7 @@ public class FoxBot extends PircBotX
         loadConfigFiles();
         config = new BotConfig(this);
         permissions = new PermissionManager(this);
-        commandManager = new CommandManager(this);
+        pluginManager = new PluginManager(this);
         utils = new Utils(this);
         database = new Database(this);
         database.connect();
@@ -154,7 +154,7 @@ public class FoxBot extends PircBotX
                 ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
                 Constructor clazzConstructor = clazz.getConstructor(this.getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
-                this.getCommandManager().registerCommand(command);
+                this.getPluginManager().registerCommand(command);
             }
         }
         catch (Exception ex)
@@ -196,9 +196,9 @@ public class FoxBot extends PircBotX
         return nickProtectionFile;
     }
 
-    public CommandManager getCommandManager()
+    public PluginManager getPluginManager()
     {
-        return commandManager;
+        return pluginManager;
     }
 
     public Utils getUtils()
