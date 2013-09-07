@@ -24,6 +24,8 @@ public class Utils
        this.foxbot = foxbot;
     }
 
+    private final Pattern titlePattern = Pattern.compile("<title>.+</title>", Pattern.DOTALL);
+
     public String parseChatUrl(String stringToParse, User sender)
     {
         try
@@ -40,17 +42,18 @@ public class Utils
             {
                 return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
             }
+
             if (!contentType.contains("html"))
             {
                 return colourise(String.format("(%s's URL) &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), contentType, size));
             }
 
-            Pattern pattern = Pattern.compile("<title>.+</title>");
             Matcher matcher;
             String title = "No title found";
+
             for (String line : output.split("\n"))
             {
-                matcher = pattern.matcher(line);
+                matcher = titlePattern.matcher(line);
                 if (matcher.find())
                 {
                     title = line.split("<title>")[1].split("</title>")[0];
