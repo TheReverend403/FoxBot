@@ -47,7 +47,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (Channel channel : foxbot.getChannels())
             {
-                if (!channel.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                if (!channel.getOps().contains(foxbot.getUser(foxbot.getNick())) && channel.getUsers().contains(user))
                 {
                     foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
