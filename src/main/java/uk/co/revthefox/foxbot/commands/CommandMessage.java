@@ -1,10 +1,8 @@
 package uk.co.revthefox.foxbot.commands;
 
-import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.utils.Utils;
 
 public class CommandMessage extends Command
 {

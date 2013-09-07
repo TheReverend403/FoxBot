@@ -2,11 +2,9 @@ package uk.co.revthefox.foxbot.commands;
 
 import com.ning.http.client.AsyncHttpClient;
 import org.pircbotx.Channel;
-import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.utils.Utils;
 
 public class CommandHaspaid extends Command
 {

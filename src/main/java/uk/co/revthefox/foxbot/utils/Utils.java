@@ -21,7 +21,7 @@ public class Utils
 
     public Utils(FoxBot foxbot)
     {
-       this.foxbot = foxbot;
+        this.foxbot = foxbot;
     }
 
     private final Pattern titlePattern = Pattern.compile("<title>.+</title>", Pattern.DOTALL);

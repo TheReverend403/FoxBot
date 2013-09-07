@@ -164,6 +164,7 @@ public class BotConfig
     {
         return usersMustBeVerified;
     }
+
     public boolean getMatchUsersByHostmask()
     {
         return matchUsersByHostmask;

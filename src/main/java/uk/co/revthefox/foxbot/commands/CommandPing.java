@@ -1,11 +1,9 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
-import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.utils.Utils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

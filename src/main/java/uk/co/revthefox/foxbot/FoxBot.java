@@ -9,8 +9,8 @@ import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
 import uk.co.revthefox.foxbot.database.Database;
-import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
+import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import uk.co.revthefox.foxbot.plugin.PluginManager;
 import uk.co.revthefox.foxbot.utils.Utils;
@@ -19,6 +19,7 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+
 /**
  * FoxBot - An IRC bot written in Java
  *

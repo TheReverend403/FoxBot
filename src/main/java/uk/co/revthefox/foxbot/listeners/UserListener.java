@@ -1,12 +1,13 @@
 package uk.co.revthefox.foxbot.listeners;
 
 import org.pircbotx.Channel;
-import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.*;
+import org.pircbotx.hooks.events.InviteEvent;
+import org.pircbotx.hooks.events.JoinEvent;
+import org.pircbotx.hooks.events.NickChangeEvent;
+import org.pircbotx.hooks.events.QuitEvent;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.utils.Utils;
 
 import java.util.List;
 
