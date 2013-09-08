@@ -77,19 +77,19 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 currentPunishments.remove(hostmask);
                 break;
             case 4:
-                currentPunishments.add(hostmask);
                 foxbot.kick(channel, user, "AntiSpam kick");
                 foxbot.setMode(channel, "+q " + hostmask);
                // foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
+                currentPunishments.add(hostmask);
                 break;
             case 2:
-                currentPunishments.add(hostmask);
                 foxbot.setMode(channel, "+q " + hostmask);
                 //foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
+                currentPunishments.add(hostmask);
                 break;
             default: break;
         }
