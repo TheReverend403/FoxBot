@@ -18,7 +18,9 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
     private HashMap<String, String> duplicateMap = new HashMap<>();
 
-    LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build(
+    LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder()
+    .expireAfterWrite(10, TimeUnit.MINUTES)
+    .build(
             new CacheLoader<String, Integer>()
             {
                 public Integer load(String hostmask)
@@ -83,7 +85,11 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             spamCounter.put(hostmask, spamCounter.asMap().get(hostmask) == null ? 1 : spamCounter.asMap().get(hostmask) + 1);
             duplicateMap.remove(hostmask);
             duplicateMap.put(hostmask, message);
-            spamPunisher(channel, user, spamCounter.asMap().get(hostmask) == null ? 0 : spamCounter.asMap().get(hostmask));
+            if (!spamCounter.asMap().get(hostmask) == null && !spamCounter.asMap().get(hostmask) == 0)
+            {
+                spamPunisher(channel, user, spamCounter.asMap().get(hostmask));
+            }
+            
         }
     }
 
