@@ -4,29 +4,29 @@
 # Commands granted to all users
 # If using hostmask matching, hostmasks MUST be enclosed in ""
 default:
-  - command.ping
-  - command.uptime
-  - chat.urls
-  - command.git
-  - command.haspaid
-  - command.wtc
-  - command.imgur
+    - command.ping
+    - command.uptime
+    - chat.urls
+    - command.git
+    - command.haspaid
+    - command.wtc
+    - command.imgur
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching
-  - command.ban
-  - command.insult
-  - command.kick
-  - command.kill
-  - command.delay
-  - command.say
-  - command.join
-  - command.part
-  - command.action
-  - command.reload
-  - command.exec
-  - command.tell
-  - command.message
-  - bot.invite
-  - greetings.ignore
-  - protection.kick
-  - protection.ban
+    - command.ban
+    - command.insult
+    - command.kick
+    - command.kill
+    - command.delay
+    - command.say
+    - command.join
+    - command.part
+    - command.action
+    - command.reload
+    - command.exec
+    - command.tell
+    - command.message
+    - bot.invite
+    - greetings.ignore
+    - protection.kick
+    - protection.ban

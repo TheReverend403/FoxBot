@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 public class YamlConfigurationOptions extends FileConfigurationOptions
 {
 
-    private int indent = 2;
+    private int indent = 4;
 
     protected YamlConfigurationOptions(YamlConfiguration configuration)
     {

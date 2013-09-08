@@ -1,64 +1,67 @@
 bot:
-  # The bot's nick
-  nick: FoxBot-Dev
-  # The bot's ident. Will show as botnick!ident@host.com
-  ident: bot
-  # The name to show in /whois results
-  realName: FoxBot
+    # The bot's nick
+    nick: FoxBot-Dev
+    # The bot's ident. Will show as botnick!ident@host.com
+    ident: bot
+    # The name to show in /whois results
+    realName: FoxBot
 server:
-  # The server address
-  address: irc.esper.net
-  # The server port
-  port: 6667
-  # Should we use SSL?
-  ssl: false
-  # Should we accept an invalid SSL certificate?
-  acceptInvalidSslCert: true
-  # A password for connecting to the server, if required.
-  password: password
-  # List of channels for the bot to join on startup. Channel names must be enclosed in ''.
-  channels:
+    # The server address
+    address: irc.esper.net
+    # The server port
+    port: 6667
+    # Should we use SSL?
+    ssl: false
+    # Should we accept an invalid SSL certificate?
+    acceptInvalidSslCert: true
+    # A password for connecting to the server, if required.
+    password: password
+    # List of channels for the bot to join on startup. Channel names must be enclosed in ''.
+    channels:
     - '#thereverend403'
     - '#foxbot'
 auth:
-  # Should we use nickserv?
-  useNickserv: true
-  # The bot's nickserv password
-  nickservPassword: password
-  # Do users have to be authed with nickserv to use bot commands?
-  usersMustBeVerified: true
-  # Should we match users based on hostmasks? Keep in mind, setting this to true is more secure.
-  matchUsersByHostmask: true
+    # Should we use nickserv?
+    useNickserv: true
+    # The bot's nickserv password
+    nickservPassword: password
+    # Do users have to be authed with nickserv to use bot commands?
+    usersMustBeVerified: true
+    # Should we match users based on hostmasks? Keep in mind, setting this to true is more secure.
+    matchUsersByHostmask: true
 misc:
-  # Should we spam the console with debug info?
-  debug: true
-  # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
-  commandPrefix: '.'
-  # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello"
-  colourChar: '&'
-  # Should the bot accept invites from users with bot.invite?
-  autoJoinOnInvite: true
-  # Should the bot rejoin a channel after being kicked?
-  autoRejoinOnKick: true
-  # How long the bot will wait after being kicked to rejoin a channel
-  autoRejoinDelay: 10
-  # How long should the bot wait in milliseconds when kicking a user? (Used to prevent whois throttles on permission checks for both users)
-  # WARNING: Setting this too low could get the bot throttled. Ask your network admins what the whois throttle rate is.
-  kickDelay: 1000
-  # Try for an alternative nick if the main one is taken
-  autoNickChange: true
-  # Should we auto-reconnect if the bot loses connection?
-  autoReconnect: true
-  # How long the bot will wait to respond to events
-  messageDelay: 0
-  # Should we "munge" usernames to avoid pinging users?
-  mungeUsernames: true
-  # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
-  channelsToGreet:
+    # Should we spam the console with debug info?
+    debug: true
+    # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
+    commandPrefix: '.'
+    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello"
+    colourChar: '&'
+    # Should the bot accept invites from users with bot.invite?
+    autoJoinOnInvite: true
+    # Should the bot rejoin a channel after being kicked?
+    autoRejoinOnKick: true
+    # How long the bot will wait after being kicked to rejoin a channel
+    autoRejoinDelay: 10
+    # How long should the bot wait in milliseconds when kicking a user? (Used to prevent whois throttles on permission checks for both users)
+    # WARNING: Setting this too low could get the bot throttled. Ask your network admins what the whois throttle rate is.
+    kickDelay: 1000
+    # Try for an alternative nick if the main one is taken
+    autoNickChange: true
+    # Should we auto-reconnect if the bot loses connection?
+    autoReconnect: true
+    # How long the bot will wait to respond to events
+    messageDelay: 0
+    # Should we "munge" usernames to avoid pinging users?
+    mungeUsernames: true
+    # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
+    channelsToGreet:
     - '#thereverend403'
     - '#foxbot'
-  # The message to send to the user if greetings are being used.
-  # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
-  greetingMessage: 'Welcome to {CHANNEL}, {USER}. I am the channel''s help bot. There are currently {CHANUSERS} people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.'
-  # Should we send the greeting as a notice rather than a message to the channel?
-  sendGreetingAsNotice: false
+    # The message to send to the user if greetings are being used.
+    # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
+    greetingMessage: 'Welcome to {CHANNEL}, {USER}. I am the channel''s help bot. There are currently {CHANUSERS} people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.'
+    # Should we send the greeting as a notice rather than a message to the channel?
+    sendGreetingAsNotice: false
+bans:
+    # Time in seconds to unban users after a bot ban. Set to 0 to disable.
+    unbanTimer: 86400
