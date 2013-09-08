@@ -41,9 +41,8 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
-            channel.sendMessage(matcher.group(1));
+            channel.sendMessage(foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls") ? "true" : "false");
             message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
-
 
             if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
             {
