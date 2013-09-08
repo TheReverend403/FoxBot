@@ -58,30 +58,26 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
     public void spamPunisher(Channel channel, User user, int level)
     {
+        String hostmask = user.getHostmask();
         switch (level)
         {
             case 3:
                 //foxbot.setMode(channel, "+q", user);
-                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), user.getHostmask()));
+                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
+                foxbot.getUtils().scheduleModeRemove(channel, user.getHostmask(), "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
-                scheduleUnPunish(channel, user.getHostmask(), "q");
+            case 5:
+                foxbot.kick(channel, user, "AntiSpam kick");
+                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
+                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
+                foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
+            case 10:
+                //foxbot.setMode(channel, "+q", user);
+                foxbot.kick(channel, user, "AntiSpam kick");
+                foxbot.ban(channel, hostmask);
+                foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
+                foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
             default: break;
         }
-    }
-
-    public void scheduleUnPunish(final Channel channel, final String hostmask, final String mode)
-    {
-        new Timer().schedule(
-                new TimerTask()
-                {
-                    @Override
-                    public void run()
-                    {
-                        foxbot.sendRawLine(String.format("mode %s -%s *!*@*%s", channel.getName(), mode, hostmask));
-                        //foxbot.setMode(channel, "-" + mode, user);
-                    }
-                },
-                TimeUnit.SECONDS.toMillis(10)
-        );
     }
 }
