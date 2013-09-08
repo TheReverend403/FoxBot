@@ -37,10 +37,6 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     {
         final User user = event.getUser();
         final Channel channel = event.getChannel();
-        final String message = event.getMessage();
-        final String hostmask = user.getHostmask();
-        int count = 0;
-        int length = 0;
 
         if (user.getNick().equals(foxbot.getNick())
                 ||channel.getOwners().contains(user)
@@ -51,6 +47,11 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         {
             return;
         }
+
+        final String message = event.getMessage();
+        final String hostmask = user.getHostmask();
+        int count = 0;
+        int length = 0;
 
         for (char character : message.toCharArray())
         {
