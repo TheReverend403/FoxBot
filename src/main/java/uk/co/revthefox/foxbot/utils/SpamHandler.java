@@ -70,10 +70,13 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         }
 
         // Easier way to get percentage?
-        count = (count * 100) / length;
+        if (message.length() > 5)
+        {
+            count = (count * 100) / length;
+        }
 
         // Make these values configurable
-        if (message.length() > 5 && count > 75)
+        if (length > 5 && count > 75)
         {
             foxbot.kick(channel, user, "Caps spam (" + count + "%)");
         }
