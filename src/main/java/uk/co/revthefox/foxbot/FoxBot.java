@@ -131,39 +131,8 @@ public class FoxBot extends PircBotX
 
     public void loadConfigFiles()
     {
+        // This is a little easier
         config = new BotConfig(this);
-
-        /*for (String file : Arrays.asList("bot.conf", "permissions.conf", "nickprotection.conf"))
-        {
-            if (!new File(file).exists())
-            {
-                System.out.println(String.format("Generating default %s!", file));
-                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
-                OutputStream confOutStream;
-                int readBytes;
-                byte[] buffer = new byte[4096];
-
-                try
-                {
-                    confOutStream = new FileOutputStream(new File(file));
-                    while ((readBytes = confInStream.read(buffer)) > 0)
-                    {
-                        confOutStream.write(buffer, 0, readBytes);
-                    }
-                    confInStream.close();
-                    confOutStream.close();
-                }
-                catch (IOException ex)
-                {
-                    ex.printStackTrace();
-                    this.disconnect();
-                }
-            }
-        }*/
-
-        //configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
-        //permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
-        //nickProtectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
     }
 
     public BotConfig getConfig()

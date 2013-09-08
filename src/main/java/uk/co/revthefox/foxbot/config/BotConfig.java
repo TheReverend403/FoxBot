@@ -14,10 +14,10 @@ import java.util.List;
 
 public class BotConfig
 {
-    private File dataFolder = new File("config");
-    private File file = null;
     private FileConfiguration newConfig = null;
     private File configFile = new File("config.yml");
+    private File permsFile = new File("permissions.yml");
+    private File nickProtectionFile = new File("nickprotection.yml");
 
     private FoxBot foxbot;
     private FileConfiguration botConfig;
@@ -67,19 +67,15 @@ public class BotConfig
 
     private void loadConfig()
     {
-        botConfig.saveResource(dataFolder, "config.yml", false);
-        botConfig.saveResource(dataFolder, "permissions.yml", false);
-        botConfig.saveResource(dataFolder, "nickprotection.yml", false);
+        botConfig.saveResource("config.yml", false);
+        botConfig.saveResource("permissions.yml", false);
+        botConfig.saveResource("nickprotection.yml", false);
 
         try
         {
-            file = new File(dataFolder + "/config.yml");
-            botConfig.load(file);
-            file = new File(dataFolder + "/permissions.yml");
-            botPermissions.load(file);
-            file = new File(dataFolder + "/nickprotection.yml");
-            botNickProtection.load(file);
-
+            botConfig.load(configFile);
+            botPermissions.load(permsFile);
+            botNickProtection.load(nickProtectionFile);
         }
         catch (Exception ex)
         {
@@ -120,22 +116,7 @@ public class BotConfig
 
     public void reload()
     {
-        foxbot.loadConfigFiles();
-
-        try
-        {
-            file = new File(dataFolder + "/config.yml");
-            botConfig.load(file);
-            file = new File(dataFolder + "/permissions.yml");
-            botPermissions.load(file);
-            file = new File(dataFolder + "/nickprotection.yml");
-            botNickProtection.load(file);
-
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+        loadConfig();
 
         usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
         matchUsersByHostmask = botConfig.getBoolean("auth.matchUsersByHostmask");

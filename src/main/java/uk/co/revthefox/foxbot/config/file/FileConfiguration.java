@@ -131,7 +131,7 @@ public abstract class FileConfiguration extends MemoryConfiguration
     {
         Preconditions.checkNotNull(file, "File cannot be null");
 
-        load(new FileInputStream(file));
+        load(new FileInputStream("config/" + file));
     }
 
     /**
@@ -239,7 +239,7 @@ public abstract class FileConfiguration extends MemoryConfiguration
         return (FileConfigurationOptions) options;
     }
 
-    public void saveResource(File dataFolder, String resourcePath, boolean replace)
+    public void saveResource(String resourcePath, boolean replace)
     {
         if (resourcePath == null || resourcePath.equals(""))
         {
@@ -254,9 +254,9 @@ public abstract class FileConfiguration extends MemoryConfiguration
             throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found in.");
         }
 
-        File outFile = new File(dataFolder, resourcePath);
+        File outFile = new File("config", resourcePath);
         int lastIndex = resourcePath.lastIndexOf('/');
-        File outDir = new File(dataFolder, resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
+        File outDir = new File("config", resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
 
         if (!outDir.exists())
         {
