@@ -18,6 +18,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
     private HashMap<String, String> duplicateMap = new HashMap<>();
 
+    // Use a loading cache here so we can reset a certain user's spam rating after X minutes of not being increased.
     LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder()
     .expireAfterWrite(10, TimeUnit.MINUTES)
     .build(
@@ -95,8 +96,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             if (spamCounter.asMap().get(hostmask) != null && spamCounter.asMap().get(hostmask) != 0)
             {
                 spamPunisher(channel, user, spamCounter.asMap().get(hostmask));
-            }
-            
+            }    
         }
     }
 
