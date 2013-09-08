@@ -10,8 +10,6 @@ import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class SpamHandler extends ListenerAdapter<FoxBot>
@@ -66,11 +64,13 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, user.getHostmask(), "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
+                break;
             case 5:
                 foxbot.kick(channel, user, "AntiSpam kick");
                 foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
+                break;
             case 10:
                 //foxbot.setMode(channel, "+q", user);
                 foxbot.kick(channel, user, "AntiSpam kick");
