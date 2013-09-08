@@ -1,6 +1,7 @@
 package uk.co.revthefox.foxbot.commands;
 
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
@@ -65,7 +66,7 @@ public class CommandBan extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString())));
+                        foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
                         foxbot.ban(channel, hostmask);
 
                         if (foxbot.getConfig().getUnbanTimer() > 0)
