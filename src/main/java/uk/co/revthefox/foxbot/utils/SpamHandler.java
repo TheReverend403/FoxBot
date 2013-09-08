@@ -46,7 +46,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
          * 2. Voices+ would bypass the mutes anyway, regardless of perms. Might as well not spam the channel trying to mute them.
          */
 
-        if (user.getNick().equals(foxbot.getNick()) || !channel.getNormalUsers().contains(user)
+        if (user.getNick().equals(foxbot.getNick()) || !channel.getNormalUsers().contains(user))
         {
             return;
         }
