@@ -381,6 +381,11 @@ public class BotConfig
         }
     }
 
+    public FileConfiguration getBotConfig()
+    {
+        return botConfig;
+    }
+
     public FileConfiguration getBotPermissions()
     {
         return botPermissions;
