@@ -3,6 +3,7 @@ package uk.co.revthefox.foxbot;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.BotConfig;
@@ -11,6 +12,7 @@ import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import uk.co.revthefox.foxbot.plugin.PluginManager;
+import uk.co.revthefox.foxbot.utils.SpamHandler;
 import uk.co.revthefox.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -108,6 +110,7 @@ public class FoxBot extends PircBotX
     {
         this.getListenerManager().addListener(new MessageListener(this));
         this.getListenerManager().addListener(new UserListener(this));
+        this.getListenerManager().addListener(new SpamHandler(this));
     }
 
     private void registerCommands()

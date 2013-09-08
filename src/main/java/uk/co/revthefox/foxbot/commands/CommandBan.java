@@ -71,7 +71,7 @@ public class CommandBan extends Command
 
                         if (foxbot.getConfig().getUnbanTimer() > 0)
                         {
-                            scheduleUnban(channel, hostmask);
+                            foxbot.getUtils().scheduleUnban(channel, hostmask);
                         }
                         return;
                     }
@@ -80,27 +80,12 @@ public class CommandBan extends Command
 
                     if (foxbot.getConfig().getUnbanTimer() > 0)
                     {
-                        scheduleUnban(channel, hostmask);
+                        foxbot.getUtils().scheduleUnban(channel, hostmask);
                     }
                     return;
                 }
                 foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
             }
         }).start();
-    }
-
-    public void scheduleUnban(final Channel channel, final String hostmask)
-    {
-        new Timer().schedule(
-                new TimerTask()
-                {
-                    @Override
-                    public void run()
-                    {
-                        foxbot.unBan(channel, hostmask);
-                    }
-                },
-                TimeUnit.SECONDS.toMillis(foxbot.getConfig().getUnbanTimer())
-        );
     }
 }

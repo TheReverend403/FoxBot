@@ -4,11 +4,15 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.ning.http.client.Response;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -100,5 +104,20 @@ public class Utils
                 .replace(colourChar + "r", Colors.NORMAL)
                 .replace(colourChar + "l", Colors.BOLD)
                 .replace(colourChar + "n", Colors.UNDERLINE);
+    }
+
+    public void scheduleUnban(final Channel channel, final String hostmask)
+    {
+        new Timer().schedule(
+                new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        foxbot.unBan(channel, hostmask);
+                    }
+                },
+                TimeUnit.SECONDS.toMillis(foxbot.getConfig().getUnbanTimer())
+        );
     }
 }
