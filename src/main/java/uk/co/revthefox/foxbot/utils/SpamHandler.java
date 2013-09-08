@@ -40,7 +40,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final String message = event.getMessage();
         final String hostmask = user.getHostmask();
 
-        if (channel.getOwners().contains(user)
+        if (user.getNick().equals(foxbot.getNick())
+                ||channel.getOwners().contains(user)
                 || channel.getOps().contains(user)
                 || channel.getHalfOps().contains(user)
                 || channel.getSuperOps().contains(user)
