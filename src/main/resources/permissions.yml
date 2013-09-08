@@ -11,6 +11,7 @@ default:
     - command.haspaid
     - command.wtc
     - command.imgur
+    - command.devoice
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching
     - command.ban
@@ -26,6 +27,7 @@ TheReverend403:
     - command.exec
     - command.tell
     - command.message
+    - command.devoice.others
     - bot.invite
     - bot.bypasspunishment
     - bot.allowkick
