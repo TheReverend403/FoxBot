@@ -39,6 +39,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final Channel channel = event.getChannel();
         final String message = event.getMessage();
         final String hostmask = user.getHostmask();
+        int count = 0;
+        int length = 0;
 
         if (user.getNick().equals(foxbot.getNick())
                 ||channel.getOwners().contains(user)
@@ -48,6 +50,25 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 || channel.getVoices().contains(user))
         {
             return;
+        }
+
+        for (char character : message.toCharArray())
+        {
+            if (Character.isAlphabetic(character))
+            {
+                length++;
+                if (Character.isUpperCase(character))
+                {
+                    count++;
+                }
+            }
+        }
+
+        count = (count * 100) / length;
+
+        if (message.length() > 5 && count > 75)
+        {
+            foxbot.kick(channel, user, "Caps spam (" + count + "%)");
         }
 
         if (!duplicateMap.containsKey(hostmask))

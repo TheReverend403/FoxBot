@@ -69,3 +69,8 @@ misc:
 bans:
     # Time in seconds to unban users after a bot ban. Set to 0 to disable.
     unbanTimer: 86400
+anti-spam:
+    # Should we use the antispam?
+    enabled: true
+    # Should we kick for caps spam?
+    caps-spam: true
