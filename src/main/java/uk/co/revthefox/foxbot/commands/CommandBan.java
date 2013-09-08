@@ -71,7 +71,7 @@ public class CommandBan extends Command
 
                         if (foxbot.getConfig().getUnbanTimer() > 0)
                         {
-                            foxbot.getUtils().scheduleUnban(channel, hostmask);
+                            foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                         }
                         return;
                     }
@@ -80,7 +80,7 @@ public class CommandBan extends Command
 
                     if (foxbot.getConfig().getUnbanTimer() > 0)
                     {
-                        foxbot.getUtils().scheduleUnban(channel, hostmask);
+                        foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                     }
                     return;
                 }

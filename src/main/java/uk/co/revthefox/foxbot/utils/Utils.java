@@ -106,7 +106,7 @@ public class Utils
                 .replace(colourChar + "n", Colors.UNDERLINE);
     }
 
-    public void scheduleUnban(final Channel channel, final String hostmask)
+    public void scheduleUnban(final Channel channel, final String hostmask, final int time)
     {
         new Timer().schedule(
                 new TimerTask()
@@ -117,7 +117,23 @@ public class Utils
                         foxbot.unBan(channel, hostmask);
                     }
                 },
-                TimeUnit.SECONDS.toMillis(foxbot.getConfig().getUnbanTimer())
+                TimeUnit.SECONDS.toMillis(time)
+        );
+    }
+
+    public void scheduleModeRemove(final Channel channel, final String hostmask, final String mode, final int time)
+    {
+        new Timer().schedule(
+                new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        foxbot.sendRawLine(String.format("mode %s -%s *!*@*%s", channel.getName(), mode, hostmask));
+                        //foxbot.setMode(channel, "-" + mode, user);
+                    }
+                },
+                TimeUnit.SECONDS.toMillis(time)
         );
     }
 }
