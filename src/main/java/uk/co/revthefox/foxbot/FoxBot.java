@@ -36,6 +36,8 @@ public class FoxBot extends PircBotX
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
 
+    private BackgroundListenerManager blm = new BackgroundListenerManager();
+
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
@@ -67,6 +69,7 @@ public class FoxBot extends PircBotX
 
     private void setBotInfo()
     {
+        this.setListenerManager(blm);
         this.setVerbose(config.getDebug());
         this.setAutoNickChange(config.getAutoNickChange());
         this.setAutoReconnect(config.getAutoReconnect());
@@ -108,9 +111,12 @@ public class FoxBot extends PircBotX
 
     private void registerListeners()
     {
-        this.getListenerManager().addListener(new MessageListener(this));
-        this.getListenerManager().addListener(new UserListener(this));
-        this.getListenerManager().addListener(new SpamHandler(this));
+        blm.addListener(new MessageListener(this), false);
+        blm.addListener(new UserListener(this), false);
+        blm.addListener(new SpamHandler(this), true);
+        //this.getListenerManager().addListener(new MessageListener(this));
+        //this.getListenerManager().addListener(new UserListener(this));
+        //this.getListenerManager().addListener(new SpamHandler(this));
     }
 
     private void registerCommands()
