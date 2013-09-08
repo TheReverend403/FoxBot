@@ -69,13 +69,13 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 break;
             case 4:
                 foxbot.kick(channel, user, "AntiSpam kick");
-                foxbot.setMode(channel, "+q " + user.getNick());
+                foxbot.setMode(channel, "+q " + hostmask);
                // foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
                 break;
             case 2:
-                foxbot.setMode(channel, "+q " + user.getNick());
+                foxbot.setMode(channel, "+q " + hostmask);
                 //foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
