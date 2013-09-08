@@ -70,7 +70,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         }
 
         // Easier way to get percentage?
-        if (message.length() > 5)
+        if (length > 5)
         {
             count = (count * 100) / length;
         }
