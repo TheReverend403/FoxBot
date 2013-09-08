@@ -85,7 +85,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             spamCounter.put(hostmask, spamCounter.asMap().get(hostmask) == null ? 1 : spamCounter.asMap().get(hostmask) + 1);
             duplicateMap.remove(hostmask);
             duplicateMap.put(hostmask, message);
-            if (!spamCounter.asMap().get(hostmask) == null && !spamCounter.asMap().get(hostmask) == 0)
+            if (spamCounter.asMap().get(hostmask) != null && spamCounter.asMap().get(hostmask) != 0)
             {
                 spamPunisher(channel, user, spamCounter.asMap().get(hostmask));
             }
