@@ -13,6 +13,7 @@ public class CommandDevoice extends Command
     public CommandDevoice(FoxBot foxbot)
     {
         super("devoice", "command.devoice");
+        this.foxbot = foxbot;
     }
 
     @Override
