@@ -65,6 +65,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), user.getHostmask()));
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
                 scheduleUnPunish(channel, user.getHostmask(), "q");
+            default:
         }
     }
 
