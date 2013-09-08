@@ -40,6 +40,15 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final String message = event.getMessage();
         final String hostmask = user.getHostmask();
 
+        if (channel.getOwners().contains(user)
+                || channel.getOps().contains(user)
+                || channel.getHalfOps().contains(user)
+                || channel.getSuperOps().contains(user)
+                || channel.getVoices().contains(user))
+        {
+            return;
+        }
+
         if (!duplicateMap.containsKey(hostmask))
         {
             duplicateMap.put(hostmask, message);
