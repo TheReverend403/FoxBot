@@ -39,12 +39,8 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         Matcher matcher = urlPattern.matcher(message);
 
-        channel.sendMessage("Regex working?" + String.valueOf(matcher.matches()));
-        channel.sendMessage("Perms Working?" + String.valueOf(foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls")));
-
         if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
-            channel.sendMessage("Perms Working?" + String.valueOf(foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls")));
             message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
 
             if (!message.isEmpty() && !message.equalsIgnoreCase("null"))

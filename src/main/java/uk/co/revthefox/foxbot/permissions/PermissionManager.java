@@ -28,15 +28,18 @@ public class PermissionManager
             authedUsers.add(user);
         }
 
-        return !(foxbot.getConfig().getUsersMustBeVerified()
-                && !authedUsers.contains(user)
-                && !permissions.getStringList("default").contains(permission))
-                && permissions.contains(authType)
-                && !permissions.getStringList(authType).contains("-" + permission)
-                && (permissions.getStringList("default").contains(permission)
-                || permissions.getStringList("default").contains("permissions.*")
-                || permissions.getStringList(authType).contains(permission)
-                || permissions.getStringList(authType).contains("permissions.*"));
+        if (foxbot.getConfig().getUsersMustBeVerified() && authedUsers.contains(user))
+        {
+            if (permissions.getStringList("default").contains(permission))
+            {
+                return !permissions.getStringList(authType).contains("-" + permission);
+            }
+            if (permissions.getStringList(authType).contains(permission))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean userHasPermission(User user, String permission)
@@ -49,18 +52,16 @@ public class PermissionManager
             authedUsers.add(user);
         }
 
-        if (foxbot.getConfig().getUsersMustBeVerified() && !authedUsers.contains(user))
+        if (foxbot.getConfig().getUsersMustBeVerified() && authedUsers.contains(user))
         {
-            foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
-            return false;
+            if (permissions.getStringList("default").contains(permission))
+            {
+                return !permissions.getStringList(authType).contains("-" + permission);
+            }
+            return permissions.getStringList(authType).contains(permission);
         }
-        return  !(permissions.getStringList("default").contains(permission)
-                && permissions.contains(authType)
-                && !permissions.getStringList(authType).contains("-" + permission)
-                && (permissions.getStringList("default").contains(permission)
-                || permissions.getStringList("default").contains("permissions.*")
-                || permissions.getStringList(authType).contains(permission)
-                || permissions.getStringList(authType).contains("permissions.*")));
+        foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
+        return false;
     }
 
     public boolean isNickProtected(String nick)
