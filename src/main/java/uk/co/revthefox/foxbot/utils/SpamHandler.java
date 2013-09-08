@@ -70,16 +70,15 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             }
         }
 
-        // Easier way to get percentage?
+        // Make these values configurable
         if (length > 5)
         {
             count = (count * 100) / length;
-        }
 
-        // Make these values configurable
-        if (length > 5 && count > 75)
-        {
-            foxbot.kick(channel, user, "Caps spam (" + count + "%)");
+            if (count > 75)
+            {
+                foxbot.kick(channel, user, "Caps spam (" + count + "%)");
+            }
         }
 
         if (!duplicateMap.containsKey(hostmask))
@@ -109,7 +108,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         switch (level)
         {
             case 9:
-                foxbot.kick(channel, user, "AntiSpam kick");
+                foxbot.kick(channel, user, "Antispam ban");
                 foxbot.ban(channel, hostmask);
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
@@ -117,7 +116,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 spamCounter.asMap().remove(hostmask);
                 break;
             case 4:
-                foxbot.kick(channel, user, "AntiSpam kick");
+                foxbot.kick(channel, user, "Antispam kick");
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
