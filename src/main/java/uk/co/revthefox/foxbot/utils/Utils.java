@@ -34,7 +34,7 @@ public class Utils
             AsyncHttpClient client = new AsyncHttpClient(clientConf);
             Future<Response> future = client.prepareGet(stringToParse).setFollowRedirects(true).execute();
             Response response = future.get();
-            String output = response.getResponseBody("UTF-8");
+            String output = response.getResponseBody();
             String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
             String contentType = response.getContentType().contains(";") ? response.getContentType().split(";")[0] : response.getContentType();
 
