@@ -1,9 +1,8 @@
 package uk.co.revthefox.foxbot.permissions;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigException;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.config.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,35 +21,28 @@ public class PermissionManager
     public boolean userHasQuietPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
-        Config permissions = foxbot.getPermissionsFile();
+        FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
             authedUsers.add(user);
         }
 
-        try
-        {
-            return !(foxbot.getConfig().getUsersMustBeVerified()
-                    && !authedUsers.contains(user))
-                    && !(!permissions.hasPath("permissions." + authType)
-                    && !permissions.getStringList("permissions.default").contains(permission))
-                    && !permissions.getStringList("permissions." + authType).contains("-" + permission)
-                    && (permissions.getStringList("permissions.default").contains(permission)
-                    || permissions.getStringList("permissions.default").contains("permissions.*")
-                    || permissions.getStringList("permissions." + authType).contains(permission)
-                    || permissions.getStringList("permissions." + authType).contains("permissions.*"));
-        }
-        catch (ConfigException ex)
-        {
-            return permissions.getStringList("permissions.default").contains(permission);
-        }
+        return !(foxbot.getConfig().getUsersMustBeVerified()
+                && !authedUsers.contains(user)
+                && !permissions.getStringList("default").contains(permission))
+                && permissions.getString(authType) != null
+                && !permissions.getStringList(authType).contains("-" + permission)
+                && (permissions.getStringList("default").contains(permission)
+                || permissions.getStringList("default").contains("permissions.*")
+                || permissions.getStringList(authType).contains(permission)
+                || permissions.getStringList(authType).contains("permissions.*"));
     }
 
     public boolean userHasPermission(User user, String permission)
     {
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? "\"" + user.getHostmask() + "\"" : user.getNick();
-        Config permissions = foxbot.getPermissionsFile();
+        FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
 
         if (!authedUsers.contains(user) && user.isVerified())
         {
@@ -62,25 +54,18 @@ public class PermissionManager
             foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
         }
-        try
-        {
-            return !(!foxbot.getPermissionsFile().hasPath("permissions." + authType)
-                    && !permissions.getStringList("permissions.default").contains(permission))
-                    && !permissions.getStringList("permissions." + authType).contains("-" + permission)
-                    && (permissions.getStringList("permissions.default").contains(permission)
-                    || permissions.getStringList("permissions.default").contains("permissions.*")
-                    || permissions.getStringList("permissions." + authType).contains(permission)
-                    || permissions.getStringList("permissions." + authType).contains("permissions.*"));
-        }
-        catch (ConfigException ex)
-        {
-            return permissions.getStringList("permissions.default").contains(permission);
-        }
+        return  !(permissions.getStringList("default").contains(permission)
+                && permissions.getString(authType) != null
+                && !permissions.getStringList(authType).contains("-" + permission)
+                && (permissions.getStringList("default").contains(permission)
+                || permissions.getStringList("default").contains("permissions.*")
+                || permissions.getStringList(authType).contains(permission)
+                || permissions.getStringList(authType).contains("permissions.*")));
     }
 
     public boolean isNickProtected(String nick)
     {
-        return foxbot.getNickProtectionFile().hasPath("protection." + nick) && !foxbot.getUser(nick).getHostmask().equals(foxbot.getNickProtectionFile().getString("protection." + nick + ".hostmask"));
+        return foxbot.getConfig().getBotNickProtection().getString(nick) != null && !foxbot.getUser(nick).getHostmask().equals(foxbot.getConfig().getBotNickProtection().getString(nick + ".hostmask"));
     }
 
     public void removeAuthedUser(User user)

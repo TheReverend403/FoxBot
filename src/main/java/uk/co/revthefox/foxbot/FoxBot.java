@@ -1,7 +1,5 @@
 package uk.co.revthefox.foxbot;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
@@ -18,7 +16,6 @@ import uk.co.revthefox.foxbot.utils.Utils;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 
 /**
  * FoxBot - An IRC bot written in Java
@@ -37,10 +34,6 @@ public class FoxBot extends PircBotX
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
 
-    private Config configFile;
-    private Config permissionsFile;
-    private Config nickProtectionFile;
-
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
@@ -49,34 +42,6 @@ public class FoxBot extends PircBotX
 
     private void start(String[] args)
     {
-        for (String file : Arrays.asList("bot.conf", "permissions.conf", "nickprotection.conf"))
-        {
-            if (!new File(file).exists())
-            {
-                System.out.println(String.format("Generating default %s!", file));
-                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
-                OutputStream confOutStream;
-                int readBytes;
-                byte[] buffer = new byte[4096];
-
-                try
-                {
-                    confOutStream = new FileOutputStream(new File(file));
-                    while ((readBytes = confInStream.read(buffer)) > 0)
-                    {
-                        confOutStream.write(buffer, 0, readBytes);
-                    }
-                    confInStream.close();
-                    confOutStream.close();
-                }
-                catch (IOException ex)
-                {
-                    ex.printStackTrace();
-                    this.disconnect();
-                }
-            }
-        }
-
         File path = new File("data/customcmds/");
 
         if (!path.exists() && !path.mkdirs())
@@ -87,7 +52,6 @@ public class FoxBot extends PircBotX
         }
 
         loadConfigFiles();
-        config = new BotConfig(this);
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
         utils = new Utils(this);
@@ -167,9 +131,39 @@ public class FoxBot extends PircBotX
 
     public void loadConfigFiles()
     {
-        configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
-        permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
-        nickProtectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
+        config = new BotConfig(this);
+
+        /*for (String file : Arrays.asList("bot.conf", "permissions.conf", "nickprotection.conf"))
+        {
+            if (!new File(file).exists())
+            {
+                System.out.println(String.format("Generating default %s!", file));
+                InputStream confInStream = this.getClass().getResourceAsStream("/" + file);
+                OutputStream confOutStream;
+                int readBytes;
+                byte[] buffer = new byte[4096];
+
+                try
+                {
+                    confOutStream = new FileOutputStream(new File(file));
+                    while ((readBytes = confInStream.read(buffer)) > 0)
+                    {
+                        confOutStream.write(buffer, 0, readBytes);
+                    }
+                    confInStream.close();
+                    confOutStream.close();
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                    this.disconnect();
+                }
+            }
+        }*/
+
+        //configFile = ConfigFactory.load(ConfigFactory.parseFile(new File("bot.conf")));
+        //permissionsFile = ConfigFactory.load(ConfigFactory.parseFile(new File("permissions.conf")));
+        //nickProtectionFile = ConfigFactory.load(ConfigFactory.parseFile(new File("nickprotection.conf")));
     }
 
     public BotConfig getConfig()
@@ -180,21 +174,6 @@ public class FoxBot extends PircBotX
     public PermissionManager getPermissionManager()
     {
         return permissions;
-    }
-
-    public Config getConfigFile()
-    {
-        return configFile;
-    }
-
-    public Config getPermissionsFile()
-    {
-        return permissionsFile;
-    }
-
-    public Config getNickProtectionFile()
-    {
-        return nickProtectionFile;
     }
 
     public PluginManager getPluginManager()
