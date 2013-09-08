@@ -59,24 +59,25 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         String hostmask = user.getHostmask();
         switch (level)
         {
-            case 2:
-                //foxbot.setMode(channel, "+q", user);
-                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
-                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
-                foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
-                //break;
-            case 4:
-                foxbot.kick(channel, user, "AntiSpam kick");
-                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
-                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
-                foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
-                //break;
             case 9:
                 //foxbot.setMode(channel, "+q", user);
                 foxbot.kick(channel, user, "AntiSpam kick");
                 foxbot.ban(channel, hostmask);
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
+                break;
+            case 4:
+                foxbot.kick(channel, user, "AntiSpam kick");
+                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
+                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
+                foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
+                break;
+            case 2:
+                //foxbot.setMode(channel, "+q", user);
+                foxbot.sendRawLine(String.format("mode %s +q *!*@*%s", channel.getName(), hostmask));
+                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
+                foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
+                break;
             default: break;
         }
     }
