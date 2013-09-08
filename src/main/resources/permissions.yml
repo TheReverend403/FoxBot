@@ -27,6 +27,8 @@ TheReverend403:
     - command.tell
     - command.message
     - bot.invite
+    - bot.bypasspunishment
+    - bot.allowkick
     - greetings.ignore
     - protection.kick
     - protection.ban

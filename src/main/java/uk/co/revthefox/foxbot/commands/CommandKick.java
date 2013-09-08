@@ -61,7 +61,7 @@ public class CommandKick extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), reason.toString()));
+                        foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString())));
                         return;
                     }
                     foxbot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));

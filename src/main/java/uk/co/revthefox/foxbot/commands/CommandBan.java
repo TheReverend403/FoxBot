@@ -65,7 +65,7 @@ public class CommandBan extends Command
                             reason.append(" ").append(args[arg]);
                         }
 
-                        foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), reason.toString()));
+                        foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString())));
                         foxbot.ban(channel, hostmask);
 
                         if (foxbot.getConfig().getUnbanTimer() > 0)
