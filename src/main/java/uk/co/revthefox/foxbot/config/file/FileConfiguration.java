@@ -1,18 +1,14 @@
 package uk.co.revthefox.foxbot.config.file;
 
 import com.google.common.base.Preconditions;
+import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.config.Configuration;
 import uk.co.revthefox.foxbot.config.InvalidConfigurationException;
 import uk.co.revthefox.foxbot.config.MemoryConfiguration;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * This is a base class for all File based implementations of
@@ -241,5 +237,81 @@ public abstract class FileConfiguration extends MemoryConfiguration
         }
 
         return (FileConfigurationOptions) options;
+    }
+
+    public void saveResource(File dataFolder, String resourcePath, boolean replace)
+    {
+        if (resourcePath == null || resourcePath.equals(""))
+        {
+            throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+        }
+
+        resourcePath = resourcePath.replace('\\', '/');
+        InputStream in = getResource(resourcePath);
+
+        if (in == null)
+        {
+            throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found in.");
+        }
+
+        File outFile = new File(dataFolder, resourcePath);
+        int lastIndex = resourcePath.lastIndexOf('/');
+        File outDir = new File(dataFolder, resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
+
+        if (!outDir.exists())
+        {
+            outDir.mkdirs();
+        }
+
+        try
+        {
+            if (!outFile.exists() || replace)
+            {
+                OutputStream out = new FileOutputStream(outFile);
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0)
+                {
+                    out.write(buf, 0, len);
+                }
+                out.close();
+                in.close();
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    public InputStream getResource(String filename)
+    {
+        if (filename == null)
+        {
+            throw new IllegalArgumentException("Filename cannot be null");
+        }
+
+        try
+        {
+            URL url = getClassLoader().getResource(filename);
+
+            if (url == null)
+            {
+                return null;
+            }
+
+            URLConnection connection = url.openConnection();
+            connection.setUseCaches(false);
+            return connection.getInputStream();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public ClassLoader getClassLoader()
+    {
+        return FoxBot.class.getClassLoader();
     }
 }
