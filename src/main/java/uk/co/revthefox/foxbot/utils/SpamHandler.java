@@ -40,12 +40,13 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final User user = event.getUser();
         final Channel channel = event.getChannel();
 
-        if (user.getNick().equals(foxbot.getNick())
-                ||channel.getOwners().contains(user)
-                || channel.getOps().contains(user)
-                || channel.getHalfOps().contains(user)
-                || channel.getSuperOps().contains(user)
-                || channel.getVoices().contains(user))
+        /* Ideally, I'd use permissions here, but I won't for two reasons.
+         *
+         * 1. That would require a permissions check on every message from a potentially unverified user. Good way to get throttled.
+         * 2. Voices+ would bypass the mutes anyway, regardless of perms. Might as well not spam the channel trying to mute them.
+         */
+
+        if (user.getNick().equals(foxbot.getNick()) || !channel.getNormalUsers().contains(user)
         {
             return;
         }
@@ -57,6 +58,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
         for (char character : message.toCharArray())
         {
+            // Don't count spaces, it messes with the final percentage
             if (Character.isAlphabetic(character))
             {
                 length++;
@@ -67,8 +69,10 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             }
         }
 
+        // Easier way to get percentage?
         count = (count * 100) / length;
 
+        // Make these values configurable
         if (message.length() > 5 && count > 75)
         {
             foxbot.kick(channel, user, "Caps spam (" + count + "%)");
@@ -93,8 +97,10 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         }
     }
 
+    // Make most of the values here configurable
     public synchronized void spamPunisher(Channel channel, User user, int level)
     {
+        // Help to prevent ban evasion
         String hostmask = "*" + user.getHostmask();
 
         switch (level)
