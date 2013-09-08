@@ -45,6 +45,9 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final String hostmask = user.getHostmask();
 
         if (currentPunishments.contains(hostmask))
+        {
+            return;
+        }
 
         if (!duplicateMap.containsKey(hostmask))
         {
