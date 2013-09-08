@@ -10,8 +10,6 @@ import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class SpamHandler extends ListenerAdapter<FoxBot>
@@ -19,7 +17,6 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     private FoxBot foxbot;
 
     private HashMap<String, String> duplicateMap = new HashMap<>();
-    public static Set<String> currentPunishments = new HashSet<>();
 
     LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build(
             new CacheLoader<String, Integer>()
@@ -29,7 +26,6 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                     return spamCounter.asMap().get(hostmask);
                 }
             });
-    //private static HashMap<User, Integer> spamCounter = new HashMap<>();
 
     public SpamHandler(FoxBot foxbot)
     {
@@ -43,11 +39,6 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final Channel channel = event.getChannel();
         final String message = event.getMessage();
         final String hostmask = user.getHostmask();
-
-        if (currentPunishments.contains(hostmask))
-        {
-            return;
-        }
 
         if (!duplicateMap.containsKey(hostmask))
         {
@@ -77,22 +68,17 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
                 duplicateMap.remove(hostmask);
                 spamCounter.asMap().remove(hostmask);
-                currentPunishments.remove(hostmask);
                 break;
             case 4:
                 foxbot.kick(channel, user, "AntiSpam kick");
                 foxbot.setMode(channel, "+q " + hostmask);
-               // foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
-                currentPunishments.add(hostmask);
                 break;
             case 2:
                 foxbot.setMode(channel, "+q " + hostmask);
-                //foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
-                currentPunishments.add(hostmask);
                 break;
             default: break;
         }
