@@ -3,13 +3,13 @@ package uk.co.revthefox.foxbot.listeners;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.InviteEvent;
-import org.pircbotx.hooks.events.JoinEvent;
-import org.pircbotx.hooks.events.NickChangeEvent;
-import org.pircbotx.hooks.events.QuitEvent;
+import org.pircbotx.hooks.events.*;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class UserListener extends ListenerAdapter<FoxBot>
 {
@@ -110,6 +110,40 @@ public class UserListener extends ListenerAdapter<FoxBot>
             for (String tell : tells)
             {
                 foxbot.sendMessage(user, foxbot.getUtils().colourise(tell));
+            }
+        }
+    }
+
+    @Override
+    public void onKick(final KickEvent event)
+    {
+        final Channel channel = event.getChannel();
+        final User kickedUser = event.getRecipient();
+        final User kicker = event.getSource();
+
+        if (kickedUser.getNick().equals(foxbot.getNick()))
+        {
+            /*
+            if (foxbot.getConfig().getPunishUsersOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.bypasspunishment"))
+            {
+                foxbot.sendNotice("ChanServ", String.format("kick %s %s %s", channel.getName(), kicker.getNick(), foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason()));
+                //foxbot.kick(channel, kicker, foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason());
+            }
+            */
+
+            if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
+            {
+                new Timer().schedule(
+                        new TimerTask()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                foxbot.joinChannel(channel.getName());
+                            }
+                        },
+                        TimeUnit.SECONDS.toMillis(foxbot.getConfig().getAutoRejoinDelay())
+                );
             }
         }
     }

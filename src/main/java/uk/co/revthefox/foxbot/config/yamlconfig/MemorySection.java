@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config;
+package uk.co.revthefox.foxbot.config.yamlconfig;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
@@ -10,10 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static uk.co.revthefox.foxbot.config.NumberConversions.toDouble;
-import static uk.co.revthefox.foxbot.config.NumberConversions.toInt;
-import static uk.co.revthefox.foxbot.config.NumberConversions.toLong;
 
 /**
  * A type of {@link ConfigurationSection} that is stored in memory.
@@ -355,13 +351,13 @@ public class MemorySection implements ConfigurationSection
     public int getInt(String path)
     {
         Object def = getDefault(path);
-        return getInt(path, (def instanceof Number) ? toInt(def) : 0);
+        return getInt(path, (def instanceof Number) ? NumberConversions.toInt(def) : 0);
     }
 
     public int getInt(String path, int def)
     {
         Object val = get(path, def);
-        return (val instanceof Number) ? toInt(val) : def;
+        return (val instanceof Number) ? NumberConversions.toInt(val) : def;
     }
 
     public boolean isInt(String path)
@@ -391,13 +387,13 @@ public class MemorySection implements ConfigurationSection
     public double getDouble(String path)
     {
         Object def = getDefault(path);
-        return getDouble(path, (def instanceof Number) ? toDouble(def) : 0);
+        return getDouble(path, (def instanceof Number) ? NumberConversions.toDouble(def) : 0);
     }
 
     public double getDouble(String path, double def)
     {
         Object val = get(path, def);
-        return (val instanceof Number) ? toDouble(val) : def;
+        return (val instanceof Number) ? NumberConversions.toDouble(val) : def;
     }
 
     public boolean isDouble(String path)
@@ -409,13 +405,13 @@ public class MemorySection implements ConfigurationSection
     public long getLong(String path)
     {
         Object def = getDefault(path);
-        return getLong(path, (def instanceof Number) ? toLong(def) : 0);
+        return getLong(path, (def instanceof Number) ? NumberConversions.toLong(def) : 0);
     }
 
     public long getLong(String path, long def)
     {
         Object val = get(path, def);
-        return (val instanceof Number) ? toLong(val) : def;
+        return (val instanceof Number) ? NumberConversions.toLong(val) : def;
     }
 
     public boolean isLong(String path)

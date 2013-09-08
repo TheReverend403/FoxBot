@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config.serialization;
+package uk.co.revthefox.foxbot.config.yamlconfig.serialization;
 
 import java.util.Map;
 

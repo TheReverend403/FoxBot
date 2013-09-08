@@ -1,10 +1,10 @@
-package uk.co.revthefox.foxbot.config.file;
+package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
 import com.google.common.base.Preconditions;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.config.Configuration;
-import uk.co.revthefox.foxbot.config.InvalidConfigurationException;
-import uk.co.revthefox.foxbot.config.MemoryConfiguration;
+import uk.co.revthefox.foxbot.config.yamlconfig.Configuration;
+import uk.co.revthefox.foxbot.config.yamlconfig.InvalidConfigurationException;
+import uk.co.revthefox.foxbot.config.yamlconfig.MemoryConfiguration;
 
 import java.io.*;
 import java.net.URL;

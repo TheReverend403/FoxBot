@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config.file;
+package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
-import uk.co.revthefox.foxbot.config.serialization.ConfigurationSerialization;
+import uk.co.revthefox.foxbot.config.yamlconfig.serialization.ConfigurationSerialization;
 
 public class YamlConstructor extends SafeConstructor
 {

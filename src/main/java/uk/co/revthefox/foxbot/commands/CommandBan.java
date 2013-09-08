@@ -7,6 +7,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class CommandBan extends Command
 {
@@ -98,7 +99,7 @@ public class CommandBan extends Command
                         foxbot.unBan(channel, hostmask);
                     }
                 },
-                foxbot.getConfig().getUnbanTimer() * 1000
+                TimeUnit.SECONDS.toMillis(foxbot.getConfig().getUnbanTimer())
         );
     }
 }

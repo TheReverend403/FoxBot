@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config.serialization;
+package uk.co.revthefox.foxbot.config.yamlconfig.serialization;
 
 import com.google.common.base.Preconditions;
 import java.lang.reflect.Constructor;
@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Utility class for storing and retrieving classes for {@link uk.co.revthefox.foxbot.config.Configuration}.
+ * Utility class for storing and retrieving classes for {@link uk.co.revthefox.foxbot.config.yamlconfig.Configuration}.
  */
 public class ConfigurationSerialization
 {

@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config;
+package uk.co.revthefox.foxbot.config.yamlconfig;
 
 /**
  * Exception thrown when attempting to load an invalid {@link Configuration}

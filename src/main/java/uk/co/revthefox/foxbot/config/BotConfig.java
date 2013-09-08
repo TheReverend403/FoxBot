@@ -1,15 +1,10 @@
 package uk.co.revthefox.foxbot.config;
 
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.config.file.FileConfiguration;
-import uk.co.revthefox.foxbot.config.file.YamlConfiguration;
+import uk.co.revthefox.foxbot.config.yamlconfig.file.FileConfiguration;
+import uk.co.revthefox.foxbot.config.yamlconfig.file.YamlConfiguration;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 public class BotConfig
@@ -45,10 +40,14 @@ public class BotConfig
     private String commandPrefix;
     private String colourChar;
     private boolean autoJoinOnInvite;
+    private boolean punishUsersOnKick;
+    private String punishmentKickReason;
+    private boolean autoRejoinOnKick;
+    private long autoRejoinDelay;
     private long kickDelay;
     private boolean autoNickChange;
     private boolean autoReconnect;
-    private Long messageDelay;
+    private long messageDelay;
     private boolean mungeUsernames;
     private List<String> greetingChannels;
     private String greetingMessage;
@@ -102,6 +101,10 @@ public class BotConfig
         commandPrefix = botConfig.getString("misc.commandPrefix");
         colourChar = botConfig.getString("misc.colourChar");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        punishUsersOnKick = botConfig.getBoolean("misc.punishUsersOnKick");
+        punishmentKickReason = botConfig.getString("misc.punishmentKickReason");
+        autoRejoinOnKick = botConfig.getBoolean("misc.autoRejoinOnKick");
+        autoRejoinDelay = botConfig.getLong("misc.autoRejoinDelay");
         kickDelay = botConfig.getLong("misc.kickDelay");
         autoNickChange = botConfig.getBoolean("misc.autoNickChange");
         autoReconnect = botConfig.getBoolean("misc.autoReconnect");
@@ -125,6 +128,10 @@ public class BotConfig
         commandPrefix = botConfig.getString("misc.commandPrefix");
         colourChar = botConfig.getString("misc.colourChar");
         autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
+        punishUsersOnKick = botConfig.getBoolean("misc.punishUsersOnKick");
+        punishmentKickReason = botConfig.getString("misc.punishmentKickReason");
+        autoRejoinOnKick = botConfig.getBoolean("misc.autoRejoinOnKick");
+        autoRejoinDelay = botConfig.getLong("misc.autoRejoinDelay");
         kickDelay = botConfig.getLong("misc.kickDelay");
         messageDelay = botConfig.getLong("misc.messageDelay");
         foxbot.setMessageDelay(botConfig.getLong("misc.messageDelay"));
@@ -218,6 +225,26 @@ public class BotConfig
     public boolean getAutoJoinOnInvite()
     {
         return autoJoinOnInvite;
+    }
+
+    public boolean getPunishUsersOnKick()
+    {
+        return punishUsersOnKick;
+    }
+
+    public String getPunishmentKickReason()
+    {
+        return punishmentKickReason;
+    }
+
+    public boolean getAutoRejoinOnKick()
+    {
+        return autoRejoinOnKick;
+    }
+
+    public long getAutoRejoinDelay()
+    {
+        return autoRejoinDelay;
     }
 
     public long getKickDelay()

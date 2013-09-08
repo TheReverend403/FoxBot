@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config;
+package uk.co.revthefox.foxbot.config.yamlconfig;
 
 /**
  * Various settings for controlling the input and output of a

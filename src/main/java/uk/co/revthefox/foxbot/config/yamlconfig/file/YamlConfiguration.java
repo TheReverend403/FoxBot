@@ -1,25 +1,23 @@
-package uk.co.revthefox.foxbot.config.file;
+package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
 import com.google.common.base.Preconditions;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
-import uk.co.revthefox.foxbot.config.Configuration;
-import uk.co.revthefox.foxbot.config.ConfigurationSection;
-import uk.co.revthefox.foxbot.config.InvalidConfigurationException;
+import uk.co.revthefox.foxbot.config.yamlconfig.Configuration;
+import uk.co.revthefox.foxbot.config.yamlconfig.ConfigurationSection;
+import uk.co.revthefox.foxbot.config.yamlconfig.InvalidConfigurationException;
 
 /**
- * An implementation of {@link uk.co.revthefox.foxbot.config.Configuration} which saves all files in Yaml.
+ * An implementation of {@link uk.co.revthefox.foxbot.config.yamlconfig.Configuration} which saves all files in Yaml.
  * Note that this implementation is not synchronized.
  */
 public class YamlConfiguration extends FileConfiguration

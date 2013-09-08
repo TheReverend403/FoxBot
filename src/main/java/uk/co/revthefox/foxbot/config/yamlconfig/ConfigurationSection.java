@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config;
+package uk.co.revthefox.foxbot.config.yamlconfig;
 
 import java.util.List;
 import java.util.Map;

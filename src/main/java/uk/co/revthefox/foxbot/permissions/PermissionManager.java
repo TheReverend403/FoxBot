@@ -2,7 +2,7 @@ package uk.co.revthefox.foxbot.permissions;
 
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
-import uk.co.revthefox.foxbot.config.file.FileConfiguration;
+import uk.co.revthefox.foxbot.config.yamlconfig.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class PermissionManager
         return !(foxbot.getConfig().getUsersMustBeVerified()
                 && !authedUsers.contains(user)
                 && !permissions.getStringList("default").contains(permission))
-                && permissions.getString(authType) != null
+                && permissions.contains(authType)
                 && !permissions.getStringList(authType).contains("-" + permission)
                 && (permissions.getStringList("default").contains(permission)
                 || permissions.getStringList("default").contains("permissions.*")
@@ -55,7 +55,7 @@ public class PermissionManager
             return false;
         }
         return  !(permissions.getStringList("default").contains(permission)
-                && permissions.getString(authType) != null
+                && permissions.contains(authType)
                 && !permissions.getStringList(authType).contains("-" + permission)
                 && (permissions.getStringList("default").contains(permission)
                 || permissions.getStringList("default").contains("permissions.*")

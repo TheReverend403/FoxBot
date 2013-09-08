@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config.file;
+package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
 import com.google.common.base.Preconditions;
 

@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config.serialization;
+package uk.co.revthefox.foxbot.config.yamlconfig.serialization;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

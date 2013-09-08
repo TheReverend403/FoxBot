@@ -1,7 +1,7 @@
-package uk.co.revthefox.foxbot.config.file;
+package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
-import uk.co.revthefox.foxbot.config.MemoryConfiguration;
-import uk.co.revthefox.foxbot.config.MemoryConfigurationOptions;
+import uk.co.revthefox.foxbot.config.yamlconfig.MemoryConfiguration;
+import uk.co.revthefox.foxbot.config.yamlconfig.MemoryConfigurationOptions;
 
 /**
  * Various settings for controlling the input and output of a
@@ -80,7 +80,7 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions
      * Gets whether or not the header should be copied from a default source.
      * <p />
      * If this is true, if a default {@link FileConfiguration} is passed to
-     * {@link FileConfiguration#setDefaults(uk.co.revthefox.foxbot.config.Configuration)}
+     * {@link FileConfiguration#setDefaults(uk.co.revthefox.foxbot.config.yamlconfig.Configuration)}
      * then upon saving it will use the header from that config, instead of the
      * one provided here.
      * <p />
@@ -102,7 +102,7 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions
      * Sets whether or not the header should be copied from a default source.
      * <p />
      * If this is true, if a default {@link FileConfiguration} is passed to
-     * {@link FileConfiguration#setDefaults(uk.co.revthefox.foxbot.config.Configuration)}
+     * {@link FileConfiguration#setDefaults(uk.co.revthefox.foxbot.config.yamlconfig.Configuration)}
      * then upon saving it will use the header from that config, instead of the
      * one provided here.
      * <p />

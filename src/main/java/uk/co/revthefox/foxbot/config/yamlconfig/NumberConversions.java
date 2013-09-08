@@ -1,4 +1,4 @@
-package uk.co.revthefox.foxbot.config;
+package uk.co.revthefox.foxbot.config.yamlconfig;
 
 /**
  * Utils for casting number types to other number types
