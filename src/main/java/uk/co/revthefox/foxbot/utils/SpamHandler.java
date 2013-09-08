@@ -66,6 +66,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.ban(channel, hostmask);
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
+                duplicateMap.remove(hostmask);
+                spamCounter.asMap().remove(hostmask);
                 break;
             case 4:
                 foxbot.kick(channel, user, "AntiSpam kick");
