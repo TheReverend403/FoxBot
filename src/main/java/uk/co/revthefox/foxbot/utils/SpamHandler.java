@@ -16,13 +16,13 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 {
     private FoxBot foxbot;
 
-    private static HashMap<User, String> duplicateMap = new HashMap<>();
-    LoadingCache<User, Integer> spamCounter = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build(
-            new CacheLoader<User, Integer>()
+    private static HashMap<String, String> duplicateMap = new HashMap<>();
+    LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build(
+            new CacheLoader<String, Integer>()
             {
-                public Integer load(User user)
+                public Integer load(String hostmask)
                 {
-                    return spamCounter.asMap().get(user);
+                    return spamCounter.asMap().get(hostmask);
                 }
             });
     //private static HashMap<User, Integer> spamCounter = new HashMap<>();
@@ -38,19 +38,20 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         final User user = event.getUser();
         final Channel channel = event.getChannel();
         final String message = event.getMessage();
+        final String hostmask = user.getHostmask();
 
-        if (!duplicateMap.containsKey(user))
+        if (!duplicateMap.containsKey(hostmask))
         {
-            duplicateMap.put(user, message);
+            duplicateMap.put(hostmask, message);
             return;
         }
 
-        if (message.equals(duplicateMap.get(user)))
+        if (message.equals(duplicateMap.get(hostmask)))
         {
-            spamCounter.put(user, spamCounter.asMap().get(user) == null ? 1 : spamCounter.asMap().get(user) + 1);
-            duplicateMap.remove(user);
-            duplicateMap.put(user, message);
-            spamPunisher(channel, user, spamCounter.asMap().get(user) == null ? 0 : spamCounter.asMap().get(user));
+            spamCounter.put(hostmask, spamCounter.asMap().get(hostmask) == null ? 1 : spamCounter.asMap().get(hostmask) + 1);
+            duplicateMap.remove(hostmask);
+            duplicateMap.put(hostmask, message);
+            spamPunisher(channel, user, spamCounter.asMap().get(hostmask) == null ? 0 : spamCounter.asMap().get(hostmask));
         }
     }
 
@@ -68,12 +69,14 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 break;
             case 4:
                 foxbot.kick(channel, user, "AntiSpam kick");
-                foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
+                foxbot.setMode(channel, "+q " + user.getNick());
+               // foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
                 break;
             case 2:
-                foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
+                foxbot.setMode(channel, "+q " + user.getNick());
+                //foxbot.sendRawLine(String.format("mode %s +q *!*@%s", channel.getName(), hostmask));
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
                 break;
