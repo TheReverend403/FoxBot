@@ -19,14 +19,14 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     private HashMap<String, String> duplicateMap = new HashMap<>();
 
     // Use a loading cache here so we can reset a certain user's spam rating after X minutes of not being increased.
-    LoadingCache<String, Integer> spamCounter = CacheBuilder.newBuilder()
+    LoadingCache<String, Integer> spamRating = CacheBuilder.newBuilder()
     .expireAfterWrite(10, TimeUnit.MINUTES)
     .build(
             new CacheLoader<String, Integer>()
             {
                 public Integer load(String hostmask)
                 {
-                    return spamCounter.asMap().get(hostmask);
+                    return spamRating.asMap().get(hostmask);
                 }
             });
 
@@ -54,6 +54,11 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
         final String message = event.getMessage();
         final String hostmask = user.getHostmask();
+        
+        // -------------------
+        // Caps spam detection
+        // -------------------
+        
         int count = 0;
         int length = 0;
 
@@ -69,8 +74,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 }
             }
         }
-
-        // Make these values configurable
+        
+        // Prevent divide-by-zero errors
         if (length > 5)
         {
             count = (count * 100) / length;
@@ -80,7 +85,14 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.kick(channel, user, "Caps spam (" + count + "%)");
             }
         }
+        // -----------------------
+        // End caps spam detection
+        // -----------------------
 
+        // -------------------
+        // Repeat spam detection
+        // -------------------
+        
         if (!duplicateMap.containsKey(hostmask))
         {
             duplicateMap.put(hostmask, message);
@@ -89,14 +101,18 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 
         if (message.equals(duplicateMap.get(hostmask)))
         {
-            spamCounter.put(hostmask, spamCounter.asMap().get(hostmask) == null ? 1 : spamCounter.asMap().get(hostmask) + 1);
+            spamRating.put(hostmask, spamRating.asMap().get(hostmask) == null ? 1 : spamRating.asMap().get(hostmask) + 1);
             duplicateMap.remove(hostmask);
             duplicateMap.put(hostmask, message);
-            if (spamCounter.asMap().get(hostmask) != null && spamCounter.asMap().get(hostmask) != 0)
+            if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
             {
-                spamPunisher(channel, user, spamCounter.asMap().get(hostmask));
+                spamPunisher(channel, user, spamRating.asMap().get(hostmask));
             }    
         }
+        
+        // -------------------------
+        // End repeat spam detection
+        // -------------------------
     }
 
     // Make most of the values here configurable
@@ -113,7 +129,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
                 duplicateMap.remove(hostmask);
-                spamCounter.asMap().remove(hostmask);
+                spamRating.asMap().remove(hostmask);
                 break;
             case 4:
                 foxbot.kick(channel, user, "Antispam kick");
