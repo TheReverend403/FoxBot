@@ -36,8 +36,6 @@ public class FoxBot extends PircBotX
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
 
-    //private BackgroundListenerManager blm = new BackgroundListenerManager();
-
     public static void main(String[] args)
     {
         FoxBot me = new FoxBot();
@@ -55,7 +53,7 @@ public class FoxBot extends PircBotX
             return;
         }
 
-        loadConfigFiles();
+        config = new BotConfig(this);
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
         utils = new Utils(this);
@@ -69,7 +67,6 @@ public class FoxBot extends PircBotX
 
     private void setBotInfo()
     {
-        //this.setListenerManager(blm);
         this.setVerbose(config.getDebug());
         this.setAutoNickChange(config.getAutoNickChange());
         this.setAutoReconnect(config.getAutoReconnect());
@@ -133,12 +130,6 @@ public class FoxBot extends PircBotX
             // This can never happen.
             ex.printStackTrace();
         }
-    }
-
-    public void loadConfigFiles()
-    {
-        // This is a little easier
-        config = new BotConfig(this);
     }
 
     public BotConfig getConfig()
