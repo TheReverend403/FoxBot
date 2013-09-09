@@ -19,9 +19,17 @@ public class BotConfig
     private FileConfiguration botPermissions;
     private FileConfiguration botNickProtection;
 
+    // -----------
+    // Bot section
+    // -----------
+
     private String botNick;
     private String botIdent;
     private String botRealName;
+
+    // --------------
+    // Server section
+    // --------------
 
     private String serverAddress;
     private int serverPort;
@@ -30,11 +38,18 @@ public class BotConfig
     private String serverPassword;
     private List<String> serverChannels;
 
+    // ------------
+    // Auth section
+    // ------------
 
     private boolean useNickserv;
     private String nickservPassword;
     private boolean usersMustBeVerified;
     private boolean matchUsersByHostmask;
+
+    // ------------
+    // Misc section
+    // ------------
 
     private boolean debug;
     private String commandPrefix;
@@ -52,6 +67,10 @@ public class BotConfig
     private List<String> greetingChannels;
     private String greetingMessage;
     private boolean greetingNotice;
+
+    // -----------------------
+    // User-punishment section
+    // -----------------------
 
     private int unbanTimer;
 
@@ -81,9 +100,17 @@ public class BotConfig
             ex.printStackTrace();
         }
 
+        // -----------
+        // Bot section
+        // -----------
+
         botNick = botConfig.getString("bot.nick");
         botIdent = botConfig.getString("bot.ident");
         botRealName = botConfig.getString("bot.realname");
+
+        // --------------
+        // Server section
+        // --------------
 
         serverAddress = botConfig.getString("server.address");
         serverPort = botConfig.getInt("server.port");
@@ -92,17 +119,23 @@ public class BotConfig
         serverPassword = botConfig.getString("server.password");
         serverChannels = botConfig.getStringList("server.channels");
 
+        // ------------
+        // Auth section
+        // ------------
+
         useNickserv = botConfig.getBoolean("auth.use-nickserv");
         nickservPassword = botConfig.getString("auth.nickserv-password");
         usersMustBeVerified = botConfig.getBoolean("auth.users-must-be-verified");
         matchUsersByHostmask = botConfig.getBoolean("auth.match-users-by-hostmask");
 
+        // ------------
+        // Misc section
+        // ------------
+
         debug = botConfig.getBoolean("misc.debug");
         commandPrefix = botConfig.getString("misc.command-prefix");
         colourChar = botConfig.getString("misc.colour-char");
         autoJoinOnInvite = botConfig.getBoolean("misc.auto-join-on-invite");
-        punishUsersOnKick = botConfig.getBoolean("misc.punish-users-on-kick");
-        punishmentKickReason = botConfig.getString("misc.punishment-kick-reason");
         autoRejoinOnKick = botConfig.getBoolean("misc.auto-rejoin-on-kick");
         autoRejoinDelay = botConfig.getLong("misc.auto-rejoin-delay");
         kickDelay = botConfig.getLong("misc.kick-delay");
@@ -114,7 +147,13 @@ public class BotConfig
         greetingMessage = botConfig.getString("misc.greeting-message");
         greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
 
-        unbanTimer = botConfig.getInt("bans.unban-timer");
+        // -----------------------
+        // User-punishment section
+        // -----------------------
+
+        punishUsersOnKick = botConfig.getBoolean("user-punishment.punish-users-on-kick");
+        punishmentKickReason = botConfig.getString("user-punishment.punishment-kick-reason");
+        unbanTimer = botConfig.getInt("user-punishment.unban-timer");
     }
 
     public void reload()
@@ -124,6 +163,10 @@ public class BotConfig
         foxbot.setVerbose(botConfig.getBoolean("misc.debug"));
         foxbot.setMessageDelay(botConfig.getLong("misc.message-delay"));
     }
+
+    // -----------
+    // Bot section
+    // -----------
 
     public String getBotNick()
     {
@@ -139,6 +182,10 @@ public class BotConfig
     {
         return botRealName;
     }
+
+    // --------------
+    // Server section
+    // --------------
 
     public String getServerAddress()
     {
@@ -170,6 +217,10 @@ public class BotConfig
         return serverChannels;
     }
 
+    // ------------
+    // Auth section
+    // ------------
+
     public boolean useNickserv()
     {
         return useNickserv;
@@ -190,6 +241,10 @@ public class BotConfig
         return matchUsersByHostmask;
     }
 
+    // ------------
+    // Misc section
+    // ------------
+
     public boolean getDebug()
     {
         return debug;
@@ -208,16 +263,6 @@ public class BotConfig
     public boolean getAutoJoinOnInvite()
     {
         return autoJoinOnInvite;
-    }
-
-    public boolean getPunishUsersOnKick()
-    {
-        return punishUsersOnKick;
-    }
-
-    public String getPunishmentKickReason()
-    {
-        return punishmentKickReason;
     }
 
     public boolean getAutoRejoinOnKick()
@@ -270,10 +315,28 @@ public class BotConfig
         return greetingNotice;
     }
 
+    // -----------------------
+    // User-punishment section
+    // -----------------------
+
+    public boolean getPunishUsersOnKick()
+    {
+        return punishUsersOnKick;
+    }
+
+    public String getPunishmentKickReason()
+    {
+        return punishmentKickReason;
+    }
+
     public int getUnbanTimer()
     {
         return unbanTimer;
     }
+
+    // ------------
+    // File objects
+    // ------------
 
     public FileConfiguration getBotConfig()
     {

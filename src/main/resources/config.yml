@@ -38,10 +38,6 @@ misc:
     colour-char: '&'
     # Should the bot accept invites from users with bot.invite?
     auto-join-on-invite: true
-    # Should the bot kick anyone who kicks the bot? NOT YET WORKING
-    punish-users-on-kick: true
-    # What should the reason be when we punish a user? Set to '' to disable.
-    punishment-kick-reason: You kick me, I kick you.
     # Should the bot rejoin a channel after being kicked?
     auto-rejoin-on-kick: true
     # How long the bot will wait after being kicked to rejoin a channel
@@ -66,7 +62,11 @@ misc:
     greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
     # Should we send the greeting as a notice rather than a message to the channel?
     send-greeting-as-notice: false
-bans:
+user-punishment:
+    # Should the bot kick anyone who kicks the bot? NOT YET WORKING
+    punish-users-on-kick: true
+    # What should the reason be when we punish a user? Set to '' to disable.
+    punishment-kick-reason: You kick me, I kick you.
     # Time in seconds to unban users after a bot ban. Set to 0 to disable.
     unban-timer: 86400
 anti-spam:
