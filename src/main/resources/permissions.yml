@@ -34,3 +34,5 @@ TheReverend403:
     - greetings.ignore
     - protection.kick
     - protection.ban
+    - command.voice
+    - command.voice.others
