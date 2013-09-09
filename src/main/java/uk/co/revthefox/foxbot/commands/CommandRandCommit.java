@@ -40,7 +40,7 @@ public class CommandRandCommit extends Command
             catch (Exception ex)
             {
                 ex.printStackTrace();
-                channel.sendMessage("Something went wrong...");
+                channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
                 return;
             }
 

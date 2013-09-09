@@ -69,9 +69,34 @@ misc:
 bans:
     # Time in seconds to unban users after a bot ban. Set to 0 to disable.
     unban-timer: 86400
-# Currently unused
 anti-spam:
-    # Should we use the antispam?
+    # Should we use the antispam? Setting this to false makes all of the other settings useless.
     enabled: true
-    # Should we kick for caps spam?
-    caps-spam: true
+    # Actions to take when a user has a certain amount of spam rating points
+    actions:
+        # How many points should the user have before we mute them? Set to 0 to disable.
+        mute: 3
+            # How long should the mute be for in seconds? Set to -1 for infinite.
+            time: 10
+        # When should we kick the user? Set to 0 to disable. Note, can also mute the user so they can't rejoin and then spam.
+        kick: 5
+            # How long should the mute be for in seconds? Set to -1 for infinite. Set to 0 to disable.
+            time: 10
+        # When should we ban the user?
+        ban: 10
+            # How long should the ban be for?
+            time: 86400
+    caps-spam:
+        enabled: true
+        # If the percentage of the caps in a message is more than you set here, it will count as spam
+        threshold: 75
+        # How many spam rating points should we add to a user for this?
+        points: 1
+        # Kick the user, or just add points?
+        kick-user: true
+    repeat-spam:
+        enabled: true
+        # How many spam rating points to add PER REPEATED MESSAGE
+        points: 1
+
+

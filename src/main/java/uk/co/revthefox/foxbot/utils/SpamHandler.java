@@ -106,15 +106,17 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         {
             spamRating.put(hostmask, spamRating.asMap().get(hostmask) == null ? 1 : spamRating.asMap().get(hostmask) + 1);
             duplicateMap.put(hostmask, message);
-            if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
-            {
-                spamPunisher(channel, user, spamRating.asMap().get(hostmask));
-            }    
         }
         
         // -------------------------
         // End repeat spam detection
         // -------------------------
+
+        // Take action on the spam rating
+        if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
+        {
+            spamPunisher(channel, user, spamRating.asMap().get(hostmask));
+        }
     }
 
     // Make most of the values here configurable
