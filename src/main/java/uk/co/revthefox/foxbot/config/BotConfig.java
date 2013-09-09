@@ -83,38 +83,38 @@ public class BotConfig
 
         botNick = botConfig.getString("bot.nick");
         botIdent = botConfig.getString("bot.ident");
-        botRealName = botConfig.getString("bot.realName");
+        botRealName = botConfig.getString("bot.realname");
 
         serverAddress = botConfig.getString("server.address");
         serverPort = botConfig.getInt("server.port");
         serverSsl = botConfig.getBoolean("server.ssl");
-        acceptInvalidSsl = botConfig.getBoolean("server.acceptInvalidSslCert");
+        acceptInvalidSsl = botConfig.getBoolean("server.accept-invalid-ssl-cert");
         serverPassword = botConfig.getString("server.password");
         serverChannels = botConfig.getStringList("server.channels");
 
-        useNickserv = botConfig.getBoolean("auth.useNickserv");
-        nickservPassword = botConfig.getString("auth.nickservPassword");
-        usersMustBeVerified = botConfig.getBoolean("auth.usersMustBeVerified");
-        matchUsersByHostmask = botConfig.getBoolean("auth.matchUsersByHostmask");
+        useNickserv = botConfig.getBoolean("auth.use-nickserv");
+        nickservPassword = botConfig.getString("auth.nickserv-password");
+        usersMustBeVerified = botConfig.getBoolean("auth.users-must-be-verified");
+        matchUsersByHostmask = botConfig.getBoolean("auth.match-users-by-hostmask");
 
         debug = botConfig.getBoolean("misc.debug");
-        commandPrefix = botConfig.getString("misc.commandPrefix");
-        colourChar = botConfig.getString("misc.colourChar");
-        autoJoinOnInvite = botConfig.getBoolean("misc.autoJoinOnInvite");
-        punishUsersOnKick = botConfig.getBoolean("misc.punishUsersOnKick");
-        punishmentKickReason = botConfig.getString("misc.punishmentKickReason");
-        autoRejoinOnKick = botConfig.getBoolean("misc.autoRejoinOnKick");
-        autoRejoinDelay = botConfig.getLong("misc.autoRejoinDelay");
-        kickDelay = botConfig.getLong("misc.kickDelay");
-        autoNickChange = botConfig.getBoolean("misc.autoNickChange");
-        autoReconnect = botConfig.getBoolean("misc.autoReconnect");
-        messageDelay = botConfig.getLong("misc.messageDelay");
-        mungeUsernames = botConfig.getBoolean("misc.mungeUsernames");
-        greetingChannels = botConfig.getStringList("misc.channelsToGreet");
-        greetingMessage = botConfig.getString("misc.greetingMessage");
-        greetingNotice = botConfig.getBoolean("misc.sendGreetingAsNotice");
+        commandPrefix = botConfig.getString("misc.command-prefix");
+        colourChar = botConfig.getString("misc.colour-char");
+        autoJoinOnInvite = botConfig.getBoolean("misc.auto-join-on-invite");
+        punishUsersOnKick = botConfig.getBoolean("misc.punish-users-on-kick");
+        punishmentKickReason = botConfig.getString("misc.punishment-kick-reason");
+        autoRejoinOnKick = botConfig.getBoolean("misc.auto-rejoin-on-kick");
+        autoRejoinDelay = botConfig.getLong("misc.auto-rejoin-delay");
+        kickDelay = botConfig.getLong("misc.kick-delay");
+        autoNickChange = botConfig.getBoolean("misc.auto-nick-change");
+        autoReconnect = botConfig.getBoolean("misc.auto-reconnect");
+        messageDelay = botConfig.getLong("misc.message-delay");
+        mungeUsernames = botConfig.getBoolean("misc.munge-usernames");
+        greetingChannels = botConfig.getStringList("misc.channels-to-greet");
+        greetingMessage = botConfig.getString("misc.greeting-message");
+        greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
 
-        unbanTimer = botConfig.getInt("bans.unbanTimer");
+        unbanTimer = botConfig.getInt("bans.unban-timer");
     }
 
     public void reload()
@@ -122,7 +122,7 @@ public class BotConfig
         loadConfig();
 
         foxbot.setVerbose(botConfig.getBoolean("misc.debug"));
-        foxbot.setMessageDelay(botConfig.getLong("misc.messageDelay"));
+        foxbot.setMessageDelay(botConfig.getLong("misc.message-delay"));
     }
 
     public String getBotNick()
