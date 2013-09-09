@@ -16,14 +16,15 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
 {
     private FoxBot foxbot;
 
-    private HashMap<String, String> duplicateMap = new HashMap<>();
+    private final HashMap<String, String> duplicateMap = new HashMap<>();
 
     // Use a loading cache here so we can reset a certain user's spam rating after X minutes of not being increased.
-    LoadingCache<String, Integer> spamRating = CacheBuilder.newBuilder()
+    final LoadingCache<String, Integer> spamRating = CacheBuilder.newBuilder()
     .expireAfterWrite(10, TimeUnit.MINUTES)
     .build(
             new CacheLoader<String, Integer>()
             {
+                @Override
                 public Integer load(String hostmask)
                 {
                     return spamRating.asMap().get(hostmask);
@@ -117,10 +118,10 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     }
 
     // Make most of the values here configurable
-    public synchronized void spamPunisher(Channel channel, User user, int level)
+    public synchronized void spamPunisher(final Channel channel, final User user, final int level)
     {
         // Help to prevent ban evasion
-        String hostmask = "*" + user.getHostmask();
+        final String hostmask = "*" + user.getHostmask();
 
         switch (level)
         {
