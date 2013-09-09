@@ -97,7 +97,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
-                foxbot.sendNotice(user, foxbot.getUtils().colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size())));
+                foxbot.sendNotice(user, foxbot.getUtils().colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
             else
             {
