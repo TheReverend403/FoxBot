@@ -1,8 +1,19 @@
-# If a user is not logged in and you set the bot to require logged in users, these permissions will do nothing.
+# If a user is not logged in and you set the bot to require logged in users, only the unverified permissions will do anything.
 # if a user has a -permission.node, they will be UNABLE to use that command.
 # Make sure to enclose non-alphabetical (containing symbols, starting with numbers, or just negative perms) permissions in ""
 # Commands granted to all users
 # If using hostmask matching, hostmasks MUST be enclosed in ""
+
+# Permissions granted to all NON-logged in users
+unverified:
+    - command.ping
+    - command.uptime
+    - chat.urls
+    - command.git
+    - command.haspaid
+    - command.wtc
+    - command.imgur
+# Permissions granted to all logged in users
 default:
     - command.ping
     - command.uptime
@@ -12,6 +23,7 @@ default:
     - command.wtc
     - command.imgur
     - command.devoice
+# Permissions granted to specific users
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching
     - command.ban
