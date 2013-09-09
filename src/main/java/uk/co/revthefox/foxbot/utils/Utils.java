@@ -129,7 +129,6 @@ public class Utils
                     @Override
                     public void run()
                     {
-                        //foxbot.sendRawLine(String.format("mode %s -%s *!*@*%s", channel.getName(), mode, hostmask));
                         foxbot.setMode(channel, "-" + mode + " " + hostmask);
                     }
                 },
