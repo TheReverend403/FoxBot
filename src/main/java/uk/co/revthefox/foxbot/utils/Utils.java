@@ -29,6 +29,7 @@ public class Utils
     }
 
     private static final Pattern TITLE_PATTERN = Pattern.compile("<title>(.+)</title>", Pattern.DOTALL);
+    private static final Pattern SPLIT_PATTERN = Pattern.compile("\\\\n", Pattern.DOTALL);
 
     public String parseChatUrl(String stringToParse, User sender)
     {
@@ -55,7 +56,7 @@ public class Utils
             Matcher matcher;
             String title = "No title found";
 
-            for (String line : output.split("\n"))
+            for (String line : SPLIT_PATTERN.split(output))
             {
                 matcher = TITLE_PATTERN.matcher(line);
                 if (matcher.find())
