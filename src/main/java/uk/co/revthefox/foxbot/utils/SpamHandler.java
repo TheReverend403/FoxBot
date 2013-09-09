@@ -80,6 +80,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         {
             count = (count * 100) / length;
 
+            // Kick the user if the percentage of caps in their message was higher than the max value
             if (count > 75)
             {
                 foxbot.kick(channel, user, "Caps spam (" + count + "%)");
