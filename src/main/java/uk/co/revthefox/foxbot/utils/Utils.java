@@ -28,7 +28,7 @@ public class Utils
         this.foxbot = foxbot;
     }
 
-    private final Pattern titlePattern = Pattern.compile("<title>.+</title>", Pattern.DOTALL);
+    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>.+</title>", Pattern.DOTALL);
 
     public String parseChatUrl(String stringToParse, User sender)
     {
@@ -57,7 +57,7 @@ public class Utils
 
             for (String line : output.split("\n"))
             {
-                matcher = titlePattern.matcher(line);
+                matcher = TITLE_PATTERN.matcher(line);
                 if (matcher.find())
                 {
                     title = line.split("<title>")[1].split("</title>")[0];
