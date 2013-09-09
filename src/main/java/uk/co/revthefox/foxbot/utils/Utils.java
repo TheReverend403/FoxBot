@@ -28,7 +28,7 @@ public class Utils
         this.foxbot = foxbot;
     }
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>.+</title>", Pattern.DOTALL);
+    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>(.+)</title>", Pattern.DOTALL);
 
     public String parseChatUrl(String stringToParse, User sender)
     {
@@ -60,7 +60,7 @@ public class Utils
                 matcher = TITLE_PATTERN.matcher(line);
                 if (matcher.find())
                 {
-                    title = line.split("<title>")[1].split("</title>")[0];
+                    title = matcher.group(1);
                 }
             }
             return colourise(String.format("(%s's URL) &aTitle: &r%s &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
