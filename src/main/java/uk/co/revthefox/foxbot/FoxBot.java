@@ -3,10 +3,9 @@ package uk.co.revthefox.foxbot;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
-import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
-import uk.co.revthefox.foxbot.config.BotConfig;
+import uk.co.revthefox.foxbot.config.Config;
 import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.listeners.UserListener;
@@ -29,7 +28,7 @@ import java.lang.reflect.Constructor;
 
 public class FoxBot extends PircBotX
 {
-    private static BotConfig config;
+    private static Config config;
     private static PermissionManager permissions;
     private static PluginManager pluginManager;
     private static Utils utils;
@@ -53,7 +52,7 @@ public class FoxBot extends PircBotX
             return;
         }
 
-        config = new BotConfig(this);
+        config = new Config(this);
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
         utils = new Utils(this);
@@ -132,7 +131,7 @@ public class FoxBot extends PircBotX
         }
     }
 
-    public BotConfig getConfig()
+    public Config getConfig()
     {
         return config;
     }

@@ -7,7 +7,7 @@ import uk.co.revthefox.foxbot.config.yamlconfig.file.YamlConfiguration;
 import java.io.File;
 import java.util.List;
 
-public class BotConfig
+public class Config
 {
     private FileConfiguration newConfig = null;
     private File configFile = new File("config.yml");
@@ -74,7 +74,7 @@ public class BotConfig
 
     private int unbanTimer;
 
-    public BotConfig(FoxBot foxbot)
+    public Config(FoxBot foxbot)
     {
         this.foxbot = foxbot;
         botConfig = new YamlConfiguration();
