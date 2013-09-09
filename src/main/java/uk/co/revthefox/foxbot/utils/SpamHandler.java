@@ -85,13 +85,14 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.kick(channel, user, "Caps spam (" + count + "%)");
             }
         }
+        
         // -----------------------
         // End caps spam detection
         // -----------------------
 
-        // -------------------
+        // ---------------------
         // Repeat spam detection
-        // -------------------
+        // ---------------------
         
         if (!duplicateMap.containsKey(hostmask))
         {
@@ -102,7 +103,6 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         if (message.equals(duplicateMap.get(hostmask)))
         {
             spamRating.put(hostmask, spamRating.asMap().get(hostmask) == null ? 1 : spamRating.asMap().get(hostmask) + 1);
-            duplicateMap.remove(hostmask);
             duplicateMap.put(hostmask, message);
             if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
             {
