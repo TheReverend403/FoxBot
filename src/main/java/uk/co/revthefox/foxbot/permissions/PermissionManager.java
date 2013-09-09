@@ -25,7 +25,7 @@ public class PermissionManager
 
         if (permissions.getStringList("unverified").contains(permission))
         {
-            return true;
+            return !permissions.getStringList(authType).contains("-" + permission);
         }
 
         if (!authedUsers.contains(user) && user.isVerified())
@@ -59,7 +59,7 @@ public class PermissionManager
 
         if (permissions.getStringList("unverified").contains(permission))
         {
-            return true;
+            return !permissions.getStringList(authType).contains("-" + permission);
         }
 
         if (!authedUsers.contains(user) && user.isVerified())
