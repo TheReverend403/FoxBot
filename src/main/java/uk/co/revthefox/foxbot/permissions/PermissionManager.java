@@ -40,6 +40,7 @@ public class PermissionManager
             }
             return false;
         }
+
         if (permissions.getStringList("default").contains(permission))
         {
             return !permissions.getStringList(authType).contains("-" + permission);

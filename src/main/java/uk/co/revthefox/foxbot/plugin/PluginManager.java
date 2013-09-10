@@ -25,6 +25,7 @@ public class PluginManager
     public void registerCommand(Command command)
     {
         commandMap.put(command.getName().toLowerCase(), command);
+
         for (String alias : command.getAliases())
         {
             commandMap.put(alias.toLowerCase(), command);
@@ -37,7 +38,6 @@ public class PluginManager
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
-
 
         if (command == null)
         {
