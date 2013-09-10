@@ -42,11 +42,11 @@ TheReverend403:
     - command.voice
     - command.voice.others
     - command.mute
-    - command.mute.protection
     - command.devoice.others
     - bot.invite
     - bot.bypasspunishment
     - bot.allowkick
     - greetings.ignore
     - protection.kick
+    - protection.mute
     - protection.ban

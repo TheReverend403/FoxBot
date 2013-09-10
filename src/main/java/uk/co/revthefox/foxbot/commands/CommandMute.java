@@ -53,7 +53,7 @@ public class CommandMute extends Command
             String hostmask = "*" + target.getHostmask();
             
             foxbot.setMode(channel, "+q ", hostmask);
-            foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 24);
+            foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
         }
     }
 }
