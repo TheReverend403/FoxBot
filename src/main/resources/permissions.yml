@@ -39,6 +39,10 @@ TheReverend403:
     - command.exec
     - command.tell
     - command.message
+    - command.voice
+    - command.voice.others
+    - command.mute
+    - command.mute.protection
     - command.devoice.others
     - bot.invite
     - bot.bypasspunishment
@@ -46,5 +50,3 @@ TheReverend403:
     - greetings.ignore
     - protection.kick
     - protection.ban
-    - command.voice
-    - command.voice.others
