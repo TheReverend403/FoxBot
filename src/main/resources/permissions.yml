@@ -5,6 +5,7 @@
 # If using hostmask matching, hostmasks MUST be enclosed in ""
 
 # Permissions granted to all NON-logged in users
+# Not yet implemented
 unverified:
     - command.ping
     - command.uptime
