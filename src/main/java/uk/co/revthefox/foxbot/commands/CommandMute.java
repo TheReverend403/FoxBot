@@ -54,6 +54,8 @@ public class CommandMute extends Command
             
             foxbot.setMode(channel, "+q ", hostmask);
             foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
+            return;
         }
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smute <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }
