@@ -40,29 +40,22 @@ public class CommandExec extends Command
     @Override
     public void execute(final MessageEvent event, final String[] args)
     {
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                User sender = event.getUser();
-                Channel channel = event.getChannel();
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
 
-                try
-                {
-                    interpreter.getNameSpace().doSuperImport();
-                    interpreter.set("sender", sender);
-                    interpreter.set("channel", channel);
-                    interpreter.set("event", event);
-                    interpreter.set("foxbot", foxbot);
-                    interpreter.eval(StringUtils.join(args, " ").trim());
-                }
-                catch (EvalError | UtilEvalError ex)
-                {
-                    foxbot.sendMessage(channel, ex.getLocalizedMessage());
-                    Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
+        try
+        {
+            interpreter.getNameSpace().doSuperImport();
+            interpreter.set("sender", sender);
+            interpreter.set("channel", channel);
+            interpreter.set("event", event);
+            interpreter.set("foxbot", foxbot);
+            interpreter.eval(StringUtils.join(args, " ").trim());
+        }
+        catch (EvalError | UtilEvalError ex)
+        {
+            foxbot.sendMessage(channel, ex.getLocalizedMessage());
+            Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
