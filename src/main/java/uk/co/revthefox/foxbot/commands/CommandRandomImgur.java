@@ -9,6 +9,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandRandomImgur extends Command
 {
@@ -64,7 +66,7 @@ public class CommandRandomImgur extends Command
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return "exception";
         }
 

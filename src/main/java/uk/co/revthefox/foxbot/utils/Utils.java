@@ -71,7 +71,7 @@ public class Utils
         }
         catch (Exception ex)
         {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         return "null";
     }

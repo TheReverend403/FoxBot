@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Database
 {
@@ -35,7 +37,7 @@ public class Database
         }
         catch (SQLException | ClassNotFoundException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -48,7 +50,7 @@ public class Database
             }
             catch (SQLException ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -70,7 +72,7 @@ public class Database
         }
         catch (SQLException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -83,7 +85,7 @@ public class Database
             }
             catch (SQLException ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -111,7 +113,7 @@ public class Database
         }
         catch (SQLException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -124,7 +126,7 @@ public class Database
             }
             catch (SQLException ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
         }
         return tells;
@@ -143,7 +145,7 @@ public class Database
         }
         catch (SQLException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -156,7 +158,7 @@ public class Database
             }
             catch (SQLException ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -171,7 +173,7 @@ public class Database
             }
             catch (SQLException ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
             return;
         }

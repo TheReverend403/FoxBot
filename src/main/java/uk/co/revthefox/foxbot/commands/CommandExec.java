@@ -54,8 +54,8 @@ public class CommandExec extends Command
         }
         catch (EvalError | UtilEvalError ex)
         {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             foxbot.sendMessage(channel, ex.getLocalizedMessage());
-            Logger.getLogger(CommandExec.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

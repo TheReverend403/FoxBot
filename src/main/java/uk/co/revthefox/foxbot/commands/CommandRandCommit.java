@@ -6,6 +6,8 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +41,7 @@ public class CommandRandCommit extends Command
             }
             catch (Exception ex)
             {
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
                 return;
             }

@@ -6,6 +6,9 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CommandHaspaid extends Command
 {
     private FoxBot foxbot;
@@ -32,8 +35,8 @@ public class CommandHaspaid extends Command
             }
             catch (Exception ex)
             {
-                ex.printStackTrace();
-                channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                foxbot.sendMessage(channel, "Something went wrong...");
             }
             return;
         }

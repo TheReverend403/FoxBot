@@ -17,6 +17,8 @@ import uk.co.revthefox.foxbot.utils.Utils;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FoxBot - An IRC bot written in Java
@@ -96,7 +98,7 @@ public class FoxBot extends PircBotX
         }
         catch (IOException | IrcException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
         for (String channel : config.getChannels())
@@ -127,7 +129,7 @@ public class FoxBot extends PircBotX
         catch (Exception ex)
         {
             // This can never happen.
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 

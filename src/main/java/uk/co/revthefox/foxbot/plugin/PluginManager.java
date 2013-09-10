@@ -8,6 +8,8 @@ import uk.co.revthefox.foxbot.commands.Command;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class PluginManager
@@ -65,7 +67,7 @@ public class PluginManager
         {
             foxbot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
             System.out.println("Error in dispatching command: " + command.getName());
-            ex.printStackTrace();
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }

@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandPing extends Command
 {
@@ -38,6 +40,7 @@ public class CommandPing extends Command
                 long startTime = System.currentTimeMillis();
                 urlConn.connect();
                 long endTime = System.currentTimeMillis();
+
                 if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
                 {
                     channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", (endTime - startTime))));
@@ -47,18 +50,18 @@ public class CommandPing extends Command
             }
             catch (MalformedURLException ex)
             {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 foxbot.sendNotice(sender, String.format("%s is not a valid address!", args[0]));
-                ex.printStackTrace();
             }
             catch (UnknownHostException ex)
             {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 foxbot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
-                ex.printStackTrace();
             }
             catch (IOException ex)
             {
-                channel.sendMessage("Something went wrong...");
-                ex.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
             }
             return;
         }
