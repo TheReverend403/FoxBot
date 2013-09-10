@@ -38,6 +38,7 @@ public class CommandVoice extends Command
             foxbot.sendNotice(sender, "You do not have permission to voice other users!");
             return;
         }
+
         if (!channel.getVoices().contains(sender))
         {
             foxbot.voice(channel, sender);
