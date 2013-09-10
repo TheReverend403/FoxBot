@@ -41,7 +41,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
     {
         User user = event.getUser();
         String newNick = event.getNewNick();
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
@@ -56,6 +55,8 @@ public class UserListener extends ListenerAdapter<FoxBot>
             }
             return;
         }
+
+        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
 
         if (!tells.isEmpty())
         {
@@ -72,7 +73,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         String nick = user.getNick();
         Channel channel = event.getChannel();
-        List<String> tells = foxbot.getDatabase().getTells(nick, false);
 
         if (nick.equals(foxbot.getNick()))
         {
@@ -104,6 +104,8 @@ public class UserListener extends ListenerAdapter<FoxBot>
                 channel.sendMessage(foxbot.getUtils().colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
         }
+
+        List<String> tells = foxbot.getDatabase().getTells(nick, false);
 
         if (!tells.isEmpty())
         {
