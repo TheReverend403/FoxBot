@@ -6,6 +6,8 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Calendar;
+
 public class CommandMute extends Command
 {
     private FoxBot foxbot;
@@ -22,7 +24,7 @@ public class CommandMute extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length == 1)
+        if (args.length > 1)
         {
             User target = foxbot.getUser(args[0]);
 
@@ -50,10 +52,24 @@ public class CommandMute extends Command
 
             String hostmask = "*" + target.getHostmask();
 
+            StringBuilder reason = new StringBuilder(args[1]);
+
+            for (int arg = 2; arg < args.length; arg++)
+            {
+                reason.append(" ").append(args[arg]);
+            }
+
+            long muteTime = Calendar.getInstance().getTimeInMillis();
+
             foxbot.setMode(channel, "+q ", hostmask);
-            foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
+            foxbot.getDatabase().addMute(target, reason.toString(), sender, muteTime);
+
+            if (foxbot.getConfig().getUnbanTimer() != 0)
+            {
+                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
+            }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smute <user>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smute <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

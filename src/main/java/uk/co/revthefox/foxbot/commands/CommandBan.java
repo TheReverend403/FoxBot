@@ -6,6 +6,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -25,10 +26,10 @@ public class CommandBan extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length != 0)
+        if (args.length > 1)
         {
             User target = foxbot.getUser(args[0]);
-            String hostmask = target.getHostmask();
+            String hostmask = "*" + target.getHostmask();
 
             if (!channel.getUsers().contains(target))
             {
@@ -52,33 +53,26 @@ public class CommandBan extends Command
                 return;
             }
 
-            if (args.length > 1)
+            StringBuilder reason = new StringBuilder(args[1]);
+
+            for (int arg = 2; arg < args.length; arg++)
             {
-                final StringBuilder reason = new StringBuilder(args[1]);
-
-                for (int arg = 2; arg < args.length; arg++)
-                {
-                    reason.append(" ").append(args[arg]);
-                }
-
-                foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
-                foxbot.ban(channel, hostmask);
-
-                if (foxbot.getConfig().getUnbanTimer() > 0)
-                {
-                    foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
-                }
-                return;
+                reason.append(" ").append(args[arg]);
             }
-            foxbot.kick(channel, target, String.format("Ban requested by %s", sender.getNick()));
-            foxbot.ban(channel, hostmask);
 
-            if (foxbot.getConfig().getUnbanTimer() > 0)
+            foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
+
+            long banTime = Calendar.getInstance().getTimeInMillis();
+
+            foxbot.ban(channel, hostmask);
+            foxbot.getDatabase().addBan(target, reason.toString(), sender, banTime);
+
+            if (foxbot.getConfig().getUnbanTimer() != 0)
             {
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sban <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

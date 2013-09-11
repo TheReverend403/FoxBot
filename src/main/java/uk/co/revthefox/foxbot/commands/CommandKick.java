@@ -6,6 +6,8 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Calendar;
+
 public class CommandKick extends Command
 {
     private FoxBot foxbot;
@@ -22,7 +24,7 @@ public class CommandKick extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length != 0)
+        if (args.length > 1)
         {
             User target = foxbot.getUser(args[0]);
 
@@ -48,21 +50,19 @@ public class CommandKick extends Command
                 return;
             }
 
-            if (args.length > 1)
+            StringBuilder reason = new StringBuilder(args[1]);
+
+            for (int arg = 2; arg < args.length; arg++)
             {
-                final StringBuilder reason = new StringBuilder(args[1]);
-
-                for (int arg = 2; arg < args.length; arg++)
-                {
-                    reason.append(" ").append(args[arg]);
-                }
-
-                foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
-                return;
+                reason.append(" ").append(args[arg]);
             }
-            foxbot.kick(channel, target, String.format("Kick requested by %s", sender.getNick()));
+
+            long kickTime = Calendar.getInstance().getTimeInMillis();
+
+            foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
+            foxbot.getDatabase().addKick(target, reason.toString(), sender, kickTime);
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <nick> [reason]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }
