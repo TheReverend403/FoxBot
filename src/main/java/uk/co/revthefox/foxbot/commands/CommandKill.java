@@ -21,18 +21,17 @@ public class CommandKill extends Command
     {
         User sender = event.getUser();
 
-        if (args.length != 0)
+        if (args.length == 0)
         {
-            foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
+            for (Channel channel : foxbot.getChannels())
+            {
+                foxbot.partChannel(channel, "Killed by " + sender.getNick());
+            }
+
+            foxbot.getDatabase().disconnect();
+            foxbot.disconnect();
             return;
         }
-
-        for (Channel botChannel : foxbot.getChannels())
-        {
-            foxbot.partChannel(botChannel, "Killed by " + sender.getNick());
-        }
-
-        foxbot.getDatabase().disconnect();
-        foxbot.disconnect();
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
     }
 }

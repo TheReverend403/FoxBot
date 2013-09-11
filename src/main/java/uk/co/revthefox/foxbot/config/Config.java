@@ -1,5 +1,7 @@
 package uk.co.revthefox.foxbot.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.config.yamlconfig.file.FileConfiguration;
 import uk.co.revthefox.foxbot.config.yamlconfig.file.YamlConfiguration;
@@ -9,7 +11,6 @@ import java.util.List;
 
 public class Config
 {
-    private FileConfiguration newConfig = null;
     private File configFile = new File("config.yml");
     private File permsFile = new File("permissions.yml");
     private File nickProtectionFile = new File("nickprotection.yml");
@@ -55,8 +56,6 @@ public class Config
     private String commandPrefix;
     private String colourChar;
     private boolean autoJoinOnInvite;
-    private boolean punishUsersOnKick;
-    private String punishmentKickReason;
     private boolean autoRejoinOnKick;
     private long autoRejoinDelay;
     private long kickDelay;
@@ -72,6 +71,8 @@ public class Config
     // User-punishment section
     // -----------------------
 
+    private boolean punishUsersOnKick;
+    private String punishmentKickReason;
     private int unbanTimer;
 
     public Config(FoxBot foxbot)
