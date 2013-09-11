@@ -29,39 +29,21 @@ auth:
     users-must-be-verified: true
     # Should we match users based on hostmasks? Keep in mind, setting this to true is more secure.
     match-users-by-hostmask: true
-misc:
-    # Should we spam the console with debug info?
-    debug: true
-    # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
-    command-prefix: '.'
-    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello"
-    colour-char: '&'
-    # Should the bot accept invites from users with bot.invite?
-    auto-join-on-invite: true
-    # Should the bot rejoin a channel after being kicked?
-    auto-rejoin-on-kick: true
-    # How long the bot will wait after being kicked to rejoin a channel
-    auto-rejoin-delay: 10
-    # How long should the bot wait in seconds when kicking a user? (Used to prevent whois throttles on permission checks for both users)
-    # WARNING: Setting this too low could get the bot throttled. Ask your network admins what the whois throttle rate is.
-    kick-delay: 1000
-    # Try for an alternative nick if the main one is taken
-    auto-nick-change: true
-    # Should we auto-reconnect if the bot loses connection?
-    auto-reconnect: true
-    # How long the bot will wait to respond to events
-    message-delay: 0
-    # Should we "munge" usernames to avoid pinging users?
-    munge-usernames: true
-    # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
-    channels-to-greet:
-    - '#thereverend403'
-    - '#foxbot'
-    # The message to send to the user if greetings are being used.
-    # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
-    greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
-    # Should we send the greeting as a notice rather than a message to the channel?
-    send-greeting-as-notice: false
+# Database settings for bot data storage
+database:
+    # Database type. Can be sqlite or mysql
+    type: sqlite
+    # These settings have no effect in sqlite mode
+    # The address of your MySQL server
+    host: localhost
+    # The MySQL server port
+    port: 3306
+    # The database name
+    name: foxbot
+    # The username for the database
+    username: root
+    # The password for the database
+    password: root
 user-punishment:
     # Should the bot kick anyone who kicks the bot? NOT YET WORKING
     punish-users-on-kick: true
@@ -98,5 +80,38 @@ anti-spam:
         enabled: true
         # How many spam rating points to add PER REPEATED MESSAGE
         points: 1
+misc:
+    # Should we spam the console with debug info?
+    debug: true
+    # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
+    command-prefix: '.'
+    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello"
+    colour-char: '&'
+    # Should the bot accept invites from users with bot.invite?
+    auto-join-on-invite: true
+    # Should the bot rejoin a channel after being kicked?
+    auto-rejoin-on-kick: true
+    # How long the bot will wait after being kicked to rejoin a channel
+    auto-rejoin-delay: 10
+    # How long should the bot wait in seconds when kicking a user? (Used to prevent whois throttles on permission checks for both users)
+    # WARNING: Setting this too low could get the bot throttled. Ask your network admins what the whois throttle rate is.
+    kick-delay: 1000
+    # Try for an alternative nick if the main one is taken
+    auto-nick-change: true
+    # Should we auto-reconnect if the bot loses connection?
+    auto-reconnect: true
+    # How long the bot will wait to respond to events
+    message-delay: 0
+    # Should we "munge" usernames to avoid pinging users?
+    munge-usernames: true
+    # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
+    channels-to-greet:
+    - '#thereverend403'
+    - '#foxbot'
+    # The message to send to the user if greetings are being used.
+    # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
+    greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
+    # Should we send the greeting as a notice rather than a message to the channel?
+    send-greeting-as-notice: false
 
 

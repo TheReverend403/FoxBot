@@ -48,6 +48,25 @@ public class Config
     private boolean usersMustBeVerified;
     private boolean matchUsersByHostmask;
 
+    // ----------------
+    // Database section
+    // ----------------
+
+    private String databaseType;
+    private String databaseHost;
+    private int databasePort;
+    private String databaseName;
+    private String databaseUser;
+    private String databasePassword;
+
+    // -----------------------
+    // User-punishment section
+    // -----------------------
+
+    private boolean punishUsersOnKick;
+    private String punishmentKickReason;
+    private int unbanTimer;
+
     // ------------
     // Misc section
     // ------------
@@ -66,14 +85,6 @@ public class Config
     private List<String> greetingChannels;
     private String greetingMessage;
     private boolean greetingNotice;
-
-    // -----------------------
-    // User-punishment section
-    // -----------------------
-
-    private boolean punishUsersOnKick;
-    private String punishmentKickReason;
-    private int unbanTimer;
 
     public Config(FoxBot foxbot)
     {
@@ -129,6 +140,25 @@ public class Config
         usersMustBeVerified = botConfig.getBoolean("auth.users-must-be-verified");
         matchUsersByHostmask = botConfig.getBoolean("auth.match-users-by-hostmask");
 
+        // ----------------
+        // Database section
+        // ----------------
+
+        databaseType = botConfig.getString("database.type");
+        databaseHost = botConfig.getString("database.host");
+        databasePort = botConfig.getInt("database.port");
+        databaseName = botConfig.getString("database.name");
+        databaseUser = botConfig.getString("database.user");
+        databasePassword = botConfig.getString("database.password");
+
+        // -----------------------
+        // User-punishment section
+        // -----------------------
+
+        punishUsersOnKick = botConfig.getBoolean("user-punishment.punish-users-on-kick");
+        punishmentKickReason = botConfig.getString("user-punishment.punishment-kick-reason");
+        unbanTimer = botConfig.getInt("user-punishment.unban-timer");
+
         // ------------
         // Misc section
         // ------------
@@ -147,14 +177,6 @@ public class Config
         greetingChannels = botConfig.getStringList("misc.channels-to-greet");
         greetingMessage = botConfig.getString("misc.greeting-message");
         greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
-
-        // -----------------------
-        // User-punishment section
-        // -----------------------
-
-        punishUsersOnKick = botConfig.getBoolean("user-punishment.punish-users-on-kick");
-        punishmentKickReason = botConfig.getString("user-punishment.punishment-kick-reason");
-        unbanTimer = botConfig.getInt("user-punishment.unban-timer");
     }
 
     public void reload()
@@ -242,6 +264,59 @@ public class Config
         return matchUsersByHostmask;
     }
 
+    // ----------------
+    // Database section
+    // ----------------
+
+    public String getDatabaseType()
+    {
+        return databaseType;
+    }
+
+    public String getDatabaseHost()
+    {
+        return databaseHost;
+    }
+
+    public int getDatabasePort()
+    {
+        return databasePort;
+    }
+
+    public String getDatabaseName()
+    {
+        return databaseName;
+    }
+
+    public String getDatabaseUser()
+    {
+        return databaseUser;
+    }
+
+    public String getDatabasePassword()
+    {
+        return databasePassword;
+    }
+
+    // -----------------------
+    // User-punishment section
+    // -----------------------
+
+    public boolean getPunishUsersOnKick()
+    {
+        return punishUsersOnKick;
+    }
+
+    public String getPunishmentKickReason()
+    {
+        return punishmentKickReason;
+    }
+
+    public int getUnbanTimer()
+    {
+        return unbanTimer;
+    }
+
     // ------------
     // Misc section
     // ------------
@@ -314,25 +389,6 @@ public class Config
     public boolean getGreetingNotice()
     {
         return greetingNotice;
-    }
-
-    // -----------------------
-    // User-punishment section
-    // -----------------------
-
-    public boolean getPunishUsersOnKick()
-    {
-        return punishUsersOnKick;
-    }
-
-    public String getPunishmentKickReason()
-    {
-        return punishmentKickReason;
-    }
-
-    public int getUnbanTimer()
-    {
-        return unbanTimer;
     }
 
     // ------------

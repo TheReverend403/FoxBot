@@ -28,9 +28,23 @@ public class Database
 
         try
         {
-            Class.forName("org.sqlite.JDBC");
+            String databaseType = foxbot.getConfig().getDatabaseType();
 
-            connection = DriverManager.getConnection("jdbc:sqlite:data/bot.db");
+            Class.forName(databaseType.equalsIgnoreCase("mysql") ? "com.mysql.jdbc.Driver" : "org.sqlite.JDBC");
+
+            String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
+
+            if (databaseType.equalsIgnoreCase("mysql"))
+            {
+                String user = foxbot.getConfig().getDatabaseUser();
+                String password = foxbot.getConfig().getDatabasePassword();
+                connection = DriverManager.getConnection(url, user, password);
+            }
+            else
+            {
+                connection = DriverManager.getConnection(url);
+            }
+
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
