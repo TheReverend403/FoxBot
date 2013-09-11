@@ -34,6 +34,7 @@ public class Database
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (target STRING, reason STRING, banner STRING, time STRING)");
         }
         catch (SQLException | ClassNotFoundException ex)
         {
@@ -142,6 +143,41 @@ public class Database
             statement.setString(1, user);
             connection.setAutoCommit(true);
             statement.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                if (statement != null)
+                {
+                    statement.close();
+                }
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void storeBan(String banner, String target, String reason, Date time)
+    {
+        PreparedStatement statement = null;
+
+        try
+        {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement("INSERT INTO bans (target, reason, banner, time) VALUES (?, ?, ?, ?, 0);");
+            statement.setString(1, target);
+            statement.setString(2, reason);
+            statement.setString(3, banner);
+            statement.setString(4, String.valueOf(time));
+            statement.executeUpdate();
+            connection.commit();
         }
         catch (SQLException ex)
         {
