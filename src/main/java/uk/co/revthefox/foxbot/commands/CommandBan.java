@@ -65,7 +65,7 @@ public class CommandBan extends Command
             long banTime = Calendar.getInstance().getTimeInMillis();
 
             foxbot.ban(channel, hostmask);
-            foxbot.getDatabase().addBan(target, reason.toString(), sender, banTime);
+            foxbot.getDatabase().addBan(channel, target, reason.toString(), sender, banTime);
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {

@@ -62,7 +62,7 @@ public class CommandMute extends Command
             long muteTime = Calendar.getInstance().getTimeInMillis();
 
             foxbot.setMode(channel, "+q ", hostmask);
-            foxbot.getDatabase().addMute(target, reason.toString(), sender, muteTime);
+            foxbot.getDatabase().addMute(channel, target, reason.toString(), sender, muteTime);
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {

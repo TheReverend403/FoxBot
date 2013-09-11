@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.database;
 
+import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 import uk.co.revthefox.foxbot.FoxBot;
@@ -52,9 +53,9 @@ public class Database
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (tell_time VARCHAR(32), sender VARCHAR(32), receiver VARCHAR(32), message VARCHAR(1024), used TINYINT)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), banner VARCHAR(32), ban_time BIGINT)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS kicks (target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), kicker VARCHAR(32), kick_time BIGINT)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS mutes (target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), muter VARCHAR(32), mute_time BIGINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), banner VARCHAR(32), ban_time BIGINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS kicks (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), kicker VARCHAR(32), kick_time BIGINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS mutes (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), muter VARCHAR(32), mute_time BIGINT)");
         }
         catch (SQLException | ClassNotFoundException ex)
         {
@@ -185,19 +186,20 @@ public class Database
         }
     }
 
-    public void addBan(User target, String reason, User banner, long time)
+    public void addBan(Channel channel, User target, String reason, User banner, long time)
     {
         PreparedStatement statement = null;
 
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO bans (target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?);");
-            statement.setString(1, target.getNick());
-            statement.setString(2, target.getHostmask());
-            statement.setString(3, reason);
-            statement.setString(4, banner.getNick());
-            statement.setLong(5, time);
+            statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?);");
+            statement.setString(1, channel.getName());
+            statement.setString(2, target.getNick());
+            statement.setString(3, target.getHostmask());
+            statement.setString(4, reason);
+            statement.setString(5, banner.getNick());
+            statement.setLong(6, time);
             statement.executeUpdate();
             connection.commit();
         }
@@ -221,19 +223,20 @@ public class Database
         }
     }
 
-    public void addKick(User target, String reason, User kicker, long time)
+    public void addKick(Channel channel, User target, String reason, User kicker, long time)
     {
         PreparedStatement statement = null;
 
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO kicks (target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?);");
-            statement.setString(1, target.getNick());
-            statement.setString(2, target.getHostmask());
-            statement.setString(3, reason);
-            statement.setString(4, kicker.getNick());
-            statement.setLong(5, time);
+            statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?);");
+            statement.setString(1, channel.getName());
+            statement.setString(2, target.getNick());
+            statement.setString(3, target.getHostmask());
+            statement.setString(4, reason);
+            statement.setString(5, kicker.getNick());
+            statement.setLong(6, time);
             statement.executeUpdate();
             connection.commit();
         }
@@ -257,18 +260,21 @@ public class Database
         }
     }
 
-    public void addMute(User target, String reason, User muter, long time)
+    public void addMute(Channel channel, User target, String reason, User muter, long time)
     {
         PreparedStatement statement = null;
 
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO mutes (target, hostmask, reason, muter, mute_time) VALUES (?, ?, ?, ?, ?);");            statement.setString(1, target.getNick());
-            statement.setString(2, target.getHostmask());
-            statement.setString(3, reason);
-            statement.setString(4, muter.getNick());
-            statement.setLong(5, time);
+            statement = connection.prepareStatement("INSERT INTO mutes (channel, target, hostmask, reason, muter, mute_time) VALUES (?, ?, ?, ?, ?);");            statement.setString(1, target.getNick());
+
+            statement.setString(1, channel.getName());
+            statement.setString(2, target.getNick());
+            statement.setString(3, target.getHostmask());
+            statement.setString(4, reason);
+            statement.setString(5, muter.getNick());
+            statement.setLong(6, time);
             statement.executeUpdate();
             connection.commit();
         }

@@ -60,7 +60,7 @@ public class CommandKick extends Command
             long kickTime = Calendar.getInstance().getTimeInMillis();
 
             foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
-            foxbot.getDatabase().addKick(target, reason.toString(), sender, kickTime);
+            foxbot.getDatabase().addKick(channel, target, reason.toString(), sender, kickTime);
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
