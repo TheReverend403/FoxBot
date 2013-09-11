@@ -69,6 +69,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             if (Character.isAlphabetic(character))
             {
                 length++;
+
                 if (Character.isUpperCase(character))
                 {
                     count++;

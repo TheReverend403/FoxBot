@@ -49,7 +49,7 @@ public class FoxBot extends PircBotX
 
         if (!path.exists() && !path.mkdirs())
         {
-            System.out.println("Couldn't create data folder. Shutting down.");
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "Couldn't create data folder. Shutting down.");
             this.disconnect();
             return;
         }
