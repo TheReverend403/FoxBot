@@ -80,7 +80,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO tells (time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
+            statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
             statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTime()));
             statement.setString(2, sender);
             statement.setString(3, receiver);
@@ -122,7 +122,7 @@ public class Database
 
             while (rs.next())
             {
-                tells.add(String.format("%s %sMessage from: %s%s %sMessage: %s%s", rs.getString("time"), Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
+                tells.add(String.format("%s %sMessage from: %s%s %sMessage: %s%s", rs.getString("tell_time"), Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
             }
 
             statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
@@ -188,7 +188,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO bans (target, reason, banner, time) VALUES (?, ?, ?, ?);");
+            statement = connection.prepareStatement("INSERT INTO bans (target, reason, banner, ban_time) VALUES (?, ?, ?, ?);");
             statement.setString(1, target);
             statement.setString(2, reason);
             statement.setString(3, banner);
