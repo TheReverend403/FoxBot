@@ -50,8 +50,8 @@ public class Database
 
             statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (time STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (target STRING, reason STRING, banner STRING, time STRING)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (timestamp STRING, sender STRING, receiver STRING, message STRING, used TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (target STRING, reason STRING, banner STRING, timestamp STRING)");
         }
         catch (SQLException | ClassNotFoundException ex)
         {
