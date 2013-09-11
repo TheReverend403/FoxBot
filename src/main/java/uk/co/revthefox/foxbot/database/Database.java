@@ -193,7 +193,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?));");
+            statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?);");
             statement.setString(1, channel.getName());
             statement.setString(2, target.getNick());
             statement.setString(3, target.getHostmask());
@@ -230,7 +230,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?));");
+            statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?);");
             statement.setString(1, channel.getName());
             statement.setString(2, target.getNick());
             statement.setString(3, target.getHostmask());
