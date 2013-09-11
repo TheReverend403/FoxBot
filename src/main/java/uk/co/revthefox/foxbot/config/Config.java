@@ -148,7 +148,7 @@ public class Config
         databaseHost = botConfig.getString("database.host");
         databasePort = botConfig.getInt("database.port");
         databaseName = botConfig.getString("database.name");
-        databaseUser = botConfig.getString("database.user");
+        databaseUser = botConfig.getString("database.username");
         databasePassword = botConfig.getString("database.password");
 
         // -----------------------
