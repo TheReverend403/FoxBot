@@ -171,7 +171,7 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO bans (target, reason, banner, time) VALUES (?, ?, ?, ?, 0);");
+            statement = connection.prepareStatement("INSERT INTO bans (target, reason, banner, time) VALUES (?, ?, ?, ?);");
             statement.setString(1, target);
             statement.setString(2, reason);
             statement.setString(3, banner);
