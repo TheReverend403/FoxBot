@@ -30,7 +30,10 @@ public class Database
         {
             String databaseType = foxbot.getConfig().getDatabaseType();
 
-            Class.forName(databaseType.equalsIgnoreCase("mysql") ? "com.mysql.jdbc.Driver" : "org.sqlite.JDBC");
+            if (databaseType.equalsIgnoreCase("sqlite"))
+            {
+                Class.forName("org.sqlite.JDBC");
+            }
 
             String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
 
