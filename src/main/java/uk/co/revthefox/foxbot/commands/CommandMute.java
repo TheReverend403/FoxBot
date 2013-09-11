@@ -1,6 +1,5 @@
 package uk.co.revthefox.foxbot.commands;
 
-
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
