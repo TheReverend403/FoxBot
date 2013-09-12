@@ -19,6 +19,9 @@ public class Database
 
     Connection connection = null;
 
+    private final String databaseType = foxbot.getConfig().getDatabaseType();
+    private final String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
+
     public Database(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -30,14 +33,10 @@ public class Database
 
         try
         {
-            String databaseType = foxbot.getConfig().getDatabaseType();
-
             if (databaseType.equalsIgnoreCase("sqlite"))
             {
                 Class.forName("org.sqlite.JDBC");
             }
-
-            String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
 
             if (databaseType.equalsIgnoreCase("mysql"))
             {
@@ -78,8 +77,40 @@ public class Database
         }
     }
 
+    public void reconnect()
+    {
+        if (connection == null)
+        {
+            try
+            {
+                if (databaseType.equalsIgnoreCase("sqlite"))
+                {
+                    Class.forName("org.sqlite.JDBC");
+                }
+
+                if (databaseType.equalsIgnoreCase("mysql"))
+                {
+                    String user = foxbot.getConfig().getDatabaseUser();
+                    String password = foxbot.getConfig().getDatabasePassword();
+                    connection = DriverManager.getConnection(url, user, password);
+                }
+                else
+                {
+                    connection = DriverManager.getConnection(url);
+                }
+            }
+            catch (SQLException | ClassNotFoundException ex)
+            {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                foxbot.disconnect();
+            }
+        }
+    }
+
     public void addTell(String sender, String receiver, String message)
     {
+        this.reconnect();
+
         PreparedStatement statement = null;
 
         try
@@ -105,6 +136,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -115,6 +151,8 @@ public class Database
 
     public List<String> getTells(String user, Boolean showAll)
     {
+        this.reconnect();
+
         List<String> tells = new ArrayList<>();
         PreparedStatement statement = null;
 
@@ -146,6 +184,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -157,6 +200,8 @@ public class Database
 
     public void cleanTells(String user)
     {
+        this.reconnect();
+
         PreparedStatement statement = null;
 
         try
@@ -178,6 +223,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -188,6 +238,8 @@ public class Database
 
     public void addBan(Channel channel, User target, String reason, User banner, long time)
     {
+        this.reconnect();
+
         PreparedStatement statement = null;
 
         try
@@ -215,6 +267,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -225,6 +282,8 @@ public class Database
 
     public void addKick(Channel channel, User target, String reason, User kicker, long time)
     {
+        this.reconnect();
+
         PreparedStatement statement = null;
 
         try
@@ -252,6 +311,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -262,6 +326,8 @@ public class Database
 
     public void addMute(Channel channel, User target, String reason, User muter, long time)
     {
+        this.reconnect();
+
         PreparedStatement statement = null;
 
         try
@@ -290,6 +356,11 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                    connection = null;
+                }
             }
             catch (SQLException ex)
             {
@@ -305,6 +376,7 @@ public class Database
             try
             {
                 connection.close();
+                connection = null;
             }
             catch (SQLException ex)
             {
