@@ -17,7 +17,9 @@ public class Database
 {
     private FoxBot foxbot;
 
-    Connection connection = null;
+    private Connection connection = null;
+    private String databaseType;
+    private String url;
 
     public Database(FoxBot foxbot)
     {
@@ -28,8 +30,8 @@ public class Database
     {
         Statement statement = null;
 
-        String databaseType = foxbot.getConfig().getDatabaseType();
-        String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
+        databaseType = foxbot.getConfig().getDatabaseType();
+        url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
 
         try
         {
@@ -86,9 +88,6 @@ public class Database
     {
         if (connection == null)
         {
-            String databaseType = foxbot.getConfig().getDatabaseType();
-            String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
-
             try
             {
                 if (databaseType.equalsIgnoreCase("sqlite"))
