@@ -72,6 +72,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -146,6 +147,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -194,6 +196,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
                 if (rs != null)
                 {
@@ -236,6 +239,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -279,6 +283,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -322,6 +327,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -366,6 +372,7 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
+                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -382,6 +389,7 @@ public class Database
             try
             {
                 connection.close();
+                connection = null;
             }
             catch (SQLException ex)
             {
