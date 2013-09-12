@@ -69,6 +69,10 @@ public class Database
                 {
                     statement.close();
                 }
+                if (connection != null)
+                {
+                    connection.close();
+                }
             }
             catch (SQLException ex)
             {
@@ -142,7 +146,6 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -158,13 +161,14 @@ public class Database
 
         List<String> tells = new ArrayList<>();
         PreparedStatement statement = null;
+        ResultSet rs = null;
 
         try
         {
             statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
             statement.setString(1, user);
             connection.setAutoCommit(true);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
 
             while (rs.next())
             {
@@ -190,7 +194,10 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
+                }
+                if (rs != null)
+                {
+                    rs.close();
                 }
             }
             catch (SQLException ex)
@@ -229,7 +236,6 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -273,7 +279,6 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -317,7 +322,6 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -362,7 +366,6 @@ public class Database
                 if (connection != null)
                 {
                     connection.close();
-                    connection = null;
                 }
             }
             catch (SQLException ex)
@@ -379,7 +382,6 @@ public class Database
             try
             {
                 connection.close();
-                connection = null;
             }
             catch (SQLException ex)
             {
