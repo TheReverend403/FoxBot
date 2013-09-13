@@ -52,16 +52,13 @@ public class CommandPing extends Command
             {
                 foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
             }
+            catch (NumberFormatException ex)
+            {
+                foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
+            }
             catch (IllegalArgumentException ex)
             {
-                if (StringUtils.isAlpha(args[1]))
-                {
-                    foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
-                }
-                else
-                {
-                    foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
-                }
+                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
             }
             return;
         }
