@@ -51,7 +51,9 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
                 }
-                foxbot.kick(channel, user, foxbot.getNick(), String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), Calendar.getInstance().getTimeInMillis());
+                long kickTime =  Calendar.getInstance().getTimeInMillis();
+                foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+                foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
             }
             return;
         }
@@ -88,7 +90,9 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
                 }
-                foxbot.kick(chan, user, foxbot.getNick(), String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), Calendar.getInstance().getTimeInMillis());
+                long kickTime =  Calendar.getInstance().getTimeInMillis();
+                foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+                foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
             }
             return;
         }
