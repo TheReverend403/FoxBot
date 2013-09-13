@@ -26,36 +26,42 @@ public class CommandPing extends Command
         User sender = event.getUser();
         String host;
         int port = 80;
+
         if (args.length == 1)
         {
             try
             {
                 host = args[0];
                 String returns;
-                Long time;
-                Long start = System.currentTimeMillis();
+                long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
+                long end = System.currentTimeMillis();
+                
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", System.currentTimeMillis() - start)));
-            } catch (Exception ex)
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", end - start)));
+            } 
+            catch (Exception ex)
             {
-                foxbot.sendNotice(sender, String.format("&c%s", ex.toString()));
+                foxbot.sendNotice(sender, foxbot.getUtils().colourise(String.format("&c%s", ex.toString()));
             }
             return;
         }
+
         if (args.length == 2)
         {
             try
             {
                 host = args[0];
-                port = Integer.valueOf(args[1]);
+                port = Integer.parseInt(args[1]);
                 String returns;
-                Long time;
-                Long start = System.currentTimeMillis();
+                long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
+                long end = System.currentTimeMillis();
+
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", System.currentTimeMillis() - start)));
-            } catch (Exception ex)
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", end - start)));
+            } 
+            catch (Exception ex)
             {
                 String error = ex.toString();
                 if (error.contains("java.net.UnknownHostException"))
