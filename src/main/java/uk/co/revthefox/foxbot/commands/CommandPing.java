@@ -27,16 +27,16 @@ public class CommandPing extends Command
     {
         Channel channel = event.getChannel();
         User sender = event.getUser();
-        String host = null;
+        String host;
         int port = 80;
 
         if (args.length == 1 || args.length == 2)
         {
+            host = args[0];
+            port = args.length == 2 ? Integer.parseInt(args[1]) : port;
+
             try
             {
-                host = args[0];
-                port = args.length == 2 ? Integer.parseInt(args[1]) : port;
-
                 long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
                 long end = System.currentTimeMillis();
