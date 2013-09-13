@@ -32,10 +32,12 @@ public class MessageListener extends ListenerAdapter<FoxBot>
             foxbot.getPluginManager().dispatchCommand(event, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
         }
 
+        /* 
         if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))
         {
             foxbot.kick(channel, user, "We don't use that language round 'ere.");
-        }
+        } 
+        */
 
         Matcher matcher = urlPattern.matcher(message);
 

@@ -51,7 +51,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
                 }
-                foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+                foxbot.kick(channel, user, foxbot.getNick(), String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), Calendar.getInstance().getTimeInMillis());
             }
             return;
         }
@@ -79,16 +79,16 @@ public class UserListener extends ListenerAdapter<FoxBot>
             return;
         }
 
-        if (foxbot.getPermissionManager().isNickProtected(nick))
+        if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
             for (Channel chan : foxbot.getChannels())
             {
-                if (chan.getUsers().contains(user) && !chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                if (channel.getUsers().contains(user) && !chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
                 {
-                    foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+                    foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                     continue;
                 }
-                foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+                foxbot.kick(chan, user, foxbot.getNick(), String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), Calendar.getInstance().getTimeInMillis());
             }
             return;
         }

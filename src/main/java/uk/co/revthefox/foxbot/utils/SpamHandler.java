@@ -130,22 +130,29 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         {
             case 9:
                 foxbot.kick(channel, user, "Antispam ban");
+                long banTime = Calendar.getInstance().getTimeInMillis();
                 foxbot.ban(channel, hostmask);
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
                 duplicateMap.remove(hostmask);
                 spamRating.asMap().remove(hostmask);
+                foxbot.getDatabase().addBan(channel, user, "Antispam ban", foxbot.getNick(), banTime);
                 break;
             case 4:
+                long kickTime = Calendar.getInstance().getTimeInMillis();            
                 foxbot.kick(channel, user, "Antispam kick");
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
+                foxbot.getDatabase().addKick(channel, user, "Antispam kick", foxbot.getNick(), kickTime);
+                foxbot.getDatabase().addMute(channel, user, "Antispam mute (2)", foxbot.getNick(), kickTime);
                 break;
             case 2:
+                long muteTime = Calendar.getInstance().getTimeInMillis();
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
+                foxbot.getDatabase().addMute(channel, user, "Antispam mute", foxbot.getNick(), muteTime);
                 break;
             default: break;
         }
