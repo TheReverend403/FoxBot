@@ -50,7 +50,7 @@ public class CommandPing extends Command
             }
             catch (IOException ex)
             {
-                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
+                foxbot.sendNotice(sender, foxbot.getUtils().colourise(String.format("Port %s seems to be blocked on the server you are pinging.", args[1])));
             }
             catch (NumberFormatException ex)
             {
