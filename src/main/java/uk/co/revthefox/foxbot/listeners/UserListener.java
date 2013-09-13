@@ -53,7 +53,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                         foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                         continue;
                     }
-                    long kickTime =  System.getTimeInMillis();
+                    long kickTime =  System.currentTimeMillis();
                     foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
                     foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
                 }
@@ -88,14 +88,14 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (Channel chan : foxbot.getChannels())
             {
-                if (chan.getUsers().contains(user))
+                if (chan.getUsers().contains(user))http://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0CDoQFjAB&url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F12158307%2Faccuracy-of-system-currenttimemillis-new-date-gettime-and-calendar-getin&ei=VfYyUpiEPMXA7AagpYHIBg&usg=AFQjCNFiNrR_MF0Zg32oD8fKsdcJW8LvQQ&sig2=uf0OOyVBVkSXW1n_03MEjA&bvm=bv.52164340,d.ZGU
                 {
                     if (!chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
                     {
                         foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                         continue;
                     }
-                    long kickTime =  System.getTimeInMillis();
+                    long kickTime =  System.currentTimeMillis();
                     foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
                     foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUser(foxbot.getNick()), kickTime);
                 }

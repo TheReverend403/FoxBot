@@ -61,7 +61,7 @@ public class CommandBan extends Command
 
             foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
 
-            long banTime = System.getTimeInMillis();
+            long banTime = System.currentTimeMillis();
 
             foxbot.ban(channel, hostmask);
             foxbot.getDatabase().addBan(channel, target, reason.toString(), sender, banTime);

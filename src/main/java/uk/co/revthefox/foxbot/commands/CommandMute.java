@@ -57,7 +57,7 @@ public class CommandMute extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            long muteTime = System.getTimeInMillis();
+            long muteTime = System.currentTimeMillis();
 
             foxbot.setMode(channel, "+q ", hostmask);
             foxbot.getDatabase().addMute(channel, target, reason.toString(), sender, muteTime);
