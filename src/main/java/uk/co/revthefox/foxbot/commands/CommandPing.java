@@ -1,5 +1,6 @@
 package uk.co.revthefox.foxbot.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -53,7 +54,14 @@ public class CommandPing extends Command
             }
             catch (IllegalArgumentException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
+                if (StringUtils.isAlpha(args[1]))
+                {
+                    foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
+                }
+                else
+                {
+                    foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
+                }
             }
             return;
         }
