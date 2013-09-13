@@ -51,7 +51,7 @@ public class CommandRandomImgur extends Command
                 channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aRandom Imgur: &r%s", foxbot.getUtils().munge(sender.getNick()), link)));
                 return;
             }
-            channel.sendMessage(foxbot.getUtils().colourise("&cSomething went wrong..."));
+            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
         }
     }
 

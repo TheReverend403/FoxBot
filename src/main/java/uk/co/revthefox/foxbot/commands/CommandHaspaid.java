@@ -36,7 +36,7 @@ public class CommandHaspaid extends Command
             catch (Exception ex)
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                foxbot.sendMessage(channel, "Something went wrong...");
+                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick())));
             }
             return;
         }

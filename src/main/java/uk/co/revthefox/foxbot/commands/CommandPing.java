@@ -5,8 +5,10 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class CommandPing extends Command
 {
@@ -33,32 +35,25 @@ public class CommandPing extends Command
             {
                 host = args[0];
                 port = args.length == 2 ? Integer.parseInt(args[1]) : port;
-                String returns;
+
                 long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
                 long end = System.currentTimeMillis();
                 
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("&aPing response time: &r%sms", end - start)));
-            } 
-            catch (Exception ex)
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPing response time: &r%sms",foxbot.getUtils().munge(sender.getNick()), end - start)));
+            }
+            catch (UnknownHostException ex)
             {
-                if (ex instanceof UnknownHostException)
-                {
-                    foxbot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
-                }
-                else if (ex instanceof NumberFormatException)
-                {
-                    foxbot.sendNotice(sender, String.format("%s isn't a number!", args[1]));
-                }
-                else if (ex instanceof IllegalArgumentException)
-                {
-                    foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
-                }
-                else
-                {
-                    foxbot.sendNotice(sender, foxbot.getUtils().colourise(String.format("&c%s", error)));
-                }
+                foxbot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
+            }
+            catch (IOException ex)
+            {
+                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
+            }
+            catch (IllegalArgumentException ex)
+            {
+                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
             }
             return;
         }
