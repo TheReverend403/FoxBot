@@ -42,7 +42,7 @@ public class CommandPing extends Command
             } 
             catch (Exception ex)
             {
-                foxbot.sendNotice(sender, foxbot.getUtils().colourise(String.format("&c%s", ex.toString()));
+                foxbot.sendNotice(sender, foxbot.getUtils().colourise(String.format("&c%s", ex.toString())));
             }
             return;
         }
