@@ -27,7 +27,7 @@ public class CommandPing extends Command
     {
         Channel channel = event.getChannel();
         User sender = event.getUser();
-        String host;
+        String host = null;
         int port = 80;
 
         if (args.length == 1 || args.length == 2)
@@ -46,19 +46,19 @@ public class CommandPing extends Command
             }
             catch (UnknownHostException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is an unknown address!", args[0]));
+                foxbot.sendNotice(sender, String.format("%s is an unknown address!", host));
             }
             catch (IOException ex)
             {
-                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", foxbot.getUtils().munge(sender.getNick()), args[1], args[0])));
+                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", foxbot.getUtils().munge(sender.getNick()), port, host)));
             }
             catch (NumberFormatException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
+                foxbot.sendNotice(sender, String.format("%s is not a number!", port));
             }
             catch (IllegalArgumentException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", args[1]));
+                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", port));
             }
             return;
         }
