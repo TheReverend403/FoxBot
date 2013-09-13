@@ -50,7 +50,7 @@ public class CommandPing extends Command
             }
             catch (IOException ex)
             {
-                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) Port &a%s&r seems to be closed on %s",sender.getNick(), args[1], args[0])));
+                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s",sender.getNick(), args[1], args[0])));
             }
             catch (NumberFormatException ex)
             {
