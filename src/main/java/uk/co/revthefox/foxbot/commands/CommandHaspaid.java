@@ -31,7 +31,7 @@ public class CommandHaspaid extends Command
 
             try
             {
-                channel.sendMessage(asyncHttpClient.prepareGet("https://minecraft.net/haspaid.jsp?user=" + args[0]).execute().get().getResponseBody().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\"' is a &apremium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
+                channel.sendMessage(asyncHttpClient.prepareGet("https://minecraft.net/haspaid.jsp?user=" + args[0]).execute().get().getResponseBody().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is a &apremium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
             }
             catch (Exception ex)
             {
