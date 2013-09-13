@@ -6,8 +6,6 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.Calendar;
-
 public class CommandMute extends Command
 {
     private FoxBot foxbot;
@@ -59,7 +57,7 @@ public class CommandMute extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            long muteTime = Calendar.getInstance().getTimeInMillis();
+            long muteTime = System.getTimeInMillis();
 
             foxbot.setMode(channel, "+q ", hostmask);
             foxbot.getDatabase().addMute(channel, target, reason.toString(), sender, muteTime);

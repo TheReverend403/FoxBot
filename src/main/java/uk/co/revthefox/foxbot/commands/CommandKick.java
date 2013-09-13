@@ -6,8 +6,6 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.Calendar;
-
 public class CommandKick extends Command
 {
     private FoxBot foxbot;
@@ -57,7 +55,7 @@ public class CommandKick extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            long kickTime = Calendar.getInstance().getTimeInMillis();
+            long kickTime = System.getTimeInMillis();
 
             foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
             foxbot.getDatabase().addKick(channel, target, reason.toString(), sender, kickTime);

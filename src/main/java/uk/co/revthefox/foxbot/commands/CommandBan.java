@@ -6,7 +6,6 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +61,7 @@ public class CommandBan extends Command
 
             foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
 
-            long banTime = Calendar.getInstance().getTimeInMillis();
+            long banTime = System.getTimeInMillis();
 
             foxbot.ban(channel, hostmask);
             foxbot.getDatabase().addBan(channel, target, reason.toString(), sender, banTime);

@@ -9,7 +9,6 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -131,7 +130,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         {
             case 9:
                 foxbot.kick(channel, user, "Antispam ban");
-                long banTime = Calendar.getInstance().getTimeInMillis();
+                long banTime = System.getTimeInMillis();
                 foxbot.ban(channel, hostmask);
                 foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
@@ -140,7 +139,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.getDatabase().addBan(channel, user, "Antispam ban", foxbot.getUser(foxbot.getNick()), banTime);
                 break;
             case 4:
-                long kickTime = Calendar.getInstance().getTimeInMillis();            
+                long kickTime = System.getTimeInMillis();            
                 foxbot.kick(channel, user, "Antispam kick");
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
@@ -149,7 +148,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.getDatabase().addMute(channel, user, "Antispam kickmute", foxbot.getUser(foxbot.getNick()), kickTime);
                 break;
             case 2:
-                long muteTime = Calendar.getInstance().getTimeInMillis();
+                long muteTime = System.getTimeInMillis();
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");

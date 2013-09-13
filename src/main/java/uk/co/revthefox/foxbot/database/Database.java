@@ -124,7 +124,7 @@ public class Database
         {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
-            statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTime()));
+            statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(System.getTime()));
             statement.setString(2, sender);
             statement.setString(3, receiver);
             statement.setString(4, message);
