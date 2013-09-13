@@ -9,6 +9,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 

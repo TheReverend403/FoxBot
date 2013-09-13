@@ -6,6 +6,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.*;
 import uk.co.revthefox.foxbot.FoxBot;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,18 +82,18 @@ public class UserListener extends ListenerAdapter<FoxBot>
             return;
         }
 
-        if (foxbot.getPermissionManager().isNickProtected(newNick))
+        if (foxbot.getPermissionManager().isNickProtected(nick))
         {
             for (Channel chan : foxbot.getChannels())
             {
                 if (channel.getUsers().contains(user) && !chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
                 {
-                    foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
+                    foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                     continue;
                 }
                 long kickTime =  Calendar.getInstance().getTimeInMillis();
-                foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
-                foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
+                foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+                foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUser(foxbot.getNick()), kickTime);
             }
             return;
         }
