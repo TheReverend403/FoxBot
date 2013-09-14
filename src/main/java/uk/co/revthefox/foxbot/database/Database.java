@@ -345,7 +345,8 @@ public class Database
         try
         {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("INSERT INTO mutes (channel, target, hostmask, reason, muter, mute_time) VALUES (?, ?, ?, ?, ?, ?);");            statement.setString(1, target.getNick());
+            statement = connection.prepareStatement("INSERT INTO mutes (channel, target, hostmask, reason, muter, mute_time) VALUES (?, ?, ?, ?, ?, ?);");
+            statement.setString(1, target.getNick());
 
             statement.setString(1, channel.getName());
             statement.setString(2, target.getNick());

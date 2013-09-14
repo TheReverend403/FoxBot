@@ -1,6 +1,7 @@
 package uk.co.revthefox.foxbot.config.yamlconfig;
 
 import com.google.common.base.Preconditions;
+
 import java.util.Map;
 
 /**

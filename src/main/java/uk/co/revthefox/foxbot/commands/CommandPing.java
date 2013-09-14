@@ -1,6 +1,5 @@
 package uk.co.revthefox.foxbot.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -40,9 +39,9 @@ public class CommandPing extends Command
                 long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
                 long end = System.currentTimeMillis();
-                
+
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPing response time: &r%sms",foxbot.getUtils().munge(sender.getNick()), end - start)));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPing response time: &r%sms", foxbot.getUtils().munge(sender.getNick()), end - start)));
             }
             catch (UnknownHostException ex)
             {

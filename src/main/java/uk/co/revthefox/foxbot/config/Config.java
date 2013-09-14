@@ -1,7 +1,5 @@
 package uk.co.revthefox.foxbot.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.config.yamlconfig.file.FileConfiguration;
 import uk.co.revthefox.foxbot.config.yamlconfig.file.YamlConfiguration;

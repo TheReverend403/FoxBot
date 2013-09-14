@@ -15,7 +15,8 @@ import uk.co.revthefox.foxbot.utils.SpamHandler;
 import uk.co.revthefox.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 import java.util.logging.Logger;

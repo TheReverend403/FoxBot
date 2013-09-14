@@ -1,12 +1,13 @@
 package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.representer.Representer;
 import uk.co.revthefox.foxbot.config.yamlconfig.ConfigurationSection;
 import uk.co.revthefox.foxbot.config.yamlconfig.serialization.ConfigurationSerializable;
 import uk.co.revthefox.foxbot.config.yamlconfig.serialization.ConfigurationSerialization;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class YamlRepresenter extends Representer
 {

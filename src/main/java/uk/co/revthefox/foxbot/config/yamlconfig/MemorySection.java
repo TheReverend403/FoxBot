@@ -2,14 +2,8 @@ package uk.co.revthefox.foxbot.config.yamlconfig;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  * A type of {@link ConfigurationSection} that is stored in memory.
@@ -28,12 +22,12 @@ public class MemorySection implements ConfigurationSection
     /**
      * Creates an empty MemorySection for use as a root {@link Configuration}
      * section.
-     * <p />
+     * <p/>
      * Note that calling this without being yourself a {@link Configuration}
      * will throw an exception!
      *
      * @throws IllegalStateException Thrown if this is not a
-     * {@link Configuration} root.
+     *                               {@link Configuration} root.
      */
     protected MemorySection()
     {
@@ -52,10 +46,10 @@ public class MemorySection implements ConfigurationSection
      * Creates an empty MemorySection with the specified parent and path.
      *
      * @param parent Parent section that contains this own section.
-     * @param path Path that you may access this section from via the root
-     * {@link Configuration}.
+     * @param path   Path that you may access this section from via the root
+     *               {@link Configuration}.
      * @throws IllegalArgumentException Thrown is parent or path is null, or if
-     * parent contains no root Configuration.
+     *                                  parent contains no root Configuration.
      */
     protected MemorySection(ConfigurationSection parent, String path)
     {
@@ -886,12 +880,12 @@ public class MemorySection implements ConfigurationSection
     /**
      * Creates a full path to the given {@link ConfigurationSection} from its
      * root {@link Configuration}.
-     * <p />
+     * <p/>
      * You may use this method for any given {@link ConfigurationSection}, not
      * only {@link MemorySection}.
      *
      * @param section Section to create a path for.
-     * @param key Name of the specified section.
+     * @param key     Name of the specified section.
      * @return Full path of the section from its root.
      */
     public static String createPath(ConfigurationSection section, String key)
@@ -902,12 +896,12 @@ public class MemorySection implements ConfigurationSection
     /**
      * Creates a relative path to the given {@link ConfigurationSection} from
      * the given relative section.
-     * <p />
+     * <p/>
      * You may use this method for any given {@link ConfigurationSection}, not
      * only {@link MemorySection}.
      *
-     * @param section Section to create a path for.
-     * @param key Name of the specified section.
+     * @param section    Section to create a path for.
+     * @param key        Name of the specified section.
      * @param relativeTo Section to create the path relative to.
      * @return Full path of the section from its root.
      */
@@ -1010,9 +1004,9 @@ public class MemorySection implements ConfigurationSection
     /**
      * Set a propertie's comment.
      *
-     * @param path the property
+     * @param path    the property
      * @param comment the comment. May be <code>null</code>, in which case the
-     * comment is removed.
+     *                comment is removed.
      */
     public void setComment(String path, String... comment)
     {

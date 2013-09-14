@@ -1,13 +1,6 @@
 package uk.co.revthefox.foxbot.config.yamlconfig.file;
 
 import com.google.common.base.Preconditions;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.regex.Pattern;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
@@ -15,6 +8,14 @@ import org.yaml.snakeyaml.representer.Representer;
 import uk.co.revthefox.foxbot.config.yamlconfig.Configuration;
 import uk.co.revthefox.foxbot.config.yamlconfig.ConfigurationSection;
 import uk.co.revthefox.foxbot.config.yamlconfig.InvalidConfigurationException;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * An implementation of {@link uk.co.revthefox.foxbot.config.yamlconfig.Configuration} which saves all files in Yaml.
@@ -57,7 +58,7 @@ public class YamlConfiguration extends FileConfiguration
     public String saveConfigSectionWithComments(ConfigurationSection section, boolean depth)
     {
         StringBuilder builder = new StringBuilder();
-        for (Iterator<Map.Entry<String, Object>> i = section.getValues(false).entrySet().iterator(); i.hasNext();)
+        for (Iterator<Map.Entry<String, Object>> i = section.getValues(false).entrySet().iterator(); i.hasNext(); )
         {
             Map.Entry<String, Object> entry = i.next();
 
@@ -261,7 +262,7 @@ public class YamlConfiguration extends FileConfiguration
 
     /**
      * Creates a new {@link YamlConfiguration}, loading from the given file.
-     * <p />
+     * <p/>
      * Any errors loading the Configuration will be logged and then ignored. If
      * the specified input is not a valid config, a blank config will be
      * returned.
@@ -289,7 +290,7 @@ public class YamlConfiguration extends FileConfiguration
 
     /**
      * Creates a new {@link YamlConfiguration}, loading from the given stream.
-     * <p />
+     * <p/>
      * Any errors loading the Configuration will be logged and then ignored. If
      * the specified input is not a valid config, a blank config will be
      * returned.
