@@ -9,8 +9,6 @@ import uk.co.revthefox.foxbot.config.Config;
 import uk.co.revthefox.foxbot.database.Database;
 import uk.co.revthefox.foxbot.listeners.MessageListener;
 import uk.co.revthefox.foxbot.listeners.UserListener;
-import uk.co.revthefox.foxbot.listeners.spamhandler.CapsSpamHandler;
-import uk.co.revthefox.foxbot.listeners.spamhandler.RepeatSpamHandler;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import uk.co.revthefox.foxbot.plugin.PluginManager;
 import uk.co.revthefox.foxbot.listeners.spamhandler.SpamHandler;
@@ -114,8 +112,6 @@ public class FoxBot extends PircBotX
     {
         this.getListenerManager().addListener(new MessageListener(this));
         this.getListenerManager().addListener(new UserListener(this));
-        this.getListenerManager().addListener(new RepeatSpamHandler(this));
-        this.getListenerManager().addListener(new CapsSpamHandler(this));
     }
 
     private void registerCommands()
