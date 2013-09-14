@@ -32,10 +32,10 @@ public class CommandPing extends Command
         if (args.length == 1 || args.length == 2)
         {
             host = args[0];
-            port = args.length == 2 ? Integer.parseInt(args[1]) : port;
 
             try
             {
+                port = args.length == 2 ? Integer.parseInt(args[1]) : port;
                 long start = System.currentTimeMillis();
                 Socket socket = new Socket(InetAddress.getByName(host), port);
                 long end = System.currentTimeMillis();
