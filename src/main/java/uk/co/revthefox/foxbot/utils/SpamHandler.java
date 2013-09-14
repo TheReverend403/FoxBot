@@ -39,8 +39,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     @Override
     public void onMessage(MessageEvent<FoxBot> event)
     {
-        final User user = event.getUser();
-        final Channel channel = event.getChannel();
+        User user = event.getUser();
+        Channel channel = event.getChannel();
 
         /* Ideally, I'd use permissions here, but I won't for two reasons.
          *
@@ -53,8 +53,8 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             return;
         }
 
-        final String message = event.getMessage();
-        final String hostmask = user.getHostmask();
+        String message = event.getMessage();
+        String hostmask = user.getHostmask();
 
         // -------------------
         // Caps spam detection
@@ -124,7 +124,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
     public synchronized void spamPunisher(final Channel channel, final User user, final int level)
     {
         // Help to prevent ban evasion
-        final String hostmask = "*" + user.getHostmask();
+        String hostmask = "*" + user.getHostmask();
 
         switch (level)
         {
