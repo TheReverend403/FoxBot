@@ -56,16 +56,19 @@ anti-spam:
     enabled: true
     # Actions to take when a user has a certain amount of spam rating points
     actions:
-        # How many points should the user have before we mute them? Set to 0 to disable.
-        mute: 3
+        mute:
+            # How many points should the user have before we mute them? Set to 0 to disable.
+            points: 3
             # How long should the mute be for in seconds? Set to -1 for infinite.
             time: 10
-        # When should we kick the user? Set to 0 to disable. Note, can also mute the user so they can't rejoin and then spam.
-        kick: 5
+        kick:
+            # When should we kick the user? Set to 0 to disable. Note, can also mute the user so they can't rejoin and then spam.
+            points: 5
             # How long should the mute be for in seconds? Set to -1 for infinite. Set to 0 to disable.
             time: 10
-        # When should we ban the user?
-        ban: 10
+        ban:
+            # When should we ban the user?
+            points: 10
             # How long should the ban be for?
             time: 86400
     caps-spam:

@@ -9,11 +9,12 @@ import java.util.List;
 
 public class Config
 {
+    private FoxBot foxbot;
+
     private File configFile = new File("config.yml");
     private File permsFile = new File("permissions.yml");
     private File nickProtectionFile = new File("nickprotection.yml");
 
-    private FoxBot foxbot;
     private FileConfiguration botConfig;
     private FileConfiguration botPermissions;
     private FileConfiguration botNickProtection;
