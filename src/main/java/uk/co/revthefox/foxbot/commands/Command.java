@@ -4,7 +4,6 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 public abstract class Command
 {
-
     private final String name;
     private final String permission;
     private final String[] aliases;

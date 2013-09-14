@@ -5,6 +5,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
+import uk.co.revthefox.foxbot.listeners.spamhandler.SpamHandler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
