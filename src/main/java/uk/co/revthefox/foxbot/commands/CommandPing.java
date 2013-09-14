@@ -53,7 +53,7 @@ public class CommandPing extends Command
             }
             catch (NumberFormatException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is not a number!", port));
+                foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
             }
             catch (IllegalArgumentException ex)
             {
