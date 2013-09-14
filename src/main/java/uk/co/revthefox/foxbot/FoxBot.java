@@ -112,6 +112,7 @@ public class FoxBot extends PircBotX
     {
         this.getListenerManager().addListener(new MessageListener(this));
         this.getListenerManager().addListener(new UserListener(this));
+        this.getListenerManager().addListener(new SpamHandler(this));
     }
 
     private void registerCommands()
