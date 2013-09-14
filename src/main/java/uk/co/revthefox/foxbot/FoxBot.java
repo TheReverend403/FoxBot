@@ -12,7 +12,6 @@ import uk.co.revthefox.foxbot.listeners.UserListener;
 import uk.co.revthefox.foxbot.permissions.PermissionManager;
 import uk.co.revthefox.foxbot.plugin.PluginManager;
 import uk.co.revthefox.foxbot.listeners.spamhandler.SpamHandler;
-import uk.co.revthefox.foxbot.utils.ConsoleReader;
 import uk.co.revthefox.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -38,7 +37,6 @@ public class FoxBot extends PircBotX
     private static Utils utils;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
-    private static ConsoleReader console;
 
     public static void main(String[] args)
     {
@@ -61,7 +59,6 @@ public class FoxBot extends PircBotX
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
         utils = new Utils(this);
-        console = new ConsoleReader(this);
         database = new Database(this);
         database.connect();
         registerListeners();

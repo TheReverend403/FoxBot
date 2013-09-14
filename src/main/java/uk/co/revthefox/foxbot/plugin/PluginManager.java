@@ -48,7 +48,7 @@ public class PluginManager
 
         String permission = command.getPermission();
 
-        if (permission != null && !permission.isEmpty() && sender != null)
+        if (permission != null && !permission.isEmpty())
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
