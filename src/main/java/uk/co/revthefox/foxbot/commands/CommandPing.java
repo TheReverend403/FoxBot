@@ -64,3 +64,4 @@ public class CommandPing extends Command
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
     }
 }
+//
