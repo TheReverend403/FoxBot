@@ -46,4 +46,3 @@ public class CommandVoice extends Command
         foxbot.sendNotice(sender, "You are already voice!");
     }
 }
-//
