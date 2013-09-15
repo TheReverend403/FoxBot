@@ -4,17 +4,7 @@
 # Commands granted to all users
 # If using hostmask matching, hostmasks MUST be enclosed in ""
 
-# Permissions granted to all NON-logged in users
-# Not yet implemented
-unverified:
-    - command.ping
-    - command.uptime
-    - chat.urls
-    - command.git
-    - command.haspaid
-    - command.wtc
-    - command.imgur
-# Permissions granted to all logged in users
+# Permissions granted to all users
 default:
     - command.ping
     - command.uptime
