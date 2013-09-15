@@ -27,7 +27,7 @@ auth:
     nickserv-password: password
     # Do users have to be authed with nickserv to use bot commands?
     users-must-be-verified: true
-    # Should we match users based on hostmasks? Keep in mind, setting this to true is more secure.
+    # Should we match users based on hostmasks? This mode is secure enough that you don't need to use "users-must-be-verified".
     match-users-by-hostmask: true
 # Database settings for bot data storage
 database:
