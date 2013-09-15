@@ -7,6 +7,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.listeners.spamhandler.SpamHandler;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,13 +35,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         {
             foxbot.getPluginManager().dispatchCommand(event, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
         }
-
-        /* 
-        if (message.toLowerCase().contains("pex") || message.toLowerCase().contains("permissionsex"))
-        {
-            foxbot.kick(channel, user, "We don't use that language round 'ere.");
-        } 
-        */
 
         Matcher matcher = urlPattern.matcher(message);
 

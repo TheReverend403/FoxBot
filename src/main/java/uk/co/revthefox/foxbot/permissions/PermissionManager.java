@@ -23,13 +23,13 @@ public class PermissionManager
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? user.getHostmask() : user.getNick();
         FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
 
-        if (!authedUsers.contains(user) && user.isVerified())
-        {
-            authedUsers.add(user);
-        }
-
         if (foxbot.getConfig().getUsersMustBeVerified())
         {
+            if (!authedUsers.contains(user) && user.isVerified())
+            {
+                authedUsers.add(user);
+            }
+
             if (authedUsers.contains(user))
             {
                 if (permissions.getStringList("default").contains(permission))
@@ -53,13 +53,13 @@ public class PermissionManager
         String authType = foxbot.getConfig().getMatchUsersByHostmask() ? user.getHostmask() : user.getNick();
         FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
 
-        if (!authedUsers.contains(user) && user.isVerified())
-        {
-            authedUsers.add(user);
-        }
-
         if (foxbot.getConfig().getUsersMustBeVerified())
         {
+            if (!authedUsers.contains(user) && user.isVerified())
+            {
+                authedUsers.add(user);
+            }
+
             if (authedUsers.contains(user))
             {
                 if (permissions.getStringList("default").contains(permission))
