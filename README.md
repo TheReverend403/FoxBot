@@ -3,6 +3,8 @@ FoxBot
 
 IRC bot written in Java
 
+[![Build Status](https://drone.io/github.com/TheReverend403/FoxBot/status.png)](https://drone.io/github.com/TheReverend403/FoxBot/latest)
+
 Features:
 
 * Bukkit-like permissions system
