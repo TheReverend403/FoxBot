@@ -24,7 +24,6 @@ public class CommandBan extends Command
         if (args.length > 1)
         {
             User target = foxbot.getUser(args[0]);
-            String hostmask = "*" + target.getHostmask();
 
             if (!channel.getUsers().contains(target))
             {
@@ -47,6 +46,8 @@ public class CommandBan extends Command
                 foxbot.sendNotice(sender, "You cannot ban that user!");
                 return;
             }
+
+            String hostmask = "*" + target.getHostmask();
 
             StringBuilder reason = new StringBuilder(args[1]);
 
