@@ -130,7 +130,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onKick(final KickEvent<FoxBot> event)
+    public void onKick(KickEvent<FoxBot> event)
     {
         final Channel channel = event.getChannel();
         final User kickedUser = event.getRecipient();
