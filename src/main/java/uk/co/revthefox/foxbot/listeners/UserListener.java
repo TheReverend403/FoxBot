@@ -97,6 +97,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                         foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                         continue;
                     }
+
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
@@ -138,13 +139,10 @@ public class UserListener extends ListenerAdapter<FoxBot>
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
-            /*
             if (foxbot.getConfig().getPunishUsersOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.bypasspunishment"))
             {
-                foxbot.sendNotice("ChanServ", String.format("kick %s %s %s", channel.getName(), kicker.getNick(), foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason()));
-                //foxbot.kick(channel, kicker, foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason());
+                foxbot.sendMessage("ChanServ", String.format("kick %s %s %s", channel.getName(), kicker.getNick(), foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason()));
             }
-            */
 
             if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
             {
