@@ -75,7 +75,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onJoin(JoinEvent event)
+    public void onJoin(JoinEvent<FoxBot> event)
     {
         User user = event.getUser();
         String nick = user.getNick();
@@ -130,7 +130,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onKick(KickEvent event)
+    public void onKick(final KickEvent<FoxBot> event)
     {
         final Channel channel = event.getChannel();
         final User kickedUser = event.getRecipient();
