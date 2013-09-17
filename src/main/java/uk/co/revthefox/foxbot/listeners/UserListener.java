@@ -139,11 +139,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
-            if (foxbot.getConfig().getPunishUsersOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.bypasspunishment"))
-            {
-                foxbot.sendMessage("ChanServ", String.format("kick %s %s %s", channel.getName(), kicker.getNick(), foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason()));
-            }
-
             if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
             {
                 new Timer().schedule(
