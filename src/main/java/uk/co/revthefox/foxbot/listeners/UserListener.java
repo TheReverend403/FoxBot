@@ -48,7 +48,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (channel.getUsers().contains(user))
                 {
-                    if (!channel.getOps().contains(foxbot.getUserBot()))
+                    if (!channel.isOp(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                         continue;
@@ -92,7 +92,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (chan.getUsers().contains(user))
                 {
-                    if (!chan.getOps().contains(foxbot.getUserBot()))
+                    if (!chan.isOp(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                         continue;
