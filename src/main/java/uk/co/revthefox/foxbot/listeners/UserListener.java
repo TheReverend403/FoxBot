@@ -48,7 +48,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (channel.getUsers().contains(user))
                 {
-                    if (!channel.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                    if (!channel.getOps().contains(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                         continue;
@@ -57,7 +57,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
-                    foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
+                    foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUserBot(), kickTime);
                 }
             }
             return;
@@ -92,7 +92,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (chan.getUsers().contains(user))
                 {
-                    if (!chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                    if (!chan.getOps().contains(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                         continue;
@@ -101,7 +101,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-                    foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUser(foxbot.getNick()), kickTime);
+                    foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUserBot(), kickTime);
                 }
             }
             return;

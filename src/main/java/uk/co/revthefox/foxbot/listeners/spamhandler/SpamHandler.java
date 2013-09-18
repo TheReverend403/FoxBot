@@ -48,7 +48,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
          * 2. Voices+ would bypass the mutes anyway, regardless of perms. Might as well not spam the channel trying to mute them.
          */
 
-        if (user.getNick().equals(foxbot.getNick()) || !channel.getNormalUsers().contains(user))
+        if (user.getNick().equals(foxbot.getNick()) || channel.getNormalUsers().contains(foxbot.getUserBot()) || !channel.getNormalUsers().contains(user))
         {
             return;
         }
@@ -87,7 +87,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
             {
                 long kickTime = System.currentTimeMillis();
                 foxbot.kick(channel, user, "Caps spam (" + count + "%)");
-                foxbot.getDatabase().addKick(channel, user, "Caps spam (" + count + "%)", foxbot.getUser(foxbot.getNick()), kickTime);
+                foxbot.getDatabase().addKick(channel, user, "Caps spam (" + count + "%)", foxbot.getUserBot(), kickTime);
             }
         }
 
@@ -138,7 +138,7 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.sendMessage(user, "You have been banned for 24 hours for spamming multiple times.");
                 duplicateMap.remove(hostmask);
                 spamRating.asMap().remove(hostmask);
-                foxbot.getDatabase().addBan(channel, user, "Antispam ban", foxbot.getUser(foxbot.getNick()), banTime);
+                foxbot.getDatabase().addBan(channel, user, "Antispam ban", foxbot.getUserBot(), banTime);
                 break;
             case 4:
                 long kickTime = System.currentTimeMillis();
@@ -146,15 +146,15 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 60);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been kicked and muted for 60 seconds. If you continue to spam, you may be banned.");
-                foxbot.getDatabase().addKick(channel, user, "Antispam kick", foxbot.getUser(foxbot.getNick()), kickTime);
-                foxbot.getDatabase().addMute(channel, user, "Antispam kickmute", foxbot.getUser(foxbot.getNick()), kickTime);
+                foxbot.getDatabase().addKick(channel, user, "Antispam kick", foxbot.getUserBot(), kickTime);
+                foxbot.getDatabase().addMute(channel, user, "Antispam kickmute", foxbot.getUserBot(), kickTime);
                 break;
             case 2:
                 long muteTime = System.currentTimeMillis();
                 foxbot.setMode(channel, "+q " + hostmask);
                 foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", 10);
                 foxbot.sendMessage(user, "It seems like you are spamming. As such, you have been muted for 10 seconds. If you continue to spam, you may be kicked or even banned.");
-                foxbot.getDatabase().addMute(channel, user, "Antispam mute", foxbot.getUser(foxbot.getNick()), muteTime);
+                foxbot.getDatabase().addMute(channel, user, "Antispam mute", foxbot.getUserBot(), muteTime);
                 break;
             default:
                 break;
