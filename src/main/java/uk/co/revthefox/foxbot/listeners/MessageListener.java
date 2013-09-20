@@ -1,3 +1,20 @@
+/*
+ * This file is part of Foxbot.
+ *
+ *     Foxbot is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     Foxbot is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with Foxbot. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package uk.co.revthefox.foxbot.listeners;
 
 import org.pircbotx.Channel;
@@ -31,14 +48,14 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        if (message.length() > 0 && (message.startsWith(foxbot.getConfig().getCommandPrefix()) || message.startsWith(foxbot.getConfig().getBotNick() + ", ")))
+        if (message.length() > 0 && (message.startsWith(foxbot.getConfig().getCommandPrefix()) || message.startsWith(foxbot.getNick() + ", ")))
         {
             foxbot.getPluginManager().dispatchCommand(event, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
         }
 
         Matcher matcher = urlPattern.matcher(message);
 
-        if (matcher.matches() && !user.getNick().equalsIgnoreCase(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
+        if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
             message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
 

@@ -1,3 +1,20 @@
+/*
+ * This file is part of Foxbot.
+ *
+ *     Foxbot is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     Foxbot is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with Foxbot. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package uk.co.revthefox.foxbot.listeners;
 
 import org.pircbotx.Channel;
@@ -48,7 +65,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (channel.getUsers().contains(user))
                 {
-                    if (!channel.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                    if (!channel.isOp(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                         continue;
@@ -57,7 +74,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
-                    foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUser(foxbot.getNick()), kickTime);
+                    foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUserBot(), kickTime);
                 }
             }
             return;
@@ -92,15 +109,16 @@ public class UserListener extends ListenerAdapter<FoxBot>
             {
                 if (chan.getUsers().contains(user))
                 {
-                    if (!chan.getOps().contains(foxbot.getUser(foxbot.getNick())))
+                    if (!chan.isOp(foxbot.getUserBot()))
                     {
                         foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
                         continue;
                     }
+
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-                    foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUser(foxbot.getNick()), kickTime);
+                    foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUserBot(), kickTime);
                 }
             }
             return;
@@ -138,14 +156,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
-            /*
-            if (foxbot.getConfig().getPunishUsersOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.bypasspunishment"))
-            {
-                foxbot.sendNotice("ChanServ", String.format("kick %s %s %s", channel.getName(), kicker.getNick(), foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason()));
-                //foxbot.kick(channel, kicker, foxbot.getConfig().getPunishmentKickReason() == null ? "" : foxbot.getConfig().getPunishmentKickReason());
-            }
-            */
-
             if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
             {
                 new Timer().schedule(
