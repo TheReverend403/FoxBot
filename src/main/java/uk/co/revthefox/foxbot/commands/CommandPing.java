@@ -52,7 +52,7 @@ public class CommandPing extends Command
             return;
         }
 
-        if (args.length == 1 || args.length == 2)
+        if (args.length < 3)
         {
             host = args[0];
 
