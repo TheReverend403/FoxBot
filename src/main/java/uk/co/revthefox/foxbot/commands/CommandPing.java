@@ -46,6 +46,12 @@ public class CommandPing extends Command
         String host;
         int port = 80;
 
+        if (args.length == 0)
+        {
+            foxbot.sendMessage(channel, "Pong!");
+            return;
+        }
+
         if (args.length == 1 || args.length == 2)
         {
             host = args[0];
