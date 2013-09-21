@@ -98,6 +98,7 @@ public class Config
     private boolean autoReconnect;
     private long messageDelay;
     private boolean mungeUsernames;
+    private List<String> ignoredChannels;
     private List<String> greetingChannels;
     private String greetingMessage;
     private boolean greetingNotice;
@@ -190,6 +191,7 @@ public class Config
         autoReconnect = botConfig.getBoolean("misc.auto-reconnect");
         messageDelay = botConfig.getLong("misc.message-delay");
         mungeUsernames = botConfig.getBoolean("misc.munge-usernames");
+        ignoredChannels = botConfig.getStringList("misc.ignored-channels");
         greetingChannels = botConfig.getStringList("misc.channels-to-greet");
         greetingMessage = botConfig.getString("misc.greeting-message");
         greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
@@ -390,6 +392,11 @@ public class Config
     public boolean getMungeUsernames()
     {
         return mungeUsernames;
+    }
+
+    public List<String> getIgnoredChannels()
+    {
+        return ignoredChannels;
     }
 
     public List<String> getGreetingChannels()

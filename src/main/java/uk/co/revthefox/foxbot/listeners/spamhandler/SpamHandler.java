@@ -59,6 +59,11 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
+        if (foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
+        {
+            return;
+        }
+
         /* Ideally, I'd use permissions here, but I won't for two reasons.
          *
          * 1. That would require a permissions check on every message from a potentially unverified user. Good way to get throttled.
