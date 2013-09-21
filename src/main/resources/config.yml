@@ -107,6 +107,9 @@ misc:
     message-delay: 0
     # Should we "munge" usernames to avoid pinging users?
     munge-usernames: true
+    # If a channel is in this list, the bot will completely ignore any messages in it
+    ignored-channels:
+    - '#cookiechat'
     # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
     channels-to-greet:
     - '#thereverend403'
