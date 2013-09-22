@@ -24,7 +24,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandMute extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandMute(FoxBot foxbot)
     {

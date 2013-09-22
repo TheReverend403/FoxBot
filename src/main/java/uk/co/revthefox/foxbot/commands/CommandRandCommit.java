@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class CommandRandCommit extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandRandCommit(FoxBot foxbot)
     {

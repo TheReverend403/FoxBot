@@ -23,7 +23,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandMessage extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandMessage(FoxBot foxbot)
     {

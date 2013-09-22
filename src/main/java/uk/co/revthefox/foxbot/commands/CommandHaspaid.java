@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 public class CommandHaspaid extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandHaspaid(FoxBot foxbot)
     {

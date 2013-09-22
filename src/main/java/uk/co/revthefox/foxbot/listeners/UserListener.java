@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class UserListener extends ListenerAdapter<FoxBot>
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public UserListener(FoxBot foxbot)
     {

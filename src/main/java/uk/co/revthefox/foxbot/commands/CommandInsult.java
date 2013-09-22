@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class CommandInsult extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandInsult(FoxBot foxbot)
     {

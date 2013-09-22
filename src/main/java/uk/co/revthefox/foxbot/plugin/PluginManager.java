@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 
 public class PluginManager
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
     private final Map<String, Command> commandMap = new HashMap<>();

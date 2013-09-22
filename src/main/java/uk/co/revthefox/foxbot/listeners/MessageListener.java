@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 public class MessageListener extends ListenerAdapter<FoxBot>
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public MessageListener(FoxBot foxbot)
     {

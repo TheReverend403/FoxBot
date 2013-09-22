@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 public class Utils
 {
 
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public Utils(FoxBot foxbot)
     {

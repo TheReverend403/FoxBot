@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CommandUptime extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandUptime(FoxBot foxbot)
     {

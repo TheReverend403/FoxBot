@@ -24,7 +24,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandVoice extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandVoice(FoxBot foxbot)
     {

@@ -25,7 +25,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 public class CommandKill extends Command
 {
 
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandKill(FoxBot foxbot)
     {

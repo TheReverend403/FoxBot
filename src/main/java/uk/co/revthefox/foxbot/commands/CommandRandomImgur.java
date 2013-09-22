@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public class CommandRandomImgur extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
     private Random rand = new Random();

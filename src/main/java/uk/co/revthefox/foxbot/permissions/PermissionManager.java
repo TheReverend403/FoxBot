@@ -26,7 +26,7 @@ import java.util.List;
 
 public class PermissionManager
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
     private List<User> authedUsers = new ArrayList<>();
 
     public PermissionManager(FoxBot foxbot)

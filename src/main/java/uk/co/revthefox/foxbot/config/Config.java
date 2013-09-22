@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Config
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     private File configFile = new File("config.yml");
     private File permsFile = new File("permissions.yml");

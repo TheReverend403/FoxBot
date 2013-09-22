@@ -30,7 +30,7 @@ import java.net.UnknownHostException;
 public class CommandPing extends Command
 {
 
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandPing(FoxBot foxbot)
     {

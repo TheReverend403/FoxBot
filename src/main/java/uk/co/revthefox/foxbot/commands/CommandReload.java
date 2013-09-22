@@ -23,7 +23,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandReload extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandReload(FoxBot foxbot)
     {

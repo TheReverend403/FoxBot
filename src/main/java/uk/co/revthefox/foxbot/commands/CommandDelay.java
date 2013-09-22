@@ -23,7 +23,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandDelay extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandDelay(FoxBot foxbot)
     {

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class CommandTell extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandTell(FoxBot foxbot)
     {

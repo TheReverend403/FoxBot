@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SpamHandler extends ListenerAdapter<FoxBot>
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     private final HashMap<String, String> duplicateMap = new HashMap<>();
 

@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 
 public class Database
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     private Connection connection = null;
     private String databaseType;

@@ -25,7 +25,7 @@ import uk.co.revthefox.foxbot.FoxBot;
 
 public class CommandKick extends Command
 {
-    private FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandKick(FoxBot foxbot)
     {
