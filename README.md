@@ -7,6 +7,8 @@ IRC bot written in Java
 
 Latest build: https://drone.io/github.com/TheReverend403/FoxBot/files
 
+[![Visit our IRC channel](https://kiwiirc.com/buttons/irc.esper.net/thereverend403.png)](https://kiwiirc.com/client/irc.esper.net/?nick=foxbot_git|?&theme=cli#thereverend403)
+
 Features:
 
 * Bukkit-like permissions system
