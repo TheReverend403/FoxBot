@@ -40,8 +40,8 @@ public class MessageListener extends ListenerAdapter<FoxBot>
     }
 
     private Pattern urlPattern = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
+    private Pattern foxPattern = Pattern.compile(".*wha?t.*f(o|0)(x|c?k?s).*s(a|4)y.*", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-    @Override
     public void onMessage(MessageEvent<FoxBot> event)
     {
         String message = event.getMessage();
@@ -53,12 +53,22 @@ public class MessageListener extends ListenerAdapter<FoxBot>
             return;
         }
 
+        Matcher matcher;
+
+        matcher = foxPattern.matcher(message);
+
+        if (matcher.matches())
+        {
+            foxbot.kick(channel, user, "The fox says \"Fuck off\"");
+            return;
+        }
+
         if (message.length() > 0 && (message.startsWith(foxbot.getConfig().getCommandPrefix()) || message.startsWith(foxbot.getNick() + ", ")))
         {
             foxbot.getPluginManager().dispatchCommand(event, message.substring(message.startsWith(foxbot.getConfig().getCommandPrefix()) ? 1 : foxbot.getConfig().getBotNick().length() + 2));
         }
 
-        Matcher matcher = urlPattern.matcher(message);
+        matcher = urlPattern.matcher(message);
 
         if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
         {
