@@ -100,7 +100,7 @@ public class Utils
 
     public String colourise(String stringToColour)
     {
-        String colourChar = foxbot.getConfig().getColourChar();
+        char colourChar = foxbot.getConfig().getColourChar();
 
         return stringToColour.replace(colourChar + "0", Colors.BLACK)
                 .replace(colourChar + "1", Colors.DARK_BLUE)

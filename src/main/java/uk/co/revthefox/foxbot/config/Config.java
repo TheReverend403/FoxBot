@@ -88,8 +88,8 @@ public class Config
     // ------------
 
     private boolean debug;
-    private String commandPrefix;
-    private String colourChar;
+    private char commandPrefix;
+    private char colourChar;
     private boolean autoJoinOnInvite;
     private boolean autoRejoinOnKick;
     private long autoRejoinDelay;
@@ -181,8 +181,8 @@ public class Config
         // ------------
 
         debug = botConfig.getBoolean("misc.debug");
-        commandPrefix = botConfig.getString("misc.command-prefix");
-        colourChar = botConfig.getString("misc.colour-char");
+        commandPrefix = botConfig.getString("misc.command-prefix").toCharArray()[0];
+        colourChar = botConfig.getString("misc.colour-char").toCharArray()[0];
         autoJoinOnInvite = botConfig.getBoolean("misc.auto-join-on-invite");
         autoRejoinOnKick = botConfig.getBoolean("misc.auto-rejoin-on-kick");
         autoRejoinDelay = botConfig.getLong("misc.auto-rejoin-delay");
@@ -344,12 +344,12 @@ public class Config
         return debug;
     }
 
-    public String getCommandPrefix()
+    public char getCommandPrefix()
     {
         return commandPrefix;
     }
 
-    public String getColourChar()
+    public char getColourChar()
     {
         return colourChar;
     }
