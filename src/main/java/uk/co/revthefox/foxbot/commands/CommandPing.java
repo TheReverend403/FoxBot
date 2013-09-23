@@ -48,7 +48,13 @@ public class CommandPing extends Command
 
         if (args.length == 0)
         {
-            foxbot.sendMessage(channel, "Pong!");
+            channel.sendMessage("Pong!");
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("me"))
+        {
+            channel.sendMessage(sender.getNick());
             return;
         }
 
