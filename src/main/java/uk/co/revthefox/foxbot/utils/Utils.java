@@ -24,7 +24,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
 import uk.co.revthefox.foxbot.FoxBot;
 
 import java.util.Timer;
