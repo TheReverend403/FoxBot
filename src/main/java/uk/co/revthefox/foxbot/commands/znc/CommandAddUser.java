@@ -7,6 +7,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 import uk.co.revthefox.foxbot.FoxBot;
 import uk.co.revthefox.foxbot.commands.Command;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CommandAddUser extends Command
 {
     public FoxBot foxbot;
@@ -21,7 +24,6 @@ public class CommandAddUser extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-        Channel channel = event.getChannel();
 
         if (args.length == 2)
         {
@@ -63,17 +65,26 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*controlpanel", String.format("loadmodule %s chansaver", user));
             foxbot.sendMessage("*controlpanel", String.format("loadmodule %s controlpanel", user));
 
-            // -----------
-            // Add channel
-            // -----------
-
-            foxbot.sendMessage("*send_raw", String.format("server %s Esper JOIN #cookiechat", user));
-
             // ---------------------------------------
             // Send ZNC information to the adding user
             // ---------------------------------------
 
             foxbot.sendNotice(sender, String.format("User added! Password is: %s", password));
+
+            // -----------
+            // Add channel
+            // -----------
+
+            // Give the account chance to connect
+            try
+            {
+                Thread.sleep(10000);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+            foxbot.sendMessage("*send_raw", String.format("server %s Esper JOIN #cookiechat", user));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost>", foxbot.getConfig().getCommandPrefix()));
