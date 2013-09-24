@@ -29,9 +29,56 @@ public class CommandAddUser extends Command
             String password = RandomStringUtils.randomAlphanumeric(6);
             String bindhost = args[1];
 
+            // ---------------
+            // Basic user info
+            // ---------------
+
             foxbot.sendMessage("*controlpanel", String.format("adduser %s %s", user, password));
+            foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, user + "|bnc"));
+            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_"));
+            foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, user.toLowerCase()));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
-            foxbot.sendMessage(sender, String.format("User added! Password is: %s", password));
+            foxbot.sendMessage("*controlpanel", String.format("set quitmessage %s Leaving", user));
+            foxbot.sendMessage("*controlpanel", String.format("set buffercount %s 1000", user));
+            foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s true", user));
+            foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
+            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
+
+            // -----------
+            // Add servers
+            // -----------
+
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper irc.esper.net +6697", user));
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper availo.esper.net +6697", user));
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper portlane.esper.net +6697", user));
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper chaos.esper.net +6697", user));
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper nova.esper.net +6697", user));
+            foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper optical.esper.net +6697", user));
+
+            // ------------
+            // Load modules
+            // ------------
+
+            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s ctcpflood", user));
+            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s chansaver", user));
+
+            // -----------
+            // Add channel
+            // -----------
+
+            foxbot.sendMessage("*controlpanel", String.format("setchan inconfig %s Esper #cookiechat true", user));
+
+            // -------------
+            // Apply changes
+            // -------------
+
+            foxbot.sendMessage("*controlpanel", String.format("reconnect %s Esper", user));
+
+            // ---------------------------------------
+            // Send ZNC information to the adding user
+            // ---------------------------------------
+
+            foxbot.sendNotice(sender, String.format("User added! Password is: %s", password));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost>", foxbot.getConfig().getCommandPrefix()));
