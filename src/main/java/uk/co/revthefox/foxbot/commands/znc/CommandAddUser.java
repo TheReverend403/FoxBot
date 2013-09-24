@@ -38,7 +38,7 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_"));
             foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, user.toLowerCase()));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
-            foxbot.sendMessage("*controlpanel", String.format("set quitmessage %s Leaving", user));
+            foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", user));
             foxbot.sendMessage("*controlpanel", String.format("set buffercount %s 1000", user));
             foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s true", user));
             foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
@@ -61,18 +61,13 @@ public class CommandAddUser extends Command
 
             foxbot.sendMessage("*controlpanel", String.format("loadmodule %s ctcpflood", user));
             foxbot.sendMessage("*controlpanel", String.format("loadmodule %s chansaver", user));
+            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s controlpanel", user));
 
             // -----------
             // Add channel
             // -----------
 
-            foxbot.sendMessage("*controlpanel", String.format("setchan inconfig %s Esper #cookiechat true", user));
-
-            // -------------
-            // Apply changes
-            // -------------
-
-            foxbot.sendMessage("*controlpanel", String.format("reconnect %s Esper", user));
+            foxbot.sendMessage("*sendraw", String.format("server %s JOIN #cookiechat", user));
 
             // ---------------------------------------
             // Send ZNC information to the adding user
