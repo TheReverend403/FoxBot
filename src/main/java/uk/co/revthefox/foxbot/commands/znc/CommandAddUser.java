@@ -69,7 +69,7 @@ public class CommandAddUser extends Command
             // Send ZNC information to the adding user
             // ---------------------------------------
 
-            foxbot.sendNotice(sender, String.format("User added! Password is: %s", password));
+            foxbot.sendNotice(sender, String.format("User added! Send this info to the user - Username: %s Password: %s",user, password));
 
             // -----------
             // Add channel
