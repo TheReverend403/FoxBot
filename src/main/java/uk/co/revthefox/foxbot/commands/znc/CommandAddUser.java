@@ -61,12 +61,12 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*controlpanel", String.format("set buffercount %s 1000", user));
             foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s true", user));
             foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
-            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
 
             // -----------
             // Add servers
             // -----------
 
+            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
             foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper irc.esper.net +6697", user));
             foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper availo.esper.net +6697", user));
             foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper portlane.esper.net +6697", user));
