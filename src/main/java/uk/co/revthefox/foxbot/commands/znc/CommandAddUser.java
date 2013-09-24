@@ -84,7 +84,7 @@ public class CommandAddUser extends Command
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
-            foxbot.sendMessage("*send_raw", String.format("server %s Esper JOIN #cookiechat", user));
+            foxbot.sendMessage("*send_raw", String.format("server %s Esper JOIN %s", user, event.getChannel()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost>", foxbot.getConfig().getCommandPrefix()));
