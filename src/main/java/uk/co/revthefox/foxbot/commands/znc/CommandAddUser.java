@@ -67,7 +67,7 @@ public class CommandAddUser extends Command
             // Add channel
             // -----------
 
-            foxbot.sendMessage("*sendraw", String.format("server %s JOIN #cookiechat", user));
+            foxbot.sendMessage("*send_raw", String.format("server %s JOIN #cookiechat", user));
 
             // ---------------------------------------
             // Send ZNC information to the adding user
