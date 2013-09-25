@@ -141,6 +141,7 @@ public class FoxBot extends PircBotX
                 ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
                 Constructor clazzConstructor = clazz.getConstructor(this.getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
+
                 this.getPluginManager().registerCommand(command);
             }
         }
