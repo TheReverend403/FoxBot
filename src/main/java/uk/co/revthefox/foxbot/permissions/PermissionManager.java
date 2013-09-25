@@ -53,7 +53,7 @@ public class PermissionManager
                 {
                     return !permissions.getStringList(authType).contains("-" + permission);
                 }
-                return permissions.getStringList(authType).contains(permission);
+                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("permissions.*");
             }
             return false;
         }
@@ -62,7 +62,7 @@ public class PermissionManager
         {
             return !permissions.getStringList(authType).contains("-" + permission);
         }
-        return permissions.getStringList(authType).contains(permission);
+        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("permissions.*");
     }
 
     public boolean userHasPermission(User user, String permission)
@@ -83,7 +83,7 @@ public class PermissionManager
                 {
                     return !permissions.getStringList(authType).contains("-" + permission);
                 }
-                return permissions.getStringList(authType).contains(permission);
+                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
             }
             foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
             return false;
@@ -92,7 +92,7 @@ public class PermissionManager
         {
             return !permissions.getStringList(authType).contains("-" + permission);
         }
-        return permissions.getStringList(authType).contains(permission);
+        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
     }
 
     public boolean isNickProtected(String nick)

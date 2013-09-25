@@ -1,9 +1,7 @@
 # If a user is not logged in and you set the bot to require logged in users, only the unverified permissions will do anything.
 # if a user has a -permission.node, they will be UNABLE to use that command.
 # Make sure to enclose non-alphabetical (containing symbols, starting with numbers, or just negative perms) permissions in ""
-# Commands granted to all users
-# If using hostmask matching, hostmasks MUST be enclosed in ""
-
+# The '*' node grants that user ALL permissions
 # Permissions granted to all users
 default:
     - command.ping
@@ -17,27 +15,5 @@ default:
 # Permissions granted to specific users
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching
-    - command.ban
-    - command.insult
-    - command.kick
-    - command.kill
-    - command.delay
-    - command.say
-    - command.join
-    - command.part
-    - command.action
-    - command.reload
-    - command.exec
-    - command.tell
-    - command.message
-    - command.voice
-    - command.voice.others
-    - command.mute
-    - command.devoice.others
-    - bot.invite
-    - bot.bypasspunishment
-    - bot.allowkick
-    - greetings.ignore
-    - protection.kick
-    - protection.mute
-    - protection.ban
+    - example.permission
+    - '*'
