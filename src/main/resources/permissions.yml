@@ -1,7 +1,7 @@
 # If a user is not logged in and you set the bot to require logged in users, only the unverified permissions will do anything.
 # if a user has a -permission.node, they will be UNABLE to use that command.
+# Make sure to enclose non-alphabetical (containing symbols, starting with numbers, or just negative perms) permissions in ""
 # The '*' node grants that user ALL permissions
-
 # Permissions granted to all users
 default:
     - command.ping
