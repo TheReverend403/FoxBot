@@ -105,22 +105,16 @@ public class UserListener extends ListenerAdapter<FoxBot>
 
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
-            for (Channel chan : foxbot.getChannels())
+            if (!channel.isOp(foxbot.getUserBot()))
             {
-                if (chan.getUsers().contains(user))
-                {
-                    if (!chan.isOp(foxbot.getUserBot()))
-                    {
-                        foxbot.partChannel(chan, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
-                        continue;
-                    }
-
-                    long kickTime = System.currentTimeMillis();
-
-                    foxbot.kick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-                    foxbot.getDatabase().addKick(chan, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUserBot(), kickTime);
-                }
+                foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+                return;
             }
+
+            long kickTime = System.currentTimeMillis();
+
+            foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+            foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUserBot(), kickTime);
             return;
         }
 
