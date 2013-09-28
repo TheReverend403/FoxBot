@@ -59,88 +59,86 @@ public class SpamHandler extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        if (foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
+        if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            return;
-        }
+           /* Ideally, I'd use permissions here, but I won't for two reasons.
+            *
+            * 1. That would require a permissions check on every message from a potentially unverified user. Good way to get throttled.
+            * 2. Voices+ would bypass the mutes anyway, regardless of perms. Might as well not spam the channel trying to mute them.
+            */
 
-        /* Ideally, I'd use permissions here, but I won't for two reasons.
-         *
-         * 1. That would require a permissions check on every message from a potentially unverified user. Good way to get throttled.
-         * 2. Voices+ would bypass the mutes anyway, regardless of perms. Might as well not spam the channel trying to mute them.
-         */
-
-        if (user.getNick().equals(foxbot.getNick()) || channel.getNormalUsers().contains(foxbot.getUserBot()) || !channel.getNormalUsers().contains(user))
-        {
-            return;
-        }
-
-        String message = event.getMessage();
-        String hostmask = user.getHostmask();
-
-        // -------------------
-        // Caps spam detection
-        // -------------------
-
-        int count = 0;
-        int length = 0;
-
-        for (char character : message.toCharArray())
-        {
-            // Don't count spaces, it messes with the final percentage
-            if (Character.isAlphabetic(character))
+            if (user.getNick().equals(foxbot.getNick()) || channel.getNormalUsers().contains(foxbot.getUserBot()) || !channel.getNormalUsers().contains(user))
             {
-                length++;
+                return;
+            }
 
-                if (Character.isUpperCase(character))
+            String message = event.getMessage();
+            String hostmask = user.getHostmask();
+
+            // -------------------
+            // Caps spam detection
+            // -------------------
+
+            int count = 0;
+            int length = 0;
+
+            for (char character : message.toCharArray())
+            {
+                // Don't count spaces, it messes with the final percentage
+                if (Character.isAlphabetic(character))
                 {
-                    count++;
+                    length++;
+
+                    if (Character.isUpperCase(character))
+                    {
+                        count++;
+                    }
                 }
             }
-        }
 
-        // Prevent divide-by-zero errors
-        if (length > 5)
-        {
-            count = (count * 100) / length;
-
-            // Kick the user if the percentage of caps in their message was higher than the max value
-            if (count > 75)
+            // Prevent divide-by-zero errors
+            if (length > 5)
             {
-                long kickTime = System.currentTimeMillis();
-                foxbot.kick(channel, user, "Caps spam (" + count + "%)");
-                foxbot.getDatabase().addKick(channel, user, "Caps spam (" + count + "%)", foxbot.getUserBot(), kickTime);
+                count = (count * 100) / length;
+
+                // Kick the user if the percentage of caps in their message was higher than the max value
+                if (count > 75)
+                {
+                    long kickTime = System.currentTimeMillis();
+                    foxbot.kick(channel, user, "Caps spam (" + count + "%)");
+                    foxbot.getDatabase().addKick(channel, user, "Caps spam (" + count + "%)", foxbot.getUserBot(), kickTime);
+                }
             }
-        }
 
-        // -----------------------
-        // End caps spam detection
-        // -----------------------
+            // -----------------------
+            // End caps spam detection
+            // -----------------------
 
-        // ---------------------
-        // Repeat spam detection
-        // ---------------------
+            // ---------------------
+            // Repeat spam detection
+            // ---------------------
 
-        if (!duplicateMap.containsKey(hostmask))
-        {
-            duplicateMap.put(hostmask, message);
-            return;
-        }
+            if (!duplicateMap.containsKey(hostmask))
+            {
+                duplicateMap.put(hostmask, message);
+                return;
+            }
 
-        if (message.equals(duplicateMap.get(hostmask)))
-        {
-            spamRating.put(hostmask, spamRating.asMap().get(hostmask) == null ? 1 : spamRating.asMap().get(hostmask) + 1);
-            duplicateMap.put(hostmask, message);
-        }
+            if (message.equals(duplicateMap.get(hostmask)))
+            {
+                spamRating.put(hostmask, spamRating.asMap().get(hostmask) == null ? 1 : spamRating.asMap().get(hostmask) + 1);
+                duplicateMap.put(hostmask, message);
+            }
 
-        // -------------------------
-        // End repeat spam detection
-        // -------------------------
+            // -------------------------
+            // End repeat spam detection
+            // -------------------------
 
-        // Take action on the spam rating
-        if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
-        {
-            spamPunisher(channel, user, spamRating.asMap().get(hostmask));
+            // Take action on the spam rating
+            if (spamRating.asMap().get(hostmask) != null && spamRating.asMap().get(hostmask) != 0)
+            {
+                spamPunisher(channel, user, spamRating.asMap().get(hostmask));
+            }
         }
     }
 
