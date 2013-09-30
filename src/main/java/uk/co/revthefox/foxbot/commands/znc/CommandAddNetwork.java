@@ -61,7 +61,8 @@ public class CommandAddNetwork extends Command
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion malice.seion.us +6697", user));
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion fox.seion.us +6697", user));
             }
-            foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account! Thank you for using SeionBNC", network));
+            // Send a message to the partyline user
+            foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", network));
 
             try
             {
@@ -73,6 +74,6 @@ public class CommandAddNetwork extends Command
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <bindhost>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }
