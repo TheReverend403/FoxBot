@@ -44,6 +44,7 @@ public class CommandAddNetwork extends Command
         {
             String user = args[0];
             String network = args[1];
+
             if (args[1].equalsIgnoreCase("Esper"))
             {
                 foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
@@ -63,16 +64,6 @@ public class CommandAddNetwork extends Command
             }
             // Send a message to the partyline user
             foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", network));
-
-            try
-            {
-                Thread.sleep(10000);
-            }
-            catch (InterruptedException ex)
-            {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            }
-            return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
     }
