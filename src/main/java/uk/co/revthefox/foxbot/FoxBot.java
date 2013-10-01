@@ -20,6 +20,7 @@ package uk.co.revthefox.foxbot;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import uk.co.revthefox.foxbot.commands.Command;
 import uk.co.revthefox.foxbot.config.Config;
@@ -54,6 +55,7 @@ public class FoxBot extends PircBotX
     private static Utils utils;
     private static Database database;
     private static Reflections reflections = new Reflections("uk.co.revthefox");
+    private static BackgroundListenerManager blm = new BackgroundListenerManager();
 
     public static void main(String[] args)
     {
@@ -127,9 +129,17 @@ public class FoxBot extends PircBotX
 
     private void registerListeners()
     {
+        blm.addListener(new MessageListener(this), true);
+        blm.addListener(new UserListener(this), true);
+        blm.addListener(new SpamHandler(this), true);
+
+        this.setListenerManager(blm);
+
+        /*
         this.getListenerManager().addListener(new MessageListener(this));
         this.getListenerManager().addListener(new UserListener(this));
         this.getListenerManager().addListener(new SpamHandler(this));
+        */
     }
 
     private void registerCommands()
