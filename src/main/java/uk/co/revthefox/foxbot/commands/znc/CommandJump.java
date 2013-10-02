@@ -28,7 +28,7 @@ public class CommandJump extends Command
 
     public CommandJump(FoxBot foxbot)
     {
-        super("zncreconnect", "command.znc.reconnect", "zncjump");
+        super("zncjump", "command.znc.jump");
         this.foxbot = foxbot;
     }
 
@@ -46,6 +46,6 @@ public class CommandJump extends Command
             foxbot.sendNotice(sender, String.format("%s is reconnecting!", user));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncreconnect <name> [network]", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncjump <name> [network]", foxbot.getConfig().getCommandPrefix()));
     }
 }
