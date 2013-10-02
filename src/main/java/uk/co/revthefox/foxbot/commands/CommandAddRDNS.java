@@ -66,8 +66,8 @@ public class CommandAddRDNS extends Command
 
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r", foxbot.getUtils().munge(sender), aaaaRecord.toString().replace("/", ""))));
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for '%s':&r", foxbot.getUtils().munge(sender), ptr.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r ", foxbot.getUtils().munge(sender), aaaaRecord.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for '%s':&r ", foxbot.getUtils().munge(sender), ptr.toString().replace("/", ""))));
             }
         }
     }
