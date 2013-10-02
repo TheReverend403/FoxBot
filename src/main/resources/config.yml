@@ -7,7 +7,7 @@ bot:
     realname: FoxBot
 server:
     # The server address
-    address: corin.me
+    address: irc.seion.us
     # The server port
     port: 6667
     # Should we use SSL?

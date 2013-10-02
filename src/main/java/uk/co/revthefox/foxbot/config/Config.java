@@ -209,9 +209,9 @@ public class Config
         // DNS section
         // ------------
 
-        dnsServer = botConfig.getString("dns-server");
-        tsigKey = botConfig.getString("TSIG-key");
-        zoneName = botConfig.getString("zone-name");
+        dnsServer = botConfig.getString("dns.dns-server");
+        tsigKey = botConfig.getString("dns.TSIG-key");
+        zoneName = botConfig.getString("dns.zone-name");
 
 
     }

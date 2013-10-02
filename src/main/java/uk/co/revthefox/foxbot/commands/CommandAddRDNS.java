@@ -53,6 +53,7 @@ public class CommandAddRDNS extends Command
             {
                 Channel channel = event.getChannel();
                 channel.sendMessage("No records found for " + host);
+                return;
             }
 
             for (Record record : records)
