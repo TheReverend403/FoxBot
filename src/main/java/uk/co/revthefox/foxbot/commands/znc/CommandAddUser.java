@@ -65,6 +65,7 @@ public class CommandAddUser extends Command
             // -----------
             // Add servers
             // -----------
+
             if (args[2].equalsIgnoreCase("Esper"))
             {
                 foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
@@ -82,6 +83,7 @@ public class CommandAddUser extends Command
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion malice.seion.us +6697", user));
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion fox.seion.us +6697", user));
             }
+
             // ------------
             // Load modules
             // ------------
@@ -112,6 +114,6 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, network, event.getChannel().getName()));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <network>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));
     }
 }
