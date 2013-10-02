@@ -16,6 +16,15 @@ Features:
 * Async http requests
 * Easy to read config, with comments explaining each setting
 
+Compiling
+---------
+
+We use Maven 3 to handle our dependencies.
+
+Clone this repo, navigate to it and run 'mvn clean package'
+
+The built jar will be located in target/
+
 Default Commands
 ----------------
 
