@@ -40,6 +40,7 @@ public class CommandAddRDNS extends Command
         {
             Record[] records = null;
             String host = args[0];
+
             try
             {
                 records = new Lookup(host, Type.AAAA).run();
@@ -52,19 +53,19 @@ public class CommandAddRDNS extends Command
             if (records == null || records.length == 0)
             {
                 Channel channel = event.getChannel();
-                channel.sendMessage("No records found for " + host);
+                channel.sendMessage(String.format("No records found for %s", host));
                 return;
             }
 
             for (Record record : records)
             {
-                AAAARecord aaaa = (AAAARecord) record;
+                AAAARecord aaaaRecord = (AAAARecord) record;
                 Channel channel = event.getChannel();
 
-                PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaa.getAddress()), aaaa.getDClass(), aaaa.getTTL(), aaaa.getName());
-                channel.sendMessage(String.format("%s", aaaa).replace("/", "") );
-                channel.sendMessage(String.format("%s", ptr).replace("/", "") );
+                PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
+                channel.sendMessage(String.valueOf(aaaaRecord).replace("/", ""));
+                channel.sendMessage(String.valueOf(ptr).replace("/", ""));
             }
         }
     }
