@@ -37,6 +37,7 @@ public class CommandAddRDNS extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         String sender = event.getUser().getNick();
+        Channel channel = event.getChannel();
 
         if (args.length > 0)
         {
@@ -54,7 +55,6 @@ public class CommandAddRDNS extends Command
 
             if (records == null || records.length == 0)
             {
-                Channel channel = event.getChannel();
                 channel.sendMessage(String.format("No records found for %s", host));
                 return;
             }
@@ -62,8 +62,6 @@ public class CommandAddRDNS extends Command
             for (Record record : records)
             {
                 AAAARecord aaaaRecord = (AAAARecord) record;
-                Channel channel = event.getChannel();
-
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
                 channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r ", foxbot.getUtils().munge(sender), aaaaRecord.toString().replace("/", ""))));
