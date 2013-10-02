@@ -17,6 +17,7 @@
 
 package uk.co.revthefox.foxbot.commands;
 
+import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import org.xbill.DNS.*;
 import uk.co.revthefox.foxbot.FoxBot;
@@ -35,6 +36,7 @@ public class CommandAddRDNS extends Command
     @Override
     public void execute(final MessageEvent event, final String[] args)
     {
+        String sender = event.getUser().getNick();
 
         if (args.length > 0)
         {
@@ -64,8 +66,8 @@ public class CommandAddRDNS extends Command
 
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(String.valueOf(aaaaRecord).replace("/", ""));
-                channel.sendMessage(String.valueOf(ptr).replace("/", ""));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r", foxbot.getUtils().munge(sender), aaaaRecord.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for '%s':&r", foxbot.getUtils().munge(sender), ptr.toString().replace("/", ""))));
             }
         }
     }
