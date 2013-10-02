@@ -10,14 +10,15 @@ Latest build: https://drone.io/github.com/TheReverend403/FoxBot/files
 [![Visit our IRC channel](https://kiwiirc.com/buttons/irc.seion.us/thereverend403.png)](https://kiwiirc.com/client/irc.seion.us/?nick=foxbot_git|?&theme=relaxed#thereverend403)
 
 Features:
+---------
 
 * Bukkit-like permissions system
 * Easy command registration/development
 * Async http requests
 * Easy to read config, with comments explaining each setting
 
-Compiling
----------
+Building
+--------
 
 We use Maven 3 to handle our dependencies.
 
