@@ -9,7 +9,7 @@ Latest build: https://drone.io/github.com/TheReverend403/FoxBot/files
 
 [![Visit our IRC channel](https://kiwiirc.com/buttons/irc.seion.us/thereverend403.png)](https://kiwiirc.com/client/irc.seion.us/?nick=foxbot_git|?&theme=relaxed#thereverend403)
 
-Features:
+Features
 ---------
 
 * Bukkit-like permissions system
@@ -28,6 +28,8 @@ The built jar will be located in target/
 
 Default Commands
 ----------------
+
+THIS IS OUTDATED
 
 All commands should be executed with the command prefix you set in the config, for example, commandPrefix: "." would mean you ran commands like ".say"
 
