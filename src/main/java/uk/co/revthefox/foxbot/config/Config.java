@@ -103,6 +103,15 @@ public class Config
     private String greetingMessage;
     private boolean greetingNotice;
 
+    // ------------
+    // DNS section
+    // ------------
+
+    private String tsigKey;
+    private String zoneName;
+    private String dnsServer;
+
+
     public Config(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -195,6 +204,16 @@ public class Config
         greetingChannels = botConfig.getStringList("misc.channels-to-greet");
         greetingMessage = botConfig.getString("misc.greeting-message");
         greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
+
+        // ------------
+        // DNS section
+        // ------------
+
+        dnsServer = botConfig.getString("dns-server");
+        tsigKey = botConfig.getString("TSIG-key");
+        zoneName = botConfig.getString("zone-name");
+
+
     }
 
     public void reload()
@@ -412,6 +431,25 @@ public class Config
     public boolean getGreetingNotice()
     {
         return greetingNotice;
+    }
+
+    // ------------
+    // DNS section
+    // ------------
+
+    public String getDnsServer()
+    {
+        return dnsServer;
+    }
+
+    public String getTsigKey()
+    {
+        return tsigKey;
+    }
+
+    public String getZoneName()
+    {
+        return zoneName;
     }
 
     // ------------

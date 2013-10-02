@@ -7,7 +7,7 @@ bot:
     realname: FoxBot
 server:
     # The server address
-    address: irc.esper.net
+    address: corin.me
     # The server port
     port: 6667
     # Should we use SSL?
@@ -18,8 +18,7 @@ server:
     password: password
     # List of channels for the bot to join on startup. Channel names must be enclosed in ''.
     channels:
-    - '#thereverend403'
-    - '#foxbot'
+    - '#seion'
 auth:
     # Should we use nickserv?
     use-nickserv: true
@@ -119,5 +118,10 @@ misc:
     greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
     # Should we send the greeting as a notice rather than a message to the channel?
     send-greeting-as-notice: false
-
-
+dns:
+    # OPTIONAL: This is the IP or hostname which has the bind9 install on
+    dns-server: '127.0.0.1'
+    # OPTIONAL: If you wish to use DNS commands such as AddRDNS; your bind9 install will need a TSIG key generated and the server with the bot on whitelisted
+    TSIG-key: '156d4f8s6f=='
+    # OPTIONAL: This is the name of the zone containing your PTR records for hostnames.
+    zone-name: '1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.'
