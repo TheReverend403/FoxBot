@@ -66,6 +66,6 @@ public class CommandAddNetwork extends Command
             foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", network));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));
     }
 }
