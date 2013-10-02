@@ -36,11 +36,11 @@ public class CommandAddRDNS extends Command
     @Override
     public void execute(final MessageEvent event, final String[] args)
     {
-        String sender = event.getUser().getNick();
-        Channel channel = event.getChannel();
+        User sender = event.getUser();
 
         if (args.length > 0)
         {
+            Channel channel = event.getChannel();
             Record[] records = null;
             String host = args[0];
 
@@ -64,9 +64,11 @@ public class CommandAddRDNS extends Command
                 AAAARecord aaaaRecord = (AAAARecord) record;
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r ", foxbot.getUtils().munge(sender), aaaaRecord.toString().replace("/", ""))));
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for '%s':&r ", foxbot.getUtils().munge(sender), ptr.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for '%s':&r ", foxbot.getUtils().munge(sender.getNick()), aaaaRecord.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for '%s':&r ", foxbot.getUtils().munge(sender.getNick()), ptr.toString().replace("/", ""))));
             }
+            return;
         }
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sresolve <host>", foxbot.getConfig().getCommandPrefix()));
     }
 }
