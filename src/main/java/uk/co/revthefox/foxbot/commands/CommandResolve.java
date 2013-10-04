@@ -23,11 +23,11 @@ import org.xbill.DNS.*;
 import uk.co.revthefox.foxbot.FoxBot;
 import org.pircbotx.Channel;
 
-public class CommandAddRDNS extends Command
+public class CommandResolve extends Command
 {
     public FoxBot foxbot;
 
-    public CommandAddRDNS(FoxBot foxbot)
+    public CommandResolve(FoxBot foxbot)
     {
         super("resolve", "command.znc.resolve");
         this.foxbot = foxbot;
