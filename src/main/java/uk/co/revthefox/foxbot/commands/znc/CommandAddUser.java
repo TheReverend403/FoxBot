@@ -54,7 +54,7 @@ public class CommandAddUser extends Command
 
             foxbot.sendMessage("*controlpanel", String.format("adduser %s %s", user, password));
             foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, user + "|bnc"));
-            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_c"));
+            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_"));
             foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, user.toLowerCase()));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
             foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", user));
