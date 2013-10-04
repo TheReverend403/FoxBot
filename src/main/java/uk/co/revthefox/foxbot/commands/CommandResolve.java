@@ -44,6 +44,11 @@ public class CommandResolve extends Command
             Record[] records = null;
             String host = args[0];
 
+            if (channel.getUsers().contains(foxbot.getUser(host)))
+            {
+                host = foxbot.getUser(host).getHostmask();
+            }
+
             try
             {
                 records = new Lookup(host, Type.AAAA).run();
