@@ -42,9 +42,7 @@ public class CommandResolve extends Command
         {
             Channel channel = event.getChannel();
             Record[] records = null;
-            String host = args[0];
-
-            host = foxbot.getUser(host).getHostmask() == null ? host : foxbot.getUser(host).getHostmask();
+            String host = foxbot.getUser(args[0]).getHostmask() == null ? args[0] : foxbot.getUser(args[0]).getHostmask();
 
             try
             {
