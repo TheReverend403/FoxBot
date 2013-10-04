@@ -60,7 +60,7 @@ public class CommandResolve extends Command
 
             if (records == null || records.length == 0)
             {
-                channel.sendMessage(String.format("No records found for %s", host));
+                channel.sendMessage(String.format("(%s) No records found for %s", foxbot.getUtils().munge(sender.getNick()), host));
                 return;
             }
 
