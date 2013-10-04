@@ -29,7 +29,7 @@ public class CommandResolve extends Command
 
     public CommandResolve(FoxBot foxbot)
     {
-        super("resolve", "command.znc.resolve");
+        super("resolve", "command.resolve");
         this.foxbot = foxbot;
     }
 
