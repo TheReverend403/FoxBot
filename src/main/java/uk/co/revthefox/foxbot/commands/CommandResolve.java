@@ -66,8 +66,8 @@ public class CommandResolve extends Command
                 AAAARecord aaaaRecord = (AAAARecord) record;
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, aaaaRecord.toString().replace("/", "").replaceAll("\\. .+ IN", "IN"))));
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.toString().replace("/", "").replaceAll("\\. .+ IN", "IN"))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, aaaaRecord.toString().replace("/", "").replaceAll("\\. .* IN", " IN"))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.toString().replace("/", "").replaceAll("\\. .* IN", " IN"))));
             }
             return;
         }
