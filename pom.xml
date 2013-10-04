@@ -91,7 +91,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <minimizeJar>true</minimizeJar>
                     <finalName>${artifactId}</finalName>
                 </configuration>
             </plugin>
