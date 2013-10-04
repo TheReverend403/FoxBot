@@ -44,10 +44,7 @@ public class CommandResolve extends Command
             Record[] records = null;
             String host = args[0];
 
-            if (channel.getUsers().contains(foxbot.getUser(host)))
-            {
-                host = foxbot.getUser(host).getHostmask();
-            }
+            host = foxbot.getUser(host).getHostmask() == null ? host : foxbot.getUser(host).getHostmask();
 
             try
             {
@@ -69,8 +66,8 @@ public class CommandResolve extends Command
                 AAAARecord aaaaRecord = (AAAARecord) record;
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA Record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, aaaaRecord.toString().replace("/", ""))));
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR Record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aAAAA record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, aaaaRecord.toString().replace("/", ""))));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPTR record for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.toString().replace("/", ""))));
             }
             return;
         }
