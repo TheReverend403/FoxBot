@@ -53,8 +53,8 @@ public class CommandAddUser extends Command
             // ---------------
 
             foxbot.sendMessage("*controlpanel", String.format("adduser %s %s", user, password));
-            foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, user + ""));
-            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "|bnc"));
+            foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, user + "|bnc"));
+            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_"));
             foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, user.toLowerCase()));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
             foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", user));
@@ -96,7 +96,7 @@ public class CommandAddUser extends Command
             // Send ZNC information to the adding user
             // ---------------------------------------
 
-            foxbot.sendNotice(sender, String.format("User added! Send this info to the user - Username: %s - Password: %s",user, password));
+            foxbot.sendNotice(sender, String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
 
             // -----------
             // Add channel
