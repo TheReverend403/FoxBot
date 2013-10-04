@@ -66,7 +66,7 @@ public class Utils
 
             if (!contentType.contains("html"))
             {
-                return colourise(String.format("(%s's URL) &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), contentType, size));
+                return colourise(String.format("(%s's URL) &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), contentType, size));
             }
 
             Matcher matcher;
@@ -80,7 +80,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
-            return colourise(String.format("(%s's URL) &aTitle: &r%s &aContent Type: &r%s &aSize: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
+            return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ex)
         {

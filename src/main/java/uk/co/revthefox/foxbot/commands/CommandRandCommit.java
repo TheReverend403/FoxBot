@@ -69,7 +69,7 @@ public class CommandRandCommit extends Command
             {
                 commitMessage = matcher.group(1);
             }
-            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aRandom commit message: &r%s", foxbot.getUtils().munge(sender.getNick()), commitMessage)));
+            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Random commit message: &r%s", foxbot.getUtils().munge(sender.getNick()), commitMessage)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));

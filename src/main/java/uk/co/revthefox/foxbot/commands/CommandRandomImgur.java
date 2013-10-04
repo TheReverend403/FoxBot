@@ -65,7 +65,7 @@ public class CommandRandomImgur extends Command
 
             if (!link.equals("exception"))
             {
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aRandom Imgur: &r%s", foxbot.getUtils().munge(sender.getNick()), link)));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Random Imgur: &r%s", foxbot.getUtils().munge(sender.getNick()), link)));
                 return;
             }
             channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));

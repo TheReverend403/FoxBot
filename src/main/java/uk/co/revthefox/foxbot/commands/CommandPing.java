@@ -70,7 +70,7 @@ public class CommandPing extends Command
                 long end = System.currentTimeMillis();
 
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &aPing response time: &r%sms", foxbot.getUtils().munge(sender.getNick()), end - start)));
+                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Ping response time: &r%sms", foxbot.getUtils().munge(sender.getNick()), end - start)));
             }
             catch (UnknownHostException ex)
             {
