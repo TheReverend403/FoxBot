@@ -7,13 +7,13 @@ IRC bot written in Java
 
 Latest build: https://drone.io/github.com/TheReverend403/FoxBot/files
 
-[![Visit our IRC channel](https://kiwiirc.com/buttons/irc.seion.us/thereverend403.png)](https://kiwiirc.com/client/irc.seion.us/?nick=foxbot_git|?&theme=relaxed#thereverend403)
+[![Visit our IRC channel](https://kiwiirc.com/buttons/irc.seion.us/foxdev.png)](https://kiwiirc.com/client/irc.seion.us/?nick=foxbot_git|?&theme=relaxed#foxdev)
 
 Features
 ---------
 
 * Bukkit-like permissions system
-* Easy command registration/development
+* Easy command registration/development
 * Async http requests
 * Easy to read config, with comments explaining each setting
 
