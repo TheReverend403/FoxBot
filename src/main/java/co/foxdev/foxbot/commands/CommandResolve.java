@@ -53,7 +53,7 @@ public class CommandResolve extends Command
                 ex.printStackTrace();
             }
 
-            if (records == null || records.length == 0)
+            if (records == null || records.length == 0 || (args[1] != null && args[1].equalsIgnoreCase("-v4")))
             {
                 try
                 {
