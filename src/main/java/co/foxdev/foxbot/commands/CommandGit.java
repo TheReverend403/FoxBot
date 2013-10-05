@@ -38,6 +38,6 @@ public class CommandGit extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2I'm on GitHub! &rhttps://github.com/TheReverend403/FoxBot", foxbot.getUtils().munge(sender.getNick()))));
+        channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2I'm on GitHub! &rhttps://github.com/FoxDev/FoxBot", foxbot.getUtils().munge(sender.getNick()))));
     }
 }
