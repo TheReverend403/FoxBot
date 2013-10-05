@@ -18,7 +18,8 @@ server:
     password: password
     # List of channels for the bot to join on startup. Channel names must be enclosed in ''.
     channels:
-    - '#seion'
+    - '#foxdev'
+    - '#foxbot'
 auth:
     # Should we use nickserv?
     use-nickserv: true
@@ -108,7 +109,7 @@ misc:
     munge-usernames: true
     # If a channel is in this list, the bot will completely ignore any messages in it
     ignored-channels:
-    - '#cookiechat'
+    - '#annoyingchannel'
     # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
     channels-to-greet:
     - '#foxdev'
@@ -117,7 +118,7 @@ misc:
     # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
     greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
     # Should we send the greeting as a notice rather than a message to the channel?
-    send-greeting-as-notice: false
+    send-greeting-as-notice: true
 dns:
     # OPTIONAL: This is the IP or hostname which has the bind9 install on
     dns-server: '127.0.0.1'
