@@ -53,7 +53,7 @@ public class CommandResolve extends Command
                 ex.printStackTrace();
             }
 
-            if (records == null || records.length == 0 || (args[1] != null && args[1].equalsIgnoreCase("-v4")))
+            if (records == null || records.length == 0 || (args.length == 2 && args[1].equalsIgnoreCase("-v4")))
             {
                 try
                 {
@@ -91,6 +91,6 @@ public class CommandResolve extends Command
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sresolve <host>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sresolve <host|user> [-v4]", foxbot.getConfig().getCommandPrefix()));
     }
 }
