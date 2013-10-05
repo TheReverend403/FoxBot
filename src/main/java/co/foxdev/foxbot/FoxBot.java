@@ -54,8 +54,8 @@ public class FoxBot extends PircBotX
     private static PluginManager pluginManager;
     private static Utils utils;
     private static Database database;
-    private static Reflections reflections = new Reflections("uk.co.revthefox");
-    private static BackgroundListenerManager blm = new BackgroundListenerManager();
+    private static Reflections reflections = new Reflections("co.foxdev");
+    //private static BackgroundListenerManager blm = new BackgroundListenerManager();
 
     public static void main(String[] args)
     {
@@ -92,7 +92,7 @@ public class FoxBot extends PircBotX
         this.setAutoNickChange(config.getAutoNickChange());
         this.setAutoReconnect(config.getAutoReconnect());
         this.setMessageDelay(config.getMessageDelay());
-        this.setVersion("FoxBot - A Java IRC bot written by TheReverend403 - https://github.com/TheReverend403/FoxBot");
+        this.setVersion("FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot");
         this.setAutoSplitMessage(true);
         this.setName(config.getBotNick());
         this.setLogin(config.getBotIdent());
@@ -129,17 +129,17 @@ public class FoxBot extends PircBotX
 
     private void registerListeners()
     {
+        /*
         blm.addListener(new MessageListener(this), true);
         blm.addListener(new UserListener(this), true);
         blm.addListener(new SpamHandler(this), true);
 
         this.setListenerManager(blm);
+        */
 
-        /*
         this.getListenerManager().addListener(new MessageListener(this));
         this.getListenerManager().addListener(new UserListener(this));
         this.getListenerManager().addListener(new SpamHandler(this));
-        */
     }
 
     private void registerCommands()
