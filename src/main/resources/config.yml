@@ -111,7 +111,7 @@ misc:
     - '#cookiechat'
     # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
     channels-to-greet:
-    - '#thereverend403'
+    - '#foxdev'
     - '#foxbot'
     # The message to send to the user if greetings are being used.
     # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
