@@ -3,9 +3,9 @@ FoxBot
 
 IRC bot written in Java
 
-[![Build Status](https://drone.io/github.com/TheReverend403/FoxBot/status.png)](https://drone.io/github.com/TheReverend403/FoxBot/latest)
+[![Build Status](https://drone.io/github.com/FoxDev/FoxBot/status.png)](https://drone.io/github.com/FoxDev/FoxBot/latest)
 
-Latest build: https://drone.io/github.com/TheReverend403/FoxBot/files
+Latest build: https://drone.io/github.com/FoxDev/FoxBot/files
 
 [![Visit our IRC channel](https://kiwiirc.com/buttons/irc.seion.us/foxdev.png)](https://kiwiirc.com/client/irc.seion.us/?nick=foxbot_git|?&theme=relaxed#foxdev)
 
