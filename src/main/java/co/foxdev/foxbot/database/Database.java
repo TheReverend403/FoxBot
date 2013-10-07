@@ -191,7 +191,7 @@ public class Database
 
             while (rs.next())
             {
-                tells.add(String.format("%s %sMessage from: %s%s %sMessage: %s%s", rs.getString("tell_time"), Colors.GREEN, Colors.NORMAL, rs.getString("sender"), Colors.GREEN, Colors.NORMAL, rs.getString("message")));
+                tells.add(foxbot.getUtils().colourise(String.format("%s &2Message from: &r%s &2Message: &r%s", rs.getString("tell_time"), rs.getString("message"))));
             }
 
             statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
