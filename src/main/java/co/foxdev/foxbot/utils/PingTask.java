@@ -51,7 +51,10 @@ public class PingTask
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
                             }
                         }
-                        checkedHosts.remove(url);
+                        if (checkedHosts.contains(url))
+                        {
+                            checkedHosts.remove(url);
+                        }
                     }
                     catch (UnknownHostException ex)
                     {
