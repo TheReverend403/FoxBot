@@ -111,6 +111,15 @@ public class Config
     private String zoneName;
     private String dnsServer;
 
+    // ----------------------
+    // Status checker section
+    // ----------------------
+
+    private boolean statusCheckEnabled;
+    private int checkInterval;
+    private int timeout;
+    private List<String> urlsToPing;
+    private List<String> usersToAlert;
 
     public Config(FoxBot foxbot)
     {
@@ -213,6 +222,15 @@ public class Config
         tsigKey = botConfig.getString("dns.TSIG-key");
         zoneName = botConfig.getString("dns.zone-name");
 
+        // ----------------------
+        // Status checker section
+        // ----------------------
+
+        statusCheckEnabled = botConfig.getBoolean("status-checker.enabled");
+        checkInterval = botConfig.getInt("status-checker.check-interval");
+        timeout = botConfig.getInt("status-checker.timeout");
+        urlsToPing = botConfig.getStringList("status-checker.urls");
+        usersToAlert = botConfig.getStringList("status-checker.users-to-alert");
 
     }
 
@@ -450,6 +468,35 @@ public class Config
     public String getZoneName()
     {
         return zoneName;
+    }
+
+    // ----------------------
+    // Status checker section
+    // ----------------------
+
+    public boolean isStatusCheckEnabled()
+    {
+        return statusCheckEnabled;
+    }
+
+    public int getCheckInterval()
+    {
+        return checkInterval;
+    }
+
+    public int getTimeout()
+    {
+        return timeout;
+    }
+
+    public List<String> getUrlsToPing()
+    {
+        return urlsToPing;
+    }
+
+    public List<String> getUsersToAlert()
+    {
+        return usersToAlert;
     }
 
     // ------------

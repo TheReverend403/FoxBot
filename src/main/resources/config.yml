@@ -127,9 +127,13 @@ dns:
     # OPTIONAL: This is the name of the zone containing your PTR records for hostnames.
     zone-name: '1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.'
 status-checker:
+    # Should we use the status checker?
+    enabled: true
     # How often should we ping in seconds?
     check-interval: 30
-    # List of URLs to ping
+    # How long in seconds should we try to ping the host?
+    timeout: 30
+    # List of URLs to ping.
     urls:
     - cookieslap.net
     # Users to alert on ping failure
