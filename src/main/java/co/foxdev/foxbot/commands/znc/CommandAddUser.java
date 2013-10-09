@@ -111,7 +111,7 @@ public class CommandAddUser extends Command
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
-            foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, network, event.getChannel().getName()));
+            foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, network, args[2].equalsIgnoreCase("Esper") ? "#leopardpounce" : event.getChannel().getName()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));
