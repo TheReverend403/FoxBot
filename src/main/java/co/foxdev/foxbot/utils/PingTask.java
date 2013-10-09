@@ -49,6 +49,7 @@ public class PingTask
                     catch (IOException ex)
                     {
                         ex.printStackTrace();
+
                         for (String user : foxbot.getConfig().getUsersToAlert())
                         {
                             foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
