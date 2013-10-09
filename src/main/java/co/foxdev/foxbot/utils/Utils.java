@@ -75,6 +75,7 @@ public class Utils
             for (String line : output.split("\n"))
             {
                 matcher = TITLE_PATTERN.matcher(line);
+
                 if (matcher.find())
                 {
                     title = line.split("<title>")[1].split("</title>")[0];
