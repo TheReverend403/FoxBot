@@ -68,7 +68,10 @@ public class PingTask
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
-                        checkedHosts.add(url);
+                        if (!checkedHosts.contains(url))
+                        {
+                            checkedHosts.add(url);
+                        }
                     }
                 }
             }
