@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot;
 
+import co.foxdev.foxbot.utils.PingTask;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
@@ -84,6 +85,7 @@ public class FoxBot extends PircBotX
         registerCommands();
         setBotInfo();
         connectToServer();
+        new PingTask(this);
     }
 
     private void setBotInfo()

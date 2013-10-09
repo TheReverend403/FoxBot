@@ -126,3 +126,18 @@ dns:
     TSIG-key: '156d4f8s6f=='
     # OPTIONAL: This is the name of the zone containing your PTR records for hostnames.
     zone-name: '1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.'
+status-checker:
+    # How often should we ping in seconds?
+    check-interval: 30
+    # List of URLs to ping
+    urls:
+    - cookieslap.net
+    # Users to alert on ping failure
+    users-to-alert:
+    - Corin
+    - TheReverend403
+    - GunfighterJ
+    - itsatacoshop247
+    - zz_Corin
+    - Rev|SleepingFox
+    - itsatacoshop247|afk
