@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class PingTask
 {
@@ -23,7 +24,7 @@ public class PingTask
     public void start()
     {
         int initialDelay = 0;
-        int period = 30000;
+        int period = foxbot.getConfig().getCheckInterval();
 
         Timer timer = new Timer();
 
@@ -33,21 +34,27 @@ public class PingTask
             {
                 Socket socket = null;
 
-                try
+                for (String url : foxbot.getConfig().getUrlsToPing())
                 {
-                    socket = new Socket(InetAddress.getByName("cookieslap.net"), 17647);
-                    socket.setSoTimeout(10);
-                    socket.close();
-                }
-                catch (UnknownHostException ignored)
-                {
-                }
-                catch (IOException ex)
-                {
-                    foxbot.getUser("TheReverend403").sendMessage("cookieslap.net is kill, fix pls");
+                    try
+                    {
+                        socket = new Socket(InetAddress.getByName(url), 80);
+                        socket.setSoTimeout(foxbot.getConfig().getTimeout());
+                        socket.close();
+                    }
+                    catch (UnknownHostException ignored)
+                    {
+                    }
+                    catch (IOException ex)
+                    {
+                        for (String user : foxbot.getConfig().getUsersToAlert())
+                        {
+                            foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
+                        }
+                    }
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, initialDelay, period);
+        timer.scheduleAtFixedRate(task, initialDelay, TimeUnit.SECONDS.toMillis(period));
     }
 }

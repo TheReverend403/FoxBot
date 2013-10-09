@@ -85,7 +85,11 @@ public class FoxBot extends PircBotX
         registerCommands();
         setBotInfo();
         connectToServer();
-        new PingTask(this);
+
+        if (config.isStatusCheckEnabled())
+        {
+            new PingTask(this);
+        }
     }
 
     private void setBotInfo()
