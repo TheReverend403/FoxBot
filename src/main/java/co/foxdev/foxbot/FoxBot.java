@@ -148,11 +148,6 @@ public class FoxBot extends PircBotX
         {
             this.joinChannel(channel);
         }
-
-        for (String line : this.getServerInfo().getMotd().split("\n"))
-        {
-            BotLogger.log(LogLevel.INFO, String.format("CONNECT: %s", line));
-        }
     }
 
     private void registerListeners()
