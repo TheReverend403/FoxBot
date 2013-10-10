@@ -17,6 +17,8 @@
 
 package co.foxdev.foxbot.listeners;
 
+import co.foxdev.foxbot.logger.Level;
+import co.foxdev.foxbot.logger.Logger;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
@@ -40,12 +42,15 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onQuit(QuitEvent<FoxBot> event)
     {
+        Logger.log(Level.INFO, String.format("%s has quit", event.getUser().getNick()));
         foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
     @Override
     public void onInvite(InviteEvent<FoxBot> event)
     {
+        Logger.log(Level.INFO, String.format("Invite from %s to %s", event.getUser(), event.getChannel()));
+
         if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getUser(event.getUser()), "bot.invite"))
         {
             foxbot.joinChannel(event.getChannel());
@@ -58,6 +63,8 @@ public class UserListener extends ListenerAdapter<FoxBot>
     {
         User user = event.getUser();
         String newNick = event.getNewNick();
+
+        Logger.log(Level.INFO, String.format("Nick change from %s to %s", user.getNick(), newNick));
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
@@ -97,6 +104,8 @@ public class UserListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         String nick = user.getNick();
         Channel channel = event.getChannel();
+
+        Logger.log(Level.INFO, String.format("%s has joined %s", user.getNick(), channel.getName()));
 
         if (nick.equals(foxbot.getNick()))
         {
@@ -147,6 +156,9 @@ public class UserListener extends ListenerAdapter<FoxBot>
         final Channel channel = event.getChannel();
         final User kickedUser = event.getRecipient();
         final User kicker = event.getSource();
+        String reason = event.getReason();
+
+        Logger.log(Level.INFO, String.format("%s has kicked %s from %s %s", kicker.getNick(), kickedUser.getNick(), channel.getName(), reason.isEmpty() ? "" : "for " + event.getReason()));
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
