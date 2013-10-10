@@ -49,6 +49,7 @@ public class PingTask
                         socket = new Socket(InetAddress.getByName(url), 80);
                         socket.setSoTimeout(foxbot.getConfig().getTimeout());
                         socket.close();
+                        BotLogger.log(LogLevel.INFO, String.format("Ping succeeded for %s", url));
 
                         for (String user : foxbot.getConfig().getUsersToAlert())
                         {
@@ -75,7 +76,7 @@ public class PingTask
                         {
                             if (!checkedHosts.contains(url))
                             {
-                                BotLogger.log(LogLevel.INFO, String.format("Ping succeded for %s, alerting %s", url, user));
+                                BotLogger.log(LogLevel.INFO, String.format("Ping succeeded for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
