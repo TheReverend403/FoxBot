@@ -109,7 +109,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         String nick = user.getNick();
         Channel channel = event.getChannel();
 
-        BotLogger.log(LogLevel.INFO, String.format("JOIN: [%s] %s", channel.getName(), user.getNick()));
+        BotLogger.log(LogLevel.INFO, String.format("JOIN: [%s] %s!%s@%s", channel.getName(), user.getNick(), user.getLogin(), user.getHostmask()));
 
         if (nick.equals(foxbot.getNick()))
         {
@@ -157,7 +157,9 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onPart(PartEvent<FoxBot> event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("PART: [%s] %s",  event.getChannel().getName(), event.getUser().getNick()));
+        User user = event.getUser();
+
+        BotLogger.log(LogLevel.INFO, String.format("PART: [%s] %s!%s@%s", event.getChannel().getName(), user.getNick(), user.getLogin(), user.getHostmask()));
     }
 
     @Override
@@ -187,7 +189,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         final User kicker = event.getSource();
         String reason = event.getReason();
 
-        BotLogger.log(LogLevel.INFO, String.format("KICK: [%s] %s has kicked %s %s",  channel.getName(), kicker.getNick(), kickedUser.getNick(), reason.isEmpty() ? "" : "(" + reason + ")"));
+        BotLogger.log(LogLevel.INFO, String.format("KICK: [%s] %s has kicked %s %s",  channel.getName(), kickedUser.getNick(), kicker.getNick(), reason.isEmpty() ? "" : "(" + reason + ")"));
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
