@@ -65,9 +65,10 @@ public class UserListener extends ListenerAdapter<FoxBot>
     public void onNickChange(NickChangeEvent<FoxBot> event)
     {
         User user = event.getUser();
+        String oldNick = event.getOldNick();
         String newNick = event.getNewNick();
 
-        BotLogger.log(LogLevel.INFO, String.format("NICK: %s > %s", user.getNick(), newNick));
+        BotLogger.log(LogLevel.INFO, String.format("NICK: %s > %s", oldNick, newNick));
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
