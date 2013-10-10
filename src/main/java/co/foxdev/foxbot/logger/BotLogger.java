@@ -24,28 +24,6 @@ import java.util.Calendar;
 public class BotLogger
 {
     private static SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm:ss]");
-    private static FileWriter fw;
-    private static BufferedWriter bw;
-    private static File logFile = new File("foxbot.log");
-
-    static
-    {
-        try
-        {
-            if (!logFile.exists())
-            {
-                if (!logFile.createNewFile())
-                {
-                    System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), LogLevel.SEVERE, "Couldn't create logfile. Shutting down."));
-                }
-            }
-        }
-        catch (IOException ex)
-        {
-            System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), LogLevel.SEVERE, "Error occurred while opening logfile. Shutting down."));
-            ex.printStackTrace();
-        }
-    }
 
     public static void log(LogLevel logLevel, String message)
     {
@@ -53,11 +31,12 @@ public class BotLogger
 
         try
         {
-            fw = new FileWriter(logFile);
-            bw = new BufferedWriter(fw);
+            FileWriter fw = new FileWriter("foxbot.log", true);
+            BufferedWriter bw = new BufferedWriter(fw);
             bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), logLevel, message));
-            fw.close();
+            bw.newLine();
             bw.close();
+            fw.close();
         }
         catch (IOException ex)
         {

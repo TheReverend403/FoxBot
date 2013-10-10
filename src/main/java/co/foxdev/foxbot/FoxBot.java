@@ -40,6 +40,8 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,8 +71,6 @@ public class FoxBot extends PircBotX
 
     private void start(String[] args)
     {
-        BotLogger.log(LogLevel.INFO, "STARTUP: FoxBot starting...");
-
         File path = new File("data/customcmds/");
 
         if (!path.exists() && !path.mkdirs())
