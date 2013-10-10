@@ -34,7 +34,7 @@ public class PingTask
         {
             public void run()
             {
-                Socket socket = null;
+                Socket socket;
 
                 for (String url : foxbot.getConfig().getUrlsToPing())
                 {
