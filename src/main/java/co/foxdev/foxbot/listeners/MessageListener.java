@@ -48,7 +48,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            BotLogger.log(LogLevel.INFO, String.format("MESSAGE: %s > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
+            BotLogger.log(LogLevel.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
 
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
             {
@@ -68,6 +68,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
             }
             return;
         }
-        BotLogger.log(LogLevel.INFO, String.format("MESSAGE: %s (Ignored) > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
+        BotLogger.log(LogLevel.INFO, String.format("MESSAGE: [%s (IGNORED)] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
     }
 }

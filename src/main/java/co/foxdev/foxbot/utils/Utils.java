@@ -127,6 +127,35 @@ public class Utils
                 .replace(colourChar + "n", Colors.UNDERLINE);
     }
 
+    public String getPrefix(User user, Channel channel)
+    {
+        if (channel.isOwner(user))
+        {
+            return "~";
+        }
+        else if (channel.isSuperOp(user))
+        {
+            return "&";
+        }
+        else if (channel.isOp(user))
+        {
+            return "@";
+        }
+        else if (channel.isHalfOp(user))
+        {
+            return "%";
+        }
+        // Why the fuck isn't there an isVoice() method?
+        else if (channel.getVoices().contains(user))
+        {
+            return "+";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     public void scheduleUnban(final Channel channel, final String hostmask, final int time)
     {
         new Timer().schedule(
