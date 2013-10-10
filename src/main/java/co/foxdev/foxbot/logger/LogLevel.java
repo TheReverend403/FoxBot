@@ -1,12 +1,12 @@
 package co.foxdev.foxbot.logger;
 
-public enum Level
+public enum LogLevel
 {
     INFO("[INFO]"),
     WARNING("[WARNING]"),
     SEVERE("[SEVERE]");
 
-    private Level(final String message)
+    private LogLevel(final String message)
     {
         this.message = message;
     }

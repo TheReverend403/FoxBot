@@ -1,6 +1,8 @@
 package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.logger.LogLevel;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -36,8 +38,12 @@ public class PingTask
             {
                 Socket socket;
 
+                BotLogger.log(LogLevel.INFO, "Beginning ping task");
+
                 for (String url : foxbot.getConfig().getUrlsToPing())
                 {
+                    BotLogger.log(LogLevel.INFO, String.format("Attempting to ping %s", url));
+
                     try
                     {
                         socket = new Socket(InetAddress.getByName(url), 80);
@@ -48,6 +54,7 @@ public class PingTask
                         {
                             if (checkedHosts.contains(url))
                             {
+                                BotLogger.log(LogLevel.INFO, String.format("Ping failed for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
                             }
                         }
@@ -68,6 +75,7 @@ public class PingTask
                         {
                             if (!checkedHosts.contains(url))
                             {
+                                BotLogger.log(LogLevel.INFO, String.format("Ping succeded for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
