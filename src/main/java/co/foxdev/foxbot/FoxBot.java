@@ -144,6 +144,7 @@ public class FoxBot extends PircBotX
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Joining channels"));
         for (String channel : config.getChannels())
         {
             this.joinChannel(channel);
