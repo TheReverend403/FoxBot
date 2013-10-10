@@ -43,14 +43,16 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onQuit(QuitEvent<FoxBot> event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("QUIT: %s has quit", event.getUser().getNick()));
+        String reason = event.getReason();
+
+        BotLogger.log(LogLevel.INFO, String.format("QUIT: %s has quit %s", event.getUser().getNick(), reason.isEmpty() ? "" : "(" + reason + ")"));
         foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
     @Override
     public void onInvite(InviteEvent<FoxBot> event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("INVITE: Invite from %s to %s", event.getUser(), event.getChannel()));
+        BotLogger.log(LogLevel.INFO, String.format("INVITE: [%s] %s", event.getUser(), event.getChannel()));
 
         if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getUser(event.getUser()), "bot.invite"))
         {
@@ -65,7 +67,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         String newNick = event.getNewNick();
 
-        BotLogger.log(LogLevel.INFO, String.format("NICK: Nick change from %s to %s", user.getNick(), newNick));
+        BotLogger.log(LogLevel.INFO, String.format("NICK: %s > %s", user.getNick(), newNick));
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
@@ -106,7 +108,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         String nick = user.getNick();
         Channel channel = event.getChannel();
 
-        BotLogger.log(LogLevel.INFO, String.format("JOIN: %s has joined %s", user.getNick(), channel.getName()));
+        BotLogger.log(LogLevel.INFO, String.format("JOIN: [%s] %s", channel.getName(), user.getNick()));
 
         if (nick.equals(foxbot.getNick()))
         {
@@ -154,26 +156,26 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onPart(PartEvent<FoxBot> event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("PART: %s has left %s", event.getUser().getNick(), event.getChannel().getName()));
+        BotLogger.log(LogLevel.INFO, String.format("PART: [%s] %s",  event.getChannel().getName(), event.getUser().getNick()));
     }
 
     @Override
     public void onPrivateMessage(PrivateMessageEvent event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("PRIVMSG: Message from %s: %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
+        BotLogger.log(LogLevel.INFO, String.format("PRIVMSG: < [%s] %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
     }
 
     @Override
     public void onNotice(NoticeEvent event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("NOTICE: Notice from %s: %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
+        BotLogger.log(LogLevel.INFO, String.format("NOTICE: < [%s] %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
     }
 
     @Override
     public void onServerPing(ServerPingEvent event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("PING: Ping from %s", foxbot.getServer()));
-        BotLogger.log(LogLevel.INFO, String.format("PING: Responding to ping from %s", foxbot.getServer()));
+        BotLogger.log(LogLevel.INFO, String.format("PING: < %s", foxbot.getServer()));
+        BotLogger.log(LogLevel.INFO, String.format("PING: > %s", foxbot.getServer()));
     }
 
     @Override
@@ -184,7 +186,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         final User kicker = event.getSource();
         String reason = event.getReason();
 
-        BotLogger.log(LogLevel.INFO, String.format("KICK: %s has kicked %s from %s %s", kicker.getNick(), kickedUser.getNick(), channel.getName(), reason.isEmpty() ? "" : "for " + event.getReason()));
+        BotLogger.log(LogLevel.INFO, String.format("KICK: [%s] %s kicked by %s %s",  channel.getName(), kicker.getNick(), kickedUser.getNick(), reason.isEmpty() ? "" : "[" + reason + "]"));
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
