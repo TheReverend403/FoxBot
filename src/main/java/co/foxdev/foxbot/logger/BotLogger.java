@@ -39,8 +39,6 @@ public class BotLogger
                     System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), LogLevel.SEVERE, "Couldn't create logfile. Shutting down."));
                 }
             }
-
-            fw = new FileWriter(logFile);
         }
         catch (IOException ex)
         {
@@ -55,8 +53,10 @@ public class BotLogger
 
         try
         {
+            fw = new FileWriter(logFile);
             bw = new BufferedWriter(fw);
             bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), logLevel, message));
+            fw.close();
             bw.close();
         }
         catch (IOException ex)
