@@ -17,6 +17,8 @@
 
 package co.foxdev.foxbot.plugin;
 
+import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.logger.LogLevel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
@@ -62,6 +64,8 @@ public class PluginManager
         {
             return false;
         }
+
+        BotLogger.log(LogLevel.INFO, String.format("Dispatching command %s used by %s", command.getName(), sender.getNick()));
 
         String permission = command.getPermission();
 
