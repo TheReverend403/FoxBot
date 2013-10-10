@@ -172,8 +172,8 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onServerPing(ServerPingEvent event)
     {
-        BotLogger.log(LogLevel.INFO, String.format("PING: Ping from %s", foxbot.getServerInfo().getServerName()));
-        BotLogger.log(LogLevel.INFO, String.format("PING: Responding to ping from %s", foxbot.getServerInfo().getServerName()));
+        BotLogger.log(LogLevel.INFO, String.format("PING: Ping from %s", foxbot.getServer()));
+        BotLogger.log(LogLevel.INFO, String.format("PING: Responding to ping from %s", foxbot.getServer()));
     }
 
     @Override
