@@ -17,6 +17,8 @@
 
 package co.foxdev.foxbot;
 
+import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.logger.LogLevel;
 import co.foxdev.foxbot.utils.PingTask;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
@@ -110,10 +112,13 @@ public class FoxBot extends PircBotX
         {
             if (config.getServerSsl())
             {
+
+                BotLogger.log(LogLevel.INFO, String.format("CONNECT: Trying address %s (SSL)", this.getConfig().getServerAddress()));
                 this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
             else
             {
+                BotLogger.log(LogLevel.INFO, String.format("CONNECT: Trying address %s", this.getConfig().getServerAddress()));
                 this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
 
@@ -125,6 +130,11 @@ public class FoxBot extends PircBotX
         catch (IOException | IrcException ex)
         {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (String line : this.getServerInfo().getMotd().split("\n"))
+        {
+            BotLogger.log(LogLevel.INFO, String.format("CONNECT: %s", line));
         }
 
         for (String channel : config.getChannels())

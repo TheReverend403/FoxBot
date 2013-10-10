@@ -48,17 +48,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onConnect(ConnectEvent<FoxBot> event)
-    {
-        BotLogger.log(LogLevel.INFO, String.format("CONNECT: Trying address %s", foxbot.getConfig().getServerAddress()));
-
-        for (String line : foxbot.getServerInfo().getMotd().split("\n"))
-        {
-            BotLogger.log(LogLevel.INFO, String.format("CONNECT: %s", line));
-        }
-    }
-
-    @Override
     public void onInvite(InviteEvent<FoxBot> event)
     {
         BotLogger.log(LogLevel.INFO, String.format("INVITE: Invite from %s to %s", event.getUser(), event.getChannel()));
