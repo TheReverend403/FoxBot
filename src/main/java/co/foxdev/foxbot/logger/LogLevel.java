@@ -29,10 +29,4 @@ public enum LogLevel
     {
         this.message = message;
     }
-
-    @Override
-    public String toString()
-    {
-        return "LogLevel{" + "message='" + message + '\'' + '}';
-    }
 }
