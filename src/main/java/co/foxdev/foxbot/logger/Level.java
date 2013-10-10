@@ -6,7 +6,8 @@ public enum Level
     WARNING("[WARNING]"),
     SEVERE("[SEVERE]");
 
-    private Level(final String message) {
+    private Level(final String message)
+    {
         this.message = message;
     }
 
