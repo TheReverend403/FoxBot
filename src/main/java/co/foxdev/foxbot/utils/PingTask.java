@@ -38,24 +38,24 @@ public class PingTask
             {
                 Socket socket;
 
-                BotLogger.log(LogLevel.INFO, "Beginning ping task");
+                BotLogger.log(LogLevel.INFO, "PINGTASK: Beginning ping task");
 
                 for (String url : foxbot.getConfig().getUrlsToPing())
                 {
-                    BotLogger.log(LogLevel.INFO, String.format("Attempting to ping %s", url));
+                    BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Attempting to ping %s", url));
 
                     try
                     {
                         socket = new Socket(InetAddress.getByName(url), 80);
                         socket.setSoTimeout(foxbot.getConfig().getTimeout());
                         socket.close();
-                        BotLogger.log(LogLevel.INFO, String.format("Ping succeeded for %s", url));
+                        BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping succeeded for %s", url));
 
                         for (String user : foxbot.getConfig().getUsersToAlert())
                         {
                             if (checkedHosts.contains(url))
                             {
-                                BotLogger.log(LogLevel.INFO, String.format("Ping failed for %s, alerting %s", url, user));
+                                BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping failed for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
                             }
                         }
@@ -76,7 +76,7 @@ public class PingTask
                         {
                             if (!checkedHosts.contains(url))
                             {
-                                BotLogger.log(LogLevel.INFO, String.format("Ping succeeded for %s, alerting %s", url, user));
+                                BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping succeeded for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
