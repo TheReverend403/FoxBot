@@ -151,6 +151,12 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
+    public void onPart(PartEvent<FoxBot> event)
+    {
+        BotLogger.log(LogLevel.INFO, String.format("%s has left %s", event.getUser().getNick(), event.getChannel().getName()));
+    }
+
+    @Override
     public void onKick(KickEvent<FoxBot> event)
     {
         final Channel channel = event.getChannel();
