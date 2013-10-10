@@ -65,7 +65,7 @@ public class PluginManager
             return false;
         }
 
-        BotLogger.log(LogLevel.INFO, String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
+        BotLogger.log(LogLevel.INFO, String.format("COMMAND: Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
 
         String permission = command.getPermission();
 
