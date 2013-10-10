@@ -69,11 +69,13 @@ public class FoxBot extends PircBotX
 
     private void start(String[] args)
     {
+        BotLogger.log(LogLevel.INFO, "STARTUP: FoxBot starting...");
+
         File path = new File("data/customcmds/");
 
         if (!path.exists() && !path.mkdirs())
         {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "Couldn't create data folder. Shutting down.");
+            BotLogger.log(LogLevel.WARNING, "STARTUP: Could not create required folders. Shutting down.");
             this.disconnect();
             return;
         }
@@ -91,20 +93,29 @@ public class FoxBot extends PircBotX
 
         if (config.isStatusCheckEnabled())
         {
+            BotLogger.log(LogLevel.INFO, "STARTUP: Scheduling new PingTask");
             new PingTask(this);
         }
     }
 
     private void setBotInfo()
     {
+        BotLogger.log(LogLevel.INFO, "STARTUP: Setting bot info");
         this.setVerbose(config.getDebug());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set verbose to %s", config.getDebug()));
         this.setAutoNickChange(config.getAutoNickChange());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set auto nick change to %s", config.getAutoNickChange()));
         this.setAutoReconnect(config.getAutoReconnect());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set auto-reconnect to %s", config.getAutoReconnect()));
         this.setMessageDelay(config.getMessageDelay());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set message delay to %s", config.getMessageDelay()));
         this.setVersion("FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot");
         this.setAutoSplitMessage(true);
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Trying to set nick to %s", config.getBotNick()));
         this.setName(config.getBotNick());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set nick to %s", this.getNick()));
         this.setLogin(config.getBotIdent());
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set ident to %s", config.getBotIdent()));
     }
 
     private void connectToServer()
@@ -146,8 +157,11 @@ public class FoxBot extends PircBotX
 
     private void registerListeners()
     {
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering MessageListener"));
         blm.addListener(new MessageListener(this), true);
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering UserListener"));
         blm.addListener(new UserListener(this), true);
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering SpamHandler"));
         blm.addListener(new SpamHandler(this), true);
 
         this.setListenerManager(blm);
@@ -169,6 +183,7 @@ public class FoxBot extends PircBotX
                 Constructor clazzConstructor = clazz.getConstructor(this.getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
 
+                BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering command %s", command.getName()));
                 this.getPluginManager().registerCommand(command);
             }
         }

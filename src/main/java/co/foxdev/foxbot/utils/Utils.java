@@ -91,7 +91,7 @@ public class Utils
         }
         catch (Exception ex)
         {
-            BotLogger.log(LogLevel.WARNING, "Exception occured while parsing chat URL");
+            BotLogger.log(LogLevel.WARNING, "Exception occurred while parsing chat URL");
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         return "null";

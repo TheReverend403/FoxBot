@@ -73,6 +73,7 @@ public class PluginManager
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
+                BotLogger.log(LogLevel.WARNING, String.format("COMMAND: Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
                 foxbot.sendNotice(sender, "You do not have permission to do that!");
                 return false;
             }

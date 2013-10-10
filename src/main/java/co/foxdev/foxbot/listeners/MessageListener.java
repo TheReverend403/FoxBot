@@ -55,7 +55,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
             matcher = foxPattern.matcher(message);
 
-            if (matcher.matches())                 //
+            if (matcher.matches())
             {
                 foxbot.kick(channel, user, "The fox says \"Fuck off\"");
                 return;
