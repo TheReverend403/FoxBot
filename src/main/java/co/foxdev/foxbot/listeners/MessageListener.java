@@ -46,7 +46,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        Logger.log(Level.INFO.toString(), String.format("%s %s %s", channel.getName(), user.getNick(), message));
+        Logger.log(Level.INFO, String.format("%s > %s > %s", channel.getName(), user.getNick(), message));
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
