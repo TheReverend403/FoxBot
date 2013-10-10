@@ -110,11 +110,12 @@ public class FoxBot extends PircBotX
         this.setMessageDelay(config.getMessageDelay());
         BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set message delay to %s", config.getMessageDelay()));
         this.setVersion("FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot");
+        BotLogger.log(LogLevel.INFO, "STARTUP: Set version to 'FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot'");
         this.setAutoSplitMessage(true);
         this.setName(config.getBotNick());
-        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set nick to %s", config.getBotNick()));
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set nick to '%s'", config.getBotNick()));
         this.setLogin(config.getBotIdent());
-        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set ident to %s", config.getBotIdent()));
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set ident to '%s'", config.getBotIdent()));
     }
 
     private void connectToServer()
