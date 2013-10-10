@@ -23,6 +23,7 @@ import co.foxdev.foxbot.utils.PingTask;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import co.foxdev.foxbot.commands.Command;
@@ -132,14 +133,14 @@ public class FoxBot extends PircBotX
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (String line : this.getServerInfo().getMotd().split("\n"))
-        {
-            BotLogger.log(LogLevel.INFO, String.format("CONNECT: %s", line));
-        }
-
         for (String channel : config.getChannels())
         {
             this.joinChannel(channel);
+        }
+
+        for (String line : this.getServerInfo().getMotd().split("\n"))
+        {
+            BotLogger.log(LogLevel.INFO, String.format("CONNECT: %s", line));
         }
     }
 
