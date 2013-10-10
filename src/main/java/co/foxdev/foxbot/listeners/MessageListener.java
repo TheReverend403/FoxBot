@@ -20,6 +20,7 @@ package co.foxdev.foxbot.listeners;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.logger.LogLevel;
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -46,7 +47,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        BotLogger.log(LogLevel.INFO, String.format("%s > %s > %s", channel.getName(), user.getNick(), message));
+        BotLogger.log(LogLevel.INFO, String.format("%s > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
