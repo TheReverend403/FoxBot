@@ -41,7 +41,6 @@ public class BotLogger
             }
 
             fw = new FileWriter(logFile);
-            bw = new BufferedWriter(fw);
         }
         catch (IOException ex)
         {
@@ -56,6 +55,7 @@ public class BotLogger
 
         try
         {
+            bw = new BufferedWriter(fw);
             bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), logLevel, message));
             bw.close();
         }
