@@ -178,7 +178,7 @@ public class FoxBot extends PircBotX
                 Constructor clazzConstructor = clazz.getConstructor(this.getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
 
-                BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering command %s", command.getName()));
+                BotLogger.log(LogLevel.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
                 this.getPluginManager().registerCommand(command);
             }
         }
