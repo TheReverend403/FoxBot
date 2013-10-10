@@ -145,8 +145,7 @@ public class Utils
         {
             return "%";
         }
-        // Why the fuck isn't there an isVoice() method?
-        else if (channel.getVoices().contains(user))
+        else if (channel.hasVoice(user))
         {
             return "+";
         }
