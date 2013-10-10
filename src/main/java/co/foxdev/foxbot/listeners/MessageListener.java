@@ -39,7 +39,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
     }
 
     private Pattern urlPattern = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
-    private Pattern foxPattern = Pattern.compile(".*wha?t.*f(o|0)?(x|c?k?s).*s(a|4)y.*", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
     public void onMessage(MessageEvent<FoxBot> event)
     {
@@ -47,26 +46,16 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-        BotLogger.log(LogLevel.INFO, String.format("MESSAGE: %s > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
-
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            Matcher matcher;
-
-            matcher = foxPattern.matcher(message);
-
-            if (matcher.matches())
-            {
-                foxbot.kick(channel, user, "The fox says \"Fuck off\"");
-                return;
-            }
+            BotLogger.log(LogLevel.INFO, String.format("MESSAGE: %s > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
 
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
             {
                 foxbot.getPluginManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.getConfig().getBotNick().length() + 2));
             }
 
-            matcher = urlPattern.matcher(message);
+            Matcher matcher = urlPattern.matcher(message);
 
             if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
@@ -77,6 +66,8 @@ public class MessageListener extends ListenerAdapter<FoxBot>
                     channel.sendMessage(message);
                 }
             }
+            return;
         }
+        BotLogger.log(LogLevel.INFO, String.format("MESSAGE: %s (Ignored) > %s > %s", channel.getName(), user.getNick(), Colors.removeFormattingAndColors(message)));
     }
 }
