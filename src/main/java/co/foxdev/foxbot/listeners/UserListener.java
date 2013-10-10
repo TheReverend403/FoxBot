@@ -187,7 +187,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         final User kicker = event.getSource();
         String reason = event.getReason();
 
-        BotLogger.log(LogLevel.INFO, String.format("KICK: [%s] %s kicked by %s %s",  channel.getName(), kicker.getNick(), kickedUser.getNick(), reason.isEmpty() ? "" : "[" + reason + "]"));
+        BotLogger.log(LogLevel.INFO, String.format("KICK: [%s] %s kicked by %s %s",  channel.getName(), kicker.getNick(), kickedUser.getNick(), reason.isEmpty() ? "" : "(" + reason + ")"));
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
