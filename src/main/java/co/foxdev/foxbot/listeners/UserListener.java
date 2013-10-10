@@ -109,7 +109,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         String nick = user.getNick();
         Channel channel = event.getChannel();
 
-        BotLogger.log(LogLevel.INFO, String.format("JOIN: [%s] %s!%s@%s", channel.getName(), user.getNick(), user.getLogin(), user.getHostmask()));
+        BotLogger.log(LogLevel.INFO, String.format("JOIN: [%s] %s (%s@%s)", channel.getName(), user.getNick(), user.getLogin(), user.getHostmask()));
 
         if (nick.equals(foxbot.getNick()))
         {
@@ -159,7 +159,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     {
         User user = event.getUser();
 
-        BotLogger.log(LogLevel.INFO, String.format("PART: [%s] %s!%s@%s", event.getChannel().getName(), user.getNick(), user.getLogin(), user.getHostmask()));
+        BotLogger.log(LogLevel.INFO, String.format("PART: [%s] %s (%s@%s)", event.getChannel().getName(), user.getNick(), user.getLogin(), user.getHostmask()));
     }
 
     @Override
