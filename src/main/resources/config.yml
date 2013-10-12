@@ -1,14 +1,14 @@
 bot:
-    # The bot's nick
+    # The bot's nick.
     nick: FoxBot-Dev
     # The bot's ident. Will show as botnick!ident@host.com
     ident: bot
-    # The name to show in /whois results
+    # The name to show in /whois results.
     realname: FoxBot
 server:
-    # The server address
+    # The server address.
     address: irc.seion.us
-    # The server port
+    # The server port.
     port: 6667
     # Should we use SSL?
     ssl: false
@@ -23,29 +23,29 @@ server:
 auth:
     # Should we use nickserv?
     use-nickserv: true
-    # The bot's nickserv password
+    # The bot's nickserv password.
     nickserv-password: password
     # Do users have to be authed with nickserv to use bot commands?
     users-must-be-verified: true
     # Should we match users based on hostmasks? This mode is secure enough that you don't need to use "users-must-be-verified".
     match-users-by-hostmask: true
-# Database settings for bot data storage
+# Database settings for bot data storage.
 database:
-    # Database type. Can be sqlite or mysql
+    # Database type. Can be sqlite or mysql.
     type: sqlite
-    # These settings have no effect in sqlite mode
-    # The address of your MySQL server
+    # These settings have no effect in sqlite mode.
+    # The address of your MySQL server.
     host: localhost
-    # The MySQL server port
+    # The MySQL server port.
     port: 3306
-    # The database name
+    # The database name.
     name: foxbot
-    # The username for the database
+    # The username for the database.
     username: root
-    # The password for the database
+    # The password for the database.
     password: root
 user-punishment:
-    # Should the bot kick anyone who kicks the bot? NOT YET WORKING
+    # Should the bot kick anyone who kicks the bot? NOT YET WORKING.
     punish-users-on-kick: true
     # What should the reason be when we punish a user? Set to '' to disable.
     punishment-kick-reason: You kick me, I kick you.
@@ -54,7 +54,7 @@ user-punishment:
 anti-spam:
     # Should we use the antispam? Setting this to false makes all of the other settings useless.
     enabled: true
-    # Actions to take when a user has a certain amount of spam rating points
+    # Actions to take when a user has a certain amount of spam rating points.
     actions:
         mute:
             # How many points should the user have before we mute them? Set to 0 to disable.
@@ -73,7 +73,7 @@ anti-spam:
             time: 86400
     caps-spam:
         enabled: true
-        # If the percentage of the caps in a message is more than you set here, it will count as spam
+        # If the percentage of the caps in a message is more than you set here, it will count as spam.
         threshold: 75
         # How many spam rating points should we add to a user for this?
         points: 1
@@ -81,33 +81,33 @@ anti-spam:
         kick-user: true
     repeat-spam:
         enabled: true
-        # How many spam rating points to add PER REPEATED MESSAGE
+        # How many spam rating points to add PER REPEATED MESSAGE.
         points: 1
 misc:
     # Should we spam the console with debug info?
     debug: true
     # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
     command-prefix: '.'
-    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello"
+    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello".
     colour-char: '&'
     # Should the bot accept invites from users with bot.invite?
     auto-join-on-invite: true
     # Should the bot rejoin a channel after being kicked?
     auto-rejoin-on-kick: true
-    # How long the bot will wait after being kicked to rejoin a channel
+    # How long the bot will wait after being kicked to rejoin a channel.
     auto-rejoin-delay: 10
-    # How long should the bot wait in seconds when kicking a user? (Used to prevent whois throttles on permission checks for both users)
+    # How long should the bot wait in seconds when kicking a user? (Used to prevent whois throttles on permission checks for both users).
     # WARNING: Setting this too low could get the bot throttled. Ask your network admins what the whois throttle rate is.
     kick-delay: 1000
-    # Try for an alternative nick if the main one is taken
+    # Try for an alternative nick if the main one is taken.
     auto-nick-change: true
     # Should we auto-reconnect if the bot loses connection?
     auto-reconnect: true
-    # How long the bot will wait to respond to events
+    # How long the bot will wait to respond to events.
     message-delay: 0
     # Should we "munge" usernames to avoid pinging users?
     munge-usernames: true
-    # If a channel is in this list, the bot will completely ignore any messages in it
+    # If a channel is in this list, the bot will completely ignore any messages in it.
     ignored-channels:
     - '#annoyingchannel'
     # If a user joins one of these channels, the bot will send a greeting to them. Set this to [] if you don't want any greetings.
@@ -115,14 +115,14 @@ misc:
     - '#foxdev'
     - '#foxbot'
     # The message to send to the user if greetings are being used.
-    # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel
+    # Key: {USER} = The user's nick, {CHANNEL} = The channel name, {CHANUSERS} = The amount of people in the channel.
     greeting-message: '&2Welcome to &c{CHANNEL}&2, &c{USER}&2. I am the channel''s help bot. There are currently &c{CHANUSERS}&2 people in this channel, however, some of them may be AFK, so if you have a question, please just ask it and wait patiently.&r'
     # Should we send the greeting as a notice rather than a message to the channel?
     send-greeting-as-notice: true
 dns:
-    # OPTIONAL: This is the IP or hostname which has the bind9 install on
+    # OPTIONAL: This is the IP or hostname which has the bind9 install on.
     dns-server: '127.0.0.1'
-    # OPTIONAL: If you wish to use DNS commands such as AddRDNS; your bind9 install will need a TSIG key generated and the server with the bot on whitelisted
+    # OPTIONAL: If you wish to use DNS commands such as AddRDNS; your bind9 install will need a TSIG key generated and the server with the bot on whitelisted.
     TSIG-key: '156d4f8s6f=='
     # OPTIONAL: This is the name of the zone containing your PTR records for hostnames.
     zone-name: '1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.'
@@ -136,7 +136,7 @@ status-checker:
     # List of URLs to ping.
     urls:
     - cookieslap.net
-    # Users to alert on ping failure
+    # Users to alert on ping failure.
     users-to-alert:
     - Corin
     - TheReverend403

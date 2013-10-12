@@ -1,18 +1,18 @@
-# Default settings for users
+# Default settings for users.
 users:
-    # Default nick. {NAME} will be replaced with the username
+    # Default nick. {NAME} will be replaced with the username.
     nick: '{NAME}|bnc'
-    # Default alt nick. {NAME} will be replaced with the username
+    # Default alt nick. {NAME} will be replaced with the username.
     alt-nick: '{NAME}_'
-    # Default ident. {NAME} will be replaced with the username lowercased
+    # Default ident. {NAME} will be replaced with the username lowercased.
     ident: '{NAME}'
-    # Default quit message
+    # Default quit message.
     quit-message: Leaving
-    # Default buffer count
+    # Default buffer count.
     buffercount: 1000
-    # Allow the users to change their own bindhost? True = can't set their own
+    # Allow the users to change their own bindhost? True = can't set their own.
     deny-set-bindhost: true
-    # List of global modules to load for the user
+    # List of global modules to load for the user.
     modules:
     - clientnotify
     - ctcpflood
@@ -20,12 +20,12 @@ users:
     - controlpanel
 networks:
     # The default network that will be used if the specified one doesn't exist.
-    # The identifier here is what you will use to add the network, in this case "zncaddnetwork <user> default"
+    # The identifier here is what you will use to add the network, in this case "zncaddnetwork <user> default".
     default:
-        # The name to use for this network
+        # The name to use for this network.
         name: Seion
         # List of servers and ports for this network.
-        # host:port
+        # host:port (+ for SSL)
         servers:
         - irc.ipv6.seion.us:+6697
         - malice.seion.us:+6697
