@@ -24,7 +24,7 @@ import co.foxdev.foxbot.commands.Command;
 
 public class CommandDelUser extends Command
 {
-    public FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandDelUser(FoxBot foxbot)
     {

@@ -25,7 +25,7 @@ import org.pircbotx.Channel;
 
 public class CommandResolve extends Command
 {
-    public FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandResolve(FoxBot foxbot)
     {

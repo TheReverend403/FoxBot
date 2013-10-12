@@ -20,10 +20,10 @@ package co.foxdev.foxbot;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.logger.LogLevel;
 import co.foxdev.foxbot.utils.PingTask;
+import co.foxdev.foxbot.config.ZncConfig;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
-import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 import co.foxdev.foxbot.commands.Command;
@@ -40,8 +40,6 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,6 +55,7 @@ public class FoxBot extends PircBotX
 {
     private static Config config;
     private static PermissionManager permissions;
+    private static ZncConfig zncConfig;
     private static PluginManager pluginManager;
     private static Utils utils;
     private static Database database;
@@ -81,6 +80,7 @@ public class FoxBot extends PircBotX
         }
 
         config = new Config(this);
+        zncConfig = new ZncConfig(this);
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
         utils = new Utils(this);
@@ -199,6 +199,11 @@ public class FoxBot extends PircBotX
     public PermissionManager getPermissionManager()
     {
         return permissions;
+    }
+
+    public ZncConfig getZncConfig()
+    {
+        return zncConfig;
     }
 
     public PluginManager getPluginManager()

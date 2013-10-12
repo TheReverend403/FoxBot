@@ -18,6 +18,7 @@
 package co.foxdev.foxbot.commands.znc;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
 
 public class CommandAddUser extends Command
 {
-    public FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandAddUser(FoxBot foxbot)
     {
@@ -46,61 +47,55 @@ public class CommandAddUser extends Command
             String user = args[0];
             String password = RandomStringUtils.randomAlphanumeric(6);
             String bindhost = args[1];
-            String network = args[2];
+            String network = foxbot.getZncConfig().networkExists(args[2]) ? args[2] : "default";
+            String networkName = foxbot.getZncConfig().getNetworkName(network);
 
             // ---------------
             // Basic user info
             // ---------------
 
             foxbot.sendMessage("*controlpanel", String.format("adduser %s %s", user, password));
-            foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, user + "|bnc"));
-            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, user + "_"));
-            foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, user.toLowerCase()));
+            foxbot.sendMessage("*controlpanel", String.format("set nick %s %s", user, foxbot.getZncConfig().getNick().replace("{NAME}", user)));
+            foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, foxbot.getZncConfig().getAltNick().replace("{NAME}", user)));
+            foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, foxbot.getZncConfig().getIdent().replace("{NAME}", user.toLowerCase())));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
-            foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", user));
-            foxbot.sendMessage("*controlpanel", String.format("set buffercount %s 1000", user));
-            foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s true", user));
+            foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", foxbot.getZncConfig().getQuitMsg()));
+            foxbot.sendMessage("*controlpanel", String.format("set buffercount %s %s", user, foxbot.getZncConfig().getBufferCount()));
+            foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
             foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
 
             // -----------
             // Add servers
             // -----------
 
-            if (args[2].equalsIgnoreCase("Esper"))
+            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s %s", user, networkName));
+
+            for (String server : foxbot.getZncConfig().getServers(network))
             {
-                foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper irc.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper availo.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper portlane.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper chaos.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper nova.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper optical.esper.net +6697", user));
-            }
-            else if (args[2].equalsIgnoreCase("Seion"))
-            {
-                foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Seion", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion irc.ipv6.seion.us +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion malice.seion.us +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion fox.seion.us +6697", user));
+                String host = server.split(":")[0];
+                String port = server.split(":")[1];
+
+                foxbot.sendMessage("*controlpanel", String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
 
             // ------------
             // Load modules
             // ------------
 
-            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s clientnotify", user));
-            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s chansaver", user));
-            foxbot.sendMessage("*controlpanel", String.format("loadmodule %s controlpanel", user));
+            for (String module : foxbot.getZncConfig().getModules())
+            {
+                foxbot.sendMessage("*controlpanel", String.format("loadmodule %s %s", user, module));
+            }
 
             // ---------------------------------------
-            // Send ZNC information to the adding user
+            // Send information to the adding user
             // ---------------------------------------
 
             foxbot.sendNotice(sender, String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
 
-            // -----------
-            // Add channel
-            // -----------
+            // ------------
+            // Add channels
+            // ------------
 
             // Give the account chance to connect
             try
@@ -111,7 +106,11 @@ public class CommandAddUser extends Command
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
-            foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, network, args[2].equalsIgnoreCase("Esper") ? "#leopardpounce" : event.getChannel().getName()));
+
+            for (String channel : foxbot.getZncConfig().getChannels(network))
+            {
+                foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, networkName, channel));
+            }
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));

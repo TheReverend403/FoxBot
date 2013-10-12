@@ -24,7 +24,7 @@ import co.foxdev.foxbot.commands.Command;
 
 public class CommandJump extends Command
 {
-    public FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandJump(FoxBot foxbot)
     {
