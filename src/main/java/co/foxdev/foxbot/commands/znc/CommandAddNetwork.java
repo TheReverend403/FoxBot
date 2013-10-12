@@ -24,7 +24,7 @@ import co.foxdev.foxbot.commands.Command;
 
 public class CommandAddNetwork extends Command
 {
-    public FoxBot foxbot;
+    private final FoxBot foxbot;
 
     public CommandAddNetwork(FoxBot foxbot)
     {
@@ -40,29 +40,22 @@ public class CommandAddNetwork extends Command
         if (args.length == 2)
         {
             String user = args[0];
-            String network = args[1];
+            String network = foxbot.getZncConfig().networkExists(args[1]) ? args[1] : "default";
+            String networkName = foxbot.getZncConfig().getNetworkName(network);
 
-            if (args[1].equalsIgnoreCase("Esper"))
+            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s %s", user, networkName));
+
+            for (String server : foxbot.getZncConfig().getServers(network))
             {
-                foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Esper", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper irc.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper availo.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper portlane.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper chaos.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper nova.esper.net +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Esper optical.esper.net +6697", user));
-            }
-            else if (args[1].equalsIgnoreCase("Seion"))
-            {
-                foxbot.sendMessage("*controlpanel", String.format("addnetwork %s Seion", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion irc.ipv6.seion.us +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion malice.seion.us +6697", user));
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s Seion fox.seion.us +6697", user));
+                String host = server.split(":")[0];
+                String port = server.split(":")[1];
+
+                foxbot.sendMessage("*controlpanel", String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
             // Send a message to the partyline user
-            foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", network));
+            foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", networkName));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }
