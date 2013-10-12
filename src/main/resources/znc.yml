@@ -15,6 +15,7 @@ users:
     # List of global modules to load for the user
     modules:
     - clientnotify
+    - ctcpflood
     - chansaver
     - controlpanel
 networks:
