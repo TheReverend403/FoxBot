@@ -59,7 +59,7 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*controlpanel", String.format("set altnick %s %s", user, foxbot.getZncConfig().getAltNick().replace("{NAME}", user)));
             foxbot.sendMessage("*controlpanel", String.format("set ident %s %s", user, foxbot.getZncConfig().getIdent().replace("{NAME}", user.toLowerCase())));
             foxbot.sendMessage("*controlpanel", String.format("set bindhost %s %s", user, bindhost));
-            foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s Leaving", foxbot.getZncConfig().getQuitMsg()));
+            foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s %s", user,foxbot.getZncConfig().getQuitMsg()));
             foxbot.sendMessage("*controlpanel", String.format("set buffercount %s %s", user, foxbot.getZncConfig().getBufferCount()));
             foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
             foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
