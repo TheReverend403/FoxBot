@@ -4,6 +4,7 @@
 
 # Permissions granted to all users.
 default:
+    - command.help
     - command.ping
     - command.uptime
     - chat.urls

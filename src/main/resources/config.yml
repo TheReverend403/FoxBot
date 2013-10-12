@@ -1,3 +1,5 @@
+# Used to identify the bot's owner in CTCP version replies. Has no effect on bot operation.
+bot-owner: YourNameHere
 bot:
     # The bot's nick.
     nick: FoxBot-Dev

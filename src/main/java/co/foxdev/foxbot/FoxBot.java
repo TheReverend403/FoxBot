@@ -109,8 +109,8 @@ public class FoxBot extends PircBotX
         BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set auto-reconnect to %s", config.getAutoReconnect()));
         this.setMessageDelay(config.getMessageDelay());
         BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set message delay to %s", config.getMessageDelay()));
-        this.setVersion("FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot");
-        BotLogger.log(LogLevel.INFO, "STARTUP: Set version to 'FoxBot - A Java IRC bot written by FoxDev - https://github.com/FoxDev/FoxBot'");
+        this.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
+        BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
         this.setAutoSplitMessage(true);
         this.setName(config.getBotNick());
         BotLogger.log(LogLevel.INFO, String.format("STARTUP: Set nick to '%s'", config.getBotNick()));

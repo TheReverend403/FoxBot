@@ -36,6 +36,12 @@ public class Config
     private FileConfiguration botPermissions;
     private FileConfiguration botNickProtection;
 
+    // ---------
+    // Bot owner
+    // ---------
+
+    private String botOwner;
+
     // -----------
     // Bot section
     // -----------
@@ -147,6 +153,12 @@ public class Config
             ex.printStackTrace();
         }
 
+        // ---------
+        // Bot owner
+        // ---------
+
+        botOwner = botConfig.getString("bot-owner");
+
         // -----------
         // Bot section
         // -----------
@@ -240,6 +252,15 @@ public class Config
 
         foxbot.setVerbose(botConfig.getBoolean("misc.debug"));
         foxbot.setMessageDelay(botConfig.getLong("misc.message-delay"));
+    }
+
+    // ---------
+    // Bot owner
+    // ---------
+
+    public String getBotOwner()
+    {
+        return botOwner;
     }
 
     // -----------
