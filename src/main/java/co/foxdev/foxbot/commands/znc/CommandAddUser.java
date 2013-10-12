@@ -113,6 +113,6 @@ public class CommandAddUser extends Command
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <Esper|Seion>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }
