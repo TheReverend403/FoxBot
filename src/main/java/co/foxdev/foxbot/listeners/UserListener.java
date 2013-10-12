@@ -163,19 +163,19 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onPrivateMessage(PrivateMessageEvent event)
+    public void onPrivateMessage(PrivateMessageEvent<FoxBot> event)
     {
         BotLogger.log(LogLevel.INFO, String.format("PRIVMSG: < [%s] %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
     }
 
     @Override
-    public void onNotice(NoticeEvent event)
+    public void onNotice(NoticeEvent<FoxBot> event)
     {
         BotLogger.log(LogLevel.INFO, String.format("NOTICE: < [%s] %s", event.getUser().getNick(), Colors.removeFormattingAndColors(event.getMessage())));
     }
 
     @Override
-    public void onServerPing(ServerPingEvent event)
+    public void onServerPing(ServerPingEvent<FoxBot> event)
     {
         BotLogger.log(LogLevel.INFO, String.format("PING: < %s", foxbot.getServer()));
         BotLogger.log(LogLevel.INFO, String.format("PING: > %s", foxbot.getServer()));
