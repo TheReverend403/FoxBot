@@ -22,6 +22,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CommandAddNetwork extends Command
 {
     private final FoxBot foxbot;
@@ -53,7 +56,26 @@ public class CommandAddNetwork extends Command
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
             // Send a message to the partyline user
-            foxbot.sendMessage(String.format("?%s", user), String.format("The network: %s has been added to your account!", networkName));
+            foxbot.sendMessage(String.format("?%s", user), String.format("The network '%s' has been added to your account!", networkName));
+
+            // ------------
+            // Add channels
+            // ------------
+
+            // Give the account chance to connect
+            try
+            {
+                Thread.sleep(10000);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for (String channel : foxbot.getZncConfig().getChannels(network))
+            {
+                foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, networkName, channel));
+            }
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
