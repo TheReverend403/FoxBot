@@ -63,11 +63,6 @@
             <version>1.12</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.maxmind.geoip</groupId>
-            <artifactId>geoip-api</artifactId>
-            <version>1.2.11</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -97,7 +92,6 @@
                 </executions>
                 <configuration>
                     <finalName>${artifactId}</finalName>
-                    <minimizeJar>true</minimizeJar>
                 </configuration>
             </plugin>
             <plugin>
