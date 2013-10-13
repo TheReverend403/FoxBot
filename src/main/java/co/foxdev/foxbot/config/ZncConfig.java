@@ -21,6 +21,7 @@ public class ZncConfig
     private int bufferCount;
     private boolean denySetBindhost;
     private List<String> modules;
+    public String defaultChanmodes;
 
     public ZncConfig(FoxBot foxbot)
     {
@@ -49,6 +50,7 @@ public class ZncConfig
         bufferCount = zncConfig.getInt("users.buffercount");
         denySetBindhost = zncConfig.getBoolean("users.deny-set-bindhost");
         modules = zncConfig.getStringList("users.modules");
+        defaultChanmodes = zncConfig.getString("users.default-chan-modes");
     }
 
     public boolean networkExists(String network)
@@ -93,6 +95,11 @@ public class ZncConfig
     public List<String> getModules()
     {
         return modules;
+    }
+
+    public String getDefaultChanmodes()
+    {
+        return defaultChanmodes;
     }
 
     // ---------------

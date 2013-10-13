@@ -18,6 +18,8 @@ users:
     - ctcpflood
     - chansaver
     - controlpanel
+    # Default ZNC chan modes. See ZNC documentation for info.
+    default-chan-modes: '+tn'
 networks:
     # The default network that will be used if the specified one doesn't exist.
     # The identifier here is what you will use to add the network, in this case "zncaddnetwork <user> default".

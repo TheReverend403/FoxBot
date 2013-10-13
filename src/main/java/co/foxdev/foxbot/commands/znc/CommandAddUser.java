@@ -62,6 +62,7 @@ public class CommandAddUser extends Command
             foxbot.sendMessage("*controlpanel", String.format("set quitmsg %s %s", user,foxbot.getZncConfig().getQuitMsg()));
             foxbot.sendMessage("*controlpanel", String.format("set buffercount %s %s", user, foxbot.getZncConfig().getBufferCount()));
             foxbot.sendMessage("*controlpanel", String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
+            foxbot.sendMessage("*controlpanel", String.format("set defaultchanmodes %s %s", user, foxbot.getZncConfig().getDefaultChanmodes()));
             foxbot.sendMessage("*controlpanel", String.format("set prependtimestamp %s true", user));
 
             // -----------
