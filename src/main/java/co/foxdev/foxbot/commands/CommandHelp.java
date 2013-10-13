@@ -37,7 +37,7 @@ public class CommandHelp extends Command
 
         foxbot.sendNotice(sender, "FoxBot is an IRC bot written by FoxDev* ( https://github.com/FoxDev/ )");
         foxbot.sendNotice(sender, String.format("This particular instance of the bot is owned and operated by %s**", foxbot.getConfig().getBotOwner()));
-        foxbot.sendNotice(sender, "*FoxDev have no affiliation with this instance of FoxBot, unless explicitly stated by a FoxDev developer.");
+        foxbot.sendNotice(sender, "*FoxDev have no affiliation with this instance of FoxBot, unless explicitly stated by a member of FoxDev.");
         foxbot.sendNotice(sender, "*A list of these people can be found here: https://github.com/FoxDev?tab=members");
         foxbot.sendNotice(sender, "**This may not be accurate, as it relies on the owner adding their name to the config as a bot owner.");
     }
