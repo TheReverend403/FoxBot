@@ -88,9 +88,9 @@ public class CommandAddUser extends Command
                 foxbot.sendMessage("*controlpanel", String.format("loadmodule %s %s", user, module));
             }
 
-            // ---------------------------------------
+            // -----------------------------------
             // Send information to the adding user
-            // ---------------------------------------
+            // -----------------------------------
 
             foxbot.sendNotice(sender, String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
 
