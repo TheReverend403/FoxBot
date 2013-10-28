@@ -20,20 +20,21 @@ package co.foxdev.foxbot.logger;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
 
 public class BotLogger
 {
     private static SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm:ss]");
 
-    public static void log(LogLevel logLevel, String message)
+    public static void log(Level Level, String message)
     {
-        System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), logLevel, message));
+        System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), Level, message));
 
         try
         {
             FileWriter fw = new FileWriter("foxbot.log", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), logLevel, message));
+            bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), Level, message));
             bw.newLine();
             bw.close();
             fw.close();

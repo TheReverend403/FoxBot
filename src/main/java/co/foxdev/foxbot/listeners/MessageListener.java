@@ -18,7 +18,6 @@
 package co.foxdev.foxbot.listeners;
 
 import co.foxdev.foxbot.logger.BotLogger;
-import co.foxdev.foxbot.logger.LogLevel;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -26,6 +25,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +48,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            BotLogger.log(LogLevel.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
+            BotLogger.log(Level.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
 
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
             {
@@ -68,6 +68,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
             }
             return;
         }
-        BotLogger.log(LogLevel.INFO, String.format("MESSAGE: [%s (IGNORED)] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
+        BotLogger.log(Level.INFO, String.format("MESSAGE: [%s (IGNORED)] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
     }
 }

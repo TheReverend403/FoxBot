@@ -2,7 +2,6 @@ package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.logger.BotLogger;
-import co.foxdev.foxbot.logger.LogLevel;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 public class PingTask
 {
@@ -38,24 +38,24 @@ public class PingTask
             {
                 Socket socket;
 
-                BotLogger.log(LogLevel.INFO, "PINGTASK: Beginning ping task");
+                BotLogger.log(Level.INFO, "PINGTASK: Beginning ping task");
 
                 for (String url : foxbot.getConfig().getUrlsToPing())
                 {
-                    BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Attempting to ping %s", url));
+                    BotLogger.log(Level.INFO, String.format("PINGTASK: Attempting to ping %s", url));
 
                     try
                     {
                         socket = new Socket(InetAddress.getByName(url), 80);
                         socket.setSoTimeout(foxbot.getConfig().getTimeout());
                         socket.close();
-                        BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping succeeded for %s", url));
+                        BotLogger.log(Level.INFO, String.format("PINGTASK: Ping succeeded for %s", url));
 
                         for (String user : foxbot.getConfig().getUsersToAlert())
                         {
                             if (checkedHosts.contains(url))
                             {
-                                BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping failed for %s, alerting %s", url, user));
+                                BotLogger.log(Level.INFO, String.format("PINGTASK: Ping failed for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
                             }
                         }
@@ -76,7 +76,7 @@ public class PingTask
                         {
                             if (!checkedHosts.contains(url))
                             {
-                                BotLogger.log(LogLevel.INFO, String.format("PINGTASK: Ping succeeded for %s, alerting %s", url, user));
+                                BotLogger.log(Level.INFO, String.format("PINGTASK: Ping succeeded for %s, alerting %s", url, user));
                                 foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
