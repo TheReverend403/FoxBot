@@ -28,13 +28,15 @@ public class BotLogger
 
     public static void log(Level Level, String message)
     {
-        System.out.println(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), Level, message));
+        String logMessage = String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), Level, message);
+
+        System.out.println(logMessage);
 
         try
         {
             FileWriter fw = new FileWriter("foxbot.log", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(String.format("%s [%s] %s", sdf.format(Calendar.getInstance().getTimeInMillis()), Level, message));
+            bw.write(logMessage);
             bw.newLine();
             bw.close();
             fw.close();
