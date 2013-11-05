@@ -99,26 +99,30 @@ public class PluginManager
     private boolean runCustomCommand(String channel, String command)
     {
         File file = new File("data/custcmds/" + channel.substring(1) + "/" + command);
-        String message;
+        StringBuilder message = new StringBuilder();
 
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            while ((message = reader.readLine()) != null)
+            String line;
+
+            while ((line = reader.readLine()) != null)
             {
-                reader.close();
+                message.append(line);
             }
+            System.out.println(message.toString());
 
         }
         catch (IOException ex)
         {
+            ex.printStackTrace();
             return false;
         }
 
-        if (!message.isEmpty())
+        if (!message.toString().isEmpty())
         {
-            String[] lines = LINES_SPLIT.split(message);
+            String[] lines = LINES_SPLIT.split(message.toString());
 
             for (String line : lines)
             {

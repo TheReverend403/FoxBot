@@ -49,7 +49,7 @@ public class CommandSetCmd extends Command
 
                 for (int arg = 1; arg < args.length; arg++)
                 {
-                    builder.append(" ").append(args[arg]);
+                    builder.append(args[arg]).append(" ");
                 }
 
                 try

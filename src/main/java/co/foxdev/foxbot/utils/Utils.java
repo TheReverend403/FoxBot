@@ -163,9 +163,19 @@ public class Utils
         String filePath = "data/custcmds/" + channel.substring(1);
         File path = new File(filePath);
 
-        if (!path.mkdirs())
+        if (!path.exists() && !path.mkdirs())
         {
             throw new IOException();
+        }
+
+        File file = new File(filePath + "/" + command);
+
+        if (file.exists())
+        {
+            if (!file.delete())
+            {
+                throw new IOException();
+            }
         }
 
         FileWriter fw = new FileWriter(filePath + "/" + command);
