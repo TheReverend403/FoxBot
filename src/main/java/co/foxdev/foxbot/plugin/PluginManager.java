@@ -18,11 +18,13 @@
 package co.foxdev.foxbot.plugin;
 
 import co.foxdev.foxbot.logger.BotLogger;
+import org.apache.commons.lang3.Validate;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class PluginManager
     private final FoxBot foxbot;
 
     private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
+    private static final Pattern LINES_SPLIT = Pattern.compile("\\\\n");
     private final Map<String, Command> commandMap = new HashMap<>();
 
     public PluginManager(FoxBot foxbot)
@@ -59,7 +62,7 @@ public class PluginManager
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
 
-        if (command == null)
+        if (!runCustomCommand(event.getChannel().getName(), commandName) && command == null)
         {
             return false;
         }
@@ -91,5 +94,38 @@ public class PluginManager
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+
+    private boolean runCustomCommand(String channel, String command)
+    {
+        File file = new File("data/custcmds/" + channel.substring(1) + "/" + command);
+        String message;
+
+        try
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            while ((message = reader.readLine()) != null)
+            {
+                reader.close();
+            }
+
+        }
+        catch (IOException ex)
+        {
+            return false;
+        }
+
+        if (!message.isEmpty())
+        {
+            String[] lines = LINES_SPLIT.split(message);
+
+            for (String line : lines)
+            {
+                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + line);
+            }
+            return true;
+        }
+        return false;
     }
 }

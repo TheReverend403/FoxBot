@@ -27,6 +27,10 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 import co.foxdev.foxbot.FoxBot;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
@@ -152,6 +156,24 @@ public class Utils
         {
             return "";
         }
+    }
+
+    public void addCustomCommand(String channel, String command, String text) throws IOException
+    {
+        String filePath = "data/custcmds/" + channel.substring(1);
+        File path = new File(filePath);
+
+        if (!path.mkdirs())
+        {
+            throw new IOException();
+        }
+
+        FileWriter fw = new FileWriter(filePath + "/" + command);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        bw.write(text);
+        bw.close();
+        fw.close();
     }
 
     public void scheduleUnban(final Channel channel, final String hostmask, final int time)
