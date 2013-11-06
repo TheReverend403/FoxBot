@@ -113,7 +113,7 @@ public class PluginManager
                 {
                     message.append(line);
                 }
-                System.out.println(message.toString());
+                reader.close();
 
             }
             catch (IOException ex)
