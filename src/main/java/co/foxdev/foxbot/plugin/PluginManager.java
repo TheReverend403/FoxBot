@@ -101,34 +101,37 @@ public class PluginManager
         File file = new File("data/custcmds/" + channel.substring(1) + "/" + command);
         StringBuilder message = new StringBuilder();
 
-        try
+        if (file.exists())
         {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-
-            String line;
-
-            while ((line = reader.readLine()) != null)
+            try
             {
-                message.append(line);
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+
+                String line;
+
+                while ((line = reader.readLine()) != null)
+                {
+                    message.append(line);
+                }
+                System.out.println(message.toString());
+
             }
-            System.out.println(message.toString());
-
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            return false;
-        }
-
-        if (!message.toString().isEmpty())
-        {
-            String[] lines = LINES_SPLIT.split(message.toString());
-
-            for (String line : lines)
+            catch (IOException ex)
             {
-                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + line);
+                ex.printStackTrace();
+                return false;
             }
-            return true;
+
+            if (!message.toString().isEmpty())
+            {
+                String[] lines = LINES_SPLIT.split(message.toString());
+
+                for (String line : lines)
+                {
+                    foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + line);
+                }
+                return true;
+            }
         }
         return false;
     }
