@@ -69,12 +69,6 @@ public class FoxBot extends PircBotX
 
     private void start(String[] args)
     {
-        config = new Config(this);
-        zncConfig = new ZncConfig(this);
-        permissions = new PermissionManager(this);
-        pluginManager = new PluginManager(this);
-        utils = new Utils(this);
-
         File path = new File("data/custcmds");
 
         if (!path.exists() && !path.mkdirs())
@@ -84,6 +78,11 @@ public class FoxBot extends PircBotX
             return;
         }
 
+        config = new Config(this);
+        zncConfig = new ZncConfig(this);
+        permissions = new PermissionManager(this);
+        pluginManager = new PluginManager(this);
+        utils = new Utils(this);
         database = new Database(this);
         database.connect();
 

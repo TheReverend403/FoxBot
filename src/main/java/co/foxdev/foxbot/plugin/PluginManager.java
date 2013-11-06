@@ -98,7 +98,7 @@ public class PluginManager
 
     private boolean runCustomCommand(String channel, String command)
     {
-        File file = new File("data/custcmds/" + channel.substring(1) + "/" + command);
+        File file = new File(String.format("data/custcmds/%s/%s", channel.substring(1), command));
         StringBuilder message = new StringBuilder();
 
         if (file.exists())
@@ -114,7 +114,6 @@ public class PluginManager
                     message.append(line);
                 }
                 reader.close();
-
             }
             catch (IOException ex)
             {
