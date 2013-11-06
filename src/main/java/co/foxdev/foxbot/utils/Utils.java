@@ -163,27 +163,34 @@ public class Utils
         String filePath = "data/custcmds/" + channel.substring(1);
         File path = new File(filePath);
 
-        if (!path.exists() && !path.mkdirs())
+        try
         {
-            throw new IOException();
-        }
-
-        File file = new File(filePath + "/" + command);
-
-        if (file.exists())
-        {
-            if (!file.delete())
+            if (!path.exists() && !path.mkdirs())
             {
                 throw new IOException();
             }
+
+            File file = new File(filePath + "/" + command);
+
+            if (file.exists())
+            {
+                if (!file.delete())
+                {
+                    throw new IOException();
+                }
+            }
+
+            FileWriter fw = new FileWriter(filePath + "/" + command);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(text);
+            bw.close();
+            fw.close();
         }
-
-        FileWriter fw = new FileWriter(filePath + "/" + command);
-        BufferedWriter bw = new BufferedWriter(fw);
-
-        bw.write(text);
-        bw.close();
-        fw.close();
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     public void scheduleUnban(final Channel channel, final String hostmask, final int time)
