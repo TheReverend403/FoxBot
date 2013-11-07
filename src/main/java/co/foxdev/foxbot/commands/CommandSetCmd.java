@@ -45,11 +45,11 @@ public class CommandSetCmd extends Command
             if (!channel.getNormalUsers().contains(sender) && !channel.hasVoice(sender))
             {
                 String command = args[0];
-                StringBuilder builder = new StringBuilder();
+                StringBuilder builder = new StringBuilder(args[1]);
 
-                for (int arg = 1; arg < args.length; arg++)
+                for (int arg = 2; arg < args.length; arg++)
                 {
-                    builder.append(args[arg]).append(" ");
+                    builder.append(" ").append(args[arg]);
                 }
 
                 try
