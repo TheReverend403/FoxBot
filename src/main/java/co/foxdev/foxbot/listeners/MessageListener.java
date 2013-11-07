@@ -38,7 +38,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         this.foxbot = foxbot;
     }
 
-    private Pattern urlPattern = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
+    private static final Pattern URL_PATTERN = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
 
     public void onMessage(MessageEvent<FoxBot> event)
     {
@@ -55,7 +55,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
                 foxbot.getPluginManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.getConfig().getBotNick().length() + 2));
             }
 
-            Matcher matcher = urlPattern.matcher(message);
+            Matcher matcher = URL_PATTERN.matcher(message);
 
             if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
