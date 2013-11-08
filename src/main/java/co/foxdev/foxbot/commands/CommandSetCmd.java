@@ -58,6 +58,6 @@ public class CommandSetCmd extends Command
             foxbot.sendNotice(sender, String.format("Only channel half-ops and above can set custom commands!"));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssetcmd <command> <text>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssetcmd <command> <text|delete>", foxbot.getConfig().getCommandPrefix()));
     }
 }

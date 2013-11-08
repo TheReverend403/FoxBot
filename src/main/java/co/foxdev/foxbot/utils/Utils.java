@@ -177,7 +177,7 @@ public class Utils
                 BotLogger.log(Level.WARNING, "Error while deleting old command!");
             }
 
-            if (text.isEmpty() && file.delete())
+            if (text.equalsIgnoreCase("delete") && file.delete())
             {
                 BotLogger.log(Level.INFO, String.format("Command '%s' deleted for %s!", command, channel));
                 return false;
