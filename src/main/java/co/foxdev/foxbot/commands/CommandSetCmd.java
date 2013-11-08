@@ -39,6 +39,7 @@ public class CommandSetCmd extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
+        // Yes, this is intentional.
         if (args.length > 1)
         {
             // Ops should be able to add custom commands for their own channels.
