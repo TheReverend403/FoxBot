@@ -158,7 +158,7 @@ public class Utils
         }
     }
 
-    public void addCustomCommand(String channel, String command, String text) throws IOException
+    public boolean addCustomCommand(String channel, String command, String text)
     {
         String filePath = "data/custcmds/" + channel.substring(1);
         File path = new File(filePath);
@@ -167,17 +167,20 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-                throw new IOException();
+                BotLogger.log(Level.WARNING, "Error while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
 
-            if (file.exists())
+            if (file.exists() && !file.delete())
             {
-                if (!file.delete())
-                {
-                    throw new IOException();
-                }
+                BotLogger.log(Level.WARNING, "Error while deleting old command!");
+            }
+
+            if (text.isEmpty() && file.delete())
+            {
+                BotLogger.log(Level.INFO, String.format("Command '%s' deleted for %s!", command, channel));
+                return false;
             }
 
             FileWriter fw = new FileWriter(filePath + "/" + command);
@@ -186,11 +189,13 @@ public class Utils
             bw.write(text);
             bw.close();
             fw.close();
+            BotLogger.log(Level.INFO, String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
         }
-        catch (Exception ex)
+        catch (IOException ex)
         {
             ex.printStackTrace();
         }
+        return true;
     }
 
     public void scheduleUnban(final Channel channel, final String hostmask, final int time)
