@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.utils;
 
+import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.logger.BotLogger;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
@@ -25,7 +26,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
-import co.foxdev.foxbot.FoxBot;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -86,6 +86,7 @@ public class Utils
                     title = line.split("<title>")[1].split("</title>")[0];
                 }
             }
+            client.close();
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ex)
