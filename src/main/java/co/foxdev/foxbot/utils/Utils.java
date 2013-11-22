@@ -50,7 +50,7 @@ public class Utils
         this.foxbot = foxbot;
     }
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>(.*)</title>", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>.*</title>", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
     public String parseChatUrl(String stringToParse, User sender)
     {
