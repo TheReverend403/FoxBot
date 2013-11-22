@@ -70,11 +70,13 @@ public class Utils
 
             if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
             {
+                client.close();
                 return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
             }
 
             if (!contentType.contains("html"))
             {
+                client.close();
                 return colourise(String.format("(%s's URL) &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), contentType, size));
             }
 
