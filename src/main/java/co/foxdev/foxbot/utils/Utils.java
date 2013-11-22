@@ -56,7 +56,11 @@ public class Utils
     {
         try
         {
-            AsyncHttpClientConfig clientConf = new AsyncHttpClientConfig.Builder().setUserAgent("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36").setRequestTimeoutInMs(3000).build();
+            AsyncHttpClientConfig clientConf = new AsyncHttpClientConfig.Builder()
+                    .setUserAgent("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36")
+                    .setRequestTimeoutInMs(3000)
+                    .setFollowRedirects(true)
+                    .build();
             AsyncHttpClient client = new AsyncHttpClient(clientConf);
             Future<Response> future = client.prepareGet(stringToParse).setFollowRedirects(true).execute();
             Response response = future.get();
