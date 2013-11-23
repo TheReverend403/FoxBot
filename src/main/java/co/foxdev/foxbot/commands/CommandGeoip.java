@@ -31,6 +31,6 @@ public class CommandGeoip extends Command
             foxbot.getLookupService().close();
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sdelay <number of milliseconds>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
     }
 }
