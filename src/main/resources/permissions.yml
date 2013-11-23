@@ -13,6 +13,8 @@ default:
     - command.wtc
     - command.imgur
     - command.devoice
+    - command.resolve
+    - command.geoip
 # Permissions granted to specific users.
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching.

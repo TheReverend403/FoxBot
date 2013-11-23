@@ -17,23 +17,24 @@
 
 package co.foxdev.foxbot;
 
-import co.foxdev.foxbot.logger.BotLogger;
-import co.foxdev.foxbot.utils.PingTask;
+import co.foxdev.foxbot.commands.Command;
+import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
+import co.foxdev.foxbot.database.Database;
+import co.foxdev.foxbot.listeners.MessageListener;
+import co.foxdev.foxbot.listeners.UserListener;
+import co.foxdev.foxbot.listeners.spamhandler.SpamHandler;
+import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.permissions.PermissionManager;
+import co.foxdev.foxbot.plugin.PluginManager;
+import co.foxdev.foxbot.utils.PingTask;
+import co.foxdev.foxbot.utils.Utils;
+import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
-import co.foxdev.foxbot.commands.Command;
-import co.foxdev.foxbot.config.Config;
-import co.foxdev.foxbot.database.Database;
-import co.foxdev.foxbot.listeners.MessageListener;
-import co.foxdev.foxbot.listeners.UserListener;
-import co.foxdev.foxbot.permissions.PermissionManager;
-import co.foxdev.foxbot.plugin.PluginManager;
-import co.foxdev.foxbot.listeners.spamhandler.SpamHandler;
-import co.foxdev.foxbot.utils.Utils;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
@@ -58,6 +59,7 @@ public class FoxBot extends PircBotX
     private static PluginManager pluginManager;
     private static Utils utils;
     private static Database database;
+    private static LookupService lookupService;
     private static Reflections reflections = new Reflections("co.foxdev");
     private static BackgroundListenerManager blm = new BackgroundListenerManager();
 
@@ -85,6 +87,15 @@ public class FoxBot extends PircBotX
         utils = new Utils(this);
         database = new Database(this);
         database.connect();
+
+        try
+        {
+            lookupService = new LookupService(new File("data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
 
         registerListeners();
         registerCommands();
@@ -219,5 +230,10 @@ public class FoxBot extends PircBotX
     public Database getDatabase()
     {
         return database;
+    }
+
+    public LookupService getLookupService()
+    {
+        return lookupService;
     }
 }
