@@ -27,8 +27,7 @@ public class CommandGeoip extends Command
             String country = foxbot.getLookupService().getLocation(ip).countryName;
             String city = foxbot.getLookupService().getLocation(ip).city;
 
-            channel.sendMessage(String.format("(%s) &2GeoIP info for %s:&r %s%s", foxbot.getUtils().munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country));
-            foxbot.getLookupService().close();
+            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", foxbot.getUtils().munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
