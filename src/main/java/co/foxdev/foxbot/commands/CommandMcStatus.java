@@ -14,6 +14,13 @@ public class CommandMcStatus extends Command
     private final FoxBot foxbot;
     private String online = Colors.DARK_GREEN + "✔";
     private String offline = Colors.RED + "✘";
+    private String[] urls = new String[]{
+            "minecraft.net",
+            "login.minecraft.net",
+            "session.minecraft.net",
+            "skins.minecraft.net",
+            "realms.minecraft.net"
+    };
 
     public CommandMcStatus(FoxBot foxbot)
     {
@@ -29,21 +36,14 @@ public class CommandMcStatus extends Command
 
         if (args.length == 0)
         {
-            StringBuilder statusString = new StringBuilder("(%s) ");
-
-            String[] urls = new String[]{
-                    "minecraft.net",
-                    "login.minecraft.net",
-                    "session.minecraft.net",
-                    "skins.minecraft.net",
-                    "realms.minecraft.net"
-            };
+            StringBuilder statusString = new StringBuilder(String.format("(%s) ", foxbot.getUtils().munge(sender.getNick())));
 
             for (String url : urls)
             {
                 try
                 {
                     Socket socket = new Socket(InetAddress.getByName(url), 80);
+                    socket.setSoTimeout(5000);
                     statusString.append("| ").append(url).append(" ").append(online).append(" ");
                     socket.close();
                 }
@@ -53,6 +53,7 @@ public class CommandMcStatus extends Command
                 }
             }
             statusString.append("|");
+            channel.sendMessage(statusString.toString());
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));
