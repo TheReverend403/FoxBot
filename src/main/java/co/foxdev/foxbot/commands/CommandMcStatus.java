@@ -12,8 +12,8 @@ import java.net.Socket;
 public class CommandMcStatus extends Command
 {
     private final FoxBot foxbot;
-    private String online = Colors.DARK_GREEN + "✔";
-    private String offline = Colors.RED + "✘";
+    private String online = Colors.DARK_GREEN + "✔" + Colors.NORMAL;
+    private String offline = Colors.RED + "✘" + Colors.NORMAL;
     private String[] urls = new String[]{
             "minecraft.net",
             "login.minecraft.net",
@@ -43,7 +43,7 @@ public class CommandMcStatus extends Command
                 try
                 {
                     Socket socket = new Socket(InetAddress.getByName(url), 80);
-                    socket.setSoTimeout(5000);
+                    socket.setSoTimeout(500);
                     statusString.append("| ").append(url).append(" ").append(online).append(" ");
                     socket.close();
                 }
