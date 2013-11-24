@@ -15,6 +15,7 @@ default:
     - command.devoice
     - command.resolve
     - command.geoip
+    - command.mcstatus
 # Permissions granted to specific users.
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching.
