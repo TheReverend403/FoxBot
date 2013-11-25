@@ -40,6 +40,7 @@ public class CommandCalc extends Command
             catch (ScriptException ex)
             {
                 channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cNot a valid expression!", foxbot.getUtils().munge(sender.getNick()))));
+                return;
             }
             channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Result for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), expression.toString().replace(" ", ""), result)));
             return;
