@@ -37,6 +37,8 @@ import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 
 import javax.net.ssl.SSLSocketFactory;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -60,6 +62,7 @@ public class FoxBot extends PircBotX
     private static Utils utils;
     private static Database database;
     private static LookupService lookupService;
+    private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
     private static Reflections reflections = new Reflections("co.foxdev");
     private static BackgroundListenerManager blm = new BackgroundListenerManager();
 
@@ -235,5 +238,10 @@ public class FoxBot extends PircBotX
     public LookupService getLookupService()
     {
         return lookupService;
+    }
+
+    public ScriptEngine getScriptEngine()
+    {
+        return scriptEngine;
     }
 }
