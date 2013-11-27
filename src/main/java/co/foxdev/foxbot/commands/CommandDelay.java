@@ -17,9 +17,9 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.FoxBot;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
-import co.foxdev.foxbot.FoxBot;
 
 public class CommandDelay extends Command
 {
@@ -40,7 +40,7 @@ public class CommandDelay extends Command
         {
             try
             {
-                foxbot.setMessageDelay(Long.valueOf(args[0]));
+                foxbot.setMessageDelay(Long.parseLong(args[0]));
                 foxbot.sendNotice(sender, String.format("Message delay set to %sms", foxbot.getMessageDelay()));
             }
             catch (NumberFormatException ex)
