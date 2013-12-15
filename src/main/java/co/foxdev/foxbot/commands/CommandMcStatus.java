@@ -20,10 +20,7 @@ public class CommandMcStatus extends Command
             "session.minecraft.net",
             "skins.minecraft.net",
             "realms.minecraft.net",
-            "account.mojang.com",
-            "auth.mojang.com",
-            "authserver.mojang.com",
-            "sessionserver.mojang.com"
+            "account.mojang.com"
     };
 
     public CommandMcStatus(FoxBot foxbot)
