@@ -48,7 +48,7 @@ import java.util.logging.Logger;
  *
  * @author TheReverend403 (Lee Watson)
  * @website http://revthefox.co.uk
- * @repo https://github.com/TheReverend403/FoxBot
+ * @repo https://github.com/FoxDev/FoxBot
  */
 
 public class FoxBot extends PircBotX
@@ -135,7 +135,6 @@ public class FoxBot extends PircBotX
         {
             if (config.getServerSsl())
             {
-
                 BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s (SSL)", this.getConfig().getServerAddress()));
                 this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
@@ -157,6 +156,7 @@ public class FoxBot extends PircBotX
 
         BotLogger.log(Level.INFO, String.format("CONNECT: Connected to %s", this.getConfig().getServerAddress()));
         BotLogger.log(Level.INFO, String.format("STARTUP: Joining channels"));
+
         for (String channel : config.getChannels())
         {
             this.joinChannel(channel);
