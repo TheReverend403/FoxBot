@@ -23,7 +23,6 @@ import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.database.Database;
 import co.foxdev.foxbot.listeners.MessageListener;
 import co.foxdev.foxbot.listeners.UserListener;
-import co.foxdev.foxbot.listeners.spamhandler.SpamHandler;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.plugin.PluginManager;
@@ -33,7 +32,6 @@ import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
-import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import org.reflections.Reflections;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -64,7 +62,6 @@ public class FoxBot extends PircBotX
     private static LookupService lookupService;
     private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
     private static Reflections reflections = new Reflections("co.foxdev");
-    private static BackgroundListenerManager blm = new BackgroundListenerManager();
 
     public static void main(String[] args)
     {
@@ -169,19 +166,9 @@ public class FoxBot extends PircBotX
     private void registerListeners()
     {
         BotLogger.log(Level.INFO, String.format("STARTUP: Registering MessageListener"));
-        blm.addListener(new MessageListener(this), true);
-        BotLogger.log(Level.INFO, String.format("STARTUP: Registering UserListener"));
-        blm.addListener(new UserListener(this), true);
-        BotLogger.log(Level.INFO, String.format("STARTUP: Registering SpamHandler"));
-        blm.addListener(new SpamHandler(this), true);
-
-        this.setListenerManager(blm);
-
-        /*
         this.getListenerManager().addListener(new MessageListener(this));
+        BotLogger.log(Level.INFO, String.format("STARTUP: Registering UserListener"));
         this.getListenerManager().addListener(new UserListener(this));
-        this.getListenerManager().addListener(new SpamHandler(this));
-        */
     }
 
     private void registerCommands()
