@@ -30,9 +30,9 @@ public class CommandMcPing extends Command
 			String host = args[0];
 			int port = 25565;
 
-			if (StringUtils.isNumeric(args[1]))
+			if (args.length == 2 && StringUtils.isNumeric(args[1]))
 			{
-				port = Integer.parseInt(args[0]);
+				port = Integer.parseInt(args[1]);
 			}
 
 			MinecraftPingReply mcping;
