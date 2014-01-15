@@ -4,8 +4,7 @@ import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.MinecraftPing;
 import co.foxdev.foxbot.utils.MinecraftPingReply;
 import org.apache.commons.lang3.StringUtils;
-import org.pircbotx.Channel;
-import org.pircbotx.User;
+import org.pircbotx.*;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class CommandMcPing extends Command
 			String motd = mcping.getMotd();
 			String players = mcping.getOnlinePlayers() + "/" + mcping.getMaxPlayers();
 			String version = mcping.getVersion();
-			String finalPing = String.format("%s - %s - MC %s", motd, players, version);
+			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
 
 			channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) %s", sender.getNick(), finalPing), '\u00A7'));
 			return;
