@@ -137,7 +137,11 @@ public class Utils
 		                     .replace(colourChar + "f", Colors.WHITE)
 		                     .replace(colourChar + "r", Colors.NORMAL)
 		                     .replace(colourChar + "l", Colors.BOLD)
-		                     .replace(colourChar + "n", Colors.UNDERLINE);
+		                     .replace(colourChar + "n", Colors.UNDERLINE)
+		                     .replace(colourChar + "m", "")
+		                     .replace(colourChar + "k", "")
+		                     .replace(colourChar + "o", "");
+
 	}
 
     public String getPrefix(User user, Channel channel)

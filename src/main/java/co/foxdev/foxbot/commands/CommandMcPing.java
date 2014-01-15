@@ -42,7 +42,7 @@ public class CommandMcPing extends Command
 			}
 			catch (IOException ex)
 			{
-				channel.sendMessage(String.format("(%s) Looks like %s:%s isn't up. :<", sender.getNick(), host, port));
+				channel.sendMessage(String.format("(%s) Looks like %s:%s isn't up.", foxbot.getUtils().munge(sender.getNick()), host, port));
 				return;
 			}
 
