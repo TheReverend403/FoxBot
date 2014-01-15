@@ -57,7 +57,7 @@ public class Utils
         try
         {
             AsyncHttpClientConfig clientConf = new AsyncHttpClientConfig.Builder()
-                    .setUserAgent("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36")
+                    .setUserAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
                     .setRequestTimeoutInMs(3000)
                     .setFollowRedirects(true)
                     .build();
