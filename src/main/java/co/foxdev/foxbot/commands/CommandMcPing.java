@@ -51,7 +51,7 @@ public class CommandMcPing extends Command
 			String version = mcping.getVersion();
 			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
 
-			channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) %s", sender.getNick(), finalPing), '\u00A7'));
+			channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) %s", foxbot.getUtils().munge(sender.getNick()), finalPing), '\u00A7'));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcping <host> [port]", foxbot.getConfig().getCommandPrefix()));
