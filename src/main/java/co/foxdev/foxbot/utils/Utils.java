@@ -114,28 +114,31 @@ public class Utils
 
     public String colourise(String stringToColour)
     {
-        char colourChar = foxbot.getConfig().getColourChar();
-
-        return stringToColour.replace(colourChar + "0", Colors.BLACK)
-                .replace(colourChar + "1", Colors.DARK_BLUE)
-                .replace(colourChar + "2", Colors.DARK_GREEN)
-                .replace(colourChar + "3", Colors.TEAL)
-                .replace(colourChar + "4", Colors.RED)
-                .replace(colourChar + "5", Colors.PURPLE)
-                .replace(colourChar + "6", Colors.BROWN)
-                .replace(colourChar + "7", Colors.LIGHT_GRAY)
-                .replace(colourChar + "8", Colors.DARK_GRAY)
-                .replace(colourChar + "9", Colors.BLUE)
-                .replace(colourChar + "a", Colors.GREEN)
-                .replace(colourChar + "b", Colors.CYAN)
-                .replace(colourChar + "c", Colors.RED)
-                .replace(colourChar + "d", Colors.MAGENTA)
-                .replace(colourChar + "e", Colors.YELLOW)
-                .replace(colourChar + "f", Colors.WHITE)
-                .replace(colourChar + "r", Colors.NORMAL)
-                .replace(colourChar + "l", Colors.BOLD)
-                .replace(colourChar + "n", Colors.UNDERLINE);
+		return colourise(stringToColour, '&');
     }
+
+	public String colourise(String stringToColour, char colourChar)
+	{
+		return stringToColour.replace(colourChar + "0", Colors.BLACK)
+		                     .replace(colourChar + "1", Colors.DARK_BLUE)
+		                     .replace(colourChar + "2", Colors.DARK_GREEN)
+		                     .replace(colourChar + "3", Colors.TEAL)
+		                     .replace(colourChar + "4", Colors.RED)
+		                     .replace(colourChar + "5", Colors.PURPLE)
+		                     .replace(colourChar + "6", Colors.BROWN)
+		                     .replace(colourChar + "7", Colors.LIGHT_GRAY)
+		                     .replace(colourChar + "8", Colors.DARK_GRAY)
+		                     .replace(colourChar + "9", Colors.BLUE)
+		                     .replace(colourChar + "a", Colors.GREEN)
+		                     .replace(colourChar + "b", Colors.CYAN)
+		                     .replace(colourChar + "c", Colors.RED)
+		                     .replace(colourChar + "d", Colors.MAGENTA)
+		                     .replace(colourChar + "e", Colors.YELLOW)
+		                     .replace(colourChar + "f", Colors.WHITE)
+		                     .replace(colourChar + "r", Colors.NORMAL)
+		                     .replace(colourChar + "l", Colors.BOLD)
+		                     .replace(colourChar + "n", Colors.UNDERLINE);
+	}
 
     public String getPrefix(User user, Channel channel)
     {
