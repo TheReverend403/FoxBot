@@ -50,17 +50,11 @@ public class CommandRandomImgur extends Command
 
         if (args.length == 0)
         {
-            String link;
-            for (; ; )
+            String link = "";
+
+            while (link.equals(""))
             {
                 link = generateLink();
-
-                if (!link.equals(""))
-                {
-                    // I feel this might be necessary...
-                    System.gc();
-                    break;
-                }
             }
 
             if (!link.equals("exception"))
