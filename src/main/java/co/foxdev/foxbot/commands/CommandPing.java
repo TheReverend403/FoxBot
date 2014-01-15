@@ -23,9 +23,7 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 public class CommandPing extends Command
 {
@@ -65,9 +63,9 @@ public class CommandPing extends Command
             try
             {
                 port = args.length == 2 ? Integer.parseInt(args[1]) : port;
+	            Socket socket = new Socket();
                 long start = System.currentTimeMillis();
-                Socket socket = new Socket(InetAddress.getByName(host), port);
-                socket.setSoTimeout(1000);
+	            socket.connect(new InetSocketAddress(host, port), 500);
                 long end = System.currentTimeMillis();
 
                 socket.close();

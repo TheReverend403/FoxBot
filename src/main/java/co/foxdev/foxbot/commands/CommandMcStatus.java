@@ -6,8 +6,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.net.InetAddress;
-import java.net.Socket;
+import java.net.*;
 
 public class CommandMcStatus extends Command
 {
@@ -43,8 +42,8 @@ public class CommandMcStatus extends Command
             {
                 try
                 {
-                    Socket socket = new Socket(InetAddress.getByName(url), 80);
-                    socket.setSoTimeout(500);
+                    Socket socket = new Socket();
+	                socket.connect(new InetSocketAddress(url, 80), 500);
                     statusString.append("| ").append(url).append(" ").append(online).append(" ");
                     socket.close();
                 }

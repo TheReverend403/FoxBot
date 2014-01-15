@@ -60,7 +60,7 @@ public class MinecraftPing {
 		this.validate(port, "Port cannot be null.");
 
 		final Socket socket = new Socket();
-		socket.connect(new InetSocketAddress(hostname, port), 3000);
+		socket.connect(new InetSocketAddress(hostname, port), 1000);
 
 		final DataInputStream in = new DataInputStream(socket.getInputStream());
 		final DataOutputStream out = new DataOutputStream(socket.getOutputStream());
