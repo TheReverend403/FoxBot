@@ -58,8 +58,6 @@ misc:
     debug: true
     # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
     command-prefix: '.'
-    # This is the character that will be used to add colour to messages, ie, if you set this to +, to add red to a message, you would use "+chello".
-    colour-char: '&'
     # Should the bot accept invites from users with bot.invite?
     auto-join-on-invite: true
     # Should the bot rejoin a channel after being kicked?
