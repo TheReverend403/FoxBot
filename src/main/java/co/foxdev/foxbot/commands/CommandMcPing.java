@@ -46,7 +46,7 @@ public class CommandMcPing extends Command
 				return;
 			}
 
-			String motd = mcping.getMotd().replace("\n", "");
+			String motd = mcping.getMotd().replace("\n", " ");
 			String players = mcping.getOnlinePlayers() + "/" + mcping.getMaxPlayers();
 			String version = mcping.getVersion();
 			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
