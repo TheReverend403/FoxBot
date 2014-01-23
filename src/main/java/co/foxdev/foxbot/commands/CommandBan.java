@@ -64,7 +64,7 @@ public class CommandBan extends Command
                 return;
             }
 
-            String hostmask = "*" + target.getHostmask();
+            String hostmask = "*!*@*" + target.getHostmask();
 
             StringBuilder reason = new StringBuilder(args[1]);
 
