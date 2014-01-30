@@ -67,13 +67,13 @@ public class CommandRandomImgur extends Command
     private String generateLink()
     {
         String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
-	    Connection.Response response;
 
         try
         {
-	        Connection conn = Jsoup.connect(imgurLink).timeout(300).followRedirects(true);
-            response = conn.execute();
+	        // We're not trying to get content, we're just connecting until we don't 404.
+	        Connection.Response response = Jsoup.connect(imgurLink).timeout(300).followRedirects(true).execute();
         }
+        // Invalid link? Try again.
         catch (HttpStatusException ex)
         {
 	        return "";
@@ -83,10 +83,6 @@ public class CommandRandomImgur extends Command
 		    return "exception";
 	    }
 
-        if (response.statusCode() != 404)
-        {
-            return imgurLink;
-        }
-        return "";
+	    return imgurLink;
     }
 }
