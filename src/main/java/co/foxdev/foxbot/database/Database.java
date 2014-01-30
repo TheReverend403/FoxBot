@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.database;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
