@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
@@ -59,7 +60,7 @@ public class CommandInsult extends Command
             catch (Exception ex)
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick())));
+                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
                 return;
             }
 

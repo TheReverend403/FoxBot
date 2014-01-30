@@ -1,6 +1,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -39,10 +40,10 @@ public class CommandCalc extends Command
             }
             catch (ScriptException ex)
             {
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cNot a valid expression!", foxbot.getUtils().munge(sender.getNick()))));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &cNot a valid expression!", Utils.munge(sender.getNick()))));
                 return;
             }
-            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Result for %s:&r %s", foxbot.getUtils().munge(sender.getNick()), expression.toString().replace(" ", ""), result)));
+            channel.sendMessage(Utils.colourise(String.format("(%s) &2Result for %s:&r %s", Utils.munge(sender.getNick()), expression.toString().replace(" ", ""), result)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %scalc <expression>", foxbot.getConfig().getCommandPrefix()));

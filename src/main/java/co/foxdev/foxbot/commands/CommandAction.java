@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -64,12 +65,12 @@ public class CommandAction extends Command
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.sendAction(args[0], foxbot.getUtils().colourise(message.toString()));
+                    foxbot.sendAction(args[0], Utils.colourise(message.toString()));
                     foxbot.partChannel(foxbot.getChannel(args[0]));
                     foxbot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                foxbot.sendAction(args[0], foxbot.getUtils().colourise(message.toString()));
+                foxbot.sendAction(args[0], Utils.colourise(message.toString()));
                 foxbot.sendNotice(sender, String.format("Action sent to %s", args[0]));
                 return;
             }
@@ -83,7 +84,7 @@ public class CommandAction extends Command
                     message.append(" ").append(args[arg]);
                 }
             }
-            foxbot.sendAction(channel, foxbot.getUtils().colourise(message.toString()));
+            foxbot.sendAction(channel, Utils.colourise(message.toString()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));

@@ -39,14 +39,7 @@ import java.util.logging.Logger;
 
 public class Utils
 {
-    private final FoxBot foxbot;
-
-    public Utils(FoxBot foxbot)
-    {
-        this.foxbot = foxbot;
-    }
-
-    public String parseChatUrl(String stringToParse, User sender)
+    public static String parseChatUrl(String stringToParse, User sender)
     {
         try
         {
@@ -83,22 +76,22 @@ public class Utils
         catch (Exception ex)
         {
             BotLogger.log(Level.WARNING, "Exception occurred while parsing chat URL");
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "null";
     }
 
-    public String munge(String stringToMunge)
+    public static String munge(String stringToMunge)
     {
-        return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
+        return FoxBot.getInstance().getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
     }
 
-    public String colourise(String stringToColour)
+    public static String colourise(String stringToColour)
     {
 		return colourise(stringToColour, '&');
     }
 
-	public String colourise(String stringToColour, char colourChar)
+	public static String colourise(String stringToColour, char colourChar)
 	{
 		return stringToColour.replace(colourChar + "0", Colors.BLACK)
 		                     .replace(colourChar + "1", Colors.DARK_BLUE)
@@ -125,7 +118,7 @@ public class Utils
 
 	}
 
-    public String getPrefix(User user, Channel channel)
+    public static String getPrefix(User user, Channel channel)
     {
         if (channel.isOwner(user))
         {
@@ -153,7 +146,7 @@ public class Utils
         }
     }
 
-    public boolean addCustomCommand(String channel, String command, String text)
+    public static boolean addCustomCommand(String channel, String command, String text)
     {
         String filePath = "data/custcmds/" + channel.substring(1);
         File path = new File(filePath);
@@ -196,7 +189,7 @@ public class Utils
         return true;
     }
 
-    public void scheduleUnban(final Channel channel, final String hostmask, final int time)
+    public static void scheduleUnban(final Channel channel, final String hostmask, final int time)
     {
         new Timer().schedule(
                 new TimerTask()
@@ -204,14 +197,14 @@ public class Utils
                     @Override
                     public void run()
                     {
-                        foxbot.unBan(channel, hostmask);
+	                    FoxBot.getInstance().unBan(channel, hostmask);
                     }
                 },
                 TimeUnit.SECONDS.toMillis(time)
         );
     }
 
-    public void scheduleModeRemove(final Channel channel, final String hostmask, final String mode, final int time)
+    public static void scheduleModeRemove(final Channel channel, final String hostmask, final String mode, final int time)
     {
         new Timer().schedule(
                 new TimerTask()
@@ -219,7 +212,7 @@ public class Utils
                     @Override
                     public void run()
                     {
-                        foxbot.setMode(channel, "-" + mode + " " + hostmask);
+	                    FoxBot.getInstance().setMode(channel, "-" + mode + " " + hostmask);
                     }
                 },
                 TimeUnit.SECONDS.toMillis(time)

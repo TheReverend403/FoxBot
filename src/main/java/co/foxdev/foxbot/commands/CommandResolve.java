@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import org.xbill.DNS.*;
@@ -66,7 +67,7 @@ public class CommandResolve extends Command
 
                 if (records == null || records.length == 0)
                 {
-                    channel.sendMessage(String.format("(%s) No records found for %s", foxbot.getUtils().munge(sender.getNick()), host));
+                    channel.sendMessage(String.format("(%s) No records found for %s", Utils.munge(sender.getNick()), host));
                     return;
                 }
 
@@ -75,8 +76,8 @@ public class CommandResolve extends Command
                     ARecord aRecord = (ARecord) record;
                     PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aRecord.getAddress()), aRecord.getDClass(), aRecord.getTTL(), aRecord.getName());
 
-                    channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2A record for %s:&r %s. %s IN %s", foxbot.getUtils().munge(sender.getNick()), host, host, aRecord.getType(), aRecord.getAddress()).replace("/", "")));
-                    channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
+                    channel.sendMessage(Utils.colourise(String.format("(%s) &2A record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aRecord.getType(), aRecord.getAddress()).replace("/", "")));
+                    channel.sendMessage(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
                 }
                 return;
             }
@@ -86,8 +87,8 @@ public class CommandResolve extends Command
                 AAAARecord aaaaRecord = (AAAARecord) record;
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
 
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2AAAA record for %s:&r %s. %s IN %s", foxbot.getUtils().munge(sender.getNick()), host, host, aaaaRecord.getType(), aaaaRecord.getAddress()).replace("/", "")));
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", foxbot.getUtils().munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &2AAAA record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aaaaRecord.getType(), aaaaRecord.getAddress()).replace("/", "")));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
             }
             return;
         }

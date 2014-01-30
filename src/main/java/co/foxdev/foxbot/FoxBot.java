@@ -53,11 +53,11 @@ import java.util.logging.Logger;
 
 public class FoxBot extends PircBotX
 {
+	private static FoxBot instance;
     private static Config config;
     private static PermissionManager permissions;
     private static ZncConfig zncConfig;
     private static PluginManager pluginManager;
-    private static Utils utils;
     private static Database database;
     private static LookupService lookupService;
     private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
@@ -71,6 +71,7 @@ public class FoxBot extends PircBotX
 
     private void start(String[] args)
     {
+	    instance = this;
         File path = new File("data/custcmds");
 
         if (!path.exists() && !path.mkdirs())
@@ -84,7 +85,6 @@ public class FoxBot extends PircBotX
         zncConfig = new ZncConfig(this);
         permissions = new PermissionManager(this);
         pluginManager = new PluginManager(this);
-        utils = new Utils(this);
         database = new Database(this);
         database.connect();
 
@@ -212,11 +212,6 @@ public class FoxBot extends PircBotX
         return pluginManager;
     }
 
-    public Utils getUtils()
-    {
-        return utils;
-    }
-
     public Database getDatabase()
     {
         return database;
@@ -231,4 +226,9 @@ public class FoxBot extends PircBotX
     {
         return scriptEngine;
     }
+
+	public static FoxBot getInstance()
+	{
+		return instance;
+	}
 }

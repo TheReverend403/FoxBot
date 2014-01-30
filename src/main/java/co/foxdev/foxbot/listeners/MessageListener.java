@@ -18,6 +18,7 @@
 package co.foxdev.foxbot.listeners;
 
 import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -48,7 +49,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            BotLogger.log(Level.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
+            BotLogger.log(Level.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), Utils.getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
 
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
             {
@@ -59,7 +60,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
             if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
-                message = foxbot.getUtils().parseChatUrl(matcher.group(1), user);
+                message = Utils.parseChatUrl(matcher.group(1), user);
 
                 if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
                 {
@@ -68,6 +69,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
             }
             return;
         }
-        BotLogger.log(Level.INFO, String.format("MESSAGE: [%s (IGNORED)] <%s%s> %s", channel.getName(), foxbot.getUtils().getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
+        BotLogger.log(Level.INFO, String.format("MESSAGE: [%s (IGNORED)] <%s%s> %s", channel.getName(), Utils.getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
     }
 }

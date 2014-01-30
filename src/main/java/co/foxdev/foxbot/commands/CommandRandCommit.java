@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
@@ -53,11 +54,11 @@ public class CommandRandCommit extends Command
             catch (Exception ex)
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
                 return;
             }
 
-            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Random commit message: &r%s", foxbot.getUtils().munge(sender.getNick()), commitMessage)));
+            channel.sendMessage(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));

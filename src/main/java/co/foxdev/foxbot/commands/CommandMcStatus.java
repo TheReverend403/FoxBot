@@ -1,6 +1,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -36,7 +37,7 @@ public class CommandMcStatus extends Command
 
         if (args.length == 0)
         {
-            StringBuilder statusString = new StringBuilder(String.format("(%s) ", foxbot.getUtils().munge(sender.getNick())));
+            StringBuilder statusString = new StringBuilder(String.format("(%s) ", Utils.munge(sender.getNick())));
 
             for (String url : urls)
             {

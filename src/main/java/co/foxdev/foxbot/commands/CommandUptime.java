@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -55,7 +56,7 @@ public class CommandUptime extends Command
                     long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
                     long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
 
-                    channel.sendMessage(foxbot.getUtils().colourise(String.format("&2System uptime: &r%s days %s hours %s minutes %s seconds", day, hours, minute, seconds)));
+                    channel.sendMessage(Utils.colourise(String.format("&2System uptime: &r%s days %s hours %s minutes %s seconds", day, hours, minute, seconds)));
                 }
                 catch (FileNotFoundException ex)
                 {

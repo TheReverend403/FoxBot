@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
@@ -48,7 +49,7 @@ public class CommandTell extends Command
                 {
                     for (String tell : tells)
                     {
-                        foxbot.sendNotice(sender, foxbot.getUtils().colourise(tell));
+                        foxbot.sendNotice(sender, Utils.colourise(tell));
                     }
                     return;
                 }

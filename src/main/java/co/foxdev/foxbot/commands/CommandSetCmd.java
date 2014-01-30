@@ -52,7 +52,7 @@ public class CommandSetCmd extends Command
                 {
                     builder.append(" ").append(args[arg]);
                 }
-                foxbot.sendNotice(sender, String.format("Command '%s' %s for %s", command,foxbot.getUtils().addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted" , channel.getName()));
+                foxbot.sendNotice(sender, String.format("Command '%s' %s for %s", command, Utils.addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted" , channel.getName()));
                 return;
             }
             foxbot.sendNotice(sender, String.format("Only channel half-ops and above can set custom commands!"));

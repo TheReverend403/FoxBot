@@ -1,6 +1,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -27,7 +28,7 @@ public class CommandGeoip extends Command
             String country = foxbot.getLookupService().getLocation(ip).countryName;
             String city = foxbot.getLookupService().getLocation(ip).city;
 
-            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", foxbot.getUtils().munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
+            channel.sendMessage(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));

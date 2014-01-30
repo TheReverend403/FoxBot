@@ -1,8 +1,8 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.utils.MinecraftPing;
-import co.foxdev.foxbot.utils.MinecraftPingReply;
+import co.foxdev.foxbot.utils.*;
+import co.foxdev.foxbot.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.*;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -42,7 +42,7 @@ public class CommandMcPing extends Command
 			}
 			catch (IOException ex)
 			{
-				channel.sendMessage(String.format("(%s) Looks like %s:%s isn't up.", foxbot.getUtils().munge(sender.getNick()), host, port));
+				channel.sendMessage(String.format("(%s) Looks like %s:%s isn't up.", Utils.munge(sender.getNick()), host, port));
 				return;
 			}
 
@@ -51,7 +51,7 @@ public class CommandMcPing extends Command
 			String version = mcping.getVersion();
 			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
 
-			channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) %s", foxbot.getUtils().munge(sender.getNick()), finalPing), '\u00A7'));
+			channel.sendMessage(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcping <host> [port]", foxbot.getConfig().getCommandPrefix()));

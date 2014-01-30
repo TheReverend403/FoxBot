@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -38,6 +39,6 @@ public class CommandGit extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2I'm on GitHub! &rhttps://github.com/FoxDev/FoxBot", foxbot.getUtils().munge(sender.getNick()))));
+        channel.sendMessage(Utils.colourise(String.format("(%s) &2I'm on GitHub! &rhttps://github.com/FoxDev/FoxBot", Utils.munge(sender.getNick()))));
     }
 }

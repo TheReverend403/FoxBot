@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
@@ -46,12 +47,12 @@ public class CommandHaspaid extends Command
         {
             try
             {
-                channel.sendMessage(Jsoup.connect("https://minecraft.net/haspaid.jsp?user=" + args[0]).get().text().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
+                channel.sendMessage(Jsoup.connect("https://minecraft.net/haspaid.jsp?user=" + args[0]).get().text().contains("true") ? Utils.colourise(String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", Utils.munge(sender.getNick()), args[0])) : Utils.colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", Utils.munge(sender.getNick()), args[0])));
             }
             catch (Exception ex)
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick())));
+                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
             }
             return;
         }

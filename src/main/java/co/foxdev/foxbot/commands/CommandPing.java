@@ -18,6 +18,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -69,7 +70,7 @@ public class CommandPing extends Command
                 long end = System.currentTimeMillis();
 
                 socket.close();
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Ping response time: &r%sms", foxbot.getUtils().munge(sender.getNick()), end - start)));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &2Ping response time: &r%sms", Utils.munge(sender.getNick()), end - start)));
             }
             catch (UnknownHostException ex)
             {
@@ -77,7 +78,7 @@ public class CommandPing extends Command
             }
             catch (IOException ex)
             {
-                foxbot.sendMessage(channel, foxbot.getUtils().colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", foxbot.getUtils().munge(sender.getNick()), port, host)));
+                foxbot.sendMessage(channel, Utils.colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", Utils.munge(sender.getNick()), port, host)));
             }
             catch (NumberFormatException ex)
             {

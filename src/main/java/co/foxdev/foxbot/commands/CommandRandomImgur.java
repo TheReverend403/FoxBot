@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jsoup.*;
 import org.pircbotx.Channel;
@@ -56,10 +57,10 @@ public class CommandRandomImgur extends Command
 
             if (!link.equals("exception"))
             {
-                channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &2Random Imgur: &r%s", foxbot.getUtils().munge(sender.getNick()), link)));
+                channel.sendMessage(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
                 return;
             }
-            channel.sendMessage(foxbot.getUtils().colourise(String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick()))));
+            channel.sendMessage(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
         }
     }
 

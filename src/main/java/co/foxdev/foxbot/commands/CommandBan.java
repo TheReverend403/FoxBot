@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -73,7 +74,7 @@ public class CommandBan extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
+            foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
 
             long banTime = System.currentTimeMillis();
 
@@ -82,7 +83,7 @@ public class CommandBan extends Command
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {
-                foxbot.getUtils().scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
+                Utils.scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
             }
             return;
         }

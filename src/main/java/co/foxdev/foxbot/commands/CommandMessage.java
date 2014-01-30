@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
@@ -46,7 +47,7 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-            foxbot.sendMessage(target, foxbot.getUtils().colourise(message.toString()));
+            foxbot.sendMessage(target, Utils.colourise(message.toString()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));

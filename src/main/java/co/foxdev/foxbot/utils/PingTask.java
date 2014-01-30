@@ -56,7 +56,7 @@ public class PingTask
                             if (checkedHosts.contains(url))
                             {
                                 BotLogger.log(Level.INFO, String.format("PINGTASK: Ping failed for %s, alerting %s", url, user));
-                                foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
+                                foxbot.getUser(user).sendMessage(Utils.colourise(String.format("&2ALERT:&r %s appears to be back up!", url)));
                             }
                         }
                         if (checkedHosts.contains(url))
@@ -77,7 +77,7 @@ public class PingTask
                             if (!checkedHosts.contains(url))
                             {
                                 BotLogger.log(Level.INFO, String.format("PINGTASK: Ping succeeded for %s, alerting %s", url, user));
-                                foxbot.getUser(user).sendMessage(foxbot.getUtils().colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
+                                foxbot.getUser(user).sendMessage(Utils.colourise(String.format("&4ALERT:&r %s appears to be down!", url)));
                             }
                         }
                         if (!checkedHosts.contains(url))

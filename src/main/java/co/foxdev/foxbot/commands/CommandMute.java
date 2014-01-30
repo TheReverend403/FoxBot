@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -80,7 +81,7 @@ public class CommandMute extends Command
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {
-                foxbot.getUtils().scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
+                Utils.scheduleModeRemove(channel, hostmask, "q", foxbot.getConfig().getUnbanTimer());
             }
             return;
         }

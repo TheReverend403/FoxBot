@@ -18,6 +18,7 @@
 package co.foxdev.foxbot.listeners;
 
 import co.foxdev.foxbot.logger.BotLogger;
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -97,7 +98,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                foxbot.sendMessage(user, foxbot.getUtils().colourise(tell));
+                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }
@@ -135,11 +136,11 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
-                foxbot.sendNotice(user, foxbot.getUtils().colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                foxbot.sendNotice(user, Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
             else
             {
-                channel.sendMessage(foxbot.getUtils().colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                channel.sendMessage(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
         }
 
@@ -149,7 +150,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
         {
             for (String tell : tells)
             {
-                foxbot.sendMessage(user, foxbot.getUtils().colourise(tell));
+                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }

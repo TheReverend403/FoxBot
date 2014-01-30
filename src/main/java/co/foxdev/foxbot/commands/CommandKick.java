@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -74,7 +75,7 @@ public class CommandKick extends Command
 
             long kickTime = System.currentTimeMillis();
 
-            foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), foxbot.getUtils().colourise(reason.toString()) + Colors.NORMAL));
+            foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
             foxbot.getDatabase().addKick(channel, target, reason.toString(), sender, kickTime);
             return;
         }
