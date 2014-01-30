@@ -70,7 +70,7 @@ public class Utils
 
 	        if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch/.*"))
 	        {
-		        title = doc.select("a#watch-headline-show-title").text();
+		        title = doc.select("a#watch-headline-show-title").first().text();
 		        String views = doc.select("span.watch-view-count").first().text();
 		        String likes = doc.select("span.likes-count").first().text();
 		        String dislikes = doc.select("span.dislikes-count").first().text();
