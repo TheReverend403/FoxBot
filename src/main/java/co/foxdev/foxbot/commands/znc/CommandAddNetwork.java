@@ -56,7 +56,7 @@ public class CommandAddNetwork extends Command
                 foxbot.sendMessage("*controlpanel", String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
             // Send a message to the partyline user
-            foxbot.sendMessage(String.format("?%s", user), String.format("The network '%s' has been added to your account!", networkName));
+            foxbot.sendMessage("?" + user, String.format("The network '%s' has been added to your account!", networkName));
 
             // ------------
             // Add channels
@@ -74,6 +74,7 @@ public class CommandAddNetwork extends Command
 
             for (String channel : foxbot.getZncConfig().getChannels(network))
             {
+	            foxbot.sendNotice(sender, String.format("Network '%s' added to %s's account!", networkName, user));
                 foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, networkName, channel));
             }
             return;
