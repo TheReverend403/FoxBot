@@ -74,7 +74,7 @@ public class Utils
 		        String views = doc.select("span.watch-view-count").first().text();
 		        String likes = doc.select("span.likes-count").first().text();
 		        String dislikes = doc.select("span.dislikes-count").first().text();
-		        String uploader = doc.select("a.g-hovercard yt-uix-sessionlink yt-user-name").first().text();
+		        String uploader = doc.select("a.g-hovercard.yt-uix-sessionlink.yt-user-name").first().text();
 
 		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Uploader: &r%s &2Views: &r%s &2Rating: &a%s&r/&c%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), uploader, views, likes, dislikes));
 	        }
