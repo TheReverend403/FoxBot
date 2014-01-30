@@ -49,7 +49,7 @@ public class CommandRandCommit extends Command
 
             try
             {
-                commitMessage = Jsoup.connect("http://whatthecommit.com/").get().select("p").first().text();
+                commitMessage = Jsoup.connect("http://whatthecommit.com/").timeout(500).get().select("p").first().text();
             }
             catch (Exception ex)
             {

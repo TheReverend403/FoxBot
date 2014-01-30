@@ -51,7 +51,7 @@ public class CommandInsult extends Command
 	        String insult;
             try
             {
-                insult = Jsoup.connect("http://www.pangloss.com/seidel/Shaker/").execute().parse().select("font").first().text()
+                insult = Jsoup.connect("http://www.pangloss.com/seidel/Shaker/").timeout(500).execute().parse().select("font").first().text()
                               .replace("\n", "")
                               .replaceAll("^\\s", "")
                               .replace("[", "")
