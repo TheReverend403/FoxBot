@@ -56,7 +56,7 @@ public class Utils
 	        conn.followRedirects(true)
 	            .userAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
 	            .timeout(3000)
-	            .maxBodySize(10000);
+	            .maxBodySize(100000);
 
 	        Connection.Response response = conn.execute();
 	        Document doc = response.parse();
