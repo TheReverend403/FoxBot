@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 
 public class Utils
 {
-
     private final FoxBot foxbot;
 
     public Utils(FoxBot foxbot)
