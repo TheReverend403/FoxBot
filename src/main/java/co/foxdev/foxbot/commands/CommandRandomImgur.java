@@ -80,6 +80,7 @@ public class CommandRandomImgur extends Command
         }
 	    catch (IOException ex)
 	    {
+		    ex.printStackTrace();
 		    return "exception";
 	    }
 
