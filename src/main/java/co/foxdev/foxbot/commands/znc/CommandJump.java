@@ -40,7 +40,7 @@ public class CommandJump extends Command
         if (args.length == 1 || args.length == 2)
         {
             String user = args[0];
-            String network = args.length == 2 ? args[1] : "Seion";
+            String network = args.length == 2 ? args[1] : foxbot.getZncConfig().getNetworkName("default");
 
             foxbot.sendMessage("*controlpanel", String.format("reconnect %s %s", user, network));
             foxbot.sendNotice(sender, String.format("%s is reconnecting!", user));
