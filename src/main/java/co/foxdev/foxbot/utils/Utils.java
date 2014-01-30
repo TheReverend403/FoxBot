@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -67,6 +68,16 @@ public class Utils
 
 	        String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
 
+	        if (stringToParse.matches("^https?://(www\\.)?youtube.*"))
+	        {
+		        title = doc.select("a#watch-headline-show-title").text();
+		        String views = doc.select("span.watch-view-count").first().text();
+		        String likes = doc.select("span.likes-count").first().text();
+		        String dislikes = doc.select("span.dislikes-count").first().text();
+		        String uploader = doc.select("a.g-hovercard yt-uix-sessionlink yt-user-name").first().text();
+
+		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Uploader: &r%s &2Views: &r%s &2Rating: &a%s&r/&c%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), uploader, views, likes, dislikes));
+	        }
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ignored)
