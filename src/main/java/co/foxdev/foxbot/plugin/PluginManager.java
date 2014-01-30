@@ -125,9 +125,9 @@ public class PluginManager
             {
                 String[] lines = LINES_SPLIT.split(message.toString());
 
-                for (String line : lines)
+                for (int i = 0; i <= 3; i++)
                 {
-                    foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + line);
+                    foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
                 return true;
             }
