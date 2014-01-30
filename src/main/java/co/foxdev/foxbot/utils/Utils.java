@@ -61,12 +61,12 @@ public class Utils
 	        Connection.Response response = conn.execute();
 	        Document doc = response.parse();
 
-            String size = (Integer.parseInt(response.header("Content-Length").replace("Content-Length: ", "")) / 1024) + "kb";
-            String contentType = response.header("Content-Type").contains(";") ? response.header("Content-Type").split(";")[0] : response.header("Content-Type");
+            String size = (response.bodyAsBytes().length / 1024) + "kb";
+            String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.header("Content-Type");
 
             if (response.statusCode() != 200 && response.statusCode() != 302 && response.statusCode() != 301)
             {
-                return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.statusCode(), response.statusCode()));
+                return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.statusMessage(), response.statusCode()));
             }
 
             if (!contentType.contains("html"))
