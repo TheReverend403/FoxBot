@@ -27,8 +27,8 @@ public class CommandHash extends Command
 
 		if (args.length > 1)
 		{
-			String hashType = args[0];
-			MessageDigest digest = null;
+			String hashType = args[0].toUpperCase();
+			MessageDigest digest;
 
 			try
 			{
