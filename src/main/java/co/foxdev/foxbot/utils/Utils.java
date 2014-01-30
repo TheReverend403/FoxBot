@@ -62,7 +62,7 @@ public class Utils
 	        Document doc = response.parse();
 
             String size = (response.bodyAsBytes().length / 1024) + "kb";
-            String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.header("Content-Type");
+            String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
 
             if (response.statusCode() != 200 && response.statusCode() != 302 && response.statusCode() != 301)
             {
