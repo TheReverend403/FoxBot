@@ -61,6 +61,11 @@ public class Utils
 	        Connection.Response response = conn.execute();
 	        Document doc = response.parse();
 
+	        for (String header : response.headers().keySet())
+	        {
+		        BotLogger.log(Level.INFO, header + " " + response.headers().get(header));
+	        }
+
             String size = response.header("Content-Length") + "kb";
             String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
 
