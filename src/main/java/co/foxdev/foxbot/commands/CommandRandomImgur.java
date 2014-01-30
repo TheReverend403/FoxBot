@@ -17,9 +17,9 @@
 
 package co.foxdev.foxbot.commands;
 
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.Response;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -33,7 +33,6 @@ public class CommandRandomImgur extends Command
 {
     private final FoxBot foxbot;
 
-    private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
     private Random rand = new Random();
 
     public CommandRandomImgur(FoxBot foxbot)
@@ -68,12 +67,13 @@ public class CommandRandomImgur extends Command
 
     private String generateLink()
     {
-        Response response;
         String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
+	    Connection.Response response;
 
         try
         {
-            response = asyncHttpClient.prepareGet(imgurLink).execute().get();
+	        Connection conn = Jsoup.connect(imgurLink).timeout(300).followRedirects(true);
+            response = conn.execute();
         }
         catch (Exception ex)
         {
@@ -81,7 +81,7 @@ public class CommandRandomImgur extends Command
             return "exception";
         }
 
-        if (!String.valueOf(response.getStatusCode()).contains("404"))
+        if (response.statusCode() != 404)
         {
             return imgurLink;
         }

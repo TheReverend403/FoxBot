@@ -17,7 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
-import com.ning.http.client.AsyncHttpClient;
+import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -44,11 +44,9 @@ public class CommandHaspaid extends Command
 
         if (args.length == 1)
         {
-            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
             try
             {
-                channel.sendMessage(asyncHttpClient.prepareGet("https://minecraft.net/haspaid.jsp?user=" + args[0]).execute().get().getResponseBody().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
+                channel.sendMessage(Jsoup.connect("https://minecraft.net/haspaid.jsp?user=" + args[0]).get().text().contains("true") ? foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])) : foxbot.getUtils().colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", foxbot.getUtils().munge(sender.getNick()), args[0])));
             }
             catch (Exception ex)
             {

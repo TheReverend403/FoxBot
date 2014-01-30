@@ -17,7 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
-import com.ning.http.client.AsyncHttpClient;
+import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -25,7 +25,6 @@ import co.foxdev.foxbot.FoxBot;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandInsult extends Command
@@ -48,26 +47,20 @@ public class CommandInsult extends Command
 
         if (args.length < 3)
         {
-            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-            Matcher matcher;
-            String insult;
-
+	        String insult;
             try
             {
-                insult = asyncHttpClient.prepareGet("http://www.pangloss.com/seidel/Shaker/").execute().get().getResponseBody();
+                insult = Jsoup.connect("http://www.pangloss.com/seidel/Shaker/").execute().parse().select("font").first().text()
+                              .replace("\n", "")
+                              .replaceAll("^\\s", "")
+                              .replace("[", "")
+                              .replace("]", "");
             }
             catch (Exception ex)
             {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", foxbot.getUtils().munge(sender.getNick())));
                 return;
-            }
-
-            matcher = titlePattern.matcher(insult);
-
-            while (matcher.find())
-            {
-                insult = matcher.group(1);
             }
 
             if (args.length > 0)
@@ -84,19 +77,19 @@ public class CommandInsult extends Command
 
                     if (!args[args.length - 1].equalsIgnoreCase("-s"))
                     {
-                        foxbot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+                        foxbot.sendMessage(args[0], insult);
                         foxbot.partChannel(foxbot.getChannel(args[0]));
                         foxbot.sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
-                    foxbot.sendMessage(args[0], insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+                    foxbot.sendMessage(args[0], insult);
                     foxbot.sendNotice(sender, String.format("Insult sent to %s", args[0]));
                     return;
                 }
                 foxbot.sendNotice(sender, String.format("%s is not a channel...", args[0]));
                 return;
             }
-            channel.sendMessage(insult.replace("[", "").replace("]", "").replaceAll("^\\s", "").replaceAll("<.*>", " "));
+            channel.sendMessage(insult);
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));

@@ -19,10 +19,10 @@ package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.logger.BotLogger;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClientConfig;
-import com.ning.http.client.Response;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -33,12 +33,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Utils
 {
@@ -50,54 +47,40 @@ public class Utils
         this.foxbot = foxbot;
     }
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>.*</title>", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-
     public String parseChatUrl(String stringToParse, User sender)
     {
         try
         {
-            AsyncHttpClientConfig clientConf = new AsyncHttpClientConfig.Builder()
-                    .setUserAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
-                    .setRequestTimeoutInMs(3000)
-                    .setFollowRedirects(true)
-                    .build();
-            AsyncHttpClient client = new AsyncHttpClient(clientConf);
-            Future<Response> future = client.prepareGet(stringToParse).setFollowRedirects(true).execute();
-            Response response = future.get();
-            String output = response.getResponseBody();
-            String size = (response.getResponseBodyAsBytes().length / 1024) + "kb";
-            String contentType = response.getContentType().contains(";") ? response.getContentType().split(";")[0] : response.getContentType();
+	        Connection conn = Jsoup.connect(stringToParse);
 
-            if (response.getStatusCode() != 200 && response.getStatusCode() != 302 && response.getStatusCode() != 301)
+	        conn.followRedirects(true)
+	            .userAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
+	            .timeout(3000)
+	            .maxBodySize(10000);
+
+	        Connection.Response response = conn.execute();
+	        Document doc = response.parse();
+
+            String size = (Integer.parseInt(response.header("Content-Length").replace("Content-Length: ", "")) / 1024) + "kb";
+            String contentType = response.header("Content-Type").contains(";") ? response.header("Content-Type").split(";")[0] : response.header("Content-Type");
+
+            if (response.statusCode() != 200 && response.statusCode() != 302 && response.statusCode() != 301)
             {
-                client.close();
-                return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.getStatusCode(), response.getStatusText()));
+                return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.statusCode(), response.statusCode()));
             }
 
             if (!contentType.contains("html"))
             {
-                client.close();
                 return colourise(String.format("(%s's URL) &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), contentType, size));
             }
 
-            Matcher matcher;
-            String title = "No title found";
+	        String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
 
-            for (String line : output.split("\n"))
-            {
-                matcher = TITLE_PATTERN.matcher(line);
-
-                if (matcher.find())
-                {
-                    title = line.split("<title>", Pattern.CASE_INSENSITIVE)[1].split("</title>", Pattern.CASE_INSENSITIVE)[0];
-                }
-            }
-            client.close();
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
-        catch (IllegalArgumentException ex)
+        catch (IllegalArgumentException ignored)
         {
-            // Who cares?
+
         }
         catch (Exception ex)
         {
