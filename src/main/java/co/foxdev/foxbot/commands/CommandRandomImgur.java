@@ -18,13 +18,13 @@
 package co.foxdev.foxbot.commands;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
+import org.jsoup.*;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,11 +75,14 @@ public class CommandRandomImgur extends Command
 	        Connection conn = Jsoup.connect(imgurLink).timeout(300).followRedirects(true);
             response = conn.execute();
         }
-        catch (Exception ex)
+        catch (HttpStatusException ex)
         {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            return "exception";
+	        return "";
         }
+	    catch (IOException ex)
+	    {
+		    return "exception";
+	    }
 
         if (response.statusCode() != 404)
         {
