@@ -68,7 +68,7 @@ public class Utils
 
 	        String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
 
-	        if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch/.*"))
+	        if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch.*"))
 	        {
 		        title = doc.select("a#watch-headline-show-title").first().text();
 		        String views = doc.select("span.watch-view-count").first().text();
