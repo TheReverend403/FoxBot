@@ -49,14 +49,18 @@ public class CommandShorten extends Command
 			URL url = new URL("https://www.googleapis.com/urlshortener/v1/url");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+			String postData = "{\"longUrl\": \"" + longUrl + "\"}";
+
+			connection.setDoInput(true);
 			connection.setDoOutput(true);
-			connection.setRequestMethod("POST");
-			connection.setRequestProperty("User-Agent", "toolbar");
+			connection.addRequestProperty("Content-Type", "application/json");
+			connection.setRequestProperty("Content-Length", "" + Integer.toString(postData.getBytes().length));
+			connection.connect();
 
-			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-
-			writer.write(String.format("{\"longUrl\": \"%s\"}", URLEncoder.encode(longUrl, "UTF-8")));
-			writer.close();
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(postData);
+			wr.flush();
+			wr.close();
 
 			BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			sb = new StringBuilder();
