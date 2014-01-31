@@ -126,6 +126,13 @@ public class Config
     private List<String> urlsToPing;
     private List<String> usersToAlert;
 
+    // --------------
+    // Sounds Section
+    // --------------
+
+    private String soundURL;
+    private String soundExtension;
+
     public Config(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -241,6 +248,13 @@ public class Config
         timeout = botConfig.getInt("status-checker.timeout");
         urlsToPing = botConfig.getStringList("status-checker.urls");
         usersToAlert = botConfig.getStringList("status-checker.users-to-alert");
+
+        // --------------
+        // Sounds Section
+        // --------------
+
+        soundURL = botConfig.getString("sounds.sound-url");
+        soundExtension = botConfig.getString("sounds.sound-extension");
 
     }
 
@@ -512,6 +526,13 @@ public class Config
     {
         return usersToAlert;
     }
+
+    // --------------
+    // Sounds Section
+    // --------------
+
+    public String getSoundURL() { return soundURL; }
+    public String getSoundExtension() { return soundExtension; }
 
     // ------------
     // File objects
