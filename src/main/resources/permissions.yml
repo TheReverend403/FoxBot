@@ -18,6 +18,7 @@ default:
     - command.mcstatus
     - command.mcping
     - command.hash
+    - command.commands
     - command.shorten
 # Permissions granted to specific users.
 TheReverend403:

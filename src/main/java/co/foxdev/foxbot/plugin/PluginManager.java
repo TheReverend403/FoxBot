@@ -18,16 +18,13 @@
 package co.foxdev.foxbot.plugin;
 
 import co.foxdev.foxbot.logger.BotLogger;
-import org.apache.commons.lang3.Validate;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -134,4 +131,9 @@ public class PluginManager
         }
         return false;
     }
+
+	public Collection<Command> getCommands()
+	{
+		return commandMap.values();
+	}
 }
