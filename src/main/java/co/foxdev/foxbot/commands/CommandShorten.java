@@ -72,6 +72,7 @@ public class CommandShorten extends Command
 
 			String json = sb.toString();
 
+			connection.disconnect();
 			return json.substring(json.indexOf("http"), json.indexOf("\"", json.indexOf("http")));
 		}
 		catch (MalformedURLException ex)
