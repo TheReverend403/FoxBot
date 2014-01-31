@@ -70,12 +70,13 @@ public class CommandShorten extends Command
 
 			return json.substring(json.indexOf("http"), json.indexOf("\"", json.indexOf("http")));
 		}
-		catch (MalformedURLException e)
+		catch (MalformedURLException ex)
 		{
 			return Colors.RED + "Invalid link";
 		}
-		catch (IOException e)
+		catch (IOException ex)
 		{
+			ex.printStackTrace();
 			return Colors.RED + "Something went wrong...";
 		}
 	}
