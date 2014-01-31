@@ -20,8 +20,7 @@ package co.foxdev.foxbot.utils;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.logger.BotLogger;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
+import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.pircbotx.Channel;
@@ -49,12 +48,14 @@ public class Utils
 	        conn.followRedirects(true)
 	            .userAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
 	            .timeout(3000)
-	            .maxBodySize(100000);
+	            .maxBodySize(100000)
+	            .ignoreContentType(true);
 
 	        Connection.Response response = conn.execute();
 	        Document doc = response.parse();
             String size = response.header("Content-Length") == null ? "Unknown" : (Integer.parseInt(response.header("Content-Length")) / 1024) + "kb";
-            String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
+	        String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
+
 
             if (response.statusCode() != 200 && response.statusCode() != 302 && response.statusCode() != 301)
             {
