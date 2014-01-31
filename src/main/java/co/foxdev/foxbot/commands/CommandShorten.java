@@ -46,7 +46,7 @@ public class CommandShorten extends Command
 
 		try
 		{
-			URL url = new URL("http://goo.gl/api/url");
+			URL url = new URL("https://www.googleapis.com/urlshortener/v1/url");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 			connection.setDoOutput(true);
@@ -55,7 +55,7 @@ public class CommandShorten extends Command
 
 			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 
-			writer.write("url=" + URLEncoder.encode(longUrl, "UTF-8"));
+			writer.write(String.format("{\"longUrl\": \"%s\"}", URLEncoder.encode(longUrl, "UTF-8")));
 			writer.close();
 
 			BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
