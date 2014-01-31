@@ -41,6 +41,7 @@ public class CommandSound extends Command
             String soundname = args[0];
 
             channel.sendMessage(Utils.colourise(String.format("&9%s%s.%s", foxbot.getConfig().getSoundURL(), soundname, foxbot.getConfig().getSoundExtension())));
+            return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssound <soundname>", foxbot.getConfig().getCommandPrefix()));
     }
