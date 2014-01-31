@@ -62,11 +62,6 @@ public class Utils
                 return colourise(String.format("(%s's URL) &cError: &r%s %s ", munge(sender.getNick()), response.statusCode(), response.statusMessage()));
             }
 
-            if (!contentType.contains("html"))
-            {
-                return colourise(String.format("(%s's URL) &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), contentType, size));
-            }
-
 	        String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
 
 	        if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch.*"))
