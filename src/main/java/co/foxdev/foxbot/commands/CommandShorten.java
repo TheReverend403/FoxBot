@@ -41,9 +41,6 @@ public class CommandShorten extends Command
 			return Colors.RED + "Invalid link";
 		}
 
-		StringBuilder sb;
-		String line;
-
 		try
 		{
 			URL url = new URL("https://www.googleapis.com/urlshortener/v1/url");
@@ -63,7 +60,8 @@ public class CommandShorten extends Command
 			wr.close();
 
 			BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
+			String line;
 
 			while ((line = rd.readLine()) != null)
 			{
