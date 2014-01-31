@@ -18,6 +18,7 @@ default:
     - command.mcstatus
     - command.mcping
     - command.hash
+    - command.shorten
 # Permissions granted to specific users.
 TheReverend403:
 # revthefox.co.uk: <-- if using hostmask matching.
