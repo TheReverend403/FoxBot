@@ -23,7 +23,7 @@ public class CommandCommands extends Command
 
 		for (Command command : foxbot.getPluginManager().getCommands())
 		{
-			if (!sb.toString().contains(command.getName()) && foxbot.getPermissionManager().userHasQuietPermission(sender, command.getPermission()))
+			if (!sb.toString().contains(command.getName()))
 			{
 				sb.append(command.getName()).append(", ");
 			}
