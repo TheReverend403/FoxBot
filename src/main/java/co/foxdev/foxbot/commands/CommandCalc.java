@@ -27,7 +27,7 @@ public class CommandCalc extends Command
         if (args.length > 0)
         {
             StringBuilder expression = new StringBuilder(args[0]);
-            String result = null;
+            String result;
 
             for (int i = 1; i < args.length; i++)
             {
