@@ -79,6 +79,16 @@ public class Utils
 
 		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Uploader: &r%s &2Views: &r%s &2Rating: &a%s&r/&c%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), uploader, views, likes, dislikes));
 	        }
+
+	        if (stringToParse.matches("^https?://(www\\.)?reddit\\.com/r/.*/comments/.*"))
+	        {
+		        String poster = doc.select("a.author").first().text();
+		        String comments = doc.select("a.comments").first().text().split(" ")[0];
+		        String likes = doc.select("span.upvotes").first().text().split(" ")[0];
+		        String dislikes = doc.select("span.downvotes").first().text().split(" ")[0];
+
+		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Rating: &6%s&r/&9%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, likes, dislikes));
+	        }
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ignored)
