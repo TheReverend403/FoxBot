@@ -82,7 +82,7 @@ public class Utils
 
 	        if (stringToParse.matches("^https?://(www\\.)?reddit\\.com/r/.*/comments/.*"))
 	        {
-		        String poster = doc.select("p.tagline").select("a.author").text();
+		        String poster = doc.select("p.tagline").select("a.author").text().split(" ")[0];
 		        String comments = doc.select("a.comments").first().text().split(" ")[0];
 		        String likes = doc.select("span.upvotes").first().text().split(" ")[0];
 		        String dislikes = doc.select("span.downvotes").first().text().split(" ")[0];
