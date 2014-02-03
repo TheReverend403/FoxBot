@@ -172,7 +172,7 @@ public class FoxBot extends PircBotX
     {
         try
         {
-            for (Class clazz : ClassFinder.find("co.foxdev.foxbot.commands"))
+            for (Class clazz : ClassFinder.getClasses("co.foxdev.foxbot.commands"))
             {
 	            System.out.println(clazz.getName());
 
