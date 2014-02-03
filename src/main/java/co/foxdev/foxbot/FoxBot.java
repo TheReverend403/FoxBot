@@ -181,7 +181,7 @@ public class FoxBot extends PircBotX
                 Command command = (Command) clazzConstructor.newInstance(this);
 
                 BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
-                this.getPluginManager().registerCommand(command);
+                getPluginManager().registerCommand(command);
             }
         }
         catch (Exception ex)
