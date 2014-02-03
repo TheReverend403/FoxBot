@@ -31,7 +31,6 @@ import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
-import org.reflections.Reflections;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.script.ScriptEngine;
@@ -175,7 +174,7 @@ public class FoxBot extends PircBotX
         {
             for (Class clazz : ClassFinder.find("co.foxdev.foxbot.commands"))
             {
-	            if (clazz.getSuperclass().getName().equals("Command"))
+	            if (Command.class.isAssignableFrom(clazz))
 	            {
 		            ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
 		            Constructor clazzConstructor = clazz.getConstructor(getClass());
