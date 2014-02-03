@@ -59,16 +59,16 @@ public class PluginManager
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
 
-	    if (!runCustomCommand(event.getChannel().getName(), commandName) && command == null)
-	    {
-		    return false;
-	    }
-
 	    List<Command> matches = new ArrayList<>();
+
+	    if (runCustomCommand(event.getChannel().getName(), commandName))
+	    {
+		    return true;
+	    }
 
 	    for (Command cmd : commandMap.values())
 	    {
-		    if ((commandName + ".*").matches(command.getName()))
+		    if ((commandName + ".*").matches(cmd.getName()))
 		    {
 			    matches.add(cmd);
 		    }
@@ -104,6 +104,11 @@ public class PluginManager
 		    }
 
 		    return dispatchCommand(event, commandBuilder.toString());
+	    }
+
+	    if (command == null)
+	    {
+		    return false;
 	    }
 
         BotLogger.log(Level.INFO, String.format("COMMAND: Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
