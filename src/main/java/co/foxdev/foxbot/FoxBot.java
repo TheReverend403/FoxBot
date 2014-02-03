@@ -174,7 +174,9 @@ public class FoxBot extends PircBotX
         {
             for (Class clazz : ClassFinder.find("co.foxdev.foxbot.commands"))
             {
-	            if (Command.class.isAssignableFrom(clazz))
+	            System.out.println(clazz.getName());
+
+	            if (clazz.getSuperclass().equals(Command.class))
 	            {
 		            ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
 		            Constructor clazzConstructor = clazz.getConstructor(getClass());
