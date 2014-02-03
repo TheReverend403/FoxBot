@@ -26,8 +26,7 @@ import co.foxdev.foxbot.listeners.UserListener;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.plugin.PluginManager;
-import co.foxdev.foxbot.utils.PingTask;
-import co.foxdev.foxbot.utils.Utils;
+import co.foxdev.foxbot.utils.*;
 import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
@@ -61,7 +60,6 @@ public class FoxBot extends PircBotX
     private static Database database;
     private static LookupService lookupService;
     private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
-    private static Reflections reflections = new Reflections("co.foxdev");
 
     public static void main(String[] args)
     {
@@ -77,7 +75,7 @@ public class FoxBot extends PircBotX
         if (!path.exists() && !path.mkdirs())
         {
             BotLogger.log(Level.WARNING, "STARTUP: Could not create required folders. Shutting down.");
-            this.disconnect();
+            disconnect();
             return;
         }
 
@@ -112,20 +110,20 @@ public class FoxBot extends PircBotX
     private void setBotInfo()
     {
         BotLogger.log(Level.INFO, "STARTUP: Setting bot info");
-        this.setVerbose(config.getDebug());
+        setVerbose(config.getDebug());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set verbose to %s", config.getDebug()));
-        this.setAutoNickChange(config.getAutoNickChange());
+        setAutoNickChange(config.getAutoNickChange());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set auto nick change to %s", config.getAutoNickChange()));
-        this.setAutoReconnect(config.getAutoReconnect());
+        setAutoReconnect(config.getAutoReconnect());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set auto-reconnect to %s", config.getAutoReconnect()));
-        this.setMessageDelay(config.getMessageDelay());
+        setMessageDelay(config.getMessageDelay());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set message delay to %s", config.getMessageDelay()));
-        this.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
+        setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
         BotLogger.log(Level.INFO, String.format("STARTUP: Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
-        this.setAutoSplitMessage(true);
-        this.setName(config.getBotNick());
+        setAutoSplitMessage(true);
+        setName(config.getBotNick());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set nick to '%s'", config.getBotNick()));
-        this.setLogin(config.getBotIdent());
+        setLogin(config.getBotIdent());
         BotLogger.log(Level.INFO, String.format("STARTUP: Set ident to '%s'", config.getBotIdent()));
     }
 
@@ -135,60 +133,63 @@ public class FoxBot extends PircBotX
         {
             if (config.getServerSsl())
             {
-                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s (SSL)", this.getConfig().getServerAddress()));
-                this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
+                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s (SSL)", getConfig().getServerAddress()));
+                connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
             else
             {
-                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s", this.getConfig().getServerAddress()));
-                this.connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
+                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s", getConfig().getServerAddress()));
+                connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
 
             if (config.useNickserv())
             {
-                this.identify(config.getNickservPassword());
+                identify(config.getNickservPassword());
             }
         }
         catch (IOException | IrcException ex)
         {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
-        BotLogger.log(Level.INFO, String.format("CONNECT: Connected to %s", this.getConfig().getServerAddress()));
+        BotLogger.log(Level.INFO, String.format("CONNECT: Connected to %s", getConfig().getServerAddress()));
         BotLogger.log(Level.INFO, String.format("STARTUP: Joining channels"));
 
         for (String channel : config.getChannels())
         {
-            this.joinChannel(channel);
+            joinChannel(channel);
         }
     }
 
     private void registerListeners()
     {
         BotLogger.log(Level.INFO, String.format("STARTUP: Registering MessageListener"));
-        this.getListenerManager().addListener(new MessageListener(this));
+        getListenerManager().addListener(new MessageListener(this));
         BotLogger.log(Level.INFO, String.format("STARTUP: Registering UserListener"));
-        this.getListenerManager().addListener(new UserListener(this));
+        getListenerManager().addListener(new UserListener(this));
     }
 
     private void registerCommands()
     {
         try
         {
-            for (Class clazz : reflections.getSubTypesOf(Command.class))
+            for (Class clazz : ClassFinder.find("co.foxdev.foxbot.commands"))
             {
-                ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
-                Constructor clazzConstructor = clazz.getConstructor(this.getClass());
-                Command command = (Command) clazzConstructor.newInstance(this);
+	            if (clazz.getSuperclass().getName().equals("Command"))
+	            {
+		            ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
+		            Constructor clazzConstructor = clazz.getConstructor(getClass());
+		            Command command = (Command) clazzConstructor.newInstance(this);
 
-                BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
-                this.getPluginManager().registerCommand(command);
+		            BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
+		            pluginManager.registerCommand(command);
+	            }
             }
         }
         catch (Exception ex)
         {
             // This can never happen.
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 
