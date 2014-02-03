@@ -26,11 +26,12 @@ import co.foxdev.foxbot.listeners.UserListener;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.plugin.PluginManager;
-import co.foxdev.foxbot.utils.*;
+import co.foxdev.foxbot.utils.PingTask;
 import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
+import org.reflections.Reflections;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.script.ScriptEngine;
@@ -59,6 +60,7 @@ public class FoxBot extends PircBotX
     private static Database database;
     private static LookupService lookupService;
     private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
+    private static Reflections reflections = new Reflections("co.foxdev");
 
     public static void main(String[] args)
     {
@@ -74,7 +76,7 @@ public class FoxBot extends PircBotX
         if (!path.exists() && !path.mkdirs())
         {
             BotLogger.log(Level.WARNING, "STARTUP: Could not create required folders. Shutting down.");
-            disconnect();
+            this.disconnect();
             return;
         }
 
@@ -172,19 +174,14 @@ public class FoxBot extends PircBotX
     {
         try
         {
-            for (Class clazz : ClassFinder.getClasses("co.foxdev.foxbot.commands"))
+            for (Class clazz : reflections.getSubTypesOf(Command.class))
             {
-	            System.out.println(clazz.getName());
+                ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
+                Constructor clazzConstructor = clazz.getConstructor(getClass());
+                Command command = (Command) clazzConstructor.newInstance(this);
 
-	            if (clazz.getSuperclass().equals(Command.class))
-	            {
-		            ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
-		            Constructor clazzConstructor = clazz.getConstructor(getClass());
-		            Command command = (Command) clazzConstructor.newInstance(this);
-
-		            BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
-		            pluginManager.registerCommand(command);
-	            }
+                BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
+                this.getPluginManager().registerCommand(command);
             }
         }
         catch (Exception ex)
