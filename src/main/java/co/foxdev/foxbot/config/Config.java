@@ -108,24 +108,6 @@ public class Config
     private String greetingMessage;
     private boolean greetingNotice;
 
-    // ------------
-    // DNS section
-    // ------------
-
-    private String tsigKey;
-    private String zoneName;
-    private String dnsServer;
-
-    // ----------------------
-    // Status checker section
-    // ----------------------
-
-    private boolean statusCheckEnabled;
-    private int checkInterval;
-    private int timeout;
-    private List<String> urlsToPing;
-    private List<String> usersToAlert;
-
     // --------------
     // Sounds Section
     // --------------
@@ -230,24 +212,6 @@ public class Config
         greetingChannels = botConfig.getStringList("misc.channels-to-greet");
         greetingMessage = botConfig.getString("misc.greeting-message");
         greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
-
-        // ------------
-        // DNS section
-        // ------------
-
-        dnsServer = botConfig.getString("dns.dns-server");
-        tsigKey = botConfig.getString("dns.TSIG-key");
-        zoneName = botConfig.getString("dns.zone-name");
-
-        // ----------------------
-        // Status checker section
-        // ----------------------
-
-        statusCheckEnabled = botConfig.getBoolean("status-checker.enabled");
-        checkInterval = botConfig.getInt("status-checker.check-interval");
-        timeout = botConfig.getInt("status-checker.timeout");
-        urlsToPing = botConfig.getStringList("status-checker.urls");
-        usersToAlert = botConfig.getStringList("status-checker.users-to-alert");
 
         // --------------
         // Sounds Section
@@ -477,54 +441,6 @@ public class Config
     public boolean getGreetingNotice()
     {
         return greetingNotice;
-    }
-
-    // ------------
-    // DNS section
-    // ------------
-
-    public String getDnsServer()
-    {
-        return dnsServer;
-    }
-
-    public String getTsigKey()
-    {
-        return tsigKey;
-    }
-
-    public String getZoneName()
-    {
-        return zoneName;
-    }
-
-    // ----------------------
-    // Status checker section
-    // ----------------------
-
-    public boolean isStatusCheckEnabled()
-    {
-        return statusCheckEnabled;
-    }
-
-    public int getCheckInterval()
-    {
-        return checkInterval;
-    }
-
-    public int getTimeout()
-    {
-        return timeout;
-    }
-
-    public List<String> getUrlsToPing()
-    {
-        return urlsToPing;
-    }
-
-    public List<String> getUsersToAlert()
-    {
-        return usersToAlert;
     }
 
     // --------------

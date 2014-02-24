@@ -18,6 +18,7 @@
 package co.foxdev.foxbot;
 
 import co.foxdev.foxbot.commands.Command;
+import co.foxdev.foxbot.utils.CommandManager;
 import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.database.Database;
@@ -25,8 +26,6 @@ import co.foxdev.foxbot.listeners.MessageListener;
 import co.foxdev.foxbot.listeners.UserListener;
 import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.permissions.PermissionManager;
-import co.foxdev.foxbot.plugin.PluginManager;
-import co.foxdev.foxbot.utils.PingTask;
 import com.maxmind.geoip.LookupService;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
@@ -34,8 +33,6 @@ import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
 
 import javax.net.ssl.SSLSocketFactory;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -56,10 +53,9 @@ public class FoxBot extends PircBotX
     private static Config config;
     private static PermissionManager permissions;
     private static ZncConfig zncConfig;
-    private static PluginManager pluginManager;
+    private static CommandManager commandManager;
     private static Database database;
     private static LookupService lookupService;
-    private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
     private static Reflections reflections = new Reflections("co.foxdev");
 
     public static void main(String[] args)
@@ -75,7 +71,7 @@ public class FoxBot extends PircBotX
 
         if (!path.exists() && !path.mkdirs())
         {
-            BotLogger.log(Level.WARNING, "STARTUP: Could not create required folders. Shutting down.");
+            BotLogger.log(Level.WARNING, "STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
             this.disconnect();
             return;
         }
@@ -83,7 +79,7 @@ public class FoxBot extends PircBotX
         config = new Config(this);
         zncConfig = new ZncConfig(this);
         permissions = new PermissionManager(this);
-        pluginManager = new PluginManager(this);
+        commandManager = new CommandManager(this);
         database = new Database(this);
         database.connect();
 
@@ -96,16 +92,11 @@ public class FoxBot extends PircBotX
             ex.printStackTrace();
         }
 
+	    BotLogger.init();
         registerListeners();
         registerCommands();
         setBotInfo();
         connectToServer();
-
-        if (config.isStatusCheckEnabled())
-        {
-            BotLogger.log(Level.INFO, "STARTUP: Scheduling new PingTask");
-            new PingTask(this);
-        }
     }
 
     private void setBotInfo()
@@ -181,7 +172,7 @@ public class FoxBot extends PircBotX
                 Command command = (Command) clazzConstructor.newInstance(this);
 
                 BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
-                pluginManager.registerCommand(command);
+                commandManager.registerCommand(command);
             }
         }
         catch (Exception ex)
@@ -206,9 +197,9 @@ public class FoxBot extends PircBotX
         return zncConfig;
     }
 
-    public PluginManager getPluginManager()
+    public CommandManager getPluginManager()
     {
-        return pluginManager;
+        return commandManager;
     }
 
     public Database getDatabase()
@@ -219,11 +210,6 @@ public class FoxBot extends PircBotX
     public LookupService getLookupService()
     {
         return lookupService;
-    }
-
-    public ScriptEngine getScriptEngine()
-    {
-        return scriptEngine;
     }
 
 	public static FoxBot getInstance()

@@ -20,17 +20,12 @@ package co.foxdev.foxbot.utils;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.logger.BotLogger;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.jsoup.*;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
+import org.pircbotx.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -187,7 +182,7 @@ public class Utils
                 BotLogger.log(Level.WARNING, "Error while deleting old command!");
             }
 
-            if (text.equalsIgnoreCase("delete"))
+            if (text.isEmpty() || text.equalsIgnoreCase("delete"))
             {
                 if (file.delete())
                 {

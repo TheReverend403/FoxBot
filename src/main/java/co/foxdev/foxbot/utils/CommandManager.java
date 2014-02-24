@@ -15,13 +15,13 @@
  *     along with Foxbot. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package co.foxdev.foxbot.plugin;
+package co.foxdev.foxbot.utils;
 
+import co.foxdev.foxbot.FoxBot;
+import co.foxdev.foxbot.commands.Command;
 import co.foxdev.foxbot.logger.BotLogger;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
-import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.commands.Command;
 
 import java.io.*;
 import java.util.*;
@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-public class PluginManager
+public class CommandManager
 {
     private final FoxBot foxbot;
 
@@ -37,7 +37,7 @@ public class PluginManager
     private static final Pattern LINES_SPLIT = Pattern.compile("\\\\n");
     private final Map<String, Command> commandMap = new HashMap<>();
 
-    public PluginManager(FoxBot foxbot)
+    public CommandManager(FoxBot foxbot)
     {
         this.foxbot = foxbot;
     }

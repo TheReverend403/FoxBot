@@ -92,29 +92,3 @@ sounds:
     sound-url: 'https://dl.dropboxusercontent.com/u/70156340/'
     #The file name extension of the sounds in our remote sound database WITHOUT the "." (for example, if our sound files all ended with ".mp3" we would put mp3).
     sound-extension: 'mp3'
-dns:
-    # OPTIONAL: This is the IP or hostname which has the bind9 install on.
-    dns-server: '127.0.0.1'
-    # OPTIONAL: If you wish to use DNS commands such as AddRDNS; your bind9 install will need a TSIG key generated and the server with the bot on whitelisted.
-    TSIG-key: '156d4f8s6f=='
-    # OPTIONAL: This is the name of the zone containing your PTR records for hostnames.
-    zone-name: '1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.'
-status-checker:
-    # Should we use the status checker?
-    enabled: true
-    # How often should we ping in seconds?
-    check-interval: 30
-    # How long in seconds should we try to ping the host?
-    timeout: 30
-    # List of URLs to ping.
-    urls:
-    - cookieslap.net
-    # Users to alert on ping failure.
-    users-to-alert:
-    - Corin
-    - TheReverend403
-    - GunfighterJ
-    - itsatacoshop247
-    - zz_Corin
-    - Rev|SleepingFox
-    - itsatacoshop247|afk
