@@ -53,7 +53,8 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
             {
-                foxbot.getPluginManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.getConfig().getBotNick().length() + 2));
+	            System.out.println("Trying to dispatch command...");
+                foxbot.getCommandManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.getConfig().getBotNick().length() + 2));
 	            return;
             }
 

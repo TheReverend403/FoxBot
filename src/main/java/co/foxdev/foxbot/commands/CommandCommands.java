@@ -21,7 +21,7 @@ public class CommandCommands extends Command
 
 		StringBuilder sb = new StringBuilder();
 
-		for (Command command : foxbot.getPluginManager().getCommands())
+		for (Command command : foxbot.getCommandManager().getCommands())
 		{
 			if (!sb.toString().contains(command.getName()))
 			{

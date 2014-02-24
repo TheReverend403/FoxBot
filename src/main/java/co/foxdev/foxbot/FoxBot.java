@@ -196,7 +196,7 @@ public class FoxBot extends PircBotX
         return zncConfig;
     }
 
-    public CommandManager getPluginManager()
+    public CommandManager getCommandManager()
     {
         return commandManager;
     }
