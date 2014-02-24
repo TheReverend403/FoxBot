@@ -92,7 +92,6 @@ public class FoxBot extends PircBotX
             ex.printStackTrace();
         }
 
-	    BotLogger.init();
         registerListeners();
         registerCommands();
         setBotInfo();

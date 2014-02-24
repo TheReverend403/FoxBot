@@ -25,21 +25,6 @@ import java.util.logging.Level;
 public class BotLogger
 {
     private static SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm:ss]");
-	private static BufferedWriter bw;
-
-	// Must be called
-	public static void init()
-	{
-		try
-		{
-			FileWriter fw = new FileWriter("foxbot.log", true);
-			bw = new BufferedWriter(fw);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
 
     public static void log(Level Level, String message)
     {
@@ -49,8 +34,12 @@ public class BotLogger
 
         try
         {
-	        bw.write(logMessage);
-	        bw.newLine();
+            FileWriter fw = new FileWriter("foxbot.log", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(logMessage);
+            bw.newLine();
+            bw.close();
+            fw.close();
         }
         catch (IOException ex)
         {
