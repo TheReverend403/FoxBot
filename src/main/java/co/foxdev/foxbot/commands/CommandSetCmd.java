@@ -20,8 +20,6 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.io.IOException;
-
 public class CommandSetCmd extends Command
 {
     private final FoxBot foxbot;
@@ -39,25 +37,30 @@ public class CommandSetCmd extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        // Yes, this is intentional.
-        if (args.length > 1)
+        if (args.length > 0)
         {
             // Ops should be able to add custom commands for their own channels.
             if (!channel.getNormalUsers().contains(sender) && !channel.hasVoice(sender))
             {
-                String command = args[0];
-                StringBuilder builder = new StringBuilder(args[1]);
+	            StringBuilder builder = new StringBuilder("");
 
-                for (int arg = 2; arg < args.length; arg++)
-                {
-                    builder.append(" ").append(args[arg]);
-                }
+                String command = args[0];
+
+	            if (args.length > 1)
+	            {
+		            builder = new StringBuilder(args[1]);
+
+		            for (int arg = 2; arg < args.length; arg++)
+		            {
+			            builder.append(" ").append(args[arg]);
+		            }
+	            }
                 foxbot.sendNotice(sender, String.format("Command '%s' %s for %s", command, Utils.addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted" , channel.getName()));
                 return;
             }
             foxbot.sendNotice(sender, String.format("Only channel half-ops and above can set custom commands!"));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssetcmd <command> <text|delete>", foxbot.getConfig().getCommandPrefix()));
+        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssetcmd <command> [text]", foxbot.getConfig().getCommandPrefix()));
     }
 }
