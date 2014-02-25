@@ -51,7 +51,7 @@ public class CommandShorten extends Command
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
 			connection.addRequestProperty("Content-Type", "application/json");
-			connection.setRequestProperty("Content-Length", "" + Integer.toString(postData.getBytes().length));
+			connection.setRequestProperty("Content-Length", Integer.toString(postData.getBytes().length));
 			connection.connect();
 
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
