@@ -53,17 +53,13 @@ public class Database
 			if (databaseType.equalsIgnoreCase("sqlite"))
 			{
 				Class.forName("org.sqlite.JDBC");
+				connection = DriverManager.getConnection(url);
 			}
-
-			if (databaseType.equalsIgnoreCase("mysql"))
+			else
 			{
 				String user = foxbot.getConfig().getDatabaseUser();
 				String password = foxbot.getConfig().getDatabasePassword();
 				connection = DriverManager.getConnection(url, user, password);
-			}
-			else
-			{
-				connection = DriverManager.getConnection(url);
 			}
 
 			statement = connection.createStatement();
@@ -109,17 +105,13 @@ public class Database
 				if (databaseType.equalsIgnoreCase("sqlite"))
 				{
 					Class.forName("org.sqlite.JDBC");
+					connection = DriverManager.getConnection(url);
 				}
-
-				if (databaseType.equalsIgnoreCase("mysql"))
+				else
 				{
 					String user = foxbot.getConfig().getDatabaseUser();
 					String password = foxbot.getConfig().getDatabasePassword();
 					connection = DriverManager.getConnection(url, user, password);
-				}
-				else
-				{
-					connection = DriverManager.getConnection(url);
 				}
 			}
 			catch (SQLException | ClassNotFoundException ex)
