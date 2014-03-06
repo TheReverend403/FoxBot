@@ -1,6 +1,6 @@
 FoxBot
 ======
 
-This branch is currently inactive.
+wat.
 
-All development has shifted to the 2.0 branch.
+hi.
