@@ -53,7 +53,7 @@ public class PermissionManager
                 {
                     return !permissions.getStringList(authType).contains("-" + permission);
                 }
-                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("permissions.*");
+                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
             }
             return false;
         }
@@ -62,7 +62,7 @@ public class PermissionManager
         {
             return !permissions.getStringList(authType).contains("-" + permission);
         }
-        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("permissions.*");
+        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
     }
 
     public boolean userHasPermission(User user, String permission)
