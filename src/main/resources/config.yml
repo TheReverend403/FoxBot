@@ -19,6 +19,7 @@ server:
     # A password for connecting to the server, if required.
     password: password
     # List of channels for the bot to join on startup. Channel names must be enclosed in ''.
+    # If the channel has a key, place it after a :, for example #foxdev:key
     channels:
     - '#foxdev'
     - '#foxbot'
