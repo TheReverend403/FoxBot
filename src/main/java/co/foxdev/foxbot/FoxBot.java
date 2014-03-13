@@ -89,10 +89,11 @@ public class FoxBot extends PircBotX
         }
         catch (IOException ex)
         {
-            ex.printStackTrace();
+            BotLogger.log(Level.INFO, "GeoIP database not found, this feature will be unavailable.");
         }
 
-        registerListeners();
+	    useShutdownHook(true);
+	    registerListeners();
         registerCommands();
         setBotInfo();
         connectToServer();
