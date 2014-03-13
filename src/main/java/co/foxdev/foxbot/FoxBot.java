@@ -152,7 +152,7 @@ public class FoxBot extends PircBotX
 	        if (channel.contains(":"))
 	        {
 		        String[] parts = channel.split(":");
-		        
+
 		        joinChannel(parts[0], parts[1]);
 		        continue;
 	        }
