@@ -46,7 +46,7 @@ public class CommandKill extends Command
             }
 
             foxbot.getDatabase().disconnect();
-            foxbot.disconnect();
+            foxbot.shutdown(true);
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
