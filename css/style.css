@@ -7,6 +7,9 @@ a:hover {
 .btn-bottom {
     vertical-align: bottom;
 }
+.jumbotron {
+    padding-bottom: 0;
+}
 .fox-img {
     width: 300px;
     display: block;
