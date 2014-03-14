@@ -27,4 +27,5 @@ a:hover {
 .btn-download:hover {
     background-color: #B85926;
     border-color: #9e4f25;
+    color: #fff;
 }
