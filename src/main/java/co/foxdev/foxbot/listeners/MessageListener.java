@@ -47,21 +47,6 @@ public class MessageListener extends ListenerAdapter<FoxBot>
         User user = event.getUser();
         Channel channel = event.getChannel();
 
-	    if (channel.getName().equalsIgnoreCase("#cubeworld"))
-	    {
-		    if (message.matches(".*Have an issue with our advertisements\\?.*"))
-		    {
-				if (channel.getNormalUsers().contains(user))
-				{
-					String hostmask = "*!*@*" + user.getHostmask();
-					foxbot.kick(channel, user, String.format("24h AntiSpam Ban (Leliana)"));
-					foxbot.ban(channel, hostmask);
-					Utils.scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
-					return;
-				}
-		    }
-	    }
-
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
             BotLogger.log(Level.INFO, String.format("MESSAGE: [%s] <%s%s> %s", channel.getName(), Utils.getPrefix(user, channel), user.getNick(), Colors.removeFormattingAndColors(message)));
