@@ -90,6 +90,6 @@ misc:
     send-greeting-as-notice: true
 sounds:
     #The base URL to retrive sound clips from for the sound command.
-    sound-url: 'https://dl.dropboxusercontent.com/u/70156340/'
+    sound-url: 'http://your.domain.com/sounds/'
     #The file name extension of the sounds in our remote sound database WITHOUT the "." (for example, if our sound files all ended with ".mp3" we would put mp3).
     sound-extension: 'mp3'
