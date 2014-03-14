@@ -7,3 +7,8 @@ a:hover {
 .btn-bottom {
     vertical-align: bottom;
 }
+.fox-img {
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+}
