@@ -3,7 +3,7 @@ FoxBot
 
 A highly configurable IRC bot.
 
-I should make a dedicated site for this. Meh, next week. *13/03/14*
+http://foxbot.foxdev.co
 
 [![Build Status](http://ci.notoriousdev.com/buildStatus/icon?job=FoxBot)](http://ci.notoriousdev.com/job/FoxBot/)
 
