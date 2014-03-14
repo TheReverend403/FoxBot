@@ -19,11 +19,11 @@ a:hover {
     display: block;
     margin: 0 auto;
 }
-.btn-success {
+.btn-download {
     background-color: #E89210;
     border-color: #c67710;
 }
-.btn-success:hover {
+.btn-download:hover {
     background-color: #B85926;
     border-color: #9e4f25;
 }
