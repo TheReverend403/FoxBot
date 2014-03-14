@@ -1,8 +1,12 @@
 .vcenter {
     margin-top: 20%;
 }
+a {
+    color: #E89210;
+}
 a:hover {
     text-decoration: none;
+    color: #B85926;
 }
 .btn-bottom {
     vertical-align: bottom;
@@ -14,4 +18,12 @@ a:hover {
     width: 300px;
     display: block;
     margin: 0 auto;
+}
+.btn-success {
+    background-color: #E89210;
+    border-color: #E89210;
+}
+.btn-success:hover {
+    background-color: #B85926;
+    border-color: #B85926;
 }
