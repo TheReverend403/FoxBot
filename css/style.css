@@ -4,3 +4,6 @@
 a:hover {
     text-decoration: none;
 }
+.btn-bottom {
+    vertical-align: bottom;
+}
