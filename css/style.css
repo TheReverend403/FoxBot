@@ -29,3 +29,9 @@ a:hover {
     border-color: #9e4f25;
     color: #fff;
 }
+#gh-forkme {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
