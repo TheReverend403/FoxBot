@@ -40,3 +40,10 @@
 *.ipr
 *.iws
 .idea/
+
+# Jekyll
+_site/
+
+# Ruby
+/Gemfile
+/Gemfile.lock
