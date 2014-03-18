@@ -56,7 +56,7 @@ public class CommandBan extends Command
             }
             catch (InterruptedException ex)
             {
-                ex.printStackTrace();
+	            foxbot.log(ex);
             }
 
             if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getNick()))

@@ -18,26 +18,28 @@
 package co.foxdev.foxbot;
 
 import co.foxdev.foxbot.commands.Command;
-import co.foxdev.foxbot.utils.CommandManager;
 import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.database.Database;
 import co.foxdev.foxbot.listeners.MessageListener;
 import co.foxdev.foxbot.listeners.UserListener;
-import co.foxdev.foxbot.logger.BotLogger;
 import co.foxdev.foxbot.permissions.PermissionManager;
+import co.foxdev.foxbot.utils.CommandManager;
 import com.maxmind.geoip.LookupService;
+import lombok.Getter;
 import org.pircbotx.PircBotX;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.impl.SimpleLogger;
+import org.slf4j.impl.SimpleLoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * FoxBot - An IRC bot written in Java
@@ -49,17 +51,33 @@ import java.util.logging.Logger;
 
 public class FoxBot extends PircBotX
 {
+	@Getter
 	private static FoxBot instance;
-    private static Config config;
-    private static PermissionManager permissions;
-    private static ZncConfig zncConfig;
-    private static CommandManager commandManager;
-    private static Database database;
-    private static LookupService lookupService;
-    private static Reflections reflections = new Reflections("co.foxdev");
+	@Getter
+    private Config config;
+	@Getter
+	private Logger logger;
+	@Getter
+    private PermissionManager permissionManager;
+	@Getter
+    private ZncConfig zncConfig;
+	@Getter
+    private CommandManager commandManager;
+	@Getter
+    private Database database;
+	@Getter
+    private LookupService lookupService;
+	@Getter
+    private Reflections reflections = new Reflections("co.foxdev");
 
     public static void main(String[] args)
     {
+	    System.setProperty(SimpleLogger.SHOW_DATE_TIME_KEY, "true");
+	    System.setProperty(SimpleLogger.SHOW_LOG_NAME_KEY, "false");
+	    System.setProperty(SimpleLogger.SHOW_THREAD_NAME_KEY, "false");
+	    System.setProperty(SimpleLogger.DATE_TIME_FORMAT_KEY, "[HH:MM:SS]");
+	    System.setProperty(SimpleLogger.LEVEL_IN_BRACKETS_KEY, "true");
+
         FoxBot me = new FoxBot();
         me.start(args);
     }
@@ -67,18 +85,19 @@ public class FoxBot extends PircBotX
     private void start(String[] args)
     {
 	    instance = this;
+	    logger = new SimpleLoggerFactory().getLogger(getClass().getName());
         File path = new File("data/custcmds");
 
         if (!path.exists() && !path.mkdirs())
         {
-            BotLogger.log(Level.WARNING, "STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
-            this.disconnect();
+            log("STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
+            disconnect();
             return;
         }
 
         config = new Config(this);
         zncConfig = new ZncConfig(this);
-        permissions = new PermissionManager(this);
+        permissionManager = new PermissionManager(this);
         commandManager = new CommandManager(this);
         database = new Database(this);
         database.connect();
@@ -89,7 +108,7 @@ public class FoxBot extends PircBotX
         }
         catch (IOException ex)
         {
-            BotLogger.log(Level.INFO, "GeoIP database not found, this feature will be unavailable.");
+            log("GeoIP database not found, geoip feature will be unavailable.");
         }
 
 	    useShutdownHook(true);
@@ -101,22 +120,22 @@ public class FoxBot extends PircBotX
 
     private void setBotInfo()
     {
-        BotLogger.log(Level.INFO, "STARTUP: Setting bot info");
+        log("Setting bot info");
         setVerbose(config.getDebug());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set verbose to %s", config.getDebug()));
+        log(String.format("Set verbose to %s", config.getDebug()));
         setAutoNickChange(config.getAutoNickChange());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set auto nick change to %s", config.getAutoNickChange()));
+        log(String.format("Set auto nick change to %s", config.getAutoNickChange()));
         setAutoReconnect(config.getAutoReconnect());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set auto-reconnect to %s", config.getAutoReconnect()));
+        log(String.format("Set auto-reconnect to %s", config.getAutoReconnect()));
         setMessageDelay(config.getMessageDelay());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set message delay to %s", config.getMessageDelay()));
+        log(String.format("Set message delay to %s", config.getMessageDelay()));
         setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
+        log(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
         setAutoSplitMessage(true);
         setName(config.getBotNick());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set nick to '%s'", config.getBotNick()));
+        log(String.format("Set nick to '%s'", config.getBotNick()));
         setLogin(config.getBotIdent());
-        BotLogger.log(Level.INFO, String.format("STARTUP: Set ident to '%s'", config.getBotIdent()));
+        log(String.format("Set ident to '%s'", config.getBotIdent()));
     }
 
     private void connectToServer()
@@ -125,12 +144,12 @@ public class FoxBot extends PircBotX
         {
             if (config.getServerSsl())
             {
-                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s (SSL)", getConfig().getServerAddress()));
+                log(String.format("Trying address %s (SSL)", getConfig().getServerAddress()));
                 connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
             }
             else
             {
-                BotLogger.log(Level.INFO, String.format("CONNECT: Trying address %s", getConfig().getServerAddress()));
+                log(String.format("Trying address %s", getConfig().getServerAddress()));
                 connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
             }
 
@@ -141,11 +160,11 @@ public class FoxBot extends PircBotX
         }
         catch (IOException | IrcException ex)
         {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	        log(ex);
         }
 
-        BotLogger.log(Level.INFO, String.format("CONNECT: Connected to %s", getConfig().getServerAddress()));
-        BotLogger.log(Level.INFO, String.format("STARTUP: Joining channels"));
+        log(String.format("Connected to %s", getConfig().getServerAddress()));
+        log(String.format("Joining channels"));
 
         for (String channel : config.getChannels())
         {
@@ -162,9 +181,9 @@ public class FoxBot extends PircBotX
 
     private void registerListeners()
     {
-        BotLogger.log(Level.INFO, String.format("STARTUP: Registering MessageListener"));
+        log(String.format("Registering MessageListener"));
         getListenerManager().addListener(new MessageListener(this));
-        BotLogger.log(Level.INFO, String.format("STARTUP: Registering UserListener"));
+        log(String.format("Registering UserListener"));
         getListenerManager().addListener(new UserListener(this));
     }
 
@@ -178,49 +197,51 @@ public class FoxBot extends PircBotX
                 Constructor clazzConstructor = clazz.getConstructor(getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
 
-                BotLogger.log(Level.INFO, String.format("STARTUP: Registering command '%s'", command.getName()));
+                log(String.format("Registering command '%s'", command.getName()));
                 commandManager.registerCommand(command);
             }
         }
         catch (Exception ex)
         {
-            // This can never happen.
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+			log(ex);
         }
     }
 
-    public Config getConfig()
-    {
-        return config;
-    }
-
-    public PermissionManager getPermissionManager()
-    {
-        return permissions;
-    }
-
-    public ZncConfig getZncConfig()
-    {
-        return zncConfig;
-    }
-
-    public CommandManager getCommandManager()
-    {
-        return commandManager;
-    }
-
-    public Database getDatabase()
-    {
-        return database;
-    }
-
-    public LookupService getLookupService()
-    {
-        return lookupService;
-    }
-
-	public static FoxBot getInstance()
+	@Override
+	public void log(String line)
 	{
-		return instance;
+		logger.info(line);
+	}
+
+	public void log(Exception ex)
+	{
+		for (StackTraceElement element : ex.getStackTrace())
+		{
+			log(Level.SEVERE, ex.getLocalizedMessage());
+			log(Level.SEVERE, element.toString());
+		}
+	}
+
+	public void log(Level level, String line)
+	{
+		if (level == Level.INFO)
+		{
+			logger.info(line);
+		}
+
+		if (level == Level.WARNING)
+		{
+			logger.warn(line);
+		}
+
+		if (level == Level.SEVERE)
+		{
+			logger.error(line);
+		}
+
+		if (level == Level.FINE)
+		{
+			logger.debug(line);
+		}
 	}
 }

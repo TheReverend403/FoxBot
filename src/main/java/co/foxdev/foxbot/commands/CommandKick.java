@@ -57,7 +57,7 @@ public class CommandKick extends Command
             }
             catch (InterruptedException ex)
             {
-                ex.printStackTrace();
+	            foxbot.log(ex);
             }
 
             if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getNick()))

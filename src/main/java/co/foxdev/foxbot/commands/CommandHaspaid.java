@@ -17,15 +17,12 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
 import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
-import co.foxdev.foxbot.FoxBot;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CommandHaspaid extends Command
 {
@@ -51,7 +48,7 @@ public class CommandHaspaid extends Command
             }
             catch (Exception ex)
             {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                foxbot.log(ex);
                 foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
             }
             return;

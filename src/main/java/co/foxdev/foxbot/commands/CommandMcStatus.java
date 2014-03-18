@@ -19,7 +19,6 @@ public class CommandMcStatus extends Command
             "login.minecraft.net",
             "session.minecraft.net",
             "skins.minecraft.net",
-            "realms.minecraft.net",
             "account.mojang.com"
     };
 

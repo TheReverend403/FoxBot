@@ -79,7 +79,7 @@ public class CommandShorten extends Command
 		}
 		catch (IOException ex)
 		{
-			ex.printStackTrace();
+			foxbot.log(ex);
 			return Colors.RED + "Something went wrong...";
 		}
 	}

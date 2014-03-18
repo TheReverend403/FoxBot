@@ -72,7 +72,7 @@ public class Database
 		}
 		catch (SQLException | ClassNotFoundException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 			foxbot.disconnect();
 		}
 		finally
@@ -91,7 +91,7 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 	}
@@ -116,7 +116,7 @@ public class Database
 			}
 			catch (SQLException | ClassNotFoundException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 				foxbot.disconnect();
 			}
 		}
@@ -141,7 +141,7 @@ public class Database
 		}
 		catch (SQLException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 		}
 		finally
 		{
@@ -159,7 +159,7 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 	}
@@ -188,7 +188,7 @@ public class Database
 		}
 		catch (SQLException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 		}
 		finally
 		{
@@ -210,7 +210,7 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 		return tells;
@@ -231,7 +231,7 @@ public class Database
 		}
 		catch (SQLException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 		}
 		finally
 		{
@@ -249,7 +249,7 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 	}

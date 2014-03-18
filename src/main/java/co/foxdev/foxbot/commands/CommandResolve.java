@@ -51,7 +51,7 @@ public class CommandResolve extends Command
             }
             catch (TextParseException ex)
             {
-                ex.printStackTrace();
+	            foxbot.log(ex);
             }
 
             if (records == null || records.length == 0 || (args.length == 2 && args[1].equals("-4")))
@@ -62,7 +62,7 @@ public class CommandResolve extends Command
                 }
                 catch (TextParseException ex)
                 {
-                    ex.printStackTrace();
+	                foxbot.log(ex);
                 }
 
                 if (records == null || records.length == 0)

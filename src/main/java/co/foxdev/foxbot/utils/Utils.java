@@ -18,7 +18,6 @@
 package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.logger.BotLogger;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -30,10 +29,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Utils
 {
+	private static FoxBot foxbot = FoxBot.getInstance();
+
     public static String parseChatUrl(String stringToParse, User sender)
     {
         try
@@ -92,15 +92,15 @@ public class Utils
         }
         catch (Exception ex)
         {
-            BotLogger.log(Level.WARNING, "Exception occurred while parsing chat URL");
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            foxbot.log(Level.WARNING, "Exception occurred while parsing chat URL");
+	        foxbot.log(ex);
         }
         return "null";
     }
 
     public static String munge(String stringToMunge)
     {
-        return FoxBot.getInstance().getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
+        return foxbot.getConfig().getMungeUsernames() ? stringToMunge.replace("a", "ä").replace("e", "è").replace("o", "ö").replace("u", "ù").replace("s", "š").replace("i", "í").replace("n", "ñ") : stringToMunge;
     }
 
     public static String colourise(String stringToColour)
@@ -172,21 +172,21 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-                BotLogger.log(Level.WARNING, "Error while creating custom command folders!");
+	            foxbot.log(Level.WARNING, "Error while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
 
             if (file.exists() && !file.delete())
             {
-                BotLogger.log(Level.WARNING, "Error while deleting old command!");
+	            foxbot.log(Level.WARNING, "Error while deleting old command!");
             }
 
             if (text.isEmpty() || text.equalsIgnoreCase("delete"))
             {
                 if (file.delete())
                 {
-                    BotLogger.log(Level.INFO, String.format("Command '%s' deleted for %s!", command, channel));
+	                foxbot.log(String.format("Command '%s' deleted for %s!", command, channel));
                 }
                 return false;
             }
@@ -197,11 +197,11 @@ public class Utils
             bw.write(text);
             bw.close();
             fw.close();
-            BotLogger.log(Level.INFO, String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
+	        foxbot.log(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
         }
         catch (IOException ex)
         {
-            ex.printStackTrace();
+	        foxbot.log(ex);
         }
         return true;
     }

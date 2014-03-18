@@ -19,14 +19,12 @@ package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
-import co.foxdev.foxbot.logger.BotLogger;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class CommandManager
@@ -64,7 +62,7 @@ public class CommandManager
 		    return false;
 	    }
 
-        BotLogger.log(Level.INFO, String.format("COMMAND: Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
+        foxbot.log(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
 
         String permission = command.getPermission();
 
@@ -72,7 +70,7 @@ public class CommandManager
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
-                BotLogger.log(Level.WARNING, String.format("COMMAND: Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
+	            foxbot.log(Level.WARNING, String.format("Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
                 foxbot.sendNotice(sender, "You do not have permission to do that!");
                 return false;
             }
@@ -87,8 +85,8 @@ public class CommandManager
         catch (Exception ex)
         {
             foxbot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
-            System.out.println("Error in dispatching command: " + command.getName());
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+	        foxbot.log("Error in dispatching command: " + command.getName());
+	        foxbot.log(ex);
         }
         return true;
     }
