@@ -41,7 +41,7 @@ public class Utils
 	        Connection conn = Jsoup.connect(stringToParse);
 
 	        conn.followRedirects(true)
-	            .userAgent("FoxBot // https://github.com/FoxDev/FoxBot // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
+	            .userAgent("FoxBot // http://foxbot.foxdev.co // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
 	            .timeout(3000)
 	            .maxBodySize(100000)
 	            .ignoreContentType(true);
