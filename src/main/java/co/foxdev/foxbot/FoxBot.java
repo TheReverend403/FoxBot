@@ -75,7 +75,7 @@ public class FoxBot extends PircBotX
 	    System.setProperty(SimpleLogger.SHOW_DATE_TIME_KEY, "true");
 	    System.setProperty(SimpleLogger.SHOW_LOG_NAME_KEY, "false");
 	    System.setProperty(SimpleLogger.SHOW_THREAD_NAME_KEY, "false");
-	    System.setProperty(SimpleLogger.DATE_TIME_FORMAT_KEY, "[HH:MM:SS]");
+	    System.setProperty(SimpleLogger.DATE_TIME_FORMAT_KEY, "[HH:MM:ss]");
 	    System.setProperty(SimpleLogger.LEVEL_IN_BRACKETS_KEY, "true");
 
         FoxBot me = new FoxBot();
