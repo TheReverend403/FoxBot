@@ -92,7 +92,6 @@ public class Utils
         }
         catch (Exception ex)
         {
-            foxbot.log(Level.WARNING, "Exception occurred while parsing chat URL");
 	        foxbot.log(ex);
         }
         return "null";
