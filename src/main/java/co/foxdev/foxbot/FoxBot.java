@@ -42,10 +42,10 @@ import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 
 /**
- * FoxBot - An IRC bot written in Java
+ * FoxBot - A highly configurable IRC bot
  *
- * @author TheReverend403 (Lee Watson)
- * @website http://revthefox.co.uk
+ * @author TheReverend403 (Lee Watson) - http://revthefox.co.uk
+ * @website http://foxbot.foxdev.co
  * @repo https://github.com/FoxDev/FoxBot
  */
 
