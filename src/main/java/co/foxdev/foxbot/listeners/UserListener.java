@@ -39,8 +39,6 @@ public class UserListener extends ListenerAdapter<FoxBot>
     @Override
     public void onQuit(QuitEvent<FoxBot> event)
     {
-        String reason = event.getReason();
-
         foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
