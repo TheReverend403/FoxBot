@@ -25,8 +25,6 @@ import org.pircbotx.User;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Database
 {
@@ -124,7 +122,7 @@ public class Database
 
 	public void addTell(String sender, String receiver, String message)
 	{
-		this.reconnect();
+		reconnect();
 
 		PreparedStatement statement = null;
 
@@ -166,6 +164,8 @@ public class Database
 
 	public List<String> getTells(String user, Boolean showAll)
 	{
+		reconnect();
+
 		List<String> tells = new ArrayList<>();
 		PreparedStatement statement = null;
 		ResultSet rs = null;
@@ -218,7 +218,7 @@ public class Database
 
 	public void cleanTells(String user)
 	{
-		this.reconnect();
+		reconnect();
 
 		PreparedStatement statement = null;
 
@@ -256,7 +256,7 @@ public class Database
 
 	public void addBan(Channel channel, User target, String reason, User banner, long time)
 	{
-		this.reconnect();
+		reconnect();
 
 		PreparedStatement statement = null;
 
@@ -275,7 +275,7 @@ public class Database
 		}
 		catch (SQLException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 		}
 		finally
 		{
@@ -293,14 +293,14 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 	}
 
 	public void addKick(Channel channel, User target, String reason, User kicker, long time)
 	{
-		this.reconnect();
+		reconnect();
 
 		PreparedStatement statement = null;
 
@@ -319,7 +319,7 @@ public class Database
 		}
 		catch (SQLException ex)
 		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+			foxbot.log(ex);
 		}
 		finally
 		{
@@ -337,53 +337,7 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-	}
-
-	public void addMute(Channel channel, User target, String reason, User muter, long time)
-	{
-		this.reconnect();
-
-		PreparedStatement statement = null;
-
-		try
-		{
-			connection.setAutoCommit(false);
-			statement = connection.prepareStatement("INSERT INTO mutes (channel, target, hostmask, reason, muter, mute_time) VALUES (?, ?, ?, ?, ?, ?);");
-			statement.setString(1, target.getNick());
-
-			statement.setString(1, channel.getName());
-			statement.setString(2, target.getNick());
-			statement.setString(3, target.getHostmask());
-			statement.setString(4, reason);
-			statement.setString(5, muter.getNick());
-			statement.setLong(6, time);
-			statement.executeUpdate();
-			connection.commit();
-		}
-		catch (SQLException ex)
-		{
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 		}
 	}
@@ -399,10 +353,10 @@ public class Database
 			}
 			catch (SQLException ex)
 			{
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+				foxbot.log(ex);
 			}
 			return;
 		}
-		System.out.println("Database is already disconnected!");
+		foxbot.log("Database is already disconnected!");
 	}
 }
