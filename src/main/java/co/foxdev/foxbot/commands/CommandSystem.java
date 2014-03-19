@@ -72,6 +72,7 @@ public class CommandSystem extends Command
 				{
 					if (!verbose && count >= 3)
 					{
+						proc.destroy();
 						channel.sendMessage("Max output reached. Use -v to show full output.");
 						break;
 					}
@@ -88,6 +89,7 @@ public class CommandSystem extends Command
 				{
 					if (!verbose && count >= 3)
 					{
+						proc.destroy();
 						channel.sendMessage("Max output reached. Use -v to show full output.");
 						break;
 					}
