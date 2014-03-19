@@ -70,7 +70,7 @@ public class CommandSystem extends Command
 
 				while ((line = stdInput.readLine()) != null)
 				{
-					if (!verbose && count >= 4)
+					if (!verbose && count >= 3)
 					{
 						channel.sendMessage("Max output reached. Use -v to show full output.");
 						break;
@@ -86,7 +86,7 @@ public class CommandSystem extends Command
 
 				while ((line = stdError.readLine()) != null)
 				{
-					if (!verbose && count >= 4)
+					if (!verbose && count >= 3)
 					{
 						channel.sendMessage("Max output reached. Use -v to show full output.");
 						break;
