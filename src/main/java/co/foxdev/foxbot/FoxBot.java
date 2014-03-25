@@ -215,12 +215,27 @@ public class FoxBot extends PircBotX
 
 	public void log(Exception ex)
 	{
-		log(Level.SEVERE, ex.getLocalizedMessage());
+		error(ex.getLocalizedMessage());
 
 		for (StackTraceElement element : ex.getStackTrace())
 		{
-			log(Level.SEVERE, '\t' + element.toString());
+			error('\t' + element.toString());
 		}
+	}
+
+	public void debug(String line)
+	{
+		logger.debug(line);
+	}
+
+	public void error(String line)
+	{
+		logger.error(line);
+	}
+
+	public void warn(String line)
+	{
+		logger.warn(line);
 	}
 
 	public void log(Level level, String line)
