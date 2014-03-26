@@ -41,6 +41,10 @@
 *.iws
 .idea/
 
-# GH-Pages
+# Jekyll
 _site/
-/Gemfile*
+
+# Ruby
+/Gemfile
+/Gemfile.lock
+
