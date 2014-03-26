@@ -41,5 +41,6 @@
 *.iws
 .idea/
 
-# Jekyll
+# GH-Pages
 _site/
+/Gemfile*
