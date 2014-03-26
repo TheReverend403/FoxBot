@@ -40,3 +40,6 @@
 *.ipr
 *.iws
 .idea/
+
+# Jekyll
+_site/
