@@ -91,7 +91,7 @@ public class FoxBot extends PircBotX
 		if (!path.exists() && !path.mkdirs())
 		{
 			log("STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
-			disconnect();
+			shutdown(true);
 			return;
 		}
 

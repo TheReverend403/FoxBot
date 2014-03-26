@@ -19,6 +19,8 @@ package co.foxdev.foxbot.database;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
@@ -31,8 +33,7 @@ public class Database
 	private final FoxBot foxbot;
 
 	private Connection connection = null;
-	private String databaseType;
-	private String url;
+	private BoneCP connectionPool = null;
 
 	public Database(FoxBot foxbot)
 	{
@@ -41,25 +42,30 @@ public class Database
 
 	public void connect()
 	{
-		Statement statement = null;
-
-		databaseType = foxbot.getConfig().getDatabaseType();
-		url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
+		Statement statement;
+		String databaseType = foxbot.getConfig().getDatabaseType();
+		String url = databaseType.equalsIgnoreCase("mysql") ? String.format("jdbc:mysql://%s:%s/%s", foxbot.getConfig().getDatabaseHost(), foxbot.getConfig().getDatabasePort(), foxbot.getConfig().getDatabaseName()) : "jdbc:sqlite:data/bot.db";
 
 		try
 		{
 			if (databaseType.equalsIgnoreCase("sqlite"))
 			{
 				Class.forName("org.sqlite.JDBC");
-				connection = DriverManager.getConnection(url);
-			}
-			else
-			{
-				String user = foxbot.getConfig().getDatabaseUser();
-				String password = foxbot.getConfig().getDatabasePassword();
-				connection = DriverManager.getConnection(url, user, password);
 			}
 
+			BoneCPConfig config = new BoneCPConfig();
+			String user = foxbot.getConfig().getDatabaseUser();
+			String password = foxbot.getConfig().getDatabasePassword();
+
+			config.setJdbcUrl(url);
+			config.setUsername(user);
+			config.setPassword(password);
+			config.setMinConnectionsPerPartition(5);
+			config.setMaxConnectionsPerPartition(10);
+			config.setPartitionCount(3);
+
+			connectionPool = new BoneCP(config);
+			connection = connectionPool.getConnection();
 			statement = connection.createStatement();
 
 			statement.setQueryTimeout(30);
@@ -68,113 +74,50 @@ public class Database
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS kicks (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), kicker VARCHAR(32), kick_time BIGINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS mutes (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), muter VARCHAR(32), mute_time BIGINT)");
 		}
-		catch (SQLException | ClassNotFoundException ex)
+		catch (SQLException ex)
 		{
 			foxbot.log(ex);
-			foxbot.disconnect();
+			foxbot.shutdown(true);
 		}
-		finally
+		catch (ClassNotFoundException ex)
 		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
-		}
-	}
-
-	public void reconnect()
-	{
-		if (connection == null)
-		{
-			try
-			{
-				if (databaseType.equalsIgnoreCase("sqlite"))
-				{
-					Class.forName("org.sqlite.JDBC");
-					connection = DriverManager.getConnection(url);
-				}
-				else
-				{
-					String user = foxbot.getConfig().getDatabaseUser();
-					String password = foxbot.getConfig().getDatabasePassword();
-					connection = DriverManager.getConnection(url, user, password);
-				}
-			}
-			catch (SQLException | ClassNotFoundException ex)
-			{
-				foxbot.log(ex);
-				foxbot.disconnect();
-			}
+			foxbot.error("SQLite driver not found!");
+			foxbot.shutdown(true);
 		}
 	}
 
 	public void addTell(String sender, String receiver, String message)
 	{
-		reconnect();
-
-		PreparedStatement statement = null;
+		PreparedStatement statement;
 
 		try
 		{
-			connection.setAutoCommit(false);
 			statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
+
 			statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTimeInMillis()));
 			statement.setString(2, sender);
 			statement.setString(3, receiver);
 			statement.setString(4, message);
 			statement.executeUpdate();
-			connection.commit();
 		}
 		catch (SQLException ex)
 		{
 			foxbot.log(ex);
 		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
-		}
 	}
 
 	public List<String> getTells(String user, Boolean showAll)
 	{
-		reconnect();
-
 		List<String> tells = new ArrayList<>();
-		PreparedStatement statement = null;
-		ResultSet rs = null;
+		PreparedStatement statement;
+		ResultSet rs;
 
 		try
 		{
 			statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
+
 			statement.setString(1, user);
-			connection.setAutoCommit(true);
+
 			rs = statement.executeQuery();
 
 			while (rs.next())
@@ -183,87 +126,42 @@ public class Database
 			}
 
 			statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
+
 			statement.setString(1, user);
 			statement.executeUpdate();
 		}
 		catch (SQLException ex)
 		{
 			foxbot.log(ex);
-		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-				if (rs != null)
-				{
-					rs.close();
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
 		}
 		return tells;
 	}
 
 	public void cleanTells(String user)
 	{
-		reconnect();
-
-		PreparedStatement statement = null;
+		PreparedStatement statement;
 
 		try
 		{
 			statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
+
 			statement.setString(1, user);
-			connection.setAutoCommit(true);
 			statement.executeUpdate();
 		}
 		catch (SQLException ex)
 		{
 			foxbot.log(ex);
 		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
-		}
 	}
 
 	public void addBan(Channel channel, User target, String reason, User banner, long time)
 	{
-		reconnect();
-
-		PreparedStatement statement = null;
+		PreparedStatement statement;
 
 		try
 		{
-			connection.setAutoCommit(false);
 			statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?);");
+
 			statement.setString(1, channel.getName());
 			statement.setString(2, target.getNick());
 			statement.setString(3, target.getHostmask());
@@ -271,43 +169,21 @@ public class Database
 			statement.setString(5, banner.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
-			connection.commit();
 		}
 		catch (SQLException ex)
 		{
 			foxbot.log(ex);
 		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
-		}
 	}
 
 	public void addKick(Channel channel, User target, String reason, User kicker, long time)
 	{
-		reconnect();
-
-		PreparedStatement statement = null;
+		PreparedStatement statement;
 
 		try
 		{
-			connection.setAutoCommit(false);
 			statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?);");
+
 			statement.setString(1, channel.getName());
 			statement.setString(2, target.getNick());
 			statement.setString(3, target.getHostmask());
@@ -315,45 +191,26 @@ public class Database
 			statement.setString(5, kicker.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
-			connection.commit();
 		}
 		catch (SQLException ex)
 		{
 			foxbot.log(ex);
 		}
-		finally
-		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-				}
-				if (connection != null)
-				{
-					connection.close();
-					connection = null;
-				}
-			}
-			catch (SQLException ex)
-			{
-				foxbot.log(ex);
-			}
-		}
 	}
 
 	public void disconnect()
 	{
+		connectionPool.shutdown();
+
 		if (connection != null)
 		{
 			try
 			{
 				connection.close();
-				connection = null;
 			}
-			catch (SQLException ex)
+			catch (SQLException e)
 			{
-				foxbot.log(ex);
+				e.printStackTrace();
 			}
 			return;
 		}
