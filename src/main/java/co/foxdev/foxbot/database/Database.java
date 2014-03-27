@@ -72,6 +72,7 @@ public class Database
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), banner VARCHAR(32), ban_time BIGINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS kicks (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), kicker VARCHAR(32), kick_time BIGINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS mutes (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), muter VARCHAR(32), mute_time BIGINT)");
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
@@ -91,6 +92,7 @@ public class Database
 
 		try
 		{
+			connection = connectionPool.getConnection();
 			statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
 
 			statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTimeInMillis()));
@@ -98,6 +100,7 @@ public class Database
 			statement.setString(3, receiver);
 			statement.setString(4, message);
 			statement.executeUpdate();
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
@@ -113,6 +116,7 @@ public class Database
 
 		try
 		{
+			connection = connectionPool.getConnection();
 			statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
 
 			statement.setString(1, user);
@@ -128,6 +132,7 @@ public class Database
 
 			statement.setString(1, user);
 			statement.executeUpdate();
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
@@ -142,10 +147,12 @@ public class Database
 
 		try
 		{
+			connection = connectionPool.getConnection();
 			statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
 
 			statement.setString(1, user);
 			statement.executeUpdate();
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
@@ -159,6 +166,7 @@ public class Database
 
 		try
 		{
+			connection = connectionPool.getConnection();
 			statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?);");
 
 			statement.setString(1, channel.getName());
@@ -168,6 +176,7 @@ public class Database
 			statement.setString(5, banner.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
@@ -181,6 +190,7 @@ public class Database
 
 		try
 		{
+			connection = connectionPool.getConnection();
 			statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?);");
 
 			statement.setString(1, channel.getName());
@@ -190,6 +200,7 @@ public class Database
 			statement.setString(5, kicker.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
+			connection.close();
 		}
 		catch (SQLException ex)
 		{
