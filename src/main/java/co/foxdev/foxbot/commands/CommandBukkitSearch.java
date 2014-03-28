@@ -19,6 +19,7 @@ package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -46,48 +47,62 @@ public class CommandBukkitSearch extends Command
 
 		if (args.length > 0)
 		{
-			String plugin = args[0];
-			String url = String.format("http://api.bukget.org/3/search/plugin_name/like/%s?size=1", plugin);
+            String plugin = args[0].toLowerCase();
+            String url = String.format("http://api.bukget.org/3/search/plugin_name/like/%s%s", plugin, (args.length) == 1 ? "" : ("?size=" + args[1]));
 
-			Connection conn = Jsoup.connect(url).timeout(500).followRedirects(true).ignoreContentType(true);
-			String json;
+            Connection conn = Jsoup.connect(url).timeout(500).followRedirects(true).ignoreContentType(true);
+            String json;
 
-			try
-			{
-				json = conn.get().text().replace("[", "").replace("]", "");
-			}
-			catch (IOException ex)
-			{
-				foxbot.log(ex);
-				channel.sendMessage(Utils.colourise(String.format("(%s) &cAn error occurred while querying the Bukget API!", Utils.munge(sender.getNick()))));
-				return;
-			}
+            try
+            {
+                json = conn.get().text().replace("[", "").replace("]", "");
+            }
+            catch (IOException ex)
+            {
+                foxbot.log(ex);
+                channel.sendMessage(Utils.colourise(String.format("(%s) &cAn error occurred while querying the Bukget API!", Utils.munge(sender.getNick()))));
+                return;
+            }
 
-			if (json == null || json.isEmpty())
-			{
-				channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
-				return;
-			}
+            if (json.equals("[]"))
+            {
+                channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
+                return;
+            }
 
-			JSONObject jsonObj = new JSONObject(json);
+            JSONArray jsonArray = new JSONArray(json);
+            JSONObject found = null;
 
-			if (jsonObj.length() == 0)
-			{
-				channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
-				return;
-			}
+            int delta = Integer.MAX_VALUE;
 
-			String name = jsonObj.getString("plugin_name");
-			String description = jsonObj.getString("description");
-			String pluginUrl = String.format("http://dev.bukkit.org/bukkit-plugins/%s/", jsonObj.getString("slug"));
+            for (int i = 0; i < jsonArray.length(); i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String name = jsonObject.getString("plugin_name");
 
-			if (description.isEmpty())
-			{
-				description = "No description";
-			}
+                if (name.equalsIgnoreCase(plugin))
+                {
+                    found = jsonObject;
+                    break;
+                }
+            }
 
-			channel.sendMessage(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
-			return;
+            if (found == null)
+            {
+                found = jsonArray.getJSONObject(0);
+            }
+
+            String name = found.getString("plugin_name");
+            String description = found.getString("description");
+            String pluginUrl = String.format("http://dev.bukkit.org/bukkit-plugins/%s/", found.getString("slug"));
+
+            if (description.isEmpty())
+            {
+                description = "No description";
+            }
+
+            channel.sendMessage(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
+            return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sbukkitsearch <plugin>", foxbot.getConfig().getCommandPrefix()));
 	}
