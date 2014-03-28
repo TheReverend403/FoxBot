@@ -20,8 +20,9 @@ default:
     - command.hash
     - command.commands
     - command.shorten
+    - command.bukkitsearch
 # Permissions granted to specific users.
-TheReverend403:
-# revthefox.co.uk: <-- if using hostmask matching.
+revthefox.co.uk:
+# TheReverend403: <-- if not using hostmask matching.
     - example.permission
     - '*'
