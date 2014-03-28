@@ -44,7 +44,7 @@ public class CommandBukkitSearch extends Command
 		User sender = event.getUser();
 		Channel channel = event.getChannel();
 
-		if (args.length == 1)
+		if (args.length > 0)
 		{
 			String plugin = args[0];
 			String url = String.format("http://api.bukget.org/3/search/plugin_name/like/%s?size=1", plugin);
