@@ -55,7 +55,7 @@ public class CommandBukkitSearch extends Command
 
             try
             {
-                json = conn.get().text().replace("[", "").replace("]", "");
+                json = conn.get().text();
             }
             catch (IOException ex)
             {
