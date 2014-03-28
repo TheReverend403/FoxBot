@@ -63,6 +63,12 @@ public class CommandBukkitSearch extends Command
 				return;
 			}
 
+			if (json == null || json.isEmpty())
+			{
+				channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
+				return;
+			}
+
 			JSONObject jsonObj = new JSONObject(json);
 
 			if (jsonObj.length() == 0)
