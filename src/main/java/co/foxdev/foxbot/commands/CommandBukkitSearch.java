@@ -73,8 +73,6 @@ public class CommandBukkitSearch extends Command
             JSONArray jsonArray = new JSONArray(json);
             JSONObject found = null;
 
-            int delta = Integer.MAX_VALUE;
-
             for (int i = 0; i < jsonArray.length(); i++)
             {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
