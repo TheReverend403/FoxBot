@@ -211,19 +211,5 @@ public class Database
 	public void disconnect()
 	{
 		connectionPool.shutdown();
-
-		if (connection != null)
-		{
-			try
-			{
-				connection.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-			return;
-		}
-		foxbot.log("Database is already disconnected!");
 	}
 }
