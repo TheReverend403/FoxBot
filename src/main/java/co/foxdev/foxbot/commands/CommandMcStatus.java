@@ -2,25 +2,20 @@ package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.pircbotx.*;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.net.*;
+import java.io.IOException;
 
 public class CommandMcStatus extends Command
 {
     private final FoxBot foxbot;
     private String online = Colors.DARK_GREEN + "✔" + Colors.NORMAL;
     private String offline = Colors.RED + "✘" + Colors.NORMAL;
-    private String[] urls = new String[]{
-            "minecraft.net",
-            "login.minecraft.net",
-            "session.minecraft.net",
-            "skins.minecraft.net",
-            "account.mojang.com"
-    };
 
     public CommandMcStatus(FoxBot foxbot)
     {
@@ -38,20 +33,29 @@ public class CommandMcStatus extends Command
         {
             StringBuilder statusString = new StringBuilder(String.format("(%s) ", Utils.munge(sender.getNick())));
 
-            for (String url : urls)
-            {
-                try
-                {
-                    Socket socket = new Socket();
-	                socket.connect(new InetSocketAddress(url, 80), 500);
-                    statusString.append("| ").append(url).append(" ").append(online).append(" ");
-                    socket.close();
-                }
-                catch (Exception ex)
-                {
-                    statusString.append("| ").append(url).append(" ").append(offline).append(" ");
-                }
-            }
+	        Connection conn = Jsoup.connect("http://status.mojang.com/check").timeout(500).followRedirects(true).ignoreContentType(true);
+	        String json;
+
+	        try
+	        {
+		        json = conn.get().text();
+	        }
+	        catch (IOException ex)
+	        {
+		        foxbot.log(ex);
+		        channel.sendMessage(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
+		        return;
+	        }
+
+	        JSONArray jsonArray = new JSONArray(json);
+
+	        for (int i = 0; i < jsonArray.length(); i++)
+	        {
+		        JSONObject jsonObject = jsonArray.getJSONObject(i);
+		        String key = (String) jsonObject.keys().next();
+		        statusString.append("| ").append(key).append(" ").append(jsonObject.getString(key).equals("green") ? online : offline).append(" ");
+	        }
+
             statusString.append("|");
             channel.sendMessage(statusString.toString());
             return;
