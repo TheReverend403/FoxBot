@@ -64,7 +64,7 @@ misc:
     # Should we spam the console with debug info?
     debug: true
     # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
-    command-prefix: '.'
+    command-prefix: '~'
     # Should the bot accept invites from users with bot.invite?
     auto-join-on-invite: true
     # Should the bot rejoin a channel after being kicked?
