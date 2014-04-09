@@ -39,6 +39,7 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
 /**
@@ -189,11 +190,12 @@ public class FoxBot extends PircBotX
 
 	private void registerCommands()
 	{
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 		try
 		{
 			for (Class clazz : reflections.getSubTypesOf(Command.class))
 			{
-				ClassLoader.getSystemClassLoader().loadClass(clazz.getName());
+				classLoader.loadClass(clazz.getName());
 				Constructor clazzConstructor = clazz.getConstructor(getClass());
 				Command command = (Command) clazzConstructor.newInstance(this);
 
@@ -201,7 +203,7 @@ public class FoxBot extends PircBotX
 				commandManager.registerCommand(command);
 			}
 		}
-		catch (Exception ex)
+		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
 		{
 			log(ex);
 		}
