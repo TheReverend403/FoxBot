@@ -99,6 +99,11 @@ public class CommandManager
 		    return false;
 	    }
 
+	    if (channel.contains(".") || channel.contains("/") || channel.contains("\\\\") || channel.contains("~"))
+	    {
+		    return false;
+	    }
+
         File file = new File(String.format("data/custcmds/%s/%s", channel.substring(1), command));
         StringBuilder message = new StringBuilder();
 
