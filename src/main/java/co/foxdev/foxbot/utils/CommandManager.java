@@ -93,6 +93,12 @@ public class CommandManager
 
     private boolean runCustomCommand(String channel, String command)
     {
+	    // Prevent filesystem access
+	    if (command.contains(".") || command.contains("/") || command.contains("\\\\") || command.contains("~"))
+	    {
+		    return false;
+	    }
+
         File file = new File(String.format("data/custcmds/%s/%s", channel.substring(1), command));
         StringBuilder message = new StringBuilder();
 
