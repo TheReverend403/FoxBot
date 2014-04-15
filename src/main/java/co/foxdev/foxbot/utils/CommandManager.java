@@ -57,9 +57,9 @@ public class CommandManager
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
 
-	    if (!runCustomCommand(event.getChannel().getName(), commandName) && command == null)
+	    if (runCustomCommand(event.getChannel().getName(), commandName) && command == null)
 	    {
-		    return false;
+		    return true;
 	    }
 
         foxbot.log(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
@@ -133,10 +133,7 @@ public class CommandManager
 
                 for (int i = 0; i <= 2; i++)
                 {
-	                if (lines.length >= i + 1)
-	                {
-		                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
-	                }
+	                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
                 return true;
             }
