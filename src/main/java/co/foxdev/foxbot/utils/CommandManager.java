@@ -133,7 +133,10 @@ public class CommandManager
 
                 for (int i = 0; i <= 2; i++)
                 {
-                    foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
+	                if (lines.length >= i + 1)
+	                {
+		                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
+	                }
                 }
                 return true;
             }
