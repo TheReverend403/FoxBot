@@ -131,7 +131,7 @@ public class CommandManager
             {
                 String[] lines = LINES_SPLIT.split(message.toString());
 
-                for (int i = 0; i <= lines.length - 1 && i < 3; i++)
+                for (int i = 0; i < lines.length && i < 3; i++)
                 {
 	                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
