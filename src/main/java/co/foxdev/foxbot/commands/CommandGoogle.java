@@ -80,7 +80,7 @@ public class CommandGoogle extends Command
 			String title = result.getString("titleNoFormatting");
 			String url = result.getString("url");
 
-			channel.sendMessage(Utils.colourise(String.format("(%s) &2Title: &r%s &2URL: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.escapeHtml4(title), url)));
+			channel.sendMessage(Utils.colourise(String.format("(%s) &2Title: &r%s &2URL: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url)));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
