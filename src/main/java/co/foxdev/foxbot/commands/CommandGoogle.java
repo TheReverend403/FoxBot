@@ -19,6 +19,7 @@ package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -79,7 +80,7 @@ public class CommandGoogle extends Command
 			String title = result.getString("titleNoFormatting");
 			String url = result.getString("url");
 
-			channel.sendMessage(Utils.colourise(String.format("(%s) &2Title: &r%s &2URL: &r%s", Utils.munge(sender.getNick()), title, url)));
+			channel.sendMessage(Utils.colourise(String.format("(%s) &2Title: &r%s &2URL: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.escapeHtml4(title), url)));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
