@@ -21,6 +21,7 @@ default:
     - command.commands
     - command.shorten
     - command.bukkitsearch
+    - command.google
 # Permissions granted to specific users.
 revthefox.co.uk:
 # TheReverend403: <-- if not using hostmask matching.
