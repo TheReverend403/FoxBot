@@ -217,7 +217,7 @@ public class FoxBot extends PircBotX
 
 	public void log(Exception ex)
 	{
-		error(ex.getLocalizedMessage());
+		error(ex.getClass().getName() + ": " + ex.getLocalizedMessage());
 
 		for (StackTraceElement element : ex.getStackTrace())
 		{
