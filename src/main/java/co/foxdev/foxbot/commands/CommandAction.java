@@ -45,6 +45,7 @@ public class CommandAction extends Command
 
             if (args[0].startsWith("#"))
             {
+	            Channel chan = foxbot.getChannel(args[0]);
                 message = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
@@ -61,16 +62,16 @@ public class CommandAction extends Command
                     return;
                 }
 
-                foxbot.joinChannel(args[0]);
+                foxbot.joinChannel(chan);
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.sendAction(args[0], Utils.colourise(message.toString()));
+                    foxbot.sendAction(chan, Utils.colourise(message.toString()));
                     foxbot.partChannel(foxbot.getChannel(args[0]));
                     foxbot.sendNotice(sender, String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                foxbot.sendAction(args[0], Utils.colourise(message.toString()));
+                foxbot.sendAction(chan, Utils.colourise(message.toString()));
                 foxbot.sendNotice(sender, String.format("Action sent to %s", args[0]));
                 return;
             }

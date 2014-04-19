@@ -66,13 +66,13 @@ public class CommandSystem extends Command
 				{
 					if (!verbose && count >= 3)
 					{
-						channel.sendMessage("Max output reached. Use -v to show full output.");
+						channel.send().message("Max output reached. Use -v to show full output.");
 						break;
 					}
 
 					if (!line.isEmpty())
 					{
-						channel.sendMessage(line);
+						channel.send().message(line);
 						count++;
 					}
 				}
@@ -82,13 +82,13 @@ public class CommandSystem extends Command
 				{
 					if (!verbose && count >= 3)
 					{
-						channel.sendMessage("Max output reached. Use -v to show full output.");
+						channel.send().message("Max output reached. Use -v to show full output.");
 						break;
 					}
 
 					if (!line.isEmpty())
 					{
-						channel.sendMessage(line);
+						channel.send().message(line);
 						count++;
 					}
 				}

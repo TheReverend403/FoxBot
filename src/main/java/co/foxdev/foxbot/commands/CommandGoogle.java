@@ -63,7 +63,7 @@ public class CommandGoogle extends Command
 			catch (IOException ex)
 			{
 				foxbot.log(ex);
-				channel.sendMessage(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+				channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
 				return;
 			}
 
@@ -71,7 +71,7 @@ public class CommandGoogle extends Command
 
 			if (jsonArray.length() == 0)
 			{
-				channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
+				channel.send().message(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
 				return;
 			}
 
@@ -81,7 +81,7 @@ public class CommandGoogle extends Command
 			String title = result.getString("titleNoFormatting");
 			String url = result.getString("url");
 
-			channel.sendMessage(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
+			channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));

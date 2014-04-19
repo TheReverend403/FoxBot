@@ -65,6 +65,7 @@ public class PermissionManager
 				}
 				return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
 			}
+
 			if (!quiet)
 			{
 				foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");

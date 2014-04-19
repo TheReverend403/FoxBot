@@ -60,7 +60,7 @@ public class CommandMcStatus extends Command
 	        catch (IOException ex)
 	        {
 		        foxbot.log(ex);
-		        channel.sendMessage(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
+		        channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
 		        return;
 	        }
 
@@ -74,7 +74,7 @@ public class CommandMcStatus extends Command
 	        }
 
             statusString.append("|");
-            channel.sendMessage(statusString.toString());
+            channel.send().message(statusString.toString());
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));

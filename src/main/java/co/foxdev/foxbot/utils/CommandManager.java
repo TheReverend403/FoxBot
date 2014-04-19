@@ -143,7 +143,7 @@ public class CommandManager
 
                 for (int i = 0; i < lines.length && i < 3; i++)
                 {
-	                foxbot.getChannel(channel).sendMessage(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
+	                foxbot.getChannel(channel).send().message(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
                 return true;
             }

@@ -18,6 +18,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
+import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -42,9 +43,11 @@ public class CommandJoin extends Command
             {
                 if (chan.startsWith("#"))
                 {
-                    if (!foxbot.getChannel(chan).isInviteOnly())
+	                Channel channel = foxbot.getChannel(chan);
+
+                    if (!channel.isInviteOnly())
                     {
-                        foxbot.joinChannel(chan);
+                        foxbot.joinChannel(channel);
                         foxbot.sendNotice(sender, String.format("Joined %s", chan));
                         continue;
                     }

@@ -60,13 +60,13 @@ public class CommandBukkitSearch extends Command
             catch (IOException ex)
             {
                 foxbot.log(ex);
-                channel.sendMessage(Utils.colourise(String.format("(%s) &cAn error occurred while querying the Bukget API!", Utils.munge(sender.getNick()))));
+                channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying the Bukget API!", Utils.munge(sender.getNick()))));
                 return;
             }
 
             if (json.equals("[]"))
             {
-                channel.sendMessage(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
+                channel.send().message(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
                 return;
             }
 
@@ -99,7 +99,7 @@ public class CommandBukkitSearch extends Command
                 description = "No description";
             }
 
-            channel.sendMessage(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
+            channel.send().message(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
             return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sbukkitsearch <plugin>", foxbot.getConfig().getCommandPrefix()));

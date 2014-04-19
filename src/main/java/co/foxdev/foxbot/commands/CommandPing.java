@@ -47,13 +47,13 @@ public class CommandPing extends Command
 
         if (args.length == 0)
         {
-            channel.sendMessage("Pong!");
+            channel.send().message("Pong!");
             return;
         }
 
         if (args[0].equalsIgnoreCase("me"))
         {
-            channel.sendMessage(sender.getNick());
+            channel.send().message(sender.getNick());
             return;
         }
 
@@ -70,7 +70,7 @@ public class CommandPing extends Command
                 long end = System.currentTimeMillis();
 
                 socket.close();
-                channel.sendMessage(Utils.colourise(String.format("(%s) &2Ping response time: &r%sms", Utils.munge(sender.getNick()), end - start)));
+                channel.send().message(Utils.colourise(String.format("(%s) &2Ping response time: &r%sms", Utils.munge(sender.getNick()), end - start)));
             }
             catch (UnknownHostException ex)
             {

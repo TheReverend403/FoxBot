@@ -64,7 +64,7 @@ public class CommandExec extends Command
         catch (EvalError ex)
         {
 	        foxbot.log(ex);
-            channel.sendMessage(ex.getLocalizedMessage());
+            channel.send().message(ex.getLocalizedMessage());
         }
     }
 }

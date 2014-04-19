@@ -34,11 +34,11 @@ import org.slf4j.Logger;
 import org.slf4j.impl.SimpleLogger;
 import org.slf4j.impl.SimpleLoggerFactory;
 
-import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -49,8 +49,10 @@ import java.util.logging.Level;
  * @repo https://github.com/FoxDev/FoxBot
  */
 
-public class FoxBot extends PircBotX
+public class FoxBot
 {
+	private PircBotX bot;
+	private Configuration.Builder configBuilder = new Configuration.Builder();
 	@Getter
 	private static FoxBot instance;
 	@Getter
@@ -91,7 +93,7 @@ public class FoxBot extends PircBotX
 		if (!path.exists() && !path.mkdirs())
 		{
 			log("STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
-			shutdown(true);
+			System.exit(74); // I/O error
 			return;
 		}
 
@@ -111,7 +113,6 @@ public class FoxBot extends PircBotX
 			log("GeoIP database not found, geoip feature will be unavailable.");
 		}
 
-		useShutdownHook(true);
 		registerListeners();
 		registerCommands();
 		setBotInfo();
@@ -121,50 +122,39 @@ public class FoxBot extends PircBotX
 	private void setBotInfo()
 	{
 		log("Setting bot info");
-		setVerbose(config.getDebug());
-		log(String.format("Set verbose to %s", config.getDebug()));
-		setAutoNickChange(config.getAutoNickChange());
+		configBuilder.setAutoNickChange(config.getAutoNickChange());
 		log(String.format("Set auto nick change to %s", config.getAutoNickChange()));
-		setAutoReconnect(config.getAutoReconnect());
+		configBuilder.setAutoReconnect(config.getAutoReconnect());
 		log(String.format("Set auto-reconnect to %s", config.getAutoReconnect()));
-		setMessageDelay(config.getMessageDelay());
+		configBuilder.setMessageDelay(config.getMessageDelay());
 		log(String.format("Set message delay to %s", config.getMessageDelay()));
-		setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
+		configBuilder.setRealName(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
+		configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
 		log(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
-		setAutoSplitMessage(true);
-		setName(config.getBotNick());
+		configBuilder.setAutoSplitMessage(true);
+		configBuilder.setName(config.getBotNick());
 		log(String.format("Set nick to '%s'", config.getBotNick()));
-		setLogin(config.getBotIdent());
+		configBuilder.setLogin(config.getBotIdent());
 		log(String.format("Set ident to '%s'", config.getBotIdent()));
 	}
 
 	private void connectToServer()
 	{
-		try
-		{
-			if (config.getServerSsl())
-			{
-				log(String.format("Trying address %s (SSL)", getConfig().getServerAddress()));
-				connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword(), config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
-			}
-			else
-			{
-				log(String.format("Trying address %s", getConfig().getServerAddress()));
-				connect(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
-			}
+		configBuilder.setServer(config.getServerAddress(), config.getServerPort(), config.getServerPassword());
 
-			if (config.useNickserv())
-			{
-				identify(config.getNickservPassword());
-			}
-		}
-		catch (IOException | IrcException ex)
+		if (config.getServerSsl())
 		{
-			log(ex);
+			log("Using SSL");
+			//  config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault()
+		}
+
+		if (config.useNickserv())
+		{
+			configBuilder.setNickservPassword(config.getNickservPassword());
 		}
 
 		log(String.format("Connected to %s", getConfig().getServerAddress()));
-		log(String.format("Joining channels"));
+		log(String.format("Adding channels..."));
 
 		for (String channel : config.getChannels())
 		{
@@ -172,19 +162,29 @@ public class FoxBot extends PircBotX
 			{
 				String[] parts = channel.split(":");
 
-				joinChannel(parts[0], parts[1]);
+				configBuilder.addAutoJoinChannel(parts[0], parts[1]);
 				continue;
 			}
-			joinChannel(channel);
+			configBuilder.addAutoJoinChannel(channel);
+		}
+
+		try
+		{
+			bot = new PircBotX(configBuilder.buildConfiguration());
+			bot.startBot();
+		}
+		catch (IOException | IrcException ex)
+		{
+			log(ex);
 		}
 	}
 
 	private void registerListeners()
 	{
 		log(String.format("Registering MessageListener"));
-		getListenerManager().addListener(new MessageListener(this));
+		configBuilder.addListener(new MessageListener(this));
 		log(String.format("Registering UserListener"));
-		getListenerManager().addListener(new UserListener(this));
+		configBuilder.addListener(new UserListener(this));
 	}
 
 	private void registerCommands()
@@ -208,7 +208,6 @@ public class FoxBot extends PircBotX
 		}
 	}
 
-	@Override
 	public void log(String line)
 	{
 		log(Level.INFO, line);
@@ -242,7 +241,7 @@ public class FoxBot extends PircBotX
 	public void log(Level level, String line)
 	{
 		line = Colors.removeFormattingAndColors(line);
-		
+
 		if (level == Level.INFO)
 		{
 			logger.info(line);
@@ -262,5 +261,124 @@ public class FoxBot extends PircBotX
 		{
 			logger.debug(line);
 		}
+	}
+
+	/*
+	 * PircBot 1.9 methods, for shiggles and ease of porting
+	 */
+
+	public void shutdown(boolean reconnect)
+	{
+		System.exit(0);
+	}
+
+	public User getUserBot()
+	{
+		return bot.getUserBot();
+	}
+
+	public void sendNotice(String user, String message)
+	{
+		sendNotice(bot.getUserChannelDao().getUser(user), message);
+	}
+
+	public void sendNotice(User user, String message)
+	{
+		bot.sendIRC().notice(user.getNick(), message);
+	}
+
+	public void sendMessage(String user, String message)
+	{
+		sendMessage(bot.getUserChannelDao().getUser(user), message);
+	}
+
+	public void sendMessage(User user, String message)
+	{
+		bot.sendIRC().message(user.getNick(), message);
+	}
+
+	public void sendMessage(Channel channel, String message)
+	{
+		channel.send().message(message);
+	}
+
+	public void sendAction(Channel channel, String action)
+	{
+		channel.send().action(action);
+	}
+
+	public User getUser(String user)
+	{
+		return bot.getUserChannelDao().getUser(user);
+	}
+
+	public Channel getChannel(String channel)
+	{
+		return bot.getUserChannelDao().getChannel(channel);
+	}
+
+	public void joinChannel(String channel)
+	{
+		joinChannel(bot.getUserChannelDao().getChannel(channel));
+	}
+
+	public void joinChannel(Channel channel)
+	{
+		bot.sendIRC().joinChannel(channel.getName());
+	}
+
+	public void partChannel(Channel channel)
+	{
+		channel.send().part();
+	}
+
+	public void partChannel(Channel channel, String reason)
+	{
+		channel.send().part(reason);
+	}
+
+	public List<Channel> getChannels()
+	{
+		return bot.getUserChannelDao().getAllChannels().asList();
+	}
+
+	public void changeNick(String newNick)
+	{
+		bot.sendIRC().changeNick(newNick);
+	}
+
+	public String getNick()
+	{
+		return config.getBotNick();
+	}
+
+	public void kick(Channel channel, User target, String reason)
+	{
+		channel.send().kick(target, reason);
+	}
+
+	public void ban(Channel channel, String hostmask)
+	{
+		channel.send().setMode("+b " + hostmask);
+	}
+
+	public void unBan(Channel channel, String hostmask)
+	{
+		channel.send().setMode("-b " + hostmask);
+	}
+
+	public void setMode(Channel channel, String mode)
+	{
+		channel.send().setMode(mode);
+	}
+
+	public void voice(Channel channel, User user)
+	{
+		channel.send().voice(user);
+	}
+
+	public void deVoice(Channel channel, User user)
+	{
+		channel.send().deVoice(user);
 	}
 }

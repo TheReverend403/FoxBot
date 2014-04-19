@@ -51,11 +51,11 @@ public class CommandRandCommit extends Command
             catch (Exception ex)
             {
 	            foxbot.log(ex);
-                channel.sendMessage(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+                channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
                 return;
             }
 
-            channel.sendMessage(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
+            channel.send().message(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));

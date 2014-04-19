@@ -39,7 +39,7 @@ public class CommandSound extends Command
         {
             String soundname = args[0];
 
-            channel.sendMessage(String.format("%s%s.%s", foxbot.getConfig().getSoundURL(), soundname, foxbot.getConfig().getSoundExtension()));
+            channel.send().message(String.format("%s%s.%s", foxbot.getConfig().getSoundURL(), soundname, foxbot.getConfig().getSoundExtension()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssound <soundname>", foxbot.getConfig().getCommandPrefix()));

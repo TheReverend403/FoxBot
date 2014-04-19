@@ -60,7 +60,7 @@ public class CommandMcPing extends Command
 			catch (IOException ex)
 			{
 				foxbot.log(ex);
-				channel.sendMessage(String.format("(%s) Looks like %s:%s isn't up.", Utils.munge(sender.getNick()), host, port));
+				channel.send().message(String.format("(%s) Looks like %s:%s isn't up.", Utils.munge(sender.getNick()), host, port));
 				return;
 			}
 
@@ -69,7 +69,7 @@ public class CommandMcPing extends Command
 			String version = mcping.getVersion();
 			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
 
-			channel.sendMessage(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));
+			channel.send().message(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcping <host> [port]", foxbot.getConfig().getCommandPrefix()));

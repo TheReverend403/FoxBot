@@ -40,7 +40,7 @@ public class CommandNick extends Command
 		{
 			String nick = args[0];
 
-			foxbot.sendRawLine("NICK " + nick);
+			foxbot.changeNick(nick);
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %snick <nick>", foxbot.getConfig().getCommandPrefix()));

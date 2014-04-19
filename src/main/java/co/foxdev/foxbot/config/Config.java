@@ -226,8 +226,6 @@ public class Config
     {
         loadConfig();
 	    foxbot.getZncConfig().reload();
-        foxbot.setVerbose(botConfig.getBoolean("misc.debug"));
-        foxbot.setMessageDelay(botConfig.getLong("misc.message-delay"));
     }
 
     // ---------

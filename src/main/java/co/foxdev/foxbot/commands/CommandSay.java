@@ -45,6 +45,7 @@ public class CommandSay extends Command
 
             if (args[0].startsWith("#"))
             {
+	            Channel target = foxbot.getChannel(args[0]);
                 message = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
@@ -61,16 +62,16 @@ public class CommandSay extends Command
                     return;
                 }
 
-                foxbot.joinChannel(args[0]);
+                foxbot.joinChannel(target);
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.sendMessage(args[0], Utils.colourise(message.toString()));
+                    foxbot.sendMessage(target, Utils.colourise(message.toString()));
                     foxbot.partChannel(foxbot.getChannel(args[0]));
                     foxbot.sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                foxbot.sendMessage(args[0], Utils.colourise(message.toString()));
+                foxbot.sendMessage(target, Utils.colourise(message.toString()));
                 foxbot.sendNotice(sender, String.format("Message sent to %s", args[0]));
                 return;
             }
@@ -84,7 +85,7 @@ public class CommandSay extends Command
                     message.append(" ").append(args[arg]);
                 }
             }
-            channel.sendMessage(Utils.colourise(message.toString()));
+            channel.send().message(Utils.colourise(message.toString()));
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));

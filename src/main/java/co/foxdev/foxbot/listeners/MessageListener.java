@@ -27,7 +27,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MessageListener extends ListenerAdapter<FoxBot>
+public class MessageListener extends ListenerAdapter
 {
     private final FoxBot foxbot;
 
@@ -38,7 +38,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
     private static final Pattern URL_PATTERN = Pattern.compile(".*((https?)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]).*");
 
-    public void onMessage(MessageEvent<FoxBot> event)
+    public void onMessage(MessageEvent event)
     {
         String message = event.getMessage();
         User user = event.getUser();
@@ -60,7 +60,7 @@ public class MessageListener extends ListenerAdapter<FoxBot>
 
                 if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
                 {
-                    channel.sendMessage(message);
+                    channel.send().message(message);
                 }
             }
         }

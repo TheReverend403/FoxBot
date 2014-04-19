@@ -27,7 +27,7 @@ import org.pircbotx.hooks.events.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class UserListener extends ListenerAdapter<FoxBot>
+public class UserListener extends ListenerAdapter
 {
     private final FoxBot foxbot;
 
@@ -37,13 +37,13 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onQuit(QuitEvent<FoxBot> event)
+    public void onQuit(QuitEvent event)
     {
         foxbot.getPermissionManager().removeAuthedUser(event.getUser());
     }
 
     @Override
-    public void onInvite(InviteEvent<FoxBot> event)
+    public void onInvite(InviteEvent event)
     {
         if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getUser(event.getUser()), "bot.invite"))
         {
@@ -53,7 +53,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onNickChange(NickChangeEvent<FoxBot> event)
+    public void onNickChange(NickChangeEvent event)
     {
         User user = event.getUser();
         String newNick = event.getNewNick();
@@ -91,7 +91,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onJoin(JoinEvent<FoxBot> event)
+    public void onJoin(JoinEvent event)
     {
         User user = event.getUser();
         String nick = user.getNick();
@@ -126,7 +126,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
             }
             else
             {
-                channel.sendMessage(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                channel.send().message(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
         }
 
@@ -142,11 +142,11 @@ public class UserListener extends ListenerAdapter<FoxBot>
     }
 
     @Override
-    public void onKick(KickEvent<FoxBot> event)
+    public void onKick(KickEvent event)
     {
         final Channel channel = event.getChannel();
         final User kickedUser = event.getRecipient();
-        final User kicker = event.getSource();
+        final User kicker = event.getUser();
 
         if (kickedUser.getNick().equals(foxbot.getNick()))
         {
@@ -158,7 +158,7 @@ public class UserListener extends ListenerAdapter<FoxBot>
                             @Override
                             public void run()
                             {
-                                foxbot.joinChannel(channel.getName());
+                                foxbot.joinChannel(channel);
                             }
                         },
                         TimeUnit.SECONDS.toMillis(foxbot.getConfig().getAutoRejoinDelay())

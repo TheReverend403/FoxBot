@@ -53,7 +53,7 @@ public class CommandHash extends Command
 			}
 			catch (NoSuchAlgorithmException ex)
 			{
-				channel.sendMessage(String.format("(%s) Invalid hash. Valid types are SHA-1, SHA-256 and MD5", Utils.munge(sender.getNick())));
+				channel.send().message(String.format("(%s) Invalid hash. Valid types are SHA-1, SHA-256 and MD5", Utils.munge(sender.getNick())));
 				return;
 			}
 
@@ -65,7 +65,7 @@ public class CommandHash extends Command
 			}
 
 			digest.reset();
-			channel.sendMessage(String.format("(%s) %s", Utils.munge(sender.getNick()), byteArrayToHexString(digest.digest(stringToHash.toString().getBytes()))));
+			channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), byteArrayToHexString(digest.digest(stringToHash.toString().getBytes()))));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %shash <SHA-1|SHA-256|MD5> <text>", foxbot.getConfig().getCommandPrefix()));
