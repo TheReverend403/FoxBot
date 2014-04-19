@@ -57,9 +57,14 @@ public class CommandManager
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
 
-	    if (runCustomCommand(event.getChannel().getName(), commandName) && command == null)
+	    if (runCustomCommand(event.getChannel().getName(), commandName))
 	    {
 		    return true;
+	    }
+
+	    if (command == null)
+	    {
+		    return false;
 	    }
 
         foxbot.log(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
@@ -93,6 +98,11 @@ public class CommandManager
 
     private boolean runCustomCommand(String channel, String command)
     {
+	    if (command == null || command.isEmpty())
+	    {
+		    return false;
+	    }
+
 	    // Prevent filesystem access
 	    if (command.contains(".") || command.contains("/") || command.contains("\\\\") || command.contains("~"))
 	    {
