@@ -53,7 +53,7 @@ import java.util.logging.Level;
 public class FoxBot
 {
 	private PircBotX bot;
-	private Configuration.Builder configBuilder = new Configuration.Builder();
+	private Configuration.Builder configBuilder;
 	@Getter
 	private static FoxBot instance;
 	@Getter
@@ -122,6 +122,9 @@ public class FoxBot
 
 	private void setBotInfo()
 	{
+		configBuilder = new Configuration.Builder();
+
+		configBuilder.setShutdownHookEnabled(true);
 		log("Setting bot info");
 		configBuilder.setAutoNickChange(config.getAutoNickChange());
 		log(String.format("Set auto nick change to %s", config.getAutoNickChange()));
