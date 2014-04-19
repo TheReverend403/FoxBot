@@ -85,7 +85,7 @@ public class CommandManager
         catch (Exception ex)
         {
             foxbot.sendNotice(sender, "An internal error occurred whilst executing this command, please alert a bot admin.");
-	        foxbot.log("Error in dispatching command: " + command.getName());
+	        foxbot.log("Error dispatching command: " + command.getName());
 	        foxbot.log(ex);
         }
         return true;
@@ -123,7 +123,7 @@ public class CommandManager
             }
             catch (IOException ex)
             {
-                ex.printStackTrace();
+                foxbot.log(ex);
                 return false;
             }
 
