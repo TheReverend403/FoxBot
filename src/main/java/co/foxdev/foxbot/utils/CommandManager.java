@@ -151,8 +151,8 @@ public class CommandManager
         return false;
     }
 
-	public Collection<Command> getCommands()
+	public Collection<String> getCommands()
 	{
-		return commandMap.values();
+		return commandMap.keySet();
 	}
 }
