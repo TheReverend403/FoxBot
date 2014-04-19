@@ -76,7 +76,7 @@ public class CommandGoogle extends Command
 			}
 
 			JSONObject result = jsonArray.getJSONObject(0);
-			int resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getInt("resultCount");
+			String resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getString("resultCount");
 
 			String title = result.getString("titleNoFormatting");
 			String url = result.getString("url");
