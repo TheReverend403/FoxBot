@@ -176,6 +176,7 @@ public class FoxBot
 		catch (IOException | IrcException ex)
 		{
 			log(ex);
+			System.exit(74);
 		}
 	}
 
