@@ -60,7 +60,7 @@ public class Database
 			config.setJdbcUrl(url);
 			config.setUsername(user);
 			config.setPassword(password);
-			config.setMinConnectionsPerPartition(5);
+			config.setMinConnectionsPerPartition(1);
 			config.setMaxConnectionsPerPartition(10);
 			config.setPartitionCount(3);
 
