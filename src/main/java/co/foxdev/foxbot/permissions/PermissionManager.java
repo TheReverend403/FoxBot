@@ -37,63 +37,46 @@ public class PermissionManager
     // Exactly the same as userHasPermission(), except this gives no output.
     public boolean userHasQuietPermission(User user, String permission)
     {
-        String authType = foxbot.getConfig().getMatchUsersByHostmask() ? user.getHostmask() : user.getNick();
-        FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
-
-        if (foxbot.getConfig().getUsersMustBeVerified())
-        {
-            if (!authedUsers.contains(user) && user.isVerified())
-            {
-                authedUsers.add(user);
-            }
-
-            if (authedUsers.contains(user))
-            {
-                if (permissions.getStringList("default").contains(permission))
-                {
-                    return !permissions.getStringList(authType).contains("-" + permission);
-                }
-                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
-            }
-            return false;
-        }
-
-        if (permissions.getStringList("default").contains(permission))
-        {
-            return !permissions.getStringList(authType).contains("-" + permission);
-        }
-        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
+	    return checkPerm(user, permission, true);
     }
 
     public boolean userHasPermission(User user, String permission)
     {
-        String authType = foxbot.getConfig().getMatchUsersByHostmask() ? user.getHostmask() : user.getNick();
-        FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
-
-        if (foxbot.getConfig().getUsersMustBeVerified())
-        {
-            if (!authedUsers.contains(user) && user.isVerified())
-            {
-                authedUsers.add(user);
-            }
-
-            if (authedUsers.contains(user))
-            {
-                if (permissions.getStringList("default").contains(permission))
-                {
-                    return !permissions.getStringList(authType).contains("-" + permission);
-                }
-                return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
-            }
-            foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
-            return false;
-        }
-        if (permissions.getStringList("default").contains(permission))
-        {
-            return !permissions.getStringList(authType).contains("-" + permission);
-        }
-        return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
+		return checkPerm(user, permission, false);
     }
+
+	private boolean checkPerm(User user, String permission, boolean quiet)
+	{
+		String authType = foxbot.getConfig().getMatchUsersByHostmask() ? user.getHostmask() : user.getNick();
+		FileConfiguration permissions = foxbot.getConfig().getBotPermissions();
+
+		if (foxbot.getConfig().getUsersMustBeVerified())
+		{
+			if (!authedUsers.contains(user) && user.isVerified())
+			{
+				authedUsers.add(user);
+			}
+
+			if (authedUsers.contains(user))
+			{
+				if (permissions.getStringList("default").contains(permission))
+				{
+					return !permissions.getStringList(authType).contains("-" + permission);
+				}
+				return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
+			}
+			if (!quiet)
+			{
+				foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
+			}
+			return false;
+		}
+		if (permissions.getStringList("default").contains(permission))
+		{
+			return !permissions.getStringList(authType).contains("-" + permission);
+		}
+		return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
+	}
 
     public boolean isNickProtected(String nick)
     {
