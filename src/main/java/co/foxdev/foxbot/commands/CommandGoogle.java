@@ -76,11 +76,12 @@ public class CommandGoogle extends Command
 			}
 
 			JSONObject result = jsonArray.getJSONObject(0);
+			int resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getInt("resultCount");
 
 			String title = result.getString("titleNoFormatting");
 			String url = result.getString("url");
 
-			channel.sendMessage(Utils.colourise(String.format("(%s) &2Title: &r%s &2URL: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url)));
+			channel.sendMessage(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
 			return;
 		}
 		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
