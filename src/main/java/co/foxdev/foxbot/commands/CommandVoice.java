@@ -17,10 +17,10 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.FoxBot;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
-import co.foxdev.foxbot.FoxBot;
 
 public class CommandVoice extends Command
 {

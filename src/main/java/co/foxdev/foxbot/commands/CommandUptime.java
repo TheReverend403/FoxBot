@@ -17,11 +17,11 @@
 
 package co.foxdev.foxbot.commands;
 
+import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
-import co.foxdev.foxbot.FoxBot;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

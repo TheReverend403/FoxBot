@@ -17,11 +17,11 @@
 
 package co.foxdev.foxbot.config.yamlconfig.file;
 
+import co.foxdev.foxbot.config.yamlconfig.serialization.ConfigurationSerialization;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
-import co.foxdev.foxbot.config.yamlconfig.serialization.ConfigurationSerialization;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

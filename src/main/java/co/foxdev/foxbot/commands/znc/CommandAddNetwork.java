@@ -17,10 +17,10 @@
 
 package co.foxdev.foxbot.commands.znc;
 
-import org.pircbotx.User;
-import org.pircbotx.hooks.events.MessageEvent;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
+import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

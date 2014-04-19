@@ -17,9 +17,9 @@
 
 package co.foxdev.foxbot.permissions;
 
-import org.pircbotx.User;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.config.yamlconfig.file.FileConfiguration;
+import org.pircbotx.User;
 
 import java.util.ArrayList;
 import java.util.List;

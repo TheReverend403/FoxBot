@@ -17,7 +17,8 @@
 
 package co.foxdev.foxbot.commands;
 
-import bsh.*;
+import bsh.EvalError;
+import bsh.Interpreter;
 import co.foxdev.foxbot.FoxBot;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;

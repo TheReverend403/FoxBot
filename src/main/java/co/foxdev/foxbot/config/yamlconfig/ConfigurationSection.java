@@ -17,9 +17,7 @@
 
 package co.foxdev.foxbot.config.yamlconfig;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a section of a {@link Configuration}

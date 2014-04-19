@@ -17,10 +17,7 @@
 
 package co.foxdev.foxbot.config.yamlconfig.serialization;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Represents an "alias" that a {@link ConfigurationSerializable} may be stored
