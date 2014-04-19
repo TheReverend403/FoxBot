@@ -176,6 +176,7 @@ public class FoxBot
 		catch (IOException | IrcException ex)
 		{
 			log(ex);
+			bot.stopBotReconnect();
 			System.exit(74);
 		}
 	}
@@ -270,6 +271,7 @@ public class FoxBot
 
 	public void shutdown(boolean reconnect)
 	{
+		bot.stopBotReconnect();
 		System.exit(0);
 	}
 
