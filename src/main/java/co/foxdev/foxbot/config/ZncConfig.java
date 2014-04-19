@@ -137,4 +137,9 @@ public class ZncConfig
     {
         return zncConfig.getStringList("networks." + network + ".channels");
     }
+
+	protected void reload()
+	{
+		loadConfig();
+	}
 }
