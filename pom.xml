@@ -11,6 +11,14 @@
     <developers>
         <developer>
             <id>TheReverend403</id>
+            <name>Lee Watson</name>
+            <url>http://revthefox.co.uk</url>
+            <email>rev@revthefox.co.uk</email>
+            <organization>FoxDev</organization>
+            <organizationUrl>http://foxdev.co</organizationUrl>
+            <roles>
+                <role>lead developer</role>
+            </roles>
         </developer>
     </developers>
 
