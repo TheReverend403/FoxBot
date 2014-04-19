@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.impl.SimpleLogger;
 import org.slf4j.impl.SimpleLoggerFactory;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -145,7 +146,7 @@ public class FoxBot
 		if (config.getServerSsl())
 		{
 			log("Using SSL");
-			//  config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault()
+			configBuilder.setSocketFactory(config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
 		}
 
 		if (config.useNickserv())
