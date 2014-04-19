@@ -52,7 +52,7 @@ public class CommandGoogle extends Command
 			String query = StringUtils.join(args, " ");
 			String address = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + query;
 
-			Connection conn = Jsoup.connect(address).ignoreContentType(true).followRedirects(true).timeout(200);
+			Connection conn = Jsoup.connect(address).ignoreContentType(true).followRedirects(true).timeout(1000);
 
 			JSONObject jsonObject;
 
