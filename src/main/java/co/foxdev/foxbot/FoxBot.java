@@ -114,9 +114,9 @@ public class FoxBot
 			log("GeoIP database not found, geoip feature will be unavailable.");
 		}
 
+		setBotInfo();
 		registerListeners();
 		registerCommands();
-		setBotInfo();
 		connectToServer();
 	}
 
