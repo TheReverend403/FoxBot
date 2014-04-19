@@ -27,8 +27,7 @@ import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
 import com.maxmind.geoip.LookupService;
 import lombok.Getter;
-import org.pircbotx.PircBotX;
-import org.pircbotx.UtilSSLSocketFactory;
+import org.pircbotx.*;
 import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
@@ -212,7 +211,7 @@ public class FoxBot extends PircBotX
 	@Override
 	public void log(String line)
 	{
-		logger.info(line);
+		log(Level.INFO, line);
 	}
 
 	public void log(Exception ex)
@@ -242,6 +241,8 @@ public class FoxBot extends PircBotX
 
 	public void log(Level level, String line)
 	{
+		line = Colors.removeFormattingAndColors(line);
+		
 		if (level == Level.INFO)
 		{
 			logger.info(line);
