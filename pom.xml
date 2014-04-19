@@ -8,6 +8,11 @@
     <artifactId>FoxBot</artifactId>
     <version>1.2</version>
 
+    <organization>
+        <name>FoxDev</name>
+        <url>http://foxdev.co</url>
+    </organization>
+
     <developers>
         <developer>
             <id>TheReverend403</id>
@@ -21,6 +26,39 @@
             </roles>
         </developer>
     </developers>
+
+    <contributors>
+        <contributor>
+            <name>Benjamin Hallowitz</name>
+            <url>http://calciumgaming.net</url>
+            <organization>NotoriousDev</organization>
+            <organizationUrl>http://notoriousdev.com</organizationUrl>
+        </contributor>
+        <contributor>
+            <name>Brandon Currell</name>
+            <url>http://branicyeti.co.uk</url>
+            <organization>NotoriousDev</organization>
+            <organizationUrl>http://notoriousdev.com</organizationUrl>
+        </contributor>
+        <contributor>
+            <name>Corin Simpson-Bryars</name>
+            <url>http://corin.me</url>
+            <organization>Seion</organization>
+            <organizationUrl>http://seion.us</organizationUrl>
+        </contributor>
+        <contributor>
+            <name>Joseph Jenniges</name>
+            <url>http://gunfighterj.com</url>
+            <organization>NotoriousDev</organization>
+            <organizationUrl>http://notoriousdev.com</organizationUrl>
+        </contributor>
+        <contributor>
+            <name>Zack Craig</name>
+            <url>http://zack6849.com</url>
+            <organization>NotoriousDev</organization>
+            <organizationUrl>http://notoriousdev.com</organizationUrl>
+        </contributor>
+    </contributors>
 
     <dependencies>
         <dependency>
