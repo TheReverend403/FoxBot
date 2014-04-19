@@ -158,7 +158,7 @@ public class FoxBot
 		}
 
 		log(String.format("Connected to %s", getConfig().getServerAddress()));
-		log(String.format("Adding channels..."));
+		log(String.format("Joining channels, please wait..."));
 
 		for (String channel : config.getChannels())
 		{
