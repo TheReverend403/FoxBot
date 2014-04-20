@@ -124,5 +124,4 @@ public class MinecraftPing {
 
 		return new Gson().fromJson(json, MinecraftPingReply.class);
 	}
-
 }

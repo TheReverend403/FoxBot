@@ -134,34 +134,6 @@ public class Utils
 
 	}
 
-    public static String getPrefix(User user, Channel channel)
-    {
-        if (channel.isOwner(user))
-        {
-            return "~";
-        }
-        else if (channel.isSuperOp(user))
-        {
-            return "&";
-        }
-        else if (channel.isOp(user))
-        {
-            return "@";
-        }
-        else if (channel.isHalfOp(user))
-        {
-            return "%";
-        }
-        else if (channel.hasVoice(user))
-        {
-            return "+";
-        }
-        else
-        {
-            return "";
-        }
-    }
-
     public static boolean addCustomCommand(String channel, String command, String text)
     {
         String filePath = "data/custcmds/" + channel.substring(1);
