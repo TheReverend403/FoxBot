@@ -222,7 +222,7 @@ public class FoxBot
 	{
 		switch (getConfig().getDatabaseType())
 		{
-			case "sql":
+			case "mysql":
 				database = new SQLDatabase(this);
 				log("Using SQL for database features");
 				break;
