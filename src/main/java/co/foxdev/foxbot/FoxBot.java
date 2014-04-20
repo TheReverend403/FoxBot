@@ -189,7 +189,7 @@ public class FoxBot
 				ListenerAdapter listener = (ListenerAdapter) clazzConstructor.newInstance(this);
 
 				configBuilder.addListener(listener);
-				log(String.format("Registered '%s'", listener.getClass().getSimpleName()));
+				log(String.format("Registered listener '%s'", listener.getClass().getSimpleName()));
 			}
 		}
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
