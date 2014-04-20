@@ -18,8 +18,8 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.utils.*;
 import co.foxdev.foxbot.utils.Utils;
+import co.foxdev.foxbot.utils.minecraft.*;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.*;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -55,7 +55,8 @@ public class CommandMcPing extends Command
 
 			try
 			{
-				mcping = new MinecraftPing().getPing(host, port);
+				MinecraftPingOptions mcpo = new MinecraftPingOptions().setHostname(host).setPort(port).setTimeout(500);
+				mcping = new MinecraftPing().getPing(mcpo);
 			}
 			catch (IOException ex)
 			{
@@ -64,9 +65,9 @@ public class CommandMcPing extends Command
 				return;
 			}
 
-			String motd = mcping.getMotd().replace("\n", " ");
-			String players = mcping.getOnlinePlayers() + "/" + mcping.getMaxPlayers();
-			String version = mcping.getVersion();
+			String motd = mcping.getDescription().replace("\n", " ");
+			String players = mcping.getPlayers().getOnline() + "/" + mcping.getPlayers().getMax();
+			String version = mcping.getVersion().getName();
 			String finalPing = String.format("%s%s - %s - MC %s", motd, Colors.NORMAL, players, version);
 
 			channel.send().message(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));

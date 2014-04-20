@@ -47,6 +47,15 @@
             <organizationUrl>http://seion.us</organizationUrl>
         </contributor>
         <contributor>
+            <name>jamietech</name>
+            <url>http://d.jamiete.ch/</url>
+            <organization>SoaringCats</organization>
+            <organizationUrl>http://d.jamiete.ch</organizationUrl>
+            <roles>
+                <role>Author of https://github.com/jamietech/MinecraftServerPing</role>
+            </roles>
+        </contributor>
+        <contributor>
             <name>Joseph Jenniges</name>
             <url>http://gunfighterj.com</url>
             <organization>NotoriousDev</organization>
@@ -130,6 +139,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
         </dependency>
     </dependencies>
 
