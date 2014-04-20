@@ -1,4 +1,4 @@
-<configuration debug="false">
+<configuration>
 
     <property name="defaultPattern" value="[%d{HH:mm:ss}] [%-5level] %msg%n" />
 
