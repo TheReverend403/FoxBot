@@ -43,7 +43,6 @@ public class SQLiteDatabase extends Database
 	@Override
 	public void connect()
 	{
-		Statement statement;
 		String url = "jdbc:sqlite:data/foxbot.db";
 
 		try
@@ -62,12 +61,13 @@ public class SQLiteDatabase extends Database
 
 			connectionPool = new BoneCP(config);
 			connection = connectionPool.getConnection();
-			statement = connection.createStatement();
+			Statement statement = connection.createStatement();
 
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS tells (tell_time VARCHAR(32), sender VARCHAR(32), receiver VARCHAR(32), message VARCHAR(1024), used TINYINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS bans (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), banner VARCHAR(32), ban_time BIGINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS kicks (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), kicker VARCHAR(32), kick_time BIGINT)");
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS mutes (channel VARCHAR(64), target VARCHAR(32), hostmask VARCHAR(64), reason VARCHAR(1024), muter VARCHAR(32), mute_time BIGINT)");
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
@@ -85,18 +85,17 @@ public class SQLiteDatabase extends Database
 	@Override
 	public void addTell(String sender, String receiver, String message)
 	{
-		PreparedStatement statement;
-
 		try
 		{
 			connection = connectionPool.getConnection();
-			statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO tells (tell_time, sender, receiver, message, used) VALUES (?, ?, ?, ?, 0);");
 
 			statement.setString(1, new SimpleDateFormat("[yyyy-MM-dd - HH:mm:ss]").format(Calendar.getInstance().getTimeInMillis()));
 			statement.setString(2, sender);
 			statement.setString(3, receiver);
 			statement.setString(4, message);
 			statement.executeUpdate();
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
@@ -109,27 +108,28 @@ public class SQLiteDatabase extends Database
 	public List<String> getTells(String user, boolean showAll)
 	{
 		List<String> tells = new ArrayList<>();
-		PreparedStatement statement;
-		ResultSet rs;
 
 		try
 		{
 			connection = connectionPool.getConnection();
-			statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
+			PreparedStatement statement = connection.prepareStatement(showAll ? "SELECT * FROM tells WHERE receiver = ?" : "SELECT * FROM tells WHERE receiver = ? AND used = 0");
 
 			statement.setString(1, user);
 
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 
 			while (rs.next())
 			{
 				tells.add(Utils.colourise(String.format("%s &2Message from: &r%s &2Message: &r%s", rs.getString("tell_time"), rs.getString("sender"), rs.getString("message"))));
 			}
 
+			rs.close();
+
 			statement = connection.prepareStatement("UPDATE tells SET used = 1 WHERE receiver = ? AND used = 0");
 
 			statement.setString(1, user);
 			statement.executeUpdate();
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
@@ -142,15 +142,14 @@ public class SQLiteDatabase extends Database
 	@Override
 	public void cleanTells(String user)
 	{
-		PreparedStatement statement;
-
 		try
 		{
 			connection = connectionPool.getConnection();
-			statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM tells WHERE receiver = ? AND used = 1");
 
 			statement.setString(1, user);
 			statement.executeUpdate();
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
@@ -162,12 +161,10 @@ public class SQLiteDatabase extends Database
 	@Override
 	public void addBan(Channel channel, User target, String reason, User banner, long time)
 	{
-		PreparedStatement statement;
-
 		try
 		{
 			connection = connectionPool.getConnection();
-			statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?);");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO bans (channel, target, hostmask, reason, banner, ban_time) VALUES (?, ?, ?, ?, ?, ?);");
 
 			statement.setString(1, channel.getName());
 			statement.setString(2, target.getNick());
@@ -176,6 +173,7 @@ public class SQLiteDatabase extends Database
 			statement.setString(5, banner.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
@@ -187,12 +185,10 @@ public class SQLiteDatabase extends Database
 	@Override
 	public void addKick(Channel channel, User target, String reason, User kicker, long time)
 	{
-		PreparedStatement statement;
-
 		try
 		{
 			connection = connectionPool.getConnection();
-			statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?);");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO kicks (channel, target, hostmask, reason, kicker, kick_time) VALUES (?, ?, ?, ?, ?, ?);");
 
 			statement.setString(1, channel.getName());
 			statement.setString(2, target.getNick());
@@ -201,6 +197,7 @@ public class SQLiteDatabase extends Database
 			statement.setString(5, kicker.getNick());
 			statement.setLong(6, time);
 			statement.executeUpdate();
+			statement.close();
 			connection.close();
 		}
 		catch (SQLException ex)
