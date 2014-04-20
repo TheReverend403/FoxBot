@@ -239,8 +239,6 @@ public class FoxBot
 
 	public void log(Level level, String line)
 	{
-		line = Colors.removeFormattingAndColors(line);
-
 		if (level == Level.INFO)
 		{
 			logger.info(line);
