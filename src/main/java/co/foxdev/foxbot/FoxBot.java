@@ -244,22 +244,28 @@ public class FoxBot
 		if (level == Level.INFO)
 		{
 			logger.info(line);
+			return;
 		}
 
 		if (level == Level.WARNING)
 		{
 			logger.warn(line);
+			return;
 		}
 
 		if (level == Level.SEVERE)
 		{
 			logger.error(line);
+			return;
 		}
 
 		if (level == Level.FINE)
 		{
 			logger.debug(line);
+			return;
 		}
+
+		logger.info(line);
 	}
 
 	/*

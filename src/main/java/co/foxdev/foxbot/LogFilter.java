@@ -20,6 +20,9 @@ package co.foxdev.foxbot;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
+import org.pircbotx.Colors;
+
+import java.util.logging.Level;
 
 public class LogFilter extends Filter<ILoggingEvent>
 {
@@ -28,6 +31,12 @@ public class LogFilter extends Filter<ILoggingEvent>
 	{
 		if (event.getMessage().contains("NICKSERV IDENTIFY") || event.getMessage().contains("PASS "))
 		{
+			return FilterReply.DENY;
+		}
+
+		if (event.getMessage().contains("\u0003"))
+		{
+			FoxBot.getInstance().log(Level.parse(event.getLevel().levelStr), Colors.removeFormattingAndColors(event.getMessage()));
 			return FilterReply.DENY;
 		}
 		return FilterReply.NEUTRAL;
