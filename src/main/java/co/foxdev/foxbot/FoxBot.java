@@ -20,7 +20,7 @@ package co.foxdev.foxbot;
 import co.foxdev.foxbot.commands.Command;
 import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
-import co.foxdev.foxbot.database.Database;
+import co.foxdev.foxbot.database.*;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
 import com.maxmind.geoip.LookupService;
@@ -85,7 +85,7 @@ public class FoxBot
 
 		if (!path.exists() && !path.mkdirs())
 		{
-			log("STARTUP: Could not create required folders (data/custcmds/). Shutting down.");
+			log("Could not create required folders (data/custcmds/). Shutting down.");
 			System.exit(74); // I/O error
 			return;
 		}
@@ -94,7 +94,7 @@ public class FoxBot
 		zncConfig = new ZncConfig(this);
 		permissionManager = new PermissionManager(this);
 		commandManager = new CommandManager(this);
-		database = new Database(this);
+		loadDatabase();
 		database.connect();
 
 		try
@@ -103,7 +103,7 @@ public class FoxBot
 		}
 		catch (IOException ex)
 		{
-			warn("GeoIP database not found, geoip feature will be unavailable.");
+			warn("GeoIP database not found, GeoIP feature will be unavailable. Download a database from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
 		}
 
 		setBotInfo();
@@ -215,6 +215,25 @@ public class FoxBot
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
 		{
 			log(ex);
+		}
+	}
+
+	private void loadDatabase()
+	{
+		switch (getConfig().getDatabaseType())
+		{
+			case "sql":
+				database = new SQLDatabase(this);
+				log("Using SQL for database features");
+				break;
+			case "sqlite":
+				database = new SQLiteDatabase(this);
+				log("Using SQLite for database features");
+				break;
+			default:
+				database = new SQLiteDatabase(this);
+				log("Using SQLite for database features");
+				break;
 		}
 	}
 

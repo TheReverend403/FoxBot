@@ -39,6 +39,12 @@ public class CommandGeoip extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
+	    if (foxbot.getLookupService() == null)
+	    {
+		    channel.send().message("GeoIP is unavailable as the bot owner has not installed a GeoIP database. Ask them to install one from here: http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
+	        return;
+	    }
+
         if (args.length == 1)
         {
             String ip = foxbot.getUser(args[0]).getHostmask().isEmpty() ? args[0] : foxbot.getUser(args[0]).getHostmask();
