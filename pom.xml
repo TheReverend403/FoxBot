@@ -69,6 +69,22 @@
         </contributor>
     </contributors>
 
+    <scm>
+        <connection>scm:git:git://github.com/FoxDev/FoxBot.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/FoxDev/FoxBot.git</developerConnection>
+        <url>https://github.com/FoxDev/FoxBot</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/FoxDev/FoxBot/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>jenkins</system>
+        <url>http://ci.notoriousdev.com/job/FoxBot/</url>
+    </ciManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.pircbotx</groupId>
