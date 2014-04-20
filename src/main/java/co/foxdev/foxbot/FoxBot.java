@@ -140,7 +140,6 @@ public class FoxBot
 
 		if (config.getServerSsl())
 		{
-			log("Using SSL");
 			configBuilder.setSocketFactory(config.getAcceptInvalidSsl() ? new UtilSSLSocketFactory().trustAllCertificates().disableDiffieHellman() : SSLSocketFactory.getDefault());
 		}
 
@@ -149,8 +148,8 @@ public class FoxBot
 			configBuilder.setNickservPassword(config.getNickservPassword());
 		}
 
-		log(String.format("Connected to %s", getConfig().getServerAddress()));
-		log(String.format("Joining channels, please wait..."));
+		log(String.format("Connecting to %s on port %s%s...", getConfig().getServerAddress(), getConfig().getServerPort(), getConfig().getServerSsl() ? " with SSL" : " without SSL"));
+		log(String.format("Adding channels..."));
 
 		for (String channel : config.getChannels())
 		{
