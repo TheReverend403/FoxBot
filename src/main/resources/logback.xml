@@ -14,7 +14,7 @@
         <append>true</append>
         <filter class="co.foxdev.foxbot.LogFilter" />
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/foxbot.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
