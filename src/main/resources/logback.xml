@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppenderr">
         <file>foxbot.log</file>
         <append>true</append>
         <filter class="co.foxdev.foxbot.LogFilter" />
