@@ -111,7 +111,7 @@ public class FoxBot
 		}
 		catch (IOException ex)
 		{
-			log("GeoIP database not found, geoip feature will be unavailable.");
+			warn("GeoIP database not found, geoip feature will be unavailable.");
 		}
 
 		setBotInfo();
@@ -231,17 +231,17 @@ public class FoxBot
 
 	public void debug(String line)
 	{
-		logger.debug(line);
+		log(Level.FINE, line);
 	}
 
 	public void error(String line)
 	{
-		logger.error(line);
+		log(Level.SEVERE, line);
 	}
 
 	public void warn(String line)
 	{
-		logger.warn(line);
+		log(Level.WARNING, line);
 	}
 
 	public void log(Level level, String line)
@@ -273,117 +273,140 @@ public class FoxBot
 	 * PircBot 1.9 methods, for shiggles and ease of porting
 	 */
 
+	@Deprecated
 	public void shutdown(boolean reconnect)
 	{
 		bot.stopBotReconnect();
 		System.exit(0);
 	}
 
+	@Deprecated
 	public User getUserBot()
 	{
 		return bot.getUserBot();
 	}
 
+	@Deprecated
 	public void sendNotice(String user, String message)
 	{
 		sendNotice(bot.getUserChannelDao().getUser(user), message);
 	}
 
+	@Deprecated
 	public void sendNotice(User user, String message)
 	{
 		bot.sendIRC().notice(user.getNick(), message);
 	}
 
+	@Deprecated
 	public void sendMessage(String user, String message)
 	{
 		sendMessage(bot.getUserChannelDao().getUser(user), message);
 	}
 
+	@Deprecated
 	public void sendMessage(User user, String message)
 	{
 		bot.sendIRC().message(user.getNick(), message);
 	}
 
+	@Deprecated
 	public void sendMessage(Channel channel, String message)
 	{
 		channel.send().message(message);
 	}
 
+	@Deprecated
 	public void sendAction(Channel channel, String action)
 	{
 		channel.send().action(action);
 	}
 
+	@Deprecated
 	public User getUser(String user)
 	{
 		return bot.getUserChannelDao().getUser(user);
 	}
 
+	@Deprecated
 	public Channel getChannel(String channel)
 	{
 		return bot.getUserChannelDao().getChannel(channel);
 	}
 
+	@Deprecated
 	public void joinChannel(String channel)
 	{
 		joinChannel(bot.getUserChannelDao().getChannel(channel));
 	}
 
+	@Deprecated
 	public void joinChannel(Channel channel)
 	{
 		bot.sendIRC().joinChannel(channel.getName());
 	}
 
+	@Deprecated
 	public void partChannel(Channel channel)
 	{
 		channel.send().part();
 	}
 
+	@Deprecated
 	public void partChannel(Channel channel, String reason)
 	{
 		channel.send().part(reason);
 	}
 
+	@Deprecated
 	public List<Channel> getChannels()
 	{
 		return bot.getUserChannelDao().getAllChannels().asList();
 	}
 
+	@Deprecated
 	public void changeNick(String newNick)
 	{
 		bot.sendIRC().changeNick(newNick);
 	}
 
+	@Deprecated
 	public String getNick()
 	{
 		return config.getBotNick();
 	}
 
+	@Deprecated
 	public void kick(Channel channel, User target, String reason)
 	{
 		channel.send().kick(target, reason);
 	}
 
+	@Deprecated
 	public void ban(Channel channel, String hostmask)
 	{
 		channel.send().setMode("+b " + hostmask);
 	}
 
+	@Deprecated
 	public void unBan(Channel channel, String hostmask)
 	{
 		channel.send().setMode("-b " + hostmask);
 	}
 
+	@Deprecated
 	public void setMode(Channel channel, String mode)
 	{
 		channel.send().setMode(mode);
 	}
 
+	@Deprecated
 	public void voice(Channel channel, User user)
 	{
 		channel.send().voice(user);
 	}
 
+	@Deprecated
 	public void deVoice(Channel channel, User user)
 	{
 		channel.send().deVoice(user);
