@@ -21,14 +21,13 @@ import co.foxdev.foxbot.commands.Command;
 import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.database.Database;
-import co.foxdev.foxbot.listeners.MessageListener;
-import co.foxdev.foxbot.listeners.UserListener;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
 import com.maxmind.geoip.LookupService;
 import lombok.Getter;
 import org.pircbotx.*;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.ListenerAdapter;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -180,10 +179,23 @@ public class FoxBot
 
 	private void registerListeners()
 	{
-		log(String.format("Registering MessageListener"));
-		configBuilder.addListener(new MessageListener(this));
-		log(String.format("Registering UserListener"));
-		configBuilder.addListener(new UserListener(this));
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		try
+		{
+			for (Class clazz : reflections.getSubTypesOf(ListenerAdapter.class))
+			{
+				classLoader.loadClass(clazz.getName());
+				Constructor clazzConstructor = clazz.getConstructor(getClass());
+				ListenerAdapter listener = (ListenerAdapter) clazzConstructor.newInstance(this);
+
+				configBuilder.addListener(listener);
+				log(String.format("Registered '%s'", listener.getClass().getSimpleName()));
+			}
+		}
+		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
+		{
+			log(ex);
+		}
 	}
 
 	private void registerCommands()
@@ -197,8 +209,8 @@ public class FoxBot
 				Constructor clazzConstructor = clazz.getConstructor(getClass());
 				Command command = (Command) clazzConstructor.newInstance(this);
 
-				log(String.format("Registering command '%s'", command.getName()));
 				commandManager.registerCommand(command);
+				log(String.format("Registered command '%s'", command.getName()));
 			}
 		}
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
