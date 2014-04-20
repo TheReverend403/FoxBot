@@ -69,7 +69,7 @@ public class FoxBot
 	@Getter
 	private LookupService lookupService;
 	@Getter
-	private Reflections reflections = new Reflections("co.foxdev");
+	private Reflections reflections = new Reflections("co.foxdev.foxbot");
 
 	public static void main(String[] args)
 	{
