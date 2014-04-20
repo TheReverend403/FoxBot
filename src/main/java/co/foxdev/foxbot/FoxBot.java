@@ -31,8 +31,7 @@ import org.pircbotx.*;
 import org.pircbotx.exception.IrcException;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
-import org.slf4j.impl.SimpleLogger;
-import org.slf4j.impl.SimpleLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
@@ -75,12 +74,6 @@ public class FoxBot
 
 	public static void main(String[] args)
 	{
-		System.setProperty(SimpleLogger.SHOW_DATE_TIME_KEY, "true");
-		System.setProperty(SimpleLogger.SHOW_LOG_NAME_KEY, "false");
-		System.setProperty(SimpleLogger.SHOW_THREAD_NAME_KEY, "false");
-		System.setProperty(SimpleLogger.DATE_TIME_FORMAT_KEY, "[HH:MM:ss]");
-		System.setProperty(SimpleLogger.LEVEL_IN_BRACKETS_KEY, "true");
-
 		FoxBot me = new FoxBot();
 		me.start(args);
 	}
@@ -88,7 +81,7 @@ public class FoxBot
 	private void start(String[] args)
 	{
 		instance = this;
-		logger = new SimpleLoggerFactory().getLogger(getClass().getName());
+		logger = LoggerFactory.getLogger(getClass().getName());
 		File path = new File("data/custcmds");
 
 		if (!path.exists() && !path.mkdirs())
