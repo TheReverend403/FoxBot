@@ -73,19 +73,7 @@ public class UserListener extends ListenerAdapter
                     long kickTime = System.currentTimeMillis();
 
                     foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
-                    foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick), foxbot.getUserBot(), kickTime);
                 }
-            }
-            return;
-        }
-
-        List<String> tells = foxbot.getDatabase().getTells(user.getNick(), false);
-
-        if (!tells.isEmpty())
-        {
-            for (String tell : tells)
-            {
-                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }
@@ -104,16 +92,7 @@ public class UserListener extends ListenerAdapter
 
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
-            long kickTime = System.currentTimeMillis();
-
             foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-
-	        if (!channel.getUsers().contains(user))
-	        {
-		        foxbot.getDatabase().addKick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick), foxbot.getUserBot(), kickTime);
-		        return;
-	        }
-
 	        foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
 	        return;
         }
@@ -127,16 +106,6 @@ public class UserListener extends ListenerAdapter
             else
             {
                 channel.send().message(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
-            }
-        }
-
-        List<String> tells = foxbot.getDatabase().getTells(nick, false);
-
-        if (!tells.isEmpty())
-        {
-            for (String tell : tells)
-            {
-                foxbot.sendMessage(user, Utils.colourise(tell));
             }
         }
     }

@@ -20,7 +20,6 @@ package co.foxdev.foxbot;
 import co.foxdev.foxbot.commands.Command;
 import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
-import co.foxdev.foxbot.database.*;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
 import com.maxmind.geoip.LookupService;
@@ -65,8 +64,6 @@ public class FoxBot
 	@Getter
 	private CommandManager commandManager;
 	@Getter
-	private Database database;
-	@Getter
 	private LookupService lookupService;
 	@Getter
 	private Reflections reflections = new Reflections("co.foxdev.foxbot");
@@ -94,8 +91,6 @@ public class FoxBot
 		zncConfig = new ZncConfig(this);
 		permissionManager = new PermissionManager(this);
 		commandManager = new CommandManager(this);
-		loadDatabase();
-		database.connect();
 
 		try
 		{
@@ -215,25 +210,6 @@ public class FoxBot
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
 		{
 			log(ex);
-		}
-	}
-
-	private void loadDatabase()
-	{
-		switch (getConfig().getDatabaseType())
-		{
-			case "mysql":
-				database = new SQLDatabase(this);
-				log("Using SQL for database features");
-				break;
-			case "sqlite":
-				database = new SQLiteDatabase(this);
-				log("Using SQLite for database features");
-				break;
-			default:
-				database = new SQLiteDatabase(this);
-				log("Using SQLite for database features");
-				break;
 		}
 	}
 

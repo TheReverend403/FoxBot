@@ -28,6 +28,11 @@ public class CommandRandCommit extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Gets a random commit message from http://whatthecommit.com and sends it to the current channel.
+	 *
+	 * Usage: .wtc
+	 */
     public CommandRandCommit(FoxBot foxbot)
     {
         super("wtc", "command.wtc");

@@ -30,6 +30,11 @@ public class CommandHash extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Sends a hash of a specified string using md5, sha1 or sha256 to the channel.
+	 *
+	 * Usage: .hash <MD5|SHA-1|SHA-256> <string>
+	 */
 	public CommandHash(FoxBot foxbot)
 	{
 		super("hash", "command.hash");

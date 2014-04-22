@@ -23,6 +23,11 @@ public class CommandSound extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Sends a link to a sound file based on the arguments used.
+	 *
+	 * Usage: .sound <sound>
+	 */
     public CommandSound(FoxBot foxbot)
     {
         super("sound", "command.sound", "s");

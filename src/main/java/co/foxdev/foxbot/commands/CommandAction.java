@@ -27,6 +27,14 @@ public class CommandAction extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Makes the bot send an action to a specified channel.
+	 * If the bot is not in the channel, it will join it, say the message, then leave.
+	 * The bot will stay in the channel if the -s flag is used.
+	 * If no channel is specified, the current channel will be used.
+	 *
+	 * Usage: .action [channel] <message> [-s]
+	 */
     public CommandAction(FoxBot foxbot)
     {
         super("action", "command.action");

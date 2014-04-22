@@ -27,6 +27,12 @@ public class CommandGeoip extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Attempts to get an IP address' location using the Maxmind GeoIP databases.
+	 * Requires a GeoIP database to be placed in the data folder.
+	 *
+	 * Usage: .geoip <user|host>
+	 */
     public CommandGeoip(FoxBot foxbot)
     {
         super("geoip", "command.geoip");

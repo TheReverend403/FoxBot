@@ -32,6 +32,12 @@ public class CommandUptime extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * ONLY WORKS ON UNIX SYSTEMS
+	 * Gets the system's current uptime and sends it to channel.
+	 *
+	 * Usage: .uptime
+	 */
     public CommandUptime(FoxBot foxbot)
     {
         super("uptime", "command.uptime");

@@ -30,6 +30,12 @@ public class CommandMcPing extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Pings a specified hostname with a Minecraft query and returns the MOTD, current users, and game version.
+	 * A port can optionally be specified if the server is not on the default port.
+	 *
+	 * Usage: .mcping <host> [port]
+	 */
 	public CommandMcPing(FoxBot foxbot)
 	{
 		super("mcping", "command.mcping");

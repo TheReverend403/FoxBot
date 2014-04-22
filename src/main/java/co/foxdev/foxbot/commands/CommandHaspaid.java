@@ -28,6 +28,11 @@ public class CommandHaspaid extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Checks whether or not a Minecraft username is a paid account.
+	 *
+	 * Usage: .haspaid <username>
+	 */
     public CommandHaspaid(FoxBot foxbot)
     {
         super("haspaid", "command.ping", "mcpaid");

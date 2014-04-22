@@ -35,6 +35,11 @@ public class CommandGoogle extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Performs a Google search and sends the first result to the channel.
+	 *
+	 * Usage: .google <search term>
+	 */
 	public CommandGoogle(FoxBot foxbot)
 	{
 		super("google", "command.google", "g");

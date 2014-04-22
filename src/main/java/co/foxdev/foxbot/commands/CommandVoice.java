@@ -26,6 +26,13 @@ public class CommandVoice extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Voices a user in the current channel (if not voiced).
+	 * If no user is specified, the command sender will be voiced.
+	 * Can specify multiple users.
+	 *
+	 * Usage: .voice [user]
+	 */
     public CommandVoice(FoxBot foxbot)
     {
         super("voice", "command.voice");

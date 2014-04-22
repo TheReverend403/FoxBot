@@ -26,6 +26,11 @@ public class CommandPart extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Makes the bot leave a channel, or a list of channels.
+	 *
+	 * Usage: .part <channel> [channels]
+	 */
     public CommandPart(FoxBot foxbot)
     {
         super("part", "command.part", "leave");

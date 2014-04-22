@@ -31,6 +31,11 @@ public class CommandPing extends Command
 
     private final FoxBot foxbot;
 
+	/**
+	 * Can either ping a user by name, return a "Pong!" message, or ping a hostname and port and time it.
+	 *
+	 * .ping [me|hostname [port]]
+	 */
     public CommandPing(FoxBot foxbot)
     {
         super("ping", "command.ping");

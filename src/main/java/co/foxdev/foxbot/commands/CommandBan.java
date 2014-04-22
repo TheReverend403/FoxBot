@@ -26,6 +26,13 @@ public class CommandBan extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Kicks, then bans a user from a channel with a reason specified by the user.
+	 * The ban is in the form of *!*@*user.host to prevent ban evasion.
+	 * If the configuration option 'unban-timer' is not set to 0, the bot will remove the ban after the time specified in unban-timer.
+	 *
+	 * Usage: .ban <user> <reason>
+	 */
     public CommandBan(FoxBot foxbot)
     {
         super("ban", "command.ban");
@@ -73,11 +80,7 @@ public class CommandBan extends Command
             }
 
             foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
-
-            long banTime = System.currentTimeMillis();
-
             foxbot.ban(channel, hostmask);
-            foxbot.getDatabase().addBan(channel, target, reason.toString(), sender, banTime);
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {

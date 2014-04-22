@@ -34,6 +34,11 @@ public class CommandRandomImgur extends Command
 
     private Random rand = new Random();
 
+	/**
+	 * Generates a valid link to a random Imgur page and sends it to the channel.
+	 *
+	 * Usage: .imgur
+	 */
     public CommandRandomImgur(FoxBot foxbot)
     {
         super("imgur", "command.imgur");

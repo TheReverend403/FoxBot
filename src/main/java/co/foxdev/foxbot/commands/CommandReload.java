@@ -25,6 +25,11 @@ public class CommandReload extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Reloads the bot's configuration, permissions and ZNC config.
+	 *
+	 * Usage: .reload
+	 */
     public CommandReload(FoxBot foxbot)
     {
         super("reload", "command.reload");

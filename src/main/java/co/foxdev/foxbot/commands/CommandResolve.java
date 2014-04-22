@@ -28,6 +28,12 @@ public class CommandResolve extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Gets the A/AAAA and PTR record from a hostname or user's hostmask.
+	 * Tries IPv6 first, then IPv4. IPv4 can be forced with the -4 flag.
+	 *
+	 * Usage: .resolve <host|user> [-4]
+	 */
     public CommandResolve(FoxBot foxbot)
     {
         super("resolve", "command.resolve");

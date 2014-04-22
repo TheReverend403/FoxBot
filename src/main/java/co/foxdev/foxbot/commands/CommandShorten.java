@@ -29,6 +29,11 @@ public class CommandShorten extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Shortens a given link with the goo.gl URL shortener service.
+	 *
+	 * Usage: .shorten <link>
+	 */
 	public CommandShorten(FoxBot foxbot)
 	{
 		super("shorten", "command.shorten");

@@ -26,6 +26,12 @@ public class CommandJoin extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Makes the bot join a channel, or a list of channels.
+	 * The bot follows the same rules as a user, so it cannot join an invite only channel, or a channel it is banned in.
+	 *
+	 * Usage: .join <channel> [channels]
+	 */
     public CommandJoin(FoxBot foxbot)
     {
         super("join", "command.join");

@@ -30,6 +30,14 @@ public class CommandInsult extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Generates an insult from http://www.pangloss.com/seidel/Shaker and sends it to the specified channel.
+	 * If the bot is not in the channel, it will join it, send the message, then leave.
+	 * The bot will stay in the channel if the -s flag is used.
+	 * If no channel is specified, the current channel will be used.
+	 *
+	 * Usage: .insult [channel] [-s]
+	 */
     public CommandInsult(FoxBot foxbot)
     {
         super("insult", "command.insult");

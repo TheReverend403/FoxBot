@@ -34,6 +34,11 @@ public class CommandMcStatus extends Command
     private String online = Colors.DARK_GREEN + "✔" + Colors.NORMAL;
     private String offline = Colors.RED + "✘" + Colors.NORMAL;
 
+	/**
+	 * Checks the status of various Mojang services.
+	 *
+	 * Usage: .mcstatus
+	 */
     public CommandMcStatus(FoxBot foxbot)
     {
         super("mcstatus", "command.mcstatus", "mcs");

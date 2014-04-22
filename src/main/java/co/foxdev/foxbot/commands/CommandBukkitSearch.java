@@ -33,6 +33,11 @@ public class CommandBukkitSearch extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Searches the Bukget API for plugins matching the terms specified.
+	 *
+	 * Usage: .bukkitsearch <search term>
+	 */
 	public CommandBukkitSearch(FoxBot foxbot)
 	{
 		super("bukkitsearch", "command.bukkitsearch", "plugin", "bukkit");

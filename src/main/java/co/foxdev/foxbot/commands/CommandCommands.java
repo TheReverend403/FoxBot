@@ -25,6 +25,11 @@ public class CommandCommands extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Displays a list of commands the bot currently has available.
+	 *
+	 * Usage: .commands
+	 */
 	public CommandCommands(FoxBot foxbot)
 	{
 		super("commands", "command.commands");

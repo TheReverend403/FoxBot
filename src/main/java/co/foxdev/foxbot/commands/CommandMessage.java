@@ -26,6 +26,11 @@ public class CommandMessage extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Sends a private message to a specified user.
+	 *
+	 * Usage: .pm <user> <message>
+	 */
     public CommandMessage(FoxBot foxbot)
     {
         super("pm", "command.message", "message");

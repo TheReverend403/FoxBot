@@ -27,6 +27,11 @@ public class CommandKill extends Command
 
     private final FoxBot foxbot;
 
+	/**
+	 * Parts all channels and then shuts the bot down.
+	 *
+	 * Usage: .kill
+	 */
     public CommandKill(FoxBot foxbot)
     {
         super("kill", "command.kill");
@@ -45,7 +50,6 @@ public class CommandKill extends Command
                 foxbot.partChannel(channel, "Killed by " + sender.getNick());
             }
 
-            foxbot.getDatabase().disconnect();
             foxbot.shutdown(true);
             return;
         }

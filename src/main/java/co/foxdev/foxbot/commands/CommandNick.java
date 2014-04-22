@@ -25,6 +25,11 @@ public class CommandNick extends Command
 {
 	private final FoxBot foxbot;
 
+	/**
+	 * Changes the bot's nick.
+	 *
+	 * Usage: .nick <nick>
+	 */
 	public CommandNick(FoxBot foxbot)
 	{
 		super("nick", "command.nick", "name");

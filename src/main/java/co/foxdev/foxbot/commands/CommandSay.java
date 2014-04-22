@@ -27,6 +27,14 @@ public class CommandSay extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Makes the bot send a message to a specified channel.
+	 * If the bot is not in the channel, it will join it, say the message, then leave.
+	 * The bot will stay in the channel if the -s flag is used.
+	 * If no channel is specified, the current channel will be used.
+	 *
+	 * Usage: .say [channel] <message> [-s]
+	 */
     public CommandSay(FoxBot foxbot)
     {
         super("say", "command.say");

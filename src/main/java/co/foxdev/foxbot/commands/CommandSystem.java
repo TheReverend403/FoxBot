@@ -29,6 +29,13 @@ public class CommandSystem extends Command
 	private final FoxBot foxbot;
 	private final Runtime runtime;
 
+	/**
+	 * ONLY WORKS ON UNIX SYSTEMS
+	 * Runs a shell command on the machine running FoxBot and sends the output to the channel.
+	 * Will only send 3 lines of output unless the -v flag is used.
+	 *
+	 * Usage: .sys [-v] <command>
+	 */
 	public CommandSystem(FoxBot foxbot)
 	{
 		super("system", "command.system", "sys");

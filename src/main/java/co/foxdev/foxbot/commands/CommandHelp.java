@@ -25,6 +25,11 @@ public class CommandHelp extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Sends information about the bot to the command sender.
+	 *
+	 * Usage: .help
+	 */
     public CommandHelp(FoxBot foxbot)
     {
         super("help", "command.help");

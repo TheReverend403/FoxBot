@@ -30,6 +30,12 @@ public class CommandExec extends Command
     private static FoxBot foxbot;
     private Interpreter interpreter;
 
+	/**
+	 * Runs a set of interpreted Java instructions as specified by the user.
+	 * Has access to any API in the classpath.
+	 *
+	 * Usage: .exec <java>
+	 */
     public CommandExec(FoxBot foxbot)
     {
         super("exec", "command.exec");

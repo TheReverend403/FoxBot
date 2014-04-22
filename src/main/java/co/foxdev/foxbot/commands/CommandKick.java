@@ -26,6 +26,11 @@ public class CommandKick extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Kicks a user from the current channel with a reason specified by the command sender.
+	 *
+	 * Usage: .kick <user> <reason>
+	 */
     public CommandKick(FoxBot foxbot)
     {
         super("kick", "command.kick");
@@ -71,10 +76,7 @@ public class CommandKick extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            long kickTime = System.currentTimeMillis();
-
             foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
-            foxbot.getDatabase().addKick(channel, target, reason.toString(), sender, kickTime);
             return;
         }
         foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));

@@ -24,6 +24,13 @@ public class CommandSetCmd extends Command
 {
     private final FoxBot foxbot;
 
+	/**
+	 * Sets a custom command to be used in the current channel.
+	 * The command can contain any text and colours and will return that text when the command is used.
+	 * The command can be deleted by setting a command with no message.
+	 *
+	 * Usage: .setcmd <name> [message]
+	 */
     public CommandSetCmd(FoxBot foxbot)
     {
         // The only command without a perm check

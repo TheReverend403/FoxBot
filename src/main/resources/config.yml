@@ -38,21 +38,6 @@ auth:
     users-must-be-verified: false
     # Should we match users based on hostmasks? This mode is secure enough that you don't need to use "users-must-be-verified".
     match-users-by-hostmask: true
-# Database settings for bot data storage.
-database:
-    # Database type. Can be sqlite or mysql.
-    type: sqlite
-    # These settings have no effect in sqlite mode.
-    # The address of your MySQL server.
-    host: localhost
-    # The MySQL server port.
-    port: 3306
-    # The database name.
-    name: foxbot
-    # The username for the database.
-    username: root
-    # The password for the database.
-    password: root
 user-punishment:
     # Should the bot kick anyone who kicks the bot? NOT YET WORKING.
     punish-users-on-kick: true
