@@ -19,6 +19,7 @@ package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
+import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -34,6 +35,7 @@ public class CommandManager
     private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
     private static final Pattern LINES_SPLIT = Pattern.compile("\\\\n");
     private final Map<String, Command> commandMap = new HashMap<>();
+	private final char[] restrictedChars = new char[]{'.', '/', '\\', '~'};
 
     public CommandManager(FoxBot foxbot)
     {
@@ -104,12 +106,7 @@ public class CommandManager
 	    }
 
 	    // Prevent filesystem access
-	    if (command.contains(".") || command.contains("/") || command.contains("\\\\") || command.contains("~"))
-	    {
-		    return false;
-	    }
-
-	    if (channel.contains(".") || channel.contains("/") || channel.contains("\\\\") || channel.contains("~"))
+	    if (StringUtils.containsAny(channel, restrictedChars) || StringUtils.containsAny(command, restrictedChars))
 	    {
 		    return false;
 	    }
