@@ -79,11 +79,6 @@ public class PermissionManager
 		return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
 	}
 
-    public boolean isNickProtected(String nick)
-    {
-        return foxbot.getConfig().getBotNickProtection().getString(nick) != null && !foxbot.bot().getUserChannelDao().getUser(nick).getHostmask().equals(foxbot.getConfig().getBotNickProtection().getString(nick + ".hostmask"));
-    }
-
     public void removeAuthedUser(User user)
     {
         if (authedUsers.contains(user))

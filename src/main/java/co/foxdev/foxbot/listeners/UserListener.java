@@ -55,30 +55,6 @@ public class UserListener extends ListenerAdapter
     }
 
     @Override
-    public void onNickChange(NickChangeEvent event)
-    {
-        User user = event.getUser();
-        String newNick = event.getNewNick();
-
-        if (foxbot.getPermissionManager().isNickProtected(newNick))
-        {
-            for (Channel channel : foxbot.bot().getUserBot().getChannels())
-            {
-                if (channel.getUsers().contains(user))
-                {
-                    if (!channel.isOp(foxbot.bot().getUserBot()))
-                    {
-                        channel.send().part(String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
-                        continue;
-                    }
-
-	                channel.send().kick(user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
-                }
-            }
-        }
-    }
-
-    @Override
     public void onJoin(JoinEvent event)
     {
         User user = event.getUser();
@@ -88,13 +64,6 @@ public class UserListener extends ListenerAdapter
         if (nick.equals(foxbot.bot().getNick()))
         {
             return;
-        }
-
-        if (foxbot.getPermissionManager().isNickProtected(nick))
-        {
-	        channel.send().kick(user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-	        channel.send().part(String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
-	        return;
         }
 
         if (!foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))

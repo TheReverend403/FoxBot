@@ -30,11 +30,9 @@ public class Config
 
     private File configFile = new File("config.yml");
     private File permsFile = new File("permissions.yml");
-    private File nickProtectionFile = new File("nickprotection.yml");
 
     private FileConfiguration botConfig;
     private FileConfiguration botPermissions;
-    private FileConfiguration botNickProtection;
 
     // ---------
     // Bot owner
@@ -69,17 +67,6 @@ public class Config
     private String nickservPassword;
     private boolean usersMustBeVerified;
     private boolean matchUsersByHostmask;
-
-    // ----------------
-    // Database section
-    // ----------------
-
-    private String databaseType;
-    private String databaseHost;
-    private int databasePort;
-    private String databaseName;
-    private String databaseUser;
-    private String databasePassword;
 
     // -----------------------
     // User-punishment section
@@ -120,7 +107,6 @@ public class Config
         this.foxbot = foxbot;
         botConfig = new YamlConfiguration();
         botPermissions = new YamlConfiguration();
-        botNickProtection = new YamlConfiguration();
         loadConfig();
     }
 
@@ -128,13 +114,11 @@ public class Config
     {
         botConfig.saveResource("config.yml", false);
         botConfig.saveResource("permissions.yml", false);
-        botConfig.saveResource("nickprotection.yml", false);
 
         try
         {
             botConfig.load(configFile);
             botPermissions.load(permsFile);
-            botNickProtection.load(nickProtectionFile);
         }
         catch (Exception ex)
         {
@@ -174,17 +158,6 @@ public class Config
         nickservPassword = botConfig.getString("auth.nickserv-password");
         usersMustBeVerified = botConfig.getBoolean("auth.users-must-be-verified");
         matchUsersByHostmask = botConfig.getBoolean("auth.match-users-by-hostmask");
-
-        // ----------------
-        // Database section
-        // ----------------
-
-        databaseType = botConfig.getString("database.type");
-        databaseHost = botConfig.getString("database.host");
-        databasePort = botConfig.getInt("database.port");
-        databaseName = botConfig.getString("database.name");
-        databaseUser = botConfig.getString("database.username");
-        databasePassword = botConfig.getString("database.password");
 
         // -----------------------
         // User-punishment section
@@ -426,10 +399,5 @@ public class Config
     public FileConfiguration getBotPermissions()
     {
         return botPermissions;
-    }
-
-    public FileConfiguration getBotNickProtection()
-    {
-        return botNickProtection;
     }
 }
