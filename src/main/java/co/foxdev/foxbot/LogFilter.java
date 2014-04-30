@@ -29,7 +29,7 @@ public class LogFilter extends Filter<ILoggingEvent>
 	@Override
 	public FilterReply decide(ILoggingEvent event)
 	{
-		if (event.getMessage().contains("NICKSERV IDENTIFY") || event.getMessage().contains("PASS "))
+		if (event.getMarker().getName().equals("pircbotx.output") && (event.getMessage().contains("NICKSERV IDENTIFY") || event.getMessage().contains("PASS ")))
 		{
 			return FilterReply.DENY;
 		}
