@@ -28,7 +28,6 @@ import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 
 public class Utils
 {
@@ -143,14 +142,14 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-	            foxbot.log(Level.WARNING, "Error while creating custom command folders!");
+	            foxbot.warn("Error while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
 
             if (file.exists() && !file.delete())
             {
-	            foxbot.log(Level.WARNING, "Error while deleting old command!");
+	            foxbot.warn("Error while deleting old command!");
             }
 
             if (text.isEmpty() || text.equalsIgnoreCase("delete"))
