@@ -142,7 +142,7 @@ public class FoxBot
 			configBuilder.setNickservPassword(config.getNickservPassword());
 		}
 
-		log(String.format("Connecting to %s on port %s%s...", getConfig().getServerAddress(), getConfig().getServerPort(), getConfig().getServerSsl() ? " with SSL" : " without SSL"));
+		log(String.format("Connecting to %s on port %s%s...", config.getServerAddress(), config.getServerPort(), config.getServerSsl() ? " with SSL" : " without SSL"));
 		log(String.format("Adding channels..."));
 
 		for (String channel : config.getChannels())
