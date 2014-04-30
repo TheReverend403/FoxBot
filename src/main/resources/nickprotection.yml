@@ -1,9 +1,0 @@
-# This file is used to protect nicks.
-# Quite simply, if a user tries to use a nick and their hostmask doesn't match the one listed here, they will be kicked from all channels the bot can kick them from.
-# This is not protection for your nick, this is protection from unauthorised use of the bot.
-TheReverend403:
-    hostmask: revthefox.co.uk
-Rev:
-    hostmask: revthefox.co.uk
-Rev|SleepingFox:
-    hostmask: revthefox.co.uk
