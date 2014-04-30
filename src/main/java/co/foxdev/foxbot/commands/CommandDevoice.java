@@ -51,22 +51,23 @@ public class CommandDevoice extends Command
             {
                 for (String target : args)
                 {
-                    if (channel.getVoices().contains(foxbot.getUser(target)))
+	                User toDeVoice = foxbot.bot().getUserChannelDao().getUser(target);
+                    if (channel.hasVoice(toDeVoice))
                     {
-                        foxbot.deVoice(channel, foxbot.getUser(target));
+                        channel.send().deVoice(toDeVoice);
                     }
                 }
                 return;
             }
-            foxbot.sendNotice(sender, "You do not have permission to devoice other users!");
+	        sender.send().notice("You do not have permission to devoice other users!");
             return;
         }
 
-        if (channel.getVoices().contains(sender))
+        if (channel.hasVoice(sender))
         {
-            foxbot.deVoice(channel, sender);
+            channel.send().deVoice(sender);
             return;
         }
-        foxbot.sendNotice(sender, "You are not voice!");
+	    sender.send().notice("You are not voice!");
     }
 }

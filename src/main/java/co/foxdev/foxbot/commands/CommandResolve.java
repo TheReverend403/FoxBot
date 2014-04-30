@@ -48,8 +48,9 @@ public class CommandResolve extends Command
         if (args.length > 0)
         {
             Channel channel = event.getChannel();
+	        User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
             Record[] records = null;
-            String host = foxbot.getUser(args[0]).getHostmask() == null || foxbot.getUser(args[0]).getHostmask().equals("") ? args[0] : foxbot.getUser(args[0]).getHostmask();
+            String host = user.getHostmask() == null || user.getHostmask().equals("") ? args[0] : user.getHostmask();
 
             try
             {
@@ -98,6 +99,6 @@ public class CommandResolve extends Command
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sresolve <host|user> [-4]", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sresolve <host|user> [-4]", foxbot.getConfig().getCommandPrefix()));
     }
 }

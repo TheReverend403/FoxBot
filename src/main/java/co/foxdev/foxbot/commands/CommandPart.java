@@ -49,15 +49,16 @@ public class CommandPart extends Command
             {
                 if (chan.startsWith("#"))
                 {
-                    foxbot.partChannel(foxbot.getChannel(chan), String.format("Part command used by %s", sender.getNick()));
-                    foxbot.sendNotice(sender, String.format("Left %s", chan));
+	                Channel target = foxbot.bot().getUserChannelDao().getChannel(chan);
+                    target.send().part(String.format("Part command used by %s", sender.getNick()));
+	                sender.send().notice(String.format("Left %s", chan));
                     continue;
                 }
-                foxbot.sendNotice(sender, String.format("%s is not a channel...", chan));
+	            sender.send().notice(String.format("%s is not a channel...", chan));
             }
             return;
         }
-        foxbot.partChannel(channel);
-        foxbot.sendNotice(sender, String.format("Left %s", channel.getName()));
+        channel.send().part();
+	    sender.send().notice(String.format("Left %s", channel.getName()));
     }
 }

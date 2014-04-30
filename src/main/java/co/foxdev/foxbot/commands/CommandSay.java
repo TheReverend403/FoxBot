@@ -53,7 +53,7 @@ public class CommandSay extends Command
 
             if (args[0].startsWith("#"))
             {
-	            Channel target = foxbot.getChannel(args[0]);
+	            Channel target = foxbot.bot().getUserChannelDao().getChannel(args[0]);
                 message = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
@@ -64,23 +64,23 @@ public class CommandSay extends Command
                     }
                 }
 
-                if (foxbot.getChannel(args[0]).isInviteOnly())
+                if (target.isInviteOnly())
                 {
-                    foxbot.sendNotice(sender, String.format("%s is invite only!", args[0]));
+	                sender.send().notice(String.format("%s is invite only!", args[0]));
                     return;
                 }
 
-                foxbot.joinChannel(target);
+                foxbot.bot().sendIRC().joinChannel(target.getName());
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-                    foxbot.sendMessage(target, Utils.colourise(message.toString()));
-                    foxbot.partChannel(foxbot.getChannel(args[0]));
-                    foxbot.sendNotice(sender, String.format("Message sent to %s, and channel has been left", args[0]));
+	                sender.send().message(Utils.colourise(message.toString()));
+                    target.send().part();
+	                sender.send().notice(String.format("Message sent to %s, and channel has been left", args[0]));
                     return;
                 }
-                foxbot.sendMessage(target, Utils.colourise(message.toString()));
-                foxbot.sendNotice(sender, String.format("Message sent to %s", args[0]));
+	            target.send().message(Utils.colourise(message.toString()));
+	            sender.send().notice(String.format("Message sent to %s", args[0]));
                 return;
             }
 
@@ -96,6 +96,6 @@ public class CommandSay extends Command
             channel.send().message(Utils.colourise(message.toString()));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

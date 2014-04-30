@@ -54,10 +54,10 @@ public class CommandHaspaid extends Command
             catch (Exception ex)
             {
                 foxbot.log(ex);
-                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
+                channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

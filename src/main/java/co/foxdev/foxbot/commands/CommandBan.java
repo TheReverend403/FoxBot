@@ -46,11 +46,11 @@ public class CommandBan extends Command
 
         if (args.length > 1)
         {
-            User target = foxbot.getUser(args[0]);
+            User target = foxbot.bot().getUserChannelDao().getUser(args[0]);
 
             if (!channel.getUsers().contains(target))
             {
-                foxbot.sendNotice(sender, "That user is not in this channel!");
+	            sender.send().notice("That user is not in this channel!");
                 return;
             }
 
@@ -64,9 +64,9 @@ public class CommandBan extends Command
 	            foxbot.log(ex);
             }
 
-            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.getNick()))
+            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.bot().getNick()))
             {
-                foxbot.sendNotice(sender, "You cannot ban that user!");
+	            sender.send().notice("You cannot ban that user!");
                 return;
             }
 
@@ -79,8 +79,8 @@ public class CommandBan extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            foxbot.kick(channel, target, String.format("Ban requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
-            foxbot.ban(channel, hostmask);
+            channel.send().kick(target, String.format("Ban requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
+            channel.send().ban(hostmask);
 
             if (foxbot.getConfig().getUnbanTimer() != 0)
             {
@@ -88,6 +88,6 @@ public class CommandBan extends Command
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

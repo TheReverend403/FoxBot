@@ -53,7 +53,7 @@ public class CommandShorten extends Command
 			channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), shorten(linkToShorten)));
 			return;
 		}
-		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sshorten <link>", foxbot.getConfig().getCommandPrefix()));
+		sender.send().notice(String.format("Wrong number of args! Use %sshorten <link>", foxbot.getConfig().getCommandPrefix()));
 	}
 
 	private String shorten(String longUrl)

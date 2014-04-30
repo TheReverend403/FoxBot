@@ -36,7 +36,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -167,7 +166,6 @@ public class FoxBot
 		{
 			log(ex);
 			bot.stopBotReconnect();
-			System.exit(74);
 		}
 	}
 
@@ -211,6 +209,12 @@ public class FoxBot
 		{
 			log(ex);
 		}
+	}
+
+	public void shutdown()
+	{
+		bot.sendIRC().quitServer();
+		bot.stopBotReconnect();
 	}
 
 	public void log(String line)
@@ -272,146 +276,8 @@ public class FoxBot
 		logger.info(line);
 	}
 
-	/*
-	 * PircBot 1.9 methods, for shiggles and ease of porting
-	 */
-
-	@Deprecated
-	public void shutdown(boolean reconnect)
+	public PircBotX bot()
 	{
-		bot.stopBotReconnect();
-		System.exit(0);
-	}
-
-	@Deprecated
-	public User getUserBot()
-	{
-		return bot.getUserBot();
-	}
-
-	@Deprecated
-	public void sendNotice(String user, String message)
-	{
-		sendNotice(bot.getUserChannelDao().getUser(user), message);
-	}
-
-	@Deprecated
-	public void sendNotice(User user, String message)
-	{
-		bot.sendIRC().notice(user.getNick(), message);
-	}
-
-	@Deprecated
-	public void sendMessage(String user, String message)
-	{
-		sendMessage(bot.getUserChannelDao().getUser(user), message);
-	}
-
-	@Deprecated
-	public void sendMessage(User user, String message)
-	{
-		bot.sendIRC().message(user.getNick(), message);
-	}
-
-	@Deprecated
-	public void sendMessage(Channel channel, String message)
-	{
-		channel.send().message(message);
-	}
-
-	@Deprecated
-	public void sendAction(Channel channel, String action)
-	{
-		channel.send().action(action);
-	}
-
-	@Deprecated
-	public User getUser(String user)
-	{
-		return bot.getUserChannelDao().getUser(user);
-	}
-
-	@Deprecated
-	public Channel getChannel(String channel)
-	{
-		return bot.getUserChannelDao().getChannel(channel);
-	}
-
-	@Deprecated
-	public void joinChannel(String channel)
-	{
-		joinChannel(bot.getUserChannelDao().getChannel(channel));
-	}
-
-	@Deprecated
-	public void joinChannel(Channel channel)
-	{
-		bot.sendIRC().joinChannel(channel.getName());
-	}
-
-	@Deprecated
-	public void partChannel(Channel channel)
-	{
-		channel.send().part();
-	}
-
-	@Deprecated
-	public void partChannel(Channel channel, String reason)
-	{
-		channel.send().part(reason);
-	}
-
-	@Deprecated
-	public List<Channel> getChannels()
-	{
-		return bot.getUserChannelDao().getAllChannels().asList();
-	}
-
-	@Deprecated
-	public void changeNick(String newNick)
-	{
-		bot.sendIRC().changeNick(newNick);
-	}
-
-	@Deprecated
-	public String getNick()
-	{
-		return config.getBotNick();
-	}
-
-	@Deprecated
-	public void kick(Channel channel, User target, String reason)
-	{
-		channel.send().kick(target, reason);
-	}
-
-	@Deprecated
-	public void ban(Channel channel, String hostmask)
-	{
-		channel.send().setMode("+b " + hostmask);
-	}
-
-	@Deprecated
-	public void unBan(Channel channel, String hostmask)
-	{
-		channel.send().setMode("-b " + hostmask);
-	}
-
-	@Deprecated
-	public void setMode(Channel channel, String mode)
-	{
-		channel.send().setMode(mode);
-	}
-
-	@Deprecated
-	public void voice(Channel channel, User user)
-	{
-		channel.send().voice(user);
-	}
-
-	@Deprecated
-	public void deVoice(Channel channel, User user)
-	{
-		channel.send().deVoice(user);
+		return bot;
 	}
 }

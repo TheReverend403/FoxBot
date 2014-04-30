@@ -52,6 +52,6 @@ public class CommandCommands extends Command
 		}
 
 		String cmdList = sb.toString();
-		foxbot.sendNotice(sender, cmdList.substring(0, cmdList.lastIndexOf(",")));
+		sender.send().notice(cmdList.substring(0, cmdList.lastIndexOf(",")));
 	}
 }

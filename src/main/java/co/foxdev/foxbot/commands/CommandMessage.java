@@ -44,7 +44,7 @@ public class CommandMessage extends Command
 
         if (args.length > 1)
         {
-            User target = foxbot.getUser(args[0]);
+            User target = foxbot.bot().getUserChannelDao().getUser(args[0]);
             StringBuilder message = new StringBuilder(args[1]);
 
             for (int arg = 2; arg < args.length; arg++)
@@ -52,9 +52,9 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-            foxbot.sendMessage(target, Utils.colourise(message.toString()));
+	        target.send().message(Utils.colourise(message.toString()));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
     }
 }

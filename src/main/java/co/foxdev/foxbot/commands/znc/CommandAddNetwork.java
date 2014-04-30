@@ -22,9 +22,6 @@ import co.foxdev.foxbot.commands.Command;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class CommandAddNetwork extends Command
 {
     private final FoxBot foxbot;
@@ -45,18 +42,20 @@ public class CommandAddNetwork extends Command
             String user = args[0];
             String network = foxbot.getZncConfig().networkExists(args[1]) ? args[1] : "default";
             String networkName = foxbot.getZncConfig().getNetworkName(network);
+	        // ZNC module
+			String controlPanel = "*controlpanel";
 
-            foxbot.sendMessage("*controlpanel", String.format("addnetwork %s %s", user, networkName));
+	        foxbot.bot().sendIRC().message(controlPanel, String.format("addnetwork %s %s", user, networkName));
 
             for (String server : foxbot.getZncConfig().getServers(network))
             {
                 String host = server.split(":")[0];
                 String port = server.split(":")[1];
 
-                foxbot.sendMessage("*controlpanel", String.format("addserver %s %s %s %s", user, networkName, host, port));
+	            foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
             // Send a message to the partyline user
-            foxbot.sendMessage("?" + user, String.format("The network '%s' has been added to your account!", networkName));
+	        foxbot.bot().sendIRC().message("?" + user, String.format("The network '%s' has been added to your account!", networkName));
 
             // ------------
             // Add channels
@@ -69,16 +68,18 @@ public class CommandAddNetwork extends Command
             }
             catch (InterruptedException ex)
             {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                foxbot.log(ex);
             }
 
             for (String channel : foxbot.getZncConfig().getChannels(network))
             {
-	            foxbot.sendNotice(sender, String.format("Network '%s' added to %s's account!", networkName, user));
-                foxbot.sendMessage("*send_raw", String.format("server %s %s JOIN %s", user, networkName, channel));
+	            String sendRaw = "*send_raw";
+
+	            sender.send().notice(String.format("Network '%s' added to %s's account!", networkName, user));
+	            foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }

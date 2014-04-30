@@ -41,13 +41,8 @@ public class CommandReload extends Command
     {
         User sender = event.getUser();
 
-        if (args.length == 0)
-        {
-            foxbot.sendNotice(sender, "Reloading...");
-            foxbot.getConfig().reload();
-            foxbot.sendNotice(sender, "Reloaded! Some options will only take effect when you restart the bot.");
-            return;
-        }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sreload", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice("Reloading...");
+	    foxbot.getConfig().reload();
+	    sender.send().notice("Reloaded! Some options will only take effect when you restart the bot.");
     }
 }

@@ -45,24 +45,19 @@ public class CommandRandCommit extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length == 0)
-        {
-            String commitMessage;
+	    String commitMessage;
 
-            try
-            {
-                commitMessage = Jsoup.connect("http://whatthecommit.com/").timeout(500).get().select("p").first().text();
-            }
-            catch (Exception ex)
-            {
-	            foxbot.log(ex);
-                channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
-                return;
-            }
+	    try
+	    {
+		    commitMessage = Jsoup.connect("http://whatthecommit.com/").timeout(500).get().select("p").first().text();
+	    }
+	    catch (Exception ex)
+	    {
+		    foxbot.log(ex);
+		    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+		    return;
+	    }
 
-            channel.send().message(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
-            return;
-        }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %swtc", foxbot.getConfig().getCommandPrefix()));
+	    channel.send().message(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
     }
 }

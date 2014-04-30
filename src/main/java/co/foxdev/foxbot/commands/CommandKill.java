@@ -45,14 +45,14 @@ public class CommandKill extends Command
 
         if (args.length == 0)
         {
-            for (Channel channel : foxbot.getChannels())
+            for (Channel channel : foxbot.bot().getUserBot().getChannels())
             {
-                foxbot.partChannel(channel, "Killed by " + sender.getNick());
+                channel.send().part("Killed by " + sender.getNick());
             }
 
-            foxbot.shutdown(true);
+	        foxbot.shutdown();
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
     }
 }

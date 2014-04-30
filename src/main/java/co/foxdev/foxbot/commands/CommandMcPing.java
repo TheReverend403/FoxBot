@@ -79,6 +79,6 @@ public class CommandMcPing extends Command
 			channel.send().message(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));
 			return;
 		}
-		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcping <host> [port]", foxbot.getConfig().getCommandPrefix()));
+		sender.send().notice(String.format("Wrong number of args! Use %smcping <host> [port]", foxbot.getConfig().getCommandPrefix()));
 	}
 }

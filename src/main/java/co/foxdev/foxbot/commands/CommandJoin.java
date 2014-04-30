@@ -18,7 +18,6 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
-import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -49,21 +48,19 @@ public class CommandJoin extends Command
             {
                 if (chan.startsWith("#"))
                 {
-	                Channel channel = foxbot.getChannel(chan);
-
-                    if (!channel.isInviteOnly())
+                    if (!foxbot.bot().getUserChannelDao().getChannel(chan).isInviteOnly())
                     {
-                        foxbot.joinChannel(channel);
-                        foxbot.sendNotice(sender, String.format("Joined %s", chan));
+                        foxbot.bot().sendIRC().joinChannel(chan);
+	                    sender.send().notice(String.format("Joined %s", chan));
                         continue;
                     }
-                    foxbot.sendNotice(sender, String.format("%s is invite only!", chan));
+	                sender.send().notice(String.format("%s is invite only!", chan));
                     continue;
                 }
-                foxbot.sendNotice(sender, String.format("%s is not a channel...", chan));
+	            sender.send().notice(String.format("%s is not a channel...", chan));
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
     }
 }

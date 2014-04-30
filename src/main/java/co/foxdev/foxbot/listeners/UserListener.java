@@ -45,10 +45,12 @@ public class UserListener extends ListenerAdapter
     @Override
     public void onInvite(InviteEvent event)
     {
-        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(foxbot.getUser(event.getUser()), "bot.invite"))
+	    User user = foxbot.bot().getUserChannelDao().getUser(event.getUser());
+
+        if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(user, "bot.invite"))
         {
-            foxbot.joinChannel(event.getChannel());
-            foxbot.sendNotice(event.getUser(), String.format("Joined %s", event.getChannel()));
+            foxbot.bot().sendIRC().joinChannel(event.getChannel());
+	        user.send().notice(String.format("Joined %s", event.getChannel()));
         }
     }
 
@@ -60,19 +62,17 @@ public class UserListener extends ListenerAdapter
 
         if (foxbot.getPermissionManager().isNickProtected(newNick))
         {
-            for (Channel channel : foxbot.getChannels())
+            for (Channel channel : foxbot.bot().getUserBot().getChannels())
             {
                 if (channel.getUsers().contains(user))
                 {
-                    if (!channel.isOp(foxbot.getUserBot()))
+                    if (!channel.isOp(foxbot.bot().getUserBot()))
                     {
-                        foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
+                        channel.send().part(String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", newNick, newNick));
                         continue;
                     }
 
-                    long kickTime = System.currentTimeMillis();
-
-                    foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
+	                channel.send().kick(user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", newNick));
                 }
             }
         }
@@ -85,15 +85,15 @@ public class UserListener extends ListenerAdapter
         String nick = user.getNick();
         Channel channel = event.getChannel();
 
-        if (nick.equals(foxbot.getNick()))
+        if (nick.equals(foxbot.bot().getNick()))
         {
             return;
         }
 
         if (foxbot.getPermissionManager().isNickProtected(nick))
         {
-            foxbot.kick(channel, user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
-	        foxbot.partChannel(channel, String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
+	        channel.send().kick(user, String.format("The nick '%s' is protected. Either connect with the associated hostmask or do not use that nick.", nick));
+	        channel.send().part(String.format("'%s' is on my protected nick list. I am not able to kick '%s', so I am leaving this channel as a security measure.", nick, nick));
 	        return;
         }
 
@@ -101,7 +101,7 @@ public class UserListener extends ListenerAdapter
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
-                foxbot.sendNotice(user, Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                user.send().notice(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
             else
             {
@@ -117,7 +117,7 @@ public class UserListener extends ListenerAdapter
         final User kickedUser = event.getRecipient();
         final User kicker = event.getUser();
 
-        if (kickedUser.getNick().equals(foxbot.getNick()))
+        if (kickedUser.getNick().equals(foxbot.bot().getNick()))
         {
             if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
             {
@@ -127,7 +127,7 @@ public class UserListener extends ListenerAdapter
                             @Override
                             public void run()
                             {
-                                foxbot.joinChannel(channel);
+                                foxbot.bot().sendIRC().joinChannel(channel.getName());
                             }
                         },
                         TimeUnit.SECONDS.toMillis(foxbot.getConfig().getAutoRejoinDelay())

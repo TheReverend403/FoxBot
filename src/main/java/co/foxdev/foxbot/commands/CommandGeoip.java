@@ -53,13 +53,14 @@ public class CommandGeoip extends Command
 
         if (args.length == 1)
         {
-            String ip = foxbot.getUser(args[0]).getHostmask().isEmpty() ? args[0] : foxbot.getUser(args[0]).getHostmask();
+	        User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
+            String ip = user.getHostmask().isEmpty() ? args[0] : user.getHostmask();
             String country = foxbot.getLookupService().getLocation(ip).countryName;
             String city = foxbot.getLookupService().getLocation(ip).city;
 
             channel.send().message(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

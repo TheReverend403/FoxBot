@@ -45,11 +45,11 @@ public class CommandKick extends Command
 
         if (args.length > 1)
         {
-            User target = foxbot.getUser(args[0]);
+            User target = foxbot.bot().getUserChannelDao().getUser(args[0]);
 
             if (!channel.getUsers().contains(target))
             {
-                foxbot.sendNotice(sender, "That user is not in this channel!");
+	            sender.send().notice("That user is not in this channel!");
                 return;
             }
 
@@ -63,9 +63,9 @@ public class CommandKick extends Command
 	            foxbot.log(ex);
             }
 
-            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.getNick()))
+            if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.bot().getNick()))
             {
-                foxbot.sendNotice(sender, "You cannot kick that user!");
+	            sender.send().notice("You cannot kick that user!");
                 return;
             }
 
@@ -76,9 +76,9 @@ public class CommandKick extends Command
                 reason.append(" ").append(args[arg]);
             }
 
-            foxbot.kick(channel, target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
+            channel.send().kick(target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -68,7 +68,7 @@ public class PermissionManager
 
 			if (!quiet)
 			{
-				foxbot.sendNotice(user, "You must be logged into nickserv to use bot commands.");
+				user.send().notice("You must be logged into nickserv to use bot commands.");
 			}
 			return false;
 		}
@@ -81,7 +81,7 @@ public class PermissionManager
 
     public boolean isNickProtected(String nick)
     {
-        return foxbot.getConfig().getBotNickProtection().getString(nick) != null && !foxbot.getUser(nick).getHostmask().equals(foxbot.getConfig().getBotNickProtection().getString(nick + ".hostmask"));
+        return foxbot.getConfig().getBotNickProtection().getString(nick) != null && !foxbot.bot().getUserChannelDao().getUser(nick).getHostmask().equals(foxbot.getConfig().getBotNickProtection().getString(nick + ".hostmask"));
     }
 
     public void removeAuthedUser(User user)

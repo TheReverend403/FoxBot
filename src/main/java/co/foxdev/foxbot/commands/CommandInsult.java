@@ -66,7 +66,7 @@ public class CommandInsult extends Command
             catch (Exception ex)
             {
 	            foxbot.log(ex);
-                foxbot.sendMessage(channel, String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
+	            channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
                 return;
             }
 
@@ -74,33 +74,34 @@ public class CommandInsult extends Command
             {
                 if (args[0].startsWith("#"))
                 {
-	                Channel chan = foxbot.getChannel(args[0]);
+	                String target = args[0];
+	                Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
 
                     if (chan.isInviteOnly())
                     {
-                        foxbot.sendNotice(sender, String.format("%s is invite only!", args[0]));
+	                    sender.send().notice(String.format("%s is invite only!", args[0]));
                         return;
                     }
 
-                    foxbot.joinChannel(chan);
+                    foxbot.bot().sendIRC().joinChannel(target);
 
                     if (!args[args.length - 1].equalsIgnoreCase("-s"))
                     {
-                        foxbot.sendMessage(chan, insult);
-                        foxbot.partChannel(foxbot.getChannel(args[0]));
-                        foxbot.sendNotice(sender, String.format("Insult sent to %s, and channel has been left", args[0]));
+	                    chan.send().message(insult);
+                        chan.send().part();
+	                    sender.send().notice(String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
-                    foxbot.sendMessage(chan, insult);
-                    foxbot.sendNotice(sender, String.format("Insult sent to %s", args[0]));
+                    chan.send().message(insult);
+	                sender.send().notice(String.format("Insult sent to %s", args[0]));
                     return;
                 }
-                foxbot.sendNotice(sender, String.format("%s is not a channel...", args[0]));
+	            sender.send().notice(String.format("%s is not a channel...", args[0]));
                 return;
             }
             channel.send().message(insult);
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

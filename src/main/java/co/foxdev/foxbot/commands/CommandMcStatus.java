@@ -82,6 +82,6 @@ public class CommandMcStatus extends Command
             channel.send().message(statusString.toString());
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -108,6 +108,6 @@ public class CommandSystem extends Command
 			}
 			return;
 		}
-		foxbot.sendNotice(sender, String.format("Wrong number of args! Use %ssystem [-v] <command>", foxbot.getConfig().getCommandPrefix()));
+		sender.send().notice(String.format("Wrong number of args! Use %ssystem [-v] <command>", foxbot.getConfig().getCommandPrefix()));
 	}
 }

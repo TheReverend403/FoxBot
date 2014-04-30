@@ -51,22 +51,19 @@ public class CommandRandomImgur extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length == 0)
-        {
-            String link = "";
+	    String link = "";
 
-            while (link.equals(""))
-            {
-                link = generateLink();
-            }
+	    while (link.equals(""))
+	    {
+		    link = generateLink();
+	    }
 
-            if (!link.equals("exception"))
-            {
-                channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
-                return;
-            }
-            channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
-        }
+	    if (!link.equals("exception"))
+	    {
+		    channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
+		    return;
+	    }
+	    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
     }
 
     private String generateLink()

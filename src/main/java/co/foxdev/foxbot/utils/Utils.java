@@ -185,22 +185,7 @@ public class Utils
                     @Override
                     public void run()
                     {
-	                    FoxBot.getInstance().unBan(channel, hostmask);
-                    }
-                },
-                TimeUnit.SECONDS.toMillis(time)
-        );
-    }
-
-    public static void scheduleModeRemove(final Channel channel, final String hostmask, final String mode, final int time)
-    {
-        new Timer().schedule(
-                new TimerTask()
-                {
-                    @Override
-                    public void run()
-                    {
-	                    FoxBot.getInstance().setMode(channel, "-" + mode + " " + hostmask);
+	                    channel.send().unBan(hostmask);
                     }
                 },
                 TimeUnit.SECONDS.toMillis(time)

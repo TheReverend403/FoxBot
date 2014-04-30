@@ -46,15 +46,15 @@ public class MessageListener extends ListenerAdapter
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.getNick() + ", ")))
+            if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.bot().getNick() + ", ")))
             {
-                foxbot.getCommandManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.getConfig().getBotNick().length() + 2));
+                foxbot.getCommandManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.bot().getNick().length() + 2));
 	            return;
             }
 
             Matcher matcher = URL_PATTERN.matcher(message);
 
-            if (matcher.matches() && !user.getNick().equals(foxbot.getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
+            if (matcher.matches() && !user.getNick().equals(foxbot.bot().getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
                 message = Utils.parseChatUrl(matcher.group(1), user);
 

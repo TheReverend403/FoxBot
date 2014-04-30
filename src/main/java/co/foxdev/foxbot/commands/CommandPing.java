@@ -79,22 +79,22 @@ public class CommandPing extends Command
             }
             catch (UnknownHostException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is an unknown address!", host));
+	            sender.send().notice(String.format("%s is an unknown address!", host));
             }
             catch (IOException ex)
             {
-                foxbot.sendMessage(channel, Utils.colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", Utils.munge(sender.getNick()), port, host)));
+	            channel.send().message(Utils.colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", Utils.munge(sender.getNick()), port, host)));
             }
             catch (NumberFormatException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is not a number!", args[1]));
+	            sender.send().notice(String.format("%s is not a number!", args[1]));
             }
             catch (IllegalArgumentException ex)
             {
-                foxbot.sendNotice(sender, String.format("%s is too high a number for a port!", port));
+	            sender.send().notice(String.format("%s is too high a number for a port!", port));
             }
             return;
         }
-        foxbot.sendNotice(sender, String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
+	    sender.send().notice(String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
     }
 }
