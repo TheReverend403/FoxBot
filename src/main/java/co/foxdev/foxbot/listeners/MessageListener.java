@@ -40,8 +40,15 @@ public class MessageListener extends ListenerAdapter
 
     public void onMessage(MessageEvent event)
     {
+	    User user = event.getUser();
+
+	    // Seems to be needed for bouncers
+	    if (user.getNick().equals(foxbot.bot().getNick()))
+	    {
+		    return;
+	    }
+
         String message = event.getMessage();
-        User user = event.getUser();
         Channel channel = event.getChannel();
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
@@ -54,7 +61,7 @@ public class MessageListener extends ListenerAdapter
 
             Matcher matcher = URL_PATTERN.matcher(message);
 
-            if (matcher.matches() && !user.getNick().equals(foxbot.bot().getNick()) && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
+            if (matcher.matches() && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
                 message = Utils.parseChatUrl(matcher.group(1), user);
 
