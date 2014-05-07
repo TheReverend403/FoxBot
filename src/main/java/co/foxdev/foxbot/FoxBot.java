@@ -166,6 +166,7 @@ public class FoxBot
 		{
 			log(ex);
 			bot.stopBotReconnect();
+			bot().sendIRC().quitServer();
 		}
 	}
 
