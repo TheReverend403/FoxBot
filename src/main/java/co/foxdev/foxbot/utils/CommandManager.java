@@ -19,6 +19,7 @@ package co.foxdev.foxbot.utils;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.commands.Command;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -148,8 +149,8 @@ public class CommandManager
         return false;
     }
 
-	public Collection<Command> getCommands()
+	public ImmutableList<Command> getCommands()
 	{
-		return commandMap.values();
+		return ImmutableList.copyOf(commandMap.values());
 	}
 }
