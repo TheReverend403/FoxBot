@@ -17,6 +17,7 @@
 
 package co.foxdev.foxbot.commands;
 
+import com.google.common.collect.ImmutableList;
 import org.pircbotx.hooks.events.MessageEvent;
 
 public abstract class Command
@@ -47,9 +48,9 @@ public abstract class Command
         return permission;
     }
 
-    public String[] getAliases()
+    public ImmutableList<String> getAliases()
     {
-        return aliases;
+		return ImmutableList.copyOf(aliases);
     }
 
     public abstract void execute(final MessageEvent event, final String[] args);
