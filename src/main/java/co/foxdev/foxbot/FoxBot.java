@@ -82,7 +82,7 @@ public class FoxBot
 		if (!path.exists() && !path.mkdirs())
 		{
 			log("Could not create required folders (data/custcmds/). Shutting down.");
-			System.exit(74); // I/O error
+			shutdown();
 			return;
 		}
 
@@ -165,8 +165,7 @@ public class FoxBot
 		catch (IOException | IrcException ex)
 		{
 			log(ex);
-			bot.stopBotReconnect();
-			bot().sendIRC().quitServer();
+			shutdown();
 		}
 	}
 
