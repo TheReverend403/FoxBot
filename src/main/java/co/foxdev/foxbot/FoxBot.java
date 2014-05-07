@@ -181,7 +181,7 @@ public class FoxBot
 				Constructor clazzConstructor = clazz.getConstructor(getClass());
 				ListenerAdapter listener = (ListenerAdapter) clazzConstructor.newInstance(this);
 
-				configBuilder.addListener(listener);
+				configBuilder.getListenerManager().addListener(listener);
 				log(String.format("Registered listener '%s'", listener.getClass().getSimpleName()));
 			}
 		}
