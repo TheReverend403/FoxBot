@@ -72,8 +72,7 @@ public class CommandRandomImgur extends Command
 
         try
         {
-	        // We're not trying to get content, we're just connecting until we don't 404.
-	        Connection.Response response = Jsoup.connect(imgurLink).timeout(300).followRedirects(true).execute();
+	        Jsoup.connect(imgurLink).timeout(300).followRedirects(true).execute();
         }
         // Invalid link? Try again.
         catch (HttpStatusException ex)
