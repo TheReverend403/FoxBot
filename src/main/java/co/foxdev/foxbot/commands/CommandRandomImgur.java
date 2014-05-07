@@ -55,18 +55,21 @@ public class CommandRandomImgur extends Command
 
 	    while (link == null)
 	    {
-		    link = generateLink();
+		    try
+		    {
+			    link = generateLink();
+		    }
+		    catch (IOException ex)
+		    {
+			    foxbot.log(ex);
+			    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+			    return;
+		    }
 	    }
-
-	    if (!link.equals("exception"))
-	    {
-		    channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
-		    return;
-	    }
-	    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+	    channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
     }
 
-    private String generateLink()
+    private String generateLink() throws IOException
     {
         String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
 
@@ -81,10 +84,8 @@ public class CommandRandomImgur extends Command
         }
 	    catch (IOException ex)
 	    {
-		    foxbot.log(ex);
-		    return "exception";
+		    throw new IOException("Error occurred while generating random Imgur link.");
 	    }
-
 	    return imgurLink;
     }
 }
