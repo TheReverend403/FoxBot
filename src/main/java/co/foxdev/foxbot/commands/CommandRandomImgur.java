@@ -51,9 +51,9 @@ public class CommandRandomImgur extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-	    String link = "";
+	    String link = null;
 
-	    while (link.equals(""))
+	    while (link == null)
 	    {
 		    link = generateLink();
 	    }
@@ -78,7 +78,7 @@ public class CommandRandomImgur extends Command
         // Invalid link? Try again.
         catch (HttpStatusException ex)
         {
-	        return "";
+	        return null;
         }
 	    catch (IOException ex)
 	    {

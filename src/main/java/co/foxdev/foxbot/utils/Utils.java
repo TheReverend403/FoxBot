@@ -93,7 +93,7 @@ public class Utils
         {
 	        foxbot.log(ex);
         }
-        return "null";
+        return null;
     }
 
     public static String munge(String stringToMunge)

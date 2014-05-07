@@ -65,7 +65,7 @@ public class MessageListener extends ListenerAdapter
             {
                 message = Utils.parseChatUrl(matcher.group(1), user);
 
-                if (!message.isEmpty() && !message.equalsIgnoreCase("null"))
+                if (message != null && !message.isEmpty())
                 {
                     channel.send().message(message);
                 }
