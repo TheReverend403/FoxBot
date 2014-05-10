@@ -39,15 +39,9 @@ auth:
     # Should we match users based on hostmasks? This mode is secure enough that you don't need to use "users-must-be-verified".
     match-users-by-hostmask: true
 user-punishment:
-    # Should the bot kick anyone who kicks the bot? NOT YET WORKING.
-    punish-users-on-kick: true
-    # What should the reason be when we punish a user? Set to '' to disable.
-    punishment-kick-reason: You kick me, I kick you.
     # Time in seconds to unban users after a bot ban. Set to 0 to disable.
     unban-timer: 86400
 misc:
-    # Should we spam the console with debug info?
-    debug: true
     # If the bot sees a message beginning with this, it is treated as a command. Can only be one character.
     command-prefix: '~'
     # Should the bot accept invites from users with bot.invite?

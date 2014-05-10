@@ -291,16 +291,6 @@ public class Config
     // User-punishment section
     // -----------------------
 
-    public boolean getPunishUsersOnKick()
-    {
-        return punishUsersOnKick;
-    }
-
-    public String getPunishmentKickReason()
-    {
-        return punishmentKickReason;
-    }
-
     public int getUnbanTimer()
     {
         return unbanTimer;
@@ -309,11 +299,6 @@ public class Config
     // ------------
     // Misc section
     // ------------
-
-    public boolean getDebug()
-    {
-        return debug;
-    }
 
     public char getCommandPrefix()
     {
@@ -397,11 +382,6 @@ public class Config
     // ------------
     // File objects
     // ------------
-
-    public FileConfiguration getBotConfig()
-    {
-        return botConfig;
-    }
 
     public FileConfiguration getBotPermissions()
     {

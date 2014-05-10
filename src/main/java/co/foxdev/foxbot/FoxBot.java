@@ -121,7 +121,7 @@ public class FoxBot
         configBuilder.setMessageDelay(config.getMessageDelay());
         logger.info(String.format("Set message delay to %s", config.getMessageDelay()));
         configBuilder.setCapEnabled(true);
-        configBuilder.setRealName(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
+        configBuilder.setRealName(config.getBotRealName());
         configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
         logger.info(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
         configBuilder.setAutoSplitMessage(true);
