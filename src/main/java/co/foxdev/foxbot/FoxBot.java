@@ -173,6 +173,7 @@ public class FoxBot
 		}
 	}
 
+    // Automatically loads and registers all classes extending ListenerAdapter.class
 	private void registerListeners()
 	{
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
@@ -194,6 +195,7 @@ public class FoxBot
 		}
 	}
 
+    // Automatically loads and registers all classes extending Command.class
 	private void registerCommands()
 	{
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();

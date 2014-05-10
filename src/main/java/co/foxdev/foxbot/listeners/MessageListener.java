@@ -48,26 +48,26 @@ public class MessageListener extends ListenerAdapter
 		    return;
 	    }
 
-        String message = event.getMessage();
+        String parsedUrl = event.getMessage();
         Channel channel = event.getChannel();
 
         if (!foxbot.getConfig().getIgnoredChannels().contains(channel.getName()))
         {
-            if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.bot().getNick() + ", ")))
+            if (parsedUrl.length() > 0 && (parsedUrl.charAt(0) == foxbot.getConfig().getCommandPrefix() || parsedUrl.startsWith(foxbot.bot().getNick() + ", ")))
             {
-                foxbot.getCommandManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.bot().getNick().length() + 2));
+                foxbot.getCommandManager().dispatchCommand(event, parsedUrl.substring(parsedUrl.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.bot().getNick().length() + 2));
 	            return;
             }
 
-            Matcher matcher = URL_PATTERN.matcher(message);
+            Matcher matcher = URL_PATTERN.matcher(parsedUrl);
 
             if (matcher.matches() && foxbot.getPermissionManager().userHasQuietPermission(user, "chat.urls"))
             {
-                message = Utils.parseChatUrl(matcher.group(1), user);
+                parsedUrl = Utils.parseChatUrl(matcher.group(1), user);
 
-                if (message != null && !message.isEmpty())
+                if (parsedUrl != null && !parsedUrl.isEmpty())
                 {
-                    channel.send().message(message);
+                    channel.send().message(parsedUrl);
                 }
             }
         }
