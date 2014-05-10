@@ -65,11 +65,12 @@ public class CommandSay extends Command
                     message.append(" ").append(args[arg]);
                 }
 
-                channel.send().action(message.toString());
+                channel.send().message(message.toString());
                 sender.send().notice(String.format("Message sent to %s", targetChan));
                 return;
             }
-            channel.send().action(StringUtils.join(args, " "));
+            channel.send().message(StringUtils.join(args, " "));
+            return;
         }
         sender.send().notice(String.format("Wrong number of args! Use %ssay [#channel] <message>", foxbot.getConfig().getCommandPrefix()));
     }
