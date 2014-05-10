@@ -44,8 +44,6 @@ public class CommandInsult extends Command
         this.foxbot = foxbot;
     }
 
-    private Pattern titlePattern = Pattern.compile(".*?<font.*?>(.*)</font>.*?", Pattern.DOTALL);
-
     @Override
     public void execute(final MessageEvent event, final String[] args)
     {

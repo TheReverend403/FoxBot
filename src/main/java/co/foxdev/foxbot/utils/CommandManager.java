@@ -27,14 +27,10 @@ import org.pircbotx.hooks.events.MessageEvent;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.regex.Pattern;
 
 public class CommandManager
 {
     private final FoxBot foxbot;
-
-    private static final Pattern ARGS_SPLIT = Pattern.compile(" ");
-    private static final Pattern LINES_SPLIT = Pattern.compile("\\\\n");
     private final Map<String, Command> commandMap = new HashMap<>();
 	private final char[] restrictedChars = new char[]{'.', '/', '\\', '~'};
 
@@ -55,7 +51,7 @@ public class CommandManager
 
     public boolean dispatchCommand(MessageEvent event, String commandLine)
     {
-        String[] split = ARGS_SPLIT.split(commandLine);
+        String[] split = commandLine.split(" ");
         User sender = event.getUser();
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
@@ -135,9 +131,11 @@ public class CommandManager
                 return false;
             }
 
-            if (!message.toString().isEmpty())
+            String strMessage = message.toString();
+
+            if (!strMessage.isEmpty())
             {
-                String[] lines = LINES_SPLIT.split(message.toString());
+                String[] lines = strMessage.split("\\\\n");
 
                 for (int i = 0; i < lines.length && i < 3; i++)
                 {
