@@ -46,7 +46,7 @@ public class CommandInsult extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length < 3)
+        if (args.length < 2)
         {
             String insult;
             try
