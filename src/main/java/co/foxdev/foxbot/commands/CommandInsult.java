@@ -24,20 +24,18 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.util.regex.Pattern;
-
 public class CommandInsult extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Generates an insult from http://www.pangloss.com/seidel/Shaker and sends it to the specified channel.
-	 * If the bot is not in the channel, it will join it, send the message, then leave.
-	 * The bot will stay in the channel if the -s flag is used.
-	 * If no channel is specified, the current channel will be used.
-	 *
-	 * Usage: .insult [channel] [-s]
-	 */
+    /**
+     * Generates an insult from http://www.pangloss.com/seidel/Shaker and sends it to the specified channel.
+     * If the bot is not in the channel, it will join it, send the message, then leave.
+     * The bot will stay in the channel if the -s flag is used.
+     * If no channel is specified, the current channel will be used.
+     * <p/>
+     * Usage: .insult [channel] [-s]
+     */
     public CommandInsult(FoxBot foxbot)
     {
         super("insult", "command.insult");
@@ -52,7 +50,7 @@ public class CommandInsult extends Command
 
         if (args.length < 3)
         {
-	        String insult;
+            String insult;
             try
             {
                 insult = Jsoup.connect("http://www.pangloss.com/seidel/Shaker/").timeout(500).execute().parse().select("font").first().text()
@@ -63,8 +61,8 @@ public class CommandInsult extends Command
             }
             catch (Exception ex)
             {
-	            foxbot.getLogger().error("Error occurred while fetching random insult", ex);
-	            channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
+                foxbot.getLogger().error("Error occurred while fetching random insult", ex);
+                channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
                 return;
             }
 
@@ -72,12 +70,12 @@ public class CommandInsult extends Command
             {
                 if (args[0].startsWith("#"))
                 {
-	                String target = args[0];
-	                Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
+                    String target = args[0];
+                    Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
 
                     if (chan.isInviteOnly())
                     {
-	                    sender.send().notice(String.format("%s is invite only!", args[0]));
+                        sender.send().notice(String.format("%s is invite only!", args[0]));
                         return;
                     }
 
@@ -85,21 +83,21 @@ public class CommandInsult extends Command
 
                     if (!args[args.length - 1].equalsIgnoreCase("-s"))
                     {
-	                    chan.send().message(insult);
+                        chan.send().message(insult);
                         chan.send().part();
-	                    sender.send().notice(String.format("Insult sent to %s, and channel has been left", args[0]));
+                        sender.send().notice(String.format("Insult sent to %s, and channel has been left", args[0]));
                         return;
                     }
                     chan.send().message(insult);
-	                sender.send().notice(String.format("Insult sent to %s", args[0]));
+                    sender.send().notice(String.format("Insult sent to %s", args[0]));
                     return;
                 }
-	            sender.send().notice(String.format("%s is not a channel...", args[0]));
+                sender.send().notice(String.format("%s is not a channel...", args[0]));
                 return;
             }
             channel.send().message(insult);
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

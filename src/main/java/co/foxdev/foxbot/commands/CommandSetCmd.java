@@ -24,13 +24,13 @@ public class CommandSetCmd extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Sets a custom command to be used in the current channel.
-	 * The command can contain any text and colours and will return that text when the command is used.
-	 * The command can be deleted by setting a command with no message.
-	 *
-	 * Usage: .setcmd <name> [message]
-	 */
+    /**
+     * Sets a custom command to be used in the current channel.
+     * The command can contain any text and colours and will return that text when the command is used.
+     * The command can be deleted by setting a command with no message.
+     * <p/>
+     * Usage: .setcmd <name> [message]
+     */
     public CommandSetCmd(FoxBot foxbot)
     {
         // The only command without a perm check
@@ -49,25 +49,25 @@ public class CommandSetCmd extends Command
             // Ops should be able to add custom commands for their own channels.
             if (!channel.getNormalUsers().contains(sender) && !channel.hasVoice(sender))
             {
-	            StringBuilder builder = new StringBuilder("");
+                StringBuilder builder = new StringBuilder("");
 
                 String command = args[0];
 
-	            if (args.length > 1)
-	            {
-		            builder = new StringBuilder(args[1]);
+                if (args.length > 1)
+                {
+                    builder = new StringBuilder(args[1]);
 
-		            for (int arg = 2; arg < args.length; arg++)
-		            {
-			            builder.append(" ").append(args[arg]);
-		            }
-	            }
-	            sender.send().notice(String.format("Command '%s' %s for %s", command, Utils.addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted" , channel.getName()));
+                    for (int arg = 2; arg < args.length; arg++)
+                    {
+                        builder.append(" ").append(args[arg]);
+                    }
+                }
+                sender.send().notice(String.format("Command '%s' %s for %s", command, Utils.addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted", channel.getName()));
                 return;
             }
-	        sender.send().notice(String.format("Only channel half-ops and above can set custom commands!"));
+            sender.send().notice(String.format("Only channel half-ops and above can set custom commands!"));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %ssetcmd <command> [text]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %ssetcmd <command> [text]", foxbot.getConfig().getCommandPrefix()));
     }
 }

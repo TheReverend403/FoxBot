@@ -27,12 +27,12 @@ public class CommandGeoip extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Attempts to get an IP address' location using the Maxmind GeoIP databases.
-	 * Requires a GeoIP database to be placed in the data folder.
-	 *
-	 * Usage: .geoip <user|host>
-	 */
+    /**
+     * Attempts to get an IP address' location using the Maxmind GeoIP databases.
+     * Requires a GeoIP database to be placed in the data folder.
+     * <p/>
+     * Usage: .geoip <user|host>
+     */
     public CommandGeoip(FoxBot foxbot)
     {
         super("geoip", "command.geoip");
@@ -45,15 +45,15 @@ public class CommandGeoip extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-	    if (foxbot.getLookupService() == null)
-	    {
-		    channel.send().message("GeoIP is unavailable as the bot owner has not installed a GeoIP database. Ask them to install one from here: http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
-	        return;
-	    }
+        if (foxbot.getLookupService() == null)
+        {
+            channel.send().message("GeoIP is unavailable as the bot owner has not installed a GeoIP database. Ask them to install one from here: http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
+            return;
+        }
 
         if (args.length == 1)
         {
-	        User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
+            User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
             String ip = user.getHostmask().isEmpty() ? args[0] : user.getHostmask();
             String country = foxbot.getLookupService().getLocation(ip).countryName;
             String city = foxbot.getLookupService().getLocation(ip).city;
@@ -61,6 +61,6 @@ public class CommandGeoip extends Command
             channel.send().message(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

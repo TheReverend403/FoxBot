@@ -23,31 +23,31 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 public class CommandNick extends Command
 {
-	private final FoxBot foxbot;
+    private final FoxBot foxbot;
 
-	/**
-	 * Changes the bot's nick.
-	 *
-	 * Usage: .nick <nick>
-	 */
-	public CommandNick(FoxBot foxbot)
-	{
-		super("nick", "command.nick", "name");
-		this.foxbot = foxbot;
-	}
+    /**
+     * Changes the bot's nick.
+     * <p/>
+     * Usage: .nick <nick>
+     */
+    public CommandNick(FoxBot foxbot)
+    {
+        super("nick", "command.nick", "name");
+        this.foxbot = foxbot;
+    }
 
-	@Override
-	public void execute(MessageEvent event, String[] args)
-	{
-		User sender = event.getUser();
+    @Override
+    public void execute(MessageEvent event, String[] args)
+    {
+        User sender = event.getUser();
 
-		if (args.length == 1)
-		{
-			String nick = args[0];
+        if (args.length == 1)
+        {
+            String nick = args[0];
 
-			foxbot.bot().sendIRC().changeNick(nick);
-			return;
-		}
-		sender.send().notice(String.format("Wrong number of args! Use %snick <nick>", foxbot.getConfig().getCommandPrefix()));
-	}
+            foxbot.bot().sendIRC().changeNick(nick);
+            return;
+        }
+        sender.send().notice(String.format("Wrong number of args! Use %snick <nick>", foxbot.getConfig().getCommandPrefix()));
+    }
 }

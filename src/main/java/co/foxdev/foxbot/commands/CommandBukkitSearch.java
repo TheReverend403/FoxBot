@@ -31,27 +31,27 @@ import java.io.IOException;
 
 public class CommandBukkitSearch extends Command
 {
-	private final FoxBot foxbot;
+    private final FoxBot foxbot;
 
-	/**
-	 * Searches the Bukget API for plugins matching the terms specified.
-	 *
-	 * Usage: .bukkitsearch <search term>
-	 */
-	public CommandBukkitSearch(FoxBot foxbot)
-	{
-		super("bukkitsearch", "command.bukkitsearch", "plugin", "bukkit");
-		this.foxbot = foxbot;
-	}
+    /**
+     * Searches the Bukget API for plugins matching the terms specified.
+     * <p/>
+     * Usage: .bukkitsearch <search term>
+     */
+    public CommandBukkitSearch(FoxBot foxbot)
+    {
+        super("bukkitsearch", "command.bukkitsearch", "plugin", "bukkit");
+        this.foxbot = foxbot;
+    }
 
-	@Override
-	public void execute(MessageEvent event, String[] args)
-	{
-		User sender = event.getUser();
-		Channel channel = event.getChannel();
+    @Override
+    public void execute(MessageEvent event, String[] args)
+    {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
 
-		if (args.length > 0)
-		{
+        if (args.length > 0)
+        {
             String plugin = args[0].toLowerCase();
             String url = String.format("http://api.bukget.org/3/search/plugin_name/like/%s%s", plugin, (args.length) == 1 ? "" : ("?size=" + args[1]));
 
@@ -106,7 +106,7 @@ public class CommandBukkitSearch extends Command
 
             channel.send().message(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
             return;
-		}
-		sender.send().notice(String.format("Wrong number of args! Use %sbukkitsearch <plugin>", foxbot.getConfig().getCommandPrefix()));
-	}
+        }
+        sender.send().notice(String.format("Wrong number of args! Use %sbukkitsearch <plugin>", foxbot.getConfig().getCommandPrefix()));
+    }
 }

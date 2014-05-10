@@ -50,31 +50,31 @@ public class CommandAddUser extends Command
             // Basic user info
             // ---------------
 
-	        String controlPanel = "*controlpanel";
+            String controlPanel = "*controlpanel";
 
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("adduser %s %s", user, password));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set nick %s %s", user, foxbot.getZncConfig().getNick().replace("{NAME}", user)));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set altnick %s %s", user, foxbot.getZncConfig().getAltNick().replace("{NAME}", user)));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set ident %s %s", user, foxbot.getZncConfig().getIdent().replace("{NAME}", user.toLowerCase())));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set bindhost %s %s", user, bindhost));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set quitmsg %s %s", user,foxbot.getZncConfig().getQuitMsg()));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set buffercount %s %s", user, foxbot.getZncConfig().getBufferCount()));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set defaultchanmodes %s %s", user, foxbot.getZncConfig().getDefaultChanmodes()));
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("set prependtimestamp %s true", user));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("adduser %s %s", user, password));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set nick %s %s", user, foxbot.getZncConfig().getNick().replace("{NAME}", user)));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set altnick %s %s", user, foxbot.getZncConfig().getAltNick().replace("{NAME}", user)));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set ident %s %s", user, foxbot.getZncConfig().getIdent().replace("{NAME}", user.toLowerCase())));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set bindhost %s %s", user, bindhost));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set quitmsg %s %s", user, foxbot.getZncConfig().getQuitMsg()));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set buffercount %s %s", user, foxbot.getZncConfig().getBufferCount()));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set defaultchanmodes %s %s", user, foxbot.getZncConfig().getDefaultChanmodes()));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("set prependtimestamp %s true", user));
 
             // -----------
             // Add servers
             // -----------
 
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("addnetwork %s %s", user, networkName));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("addnetwork %s %s", user, networkName));
 
             for (String server : foxbot.getZncConfig().getServers(network))
             {
                 String host = server.split(":")[0];
                 String port = server.split(":")[1];
 
-	            foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
+                foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
 
             // ------------
@@ -83,14 +83,14 @@ public class CommandAddUser extends Command
 
             for (String module : foxbot.getZncConfig().getModules())
             {
-	            foxbot.bot().sendIRC().message(controlPanel, String.format("loadmodule %s %s", user, module));
+                foxbot.bot().sendIRC().message(controlPanel, String.format("loadmodule %s %s", user, module));
             }
 
             // -----------------------------------
             // Send information to the adding user
             // -----------------------------------
 
-	        sender.send().notice(String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
+            sender.send().notice(String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
 
             // ------------
             // Add channels
@@ -106,14 +106,14 @@ public class CommandAddUser extends Command
                 foxbot.getLogger().error("Thread was interrupted", ex);
             }
 
-	        String sendRaw = "*send_raw";
+            String sendRaw = "*send_raw";
 
             for (String channel : foxbot.getZncConfig().getChannels(network))
             {
-	            foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
+                foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <network>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }

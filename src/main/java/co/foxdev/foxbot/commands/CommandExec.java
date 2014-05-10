@@ -30,28 +30,28 @@ public class CommandExec extends Command
     private static FoxBot foxbot;
     private Interpreter interpreter;
 
-	/**
-	 * Runs a set of interpreted Java instructions as specified by the user.
-	 * Has access to any API in the classpath.
-	 *
-	 * Usage: .exec <java>
-	 */
+    /**
+     * Runs a set of interpreted Java instructions as specified by the user.
+     * Has access to any API in the classpath.
+     * <p/>
+     * Usage: .exec <java>
+     */
     public CommandExec(FoxBot foxbot)
     {
         super("exec", "command.exec");
         CommandExec.foxbot = foxbot;
 
-	    try
-	    {
-		    interpreter = new Interpreter();
-		    interpreter.getNameSpace().doSuperImport();
-		    interpreter.setStrictJava(false);
-		    interpreter.set("foxbot", foxbot);
-	    }
-	    catch (Exception ex)
-	    {
-		    foxbot.getLogger().error("Error occurred while preparing BeanShell interpreter", ex);
-	    }
+        try
+        {
+            interpreter = new Interpreter();
+            interpreter.getNameSpace().doSuperImport();
+            interpreter.setStrictJava(false);
+            interpreter.set("foxbot", foxbot);
+        }
+        catch (Exception ex)
+        {
+            foxbot.getLogger().error("Error occurred while preparing BeanShell interpreter", ex);
+        }
     }
 
     @Override

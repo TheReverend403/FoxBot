@@ -27,14 +27,14 @@ public class CommandSay extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Makes the bot send a message to a specified channel.
-	 * If the bot is not in the channel, it will join it, say the message, then leave.
-	 * The bot will stay in the channel if the -s flag is used.
-	 * If no channel is specified, the current channel will be used.
-	 *
-	 * Usage: .say [channel] <message> [-s]
-	 */
+    /**
+     * Makes the bot send a message to a specified channel.
+     * If the bot is not in the channel, it will join it, say the message, then leave.
+     * The bot will stay in the channel if the -s flag is used.
+     * If no channel is specified, the current channel will be used.
+     * <p/>
+     * Usage: .say [channel] <message> [-s]
+     */
     public CommandSay(FoxBot foxbot)
     {
         super("say", "command.say");
@@ -53,7 +53,7 @@ public class CommandSay extends Command
 
             if (args[0].startsWith("#"))
             {
-	            Channel target = foxbot.bot().getUserChannelDao().getChannel(args[0]);
+                Channel target = foxbot.bot().getUserChannelDao().getChannel(args[0]);
                 message = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
@@ -66,7 +66,7 @@ public class CommandSay extends Command
 
                 if (target.isInviteOnly())
                 {
-	                sender.send().notice(String.format("%s is invite only!", args[0]));
+                    sender.send().notice(String.format("%s is invite only!", args[0]));
                     return;
                 }
 
@@ -74,13 +74,13 @@ public class CommandSay extends Command
 
                 if (!args[args.length - 1].equalsIgnoreCase("-s"))
                 {
-	                sender.send().message(Utils.colourise(message.toString()));
+                    sender.send().message(Utils.colourise(message.toString()));
                     target.send().part();
-	                sender.send().notice(String.format("Message sent to %s, and channel has been left", args[0]));
+                    sender.send().notice(String.format("Message sent to %s, and channel has been left", args[0]));
                     return;
                 }
-	            target.send().message(Utils.colourise(message.toString()));
-	            sender.send().notice(String.format("Message sent to %s", args[0]));
+                target.send().message(Utils.colourise(message.toString()));
+                sender.send().notice(String.format("Message sent to %s", args[0]));
                 return;
             }
 
@@ -96,6 +96,6 @@ public class CommandSay extends Command
             channel.send().message(Utils.colourise(message.toString()));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %ssay [#channel] <message> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -25,12 +25,12 @@ public class CommandJoin extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Makes the bot join a channel, or a list of channels.
-	 * The bot follows the same rules as a user, so it cannot join an invite only channel, or a channel it is banned in.
-	 *
-	 * Usage: .join <channel> [channels]
-	 */
+    /**
+     * Makes the bot join a channel, or a list of channels.
+     * The bot follows the same rules as a user, so it cannot join an invite only channel, or a channel it is banned in.
+     * <p/>
+     * Usage: .join <channel> [channels]
+     */
     public CommandJoin(FoxBot foxbot)
     {
         super("join", "command.join");
@@ -51,16 +51,16 @@ public class CommandJoin extends Command
                     if (!foxbot.bot().getUserChannelDao().getChannel(chan).isInviteOnly())
                     {
                         foxbot.bot().sendIRC().joinChannel(chan);
-	                    sender.send().notice(String.format("Joined %s", chan));
+                        sender.send().notice(String.format("Joined %s", chan));
                         continue;
                     }
-	                sender.send().notice(String.format("%s is invite only!", chan));
+                    sender.send().notice(String.format("%s is invite only!", chan));
                     continue;
                 }
-	            sender.send().notice(String.format("%s is not a channel...", chan));
+                sender.send().notice(String.format("%s is not a channel...", chan));
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
     }
 }

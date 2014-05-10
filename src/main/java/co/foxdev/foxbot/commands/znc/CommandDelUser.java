@@ -40,10 +40,10 @@ public class CommandDelUser extends Command
         if (args.length == 1)
         {
             String user = args[0];
-	        String controlPanel = "*controlpanel";
+            String controlPanel = "*controlpanel";
 
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("deluser %s", user));
-	        sender.send().notice(String.format("%s has been deleted!", user));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("deluser %s", user));
+            sender.send().notice(String.format("%s has been deleted!", user));
             return;
         }
         sender.send().notice(String.format("Wrong number of args! Use %szncdeluser <name>", foxbot.getConfig().getCommandPrefix()));

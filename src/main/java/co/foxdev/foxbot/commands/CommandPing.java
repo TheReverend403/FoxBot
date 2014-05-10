@@ -24,18 +24,20 @@ import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class CommandPing extends Command
 {
 
     private final FoxBot foxbot;
 
-	/**
-	 * Can either ping a user by name, return a "Pong!" message, or ping a hostname and port and time it.
-	 *
-	 * .ping [me|hostname [port]]
-	 */
+    /**
+     * Can either ping a user by name, return a "Pong!" message, or ping a hostname and port and time it.
+     * <p/>
+     * .ping [me|hostname [port]]
+     */
     public CommandPing(FoxBot foxbot)
     {
         super("ping", "command.ping");
@@ -69,9 +71,9 @@ public class CommandPing extends Command
             try
             {
                 port = args.length == 2 ? Integer.parseInt(args[1]) : port;
-	            Socket socket = new Socket();
+                Socket socket = new Socket();
                 long start = System.currentTimeMillis();
-	            socket.connect(new InetSocketAddress(host, port), 500);
+                socket.connect(new InetSocketAddress(host, port), 500);
                 long end = System.currentTimeMillis();
 
                 socket.close();
@@ -79,22 +81,22 @@ public class CommandPing extends Command
             }
             catch (UnknownHostException ex)
             {
-	            sender.send().notice(String.format("%s is an unknown address!", host));
+                sender.send().notice(String.format("%s is an unknown address!", host));
             }
             catch (IOException ex)
             {
-	            channel.send().message(Utils.colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", Utils.munge(sender.getNick()), port, host)));
+                channel.send().message(Utils.colourise(String.format("(%s) &cError:&r Port %s seems to be closed on %s", Utils.munge(sender.getNick()), port, host)));
             }
             catch (NumberFormatException ex)
             {
-	            sender.send().notice(String.format("%s is not a number!", args[1]));
+                sender.send().notice(String.format("%s is not a number!", args[1]));
             }
             catch (IllegalArgumentException ex)
             {
-	            sender.send().notice(String.format("%s is too high a number for a port!", port));
+                sender.send().notice(String.format("%s is too high a number for a port!", port));
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
     }
 }

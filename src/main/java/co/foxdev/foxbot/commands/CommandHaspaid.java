@@ -28,11 +28,11 @@ public class CommandHaspaid extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Checks whether or not a Minecraft username is a paid account.
-	 *
-	 * Usage: .haspaid <username>
-	 */
+    /**
+     * Checks whether or not a Minecraft username is a paid account.
+     * <p/>
+     * Usage: .haspaid <username>
+     */
     public CommandHaspaid(FoxBot foxbot)
     {
         super("haspaid", "command.ping", "mcpaid");
@@ -58,6 +58,6 @@ public class CommandHaspaid extends Command
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

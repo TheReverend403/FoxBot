@@ -33,62 +33,62 @@ import java.io.IOException;
 
 public class CommandGoogle extends Command
 {
-	private final FoxBot foxbot;
+    private final FoxBot foxbot;
 
-	/**
-	 * Performs a Google search and sends the first result to the channel.
-	 *
-	 * Usage: .google <search term>
-	 */
-	public CommandGoogle(FoxBot foxbot)
-	{
-		super("google", "command.google", "g");
-		this.foxbot = foxbot;
-	}
+    /**
+     * Performs a Google search and sends the first result to the channel.
+     * <p/>
+     * Usage: .google <search term>
+     */
+    public CommandGoogle(FoxBot foxbot)
+    {
+        super("google", "command.google", "g");
+        this.foxbot = foxbot;
+    }
 
-	@Override
-	public void execute(MessageEvent event, String[] args)
-	{
-		User sender = event.getUser();
-		Channel channel = event.getChannel();
+    @Override
+    public void execute(MessageEvent event, String[] args)
+    {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
 
-		if (args.length != 0)
-		{
-			String query = StringUtils.join(args, " ");
-			String address = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + query;
+        if (args.length != 0)
+        {
+            String query = StringUtils.join(args, " ");
+            String address = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + query;
 
-			Connection conn = Jsoup.connect(address).ignoreContentType(true).followRedirects(true).timeout(1000);
+            Connection conn = Jsoup.connect(address).ignoreContentType(true).followRedirects(true).timeout(1000);
 
-			JSONObject jsonObject;
+            JSONObject jsonObject;
 
-			try
-			{
-				jsonObject = new JSONObject(conn.get().text());
-			}
-			catch (IOException ex)
-			{
-				foxbot.getLogger().error("Error occurred while performing Google search", ex);
-				channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
-				return;
-			}
+            try
+            {
+                jsonObject = new JSONObject(conn.get().text());
+            }
+            catch (IOException ex)
+            {
+                foxbot.getLogger().error("Error occurred while performing Google search", ex);
+                channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+                return;
+            }
 
-			JSONArray jsonArray = jsonObject.getJSONObject("responseData").getJSONArray("results");
+            JSONArray jsonArray = jsonObject.getJSONObject("responseData").getJSONArray("results");
 
-			if (jsonArray.length() == 0)
-			{
-				channel.send().message(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
-				return;
-			}
+            if (jsonArray.length() == 0)
+            {
+                channel.send().message(Utils.colourise(String.format("(%s) &cNo results found!", Utils.munge(sender.getNick()))));
+                return;
+            }
 
-			JSONObject result = jsonArray.getJSONObject(0);
-			String resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getString("resultCount");
+            JSONObject result = jsonArray.getJSONObject(0);
+            String resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getString("resultCount");
 
-			String title = result.getString("titleNoFormatting");
-			String url = result.getString("url");
+            String title = result.getString("titleNoFormatting");
+            String url = result.getString("url");
 
-			channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
-			return;
-		}
-		sender.send().notice(String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
-	}
+            channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
+            return;
+        }
+        sender.send().notice(String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
+    }
 }

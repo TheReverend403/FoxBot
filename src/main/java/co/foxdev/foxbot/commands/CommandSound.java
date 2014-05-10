@@ -23,11 +23,11 @@ public class CommandSound extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Sends a link to a sound file based on the arguments used.
-	 *
-	 * Usage: .sound <sound>
-	 */
+    /**
+     * Sends a link to a sound file based on the arguments used.
+     * <p/>
+     * Usage: .sound <sound>
+     */
     public CommandSound(FoxBot foxbot)
     {
         super("sound", "command.sound", "s");
@@ -47,6 +47,6 @@ public class CommandSound extends Command
             channel.send().message(String.format("%s%s.%s", foxbot.getConfig().getSoundURL(), soundname, foxbot.getConfig().getSoundExtension()));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %ssound <soundname>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %ssound <soundname>", foxbot.getConfig().getCommandPrefix()));
     }
 }

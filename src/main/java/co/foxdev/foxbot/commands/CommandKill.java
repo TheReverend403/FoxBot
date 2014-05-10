@@ -27,11 +27,11 @@ public class CommandKill extends Command
 
     private final FoxBot foxbot;
 
-	/**
-	 * Parts all channels and then shuts the bot down.
-	 *
-	 * Usage: .kill
-	 */
+    /**
+     * Parts all channels and then shuts the bot down.
+     * <p/>
+     * Usage: .kill
+     */
     public CommandKill(FoxBot foxbot)
     {
         super("kill", "command.kill");
@@ -50,9 +50,9 @@ public class CommandKill extends Command
                 channel.send().part("Killed by " + sender.getNick());
             }
 
-	        foxbot.shutdown();
+            foxbot.shutdown();
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %skill", foxbot.getConfig().getCommandPrefix()));
     }
 }

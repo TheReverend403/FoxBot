@@ -23,35 +23,35 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 public class CommandCommands extends Command
 {
-	private final FoxBot foxbot;
+    private final FoxBot foxbot;
 
-	/**
-	 * Displays a list of commands the bot currently has available.
-	 *
-	 * Usage: .commands
-	 */
-	public CommandCommands(FoxBot foxbot)
-	{
-		super("commands", "command.commands");
-		this.foxbot = foxbot;
-	}
+    /**
+     * Displays a list of commands the bot currently has available.
+     * <p/>
+     * Usage: .commands
+     */
+    public CommandCommands(FoxBot foxbot)
+    {
+        super("commands", "command.commands");
+        this.foxbot = foxbot;
+    }
 
-	@Override
-	public void execute(final MessageEvent event, final String[] args)
-	{
-		User sender = event.getUser();
+    @Override
+    public void execute(final MessageEvent event, final String[] args)
+    {
+        User sender = event.getUser();
 
-		StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-		for (Command command : foxbot.getCommandManager().getCommands())
-		{
-			if (!sb.toString().contains(command.getName()))
-			{
-				sb.append(command.getName()).append(", ");
-			}
-		}
+        for (Command command : foxbot.getCommandManager().getCommands())
+        {
+            if (!sb.toString().contains(command.getName()))
+            {
+                sb.append(command.getName()).append(", ");
+            }
+        }
 
-		String cmdList = sb.toString();
-		sender.send().notice(cmdList.substring(0, cmdList.lastIndexOf(",")));
-	}
+        String cmdList = sb.toString();
+        sender.send().notice(cmdList.substring(0, cmdList.lastIndexOf(",")));
+    }
 }

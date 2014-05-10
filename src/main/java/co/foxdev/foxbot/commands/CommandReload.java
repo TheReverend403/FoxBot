@@ -25,11 +25,11 @@ public class CommandReload extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Reloads the bot's configuration, permissions and ZNC config.
-	 *
-	 * Usage: .reload
-	 */
+    /**
+     * Reloads the bot's configuration, permissions and ZNC config.
+     * <p/>
+     * Usage: .reload
+     */
     public CommandReload(FoxBot foxbot)
     {
         super("reload", "command.reload");
@@ -41,8 +41,8 @@ public class CommandReload extends Command
     {
         User sender = event.getUser();
 
-	    sender.send().notice("Reloading...");
-	    foxbot.getConfig().reload();
-	    sender.send().notice("Reloaded! Some options will only take effect when you restart the bot.");
+        sender.send().notice("Reloading...");
+        foxbot.getConfig().reload();
+        sender.send().notice("Reloaded! Some options will only take effect when you restart the bot.");
     }
 }

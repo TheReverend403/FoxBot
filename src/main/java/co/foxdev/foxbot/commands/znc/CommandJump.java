@@ -41,12 +41,12 @@ public class CommandJump extends Command
         {
             String user = args[0];
             String network = args.length == 2 ? args[1] : foxbot.getZncConfig().getNetworkName("default");
-	        String controlPanel = "*controlpanel";
+            String controlPanel = "*controlpanel";
 
-	        foxbot.bot().sendIRC().message(controlPanel, String.format("reconnect %s %s", user, network));
-	        sender.send().notice(String.format("%s is reconnecting!", user));
+            foxbot.bot().sendIRC().message(controlPanel, String.format("reconnect %s %s", user, network));
+            sender.send().notice(String.format("%s is reconnecting!", user));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %szncjump <name> [network]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %szncjump <name> [network]", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -20,7 +20,8 @@ package co.foxdev.foxbot.commands;
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.jsoup.*;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -34,11 +35,11 @@ public class CommandRandomImgur extends Command
 
     private Random rand = new Random();
 
-	/**
-	 * Generates a valid link to a random Imgur page and sends it to the channel.
-	 *
-	 * Usage: .imgur
-	 */
+    /**
+     * Generates a valid link to a random Imgur page and sends it to the channel.
+     * <p/>
+     * Usage: .imgur
+     */
     public CommandRandomImgur(FoxBot foxbot)
     {
         super("imgur", "command.imgur");
@@ -51,22 +52,22 @@ public class CommandRandomImgur extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-	    String link = null;
+        String link = null;
 
-	    while (link == null)
-	    {
-		    try
-		    {
-			    link = generateLink();
-		    }
-		    catch (IOException ex)
-		    {
-			    foxbot.getLogger().error("Error occurred while generating Imgur URL", ex);
-			    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
-			    return;
-		    }
-	    }
-	    channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
+        while (link == null)
+        {
+            try
+            {
+                link = generateLink();
+            }
+            catch (IOException ex)
+            {
+                foxbot.getLogger().error("Error occurred while generating Imgur URL", ex);
+                channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+                return;
+            }
+        }
+        channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
     }
 
     private String generateLink() throws IOException
@@ -75,17 +76,17 @@ public class CommandRandomImgur extends Command
 
         try
         {
-	        Jsoup.connect(imgurLink).timeout(300).followRedirects(true).execute();
+            Jsoup.connect(imgurLink).timeout(300).followRedirects(true).execute();
         }
         // Invalid link? Try again.
         catch (HttpStatusException ex)
         {
-	        return null;
+            return null;
         }
-	    catch (IOException ex)
-	    {
-		    throw new IOException();
-	    }
-	    return imgurLink;
+        catch (IOException ex)
+        {
+            throw new IOException();
+        }
+        return imgurLink;
     }
 }

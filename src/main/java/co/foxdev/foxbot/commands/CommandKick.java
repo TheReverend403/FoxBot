@@ -19,18 +19,20 @@ package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
-import org.pircbotx.*;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 public class CommandKick extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Kicks a user from the current channel with a reason specified by the command sender.
-	 *
-	 * Usage: .kick <user> <reason>
-	 */
+    /**
+     * Kicks a user from the current channel with a reason specified by the command sender.
+     * <p/>
+     * Usage: .kick <user> <reason>
+     */
     public CommandKick(FoxBot foxbot)
     {
         super("kick", "command.kick");
@@ -49,7 +51,7 @@ public class CommandKick extends Command
 
             if (!channel.getUsers().contains(target))
             {
-	            sender.send().notice("That user is not in this channel!");
+                sender.send().notice("That user is not in this channel!");
                 return;
             }
 
@@ -65,7 +67,7 @@ public class CommandKick extends Command
 
             if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.kick") || args[0].equals(foxbot.bot().getNick()))
             {
-	            sender.send().notice("You cannot kick that user!");
+                sender.send().notice("You cannot kick that user!");
                 return;
             }
 
@@ -79,6 +81,6 @@ public class CommandKick extends Command
             channel.send().kick(target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -50,7 +50,7 @@ public abstract class Command
 
     public ImmutableList<String> getAliases()
     {
-		return ImmutableList.copyOf(aliases);
+        return ImmutableList.copyOf(aliases);
     }
 
     public abstract void execute(final MessageEvent event, final String[] args);

@@ -28,11 +28,11 @@ public class CommandRandCommit extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Gets a random commit message from http://whatthecommit.com and sends it to the current channel.
-	 *
-	 * Usage: .wtc
-	 */
+    /**
+     * Gets a random commit message from http://whatthecommit.com and sends it to the current channel.
+     * <p/>
+     * Usage: .wtc
+     */
     public CommandRandCommit(FoxBot foxbot)
     {
         super("wtc", "command.wtc");
@@ -45,19 +45,19 @@ public class CommandRandCommit extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-	    String commitMessage;
+        String commitMessage;
 
-	    try
-	    {
-		    commitMessage = Jsoup.connect("http://whatthecommit.com/").timeout(500).get().select("p").first().text();
-	    }
-	    catch (Exception ex)
-	    {
-		    foxbot.getLogger().error("Error occurred while fetching random commit message", ex);
-		    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
-		    return;
-	    }
+        try
+        {
+            commitMessage = Jsoup.connect("http://whatthecommit.com/").timeout(500).get().select("p").first().text();
+        }
+        catch (Exception ex)
+        {
+            foxbot.getLogger().error("Error occurred while fetching random commit message", ex);
+            channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
+            return;
+        }
 
-	    channel.send().message(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
+        channel.send().message(Utils.colourise(String.format("(%s) &2Random commit message: &r%s", Utils.munge(sender.getNick()), commitMessage)));
     }
 }

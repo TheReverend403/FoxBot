@@ -19,20 +19,22 @@ package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
 import co.foxdev.foxbot.utils.Utils;
-import org.pircbotx.*;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 public class CommandBan extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Kicks, then bans a user from a channel with a reason specified by the user.
-	 * The ban is in the form of *!*@*user.host to prevent ban evasion.
-	 * If the configuration option 'unban-timer' is not set to 0, the bot will remove the ban after the time specified in unban-timer.
-	 *
-	 * Usage: .ban <user> <reason>
-	 */
+    /**
+     * Kicks, then bans a user from a channel with a reason specified by the user.
+     * The ban is in the form of *!*@*user.host to prevent ban evasion.
+     * If the configuration option 'unban-timer' is not set to 0, the bot will remove the ban after the time specified in unban-timer.
+     * <p/>
+     * Usage: .ban <user> <reason>
+     */
     public CommandBan(FoxBot foxbot)
     {
         super("ban", "command.ban");
@@ -50,7 +52,7 @@ public class CommandBan extends Command
 
             if (!channel.getUsers().contains(target))
             {
-	            sender.send().notice("That user is not in this channel!");
+                sender.send().notice("That user is not in this channel!");
                 return;
             }
 
@@ -66,7 +68,7 @@ public class CommandBan extends Command
 
             if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.bot().getNick()))
             {
-	            sender.send().notice("You cannot ban that user!");
+                sender.send().notice("You cannot ban that user!");
                 return;
             }
 
@@ -88,6 +90,6 @@ public class CommandBan extends Command
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

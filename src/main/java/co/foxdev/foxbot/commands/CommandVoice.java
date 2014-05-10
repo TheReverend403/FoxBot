@@ -26,13 +26,13 @@ public class CommandVoice extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Voices a user in the current channel (if not voiced).
-	 * If no user is specified, the command sender will be voiced.
-	 * Can specify multiple users.
-	 *
-	 * Usage: .voice [user]
-	 */
+    /**
+     * Voices a user in the current channel (if not voiced).
+     * If no user is specified, the command sender will be voiced.
+     * Can specify multiple users.
+     * <p/>
+     * Usage: .voice [user]
+     */
     public CommandVoice(FoxBot foxbot)
     {
         super("voice", "command.voice");
@@ -51,16 +51,16 @@ public class CommandVoice extends Command
             {
                 for (String target : args)
                 {
-	                User user = foxbot.bot().getUserChannelDao().getUser(target);
+                    User user = foxbot.bot().getUserChannelDao().getUser(target);
 
                     if (!channel.hasVoice(user))
                     {
-	                    channel.send().voice(user);
+                        channel.send().voice(user);
                     }
                 }
                 return;
             }
-	        sender.send().notice("You do not have permission to voice other users!");
+            sender.send().notice("You do not have permission to voice other users!");
             return;
         }
 
@@ -69,6 +69,6 @@ public class CommandVoice extends Command
             channel.send().voice(sender);
             return;
         }
-	    sender.send().notice("You are already voice!");
+        sender.send().notice("You are already voice!");
     }
 }

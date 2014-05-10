@@ -28,12 +28,12 @@ public class CommandResolve extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Gets the A/AAAA and PTR record from a hostname or user's hostmask.
-	 * Tries IPv6 first, then IPv4. IPv4 can be forced with the -4 flag.
-	 *
-	 * Usage: .resolve <host|user> [-4]
-	 */
+    /**
+     * Gets the A/AAAA and PTR record from a hostname or user's hostmask.
+     * Tries IPv6 first, then IPv4. IPv4 can be forced with the -4 flag.
+     * <p/>
+     * Usage: .resolve <host|user> [-4]
+     */
     public CommandResolve(FoxBot foxbot)
     {
         super("resolve", "command.resolve");
@@ -48,7 +48,7 @@ public class CommandResolve extends Command
         if (args.length > 0)
         {
             Channel channel = event.getChannel();
-	        User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
+            User user = foxbot.bot().getUserChannelDao().getUser(args[0]);
             Record[] records = null;
             String host = user.getHostmask() == null || user.getHostmask().equals("") ? args[0] : user.getHostmask();
 
@@ -58,7 +58,7 @@ public class CommandResolve extends Command
             }
             catch (TextParseException ex)
             {
-	            foxbot.getLogger().error("Error occurred while parsing records for " + host, ex);
+                foxbot.getLogger().error("Error occurred while parsing records for " + host, ex);
             }
 
             if (records == null || records.length == 0 || (args.length == 2 && args[1].equals("-4")))
@@ -99,6 +99,6 @@ public class CommandResolve extends Command
             }
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %sresolve <host|user> [-4]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sresolve <host|user> [-4]", foxbot.getConfig().getCommandPrefix()));
     }
 }

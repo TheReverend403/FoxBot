@@ -28,62 +28,62 @@ import java.security.NoSuchAlgorithmException;
 
 public class CommandHash extends Command
 {
-	private final FoxBot foxbot;
+    private final FoxBot foxbot;
 
-	/**
-	 * Sends a hash of a specified string using md5, sha1 or sha256 to the channel.
-	 *
-	 * Usage: .hash <MD5|SHA-1|SHA-256> <string>
-	 */
-	public CommandHash(FoxBot foxbot)
-	{
-		super("hash", "command.hash");
-		this.foxbot = foxbot;
-	}
+    /**
+     * Sends a hash of a specified string using md5, sha1 or sha256 to the channel.
+     * <p/>
+     * Usage: .hash <MD5|SHA-1|SHA-256> <string>
+     */
+    public CommandHash(FoxBot foxbot)
+    {
+        super("hash", "command.hash");
+        this.foxbot = foxbot;
+    }
 
-	@Override
-	public void execute(final MessageEvent event, final String[] args)
-	{
-		User sender = event.getUser();
-		Channel channel = event.getChannel();
+    @Override
+    public void execute(final MessageEvent event, final String[] args)
+    {
+        User sender = event.getUser();
+        Channel channel = event.getChannel();
 
-		if (args.length > 1)
-		{
-			String hashType = args[0].toUpperCase();
-			MessageDigest digest;
+        if (args.length > 1)
+        {
+            String hashType = args[0].toUpperCase();
+            MessageDigest digest;
 
-			try
-			{
-				digest = MessageDigest.getInstance(hashType);
-			}
-			catch (NoSuchAlgorithmException ex)
-			{
-				channel.send().message(String.format("(%s) Invalid hash. Valid types are SHA-1, SHA-256 and MD5", Utils.munge(sender.getNick())));
-				return;
-			}
+            try
+            {
+                digest = MessageDigest.getInstance(hashType);
+            }
+            catch (NoSuchAlgorithmException ex)
+            {
+                channel.send().message(String.format("(%s) Invalid hash. Valid types are SHA-1, SHA-256 and MD5", Utils.munge(sender.getNick())));
+                return;
+            }
 
-			StringBuilder stringToHash = new StringBuilder(args[1]);
+            StringBuilder stringToHash = new StringBuilder(args[1]);
 
-			for (int i = 2; i < args.length; i++)
-			{
-				stringToHash.append(" ").append(args[i]);
-			}
+            for (int i = 2; i < args.length; i++)
+            {
+                stringToHash.append(" ").append(args[i]);
+            }
 
-			digest.reset();
-			channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), byteArrayToHexString(digest.digest(stringToHash.toString().getBytes()))));
-			return;
-		}
-		sender.send().notice(String.format("Wrong number of args! Use %shash <SHA-1|SHA-256|MD5> <text>", foxbot.getConfig().getCommandPrefix()));
-	}
+            digest.reset();
+            channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), byteArrayToHexString(digest.digest(stringToHash.toString().getBytes()))));
+            return;
+        }
+        sender.send().notice(String.format("Wrong number of args! Use %shash <SHA-1|SHA-256|MD5> <text>", foxbot.getConfig().getCommandPrefix()));
+    }
 
-	private String byteArrayToHexString(byte[] b)
-	{
-		String result = "";
+    private String byteArrayToHexString(byte[] b)
+    {
+        String result = "";
 
-		for (byte aB : b)
-		{
-			result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
-		}
-		return result;
-	}
+        for (byte aB : b)
+        {
+            result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+        }
+        return result;
+    }
 }

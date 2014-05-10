@@ -32,12 +32,12 @@ public class CommandUptime extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * ONLY WORKS ON UNIX SYSTEMS
-	 * Gets the system's current uptime and sends it to channel.
-	 *
-	 * Usage: .uptime
-	 */
+    /**
+     * ONLY WORKS ON UNIX SYSTEMS
+     * Gets the system's current uptime and sends it to channel.
+     * <p/>
+     * Usage: .uptime
+     */
     public CommandUptime(FoxBot foxbot)
     {
         super("uptime", "command.uptime");
@@ -50,24 +50,24 @@ public class CommandUptime extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-	    if (!System.getProperty("os.name").toLowerCase().contains("win"))
-	    {
-		    try
-		    {
-			    int unixTime = Integer.parseInt(new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", ""));
-			    int day = (int) TimeUnit.SECONDS.toDays(unixTime);
-			    long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
-			    long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
-			    long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
+        if (!System.getProperty("os.name").toLowerCase().contains("win"))
+        {
+            try
+            {
+                int unixTime = Integer.parseInt(new Scanner(new FileInputStream("/proc/uptime")).next().replaceAll("\\.[0-9]+", ""));
+                int day = (int) TimeUnit.SECONDS.toDays(unixTime);
+                long hours = TimeUnit.SECONDS.toHours(unixTime) - (day * 24);
+                long minute = TimeUnit.SECONDS.toMinutes(unixTime) - (TimeUnit.SECONDS.toHours(unixTime) * 60);
+                long seconds = TimeUnit.SECONDS.toSeconds(unixTime) - (TimeUnit.SECONDS.toMinutes(unixTime) * 60);
 
-			    channel.send().message(Utils.colourise(String.format("&2System uptime: &r%s days %s hours %s minutes %s seconds", day, hours, minute, seconds)));
-		    }
-		    catch (FileNotFoundException ex)
-		    {
-			    sender.send().notice("File \"/proc/uptime\" not found. Are you sure you're using Linux?");
-		    }
-		    return;
-	    }
-	    sender.send().notice("This command is only supported on Unix based systems.");
+                channel.send().message(Utils.colourise(String.format("&2System uptime: &r%s days %s hours %s minutes %s seconds", day, hours, minute, seconds)));
+            }
+            catch (FileNotFoundException ex)
+            {
+                sender.send().notice("File \"/proc/uptime\" not found. Are you sure you're using Linux?");
+            }
+            return;
+        }
+        sender.send().notice("This command is only supported on Unix based systems.");
     }
 }

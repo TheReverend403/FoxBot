@@ -25,11 +25,11 @@ public class CommandHelp extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Sends information about the bot to the command sender.
-	 *
-	 * Usage: .help
-	 */
+    /**
+     * Sends information about the bot to the command sender.
+     * <p/>
+     * Usage: .help
+     */
     public CommandHelp(FoxBot foxbot)
     {
         super("help", "command.help");
@@ -40,10 +40,10 @@ public class CommandHelp extends Command
     {
         User sender = event.getUser();
 
-	    sender.send().notice("FoxBot is an IRC bot written by FoxDev* ( https://github.com/FoxDev/ )");
-	    sender.send().notice(String.format("This particular instance of the bot is owned and operated by %s**", foxbot.getConfig().getBotOwner()));
-	    sender.send().notice("*FoxDev have no affiliation with this instance of FoxBot, unless explicitly stated by a member of FoxDev.");
-	    sender.send().notice("*A list of these people can be found here: https://github.com/FoxDev?tab=members");
-	    sender.send().notice("**This may not be accurate, as it relies on the owner adding their name to the config as a bot owner.");
+        sender.send().notice("FoxBot is an IRC bot written by FoxDev* ( https://github.com/FoxDev/ )");
+        sender.send().notice(String.format("This particular instance of the bot is owned and operated by %s**", foxbot.getConfig().getBotOwner()));
+        sender.send().notice("*FoxDev have no affiliation with this instance of FoxBot, unless explicitly stated by a member of FoxDev.");
+        sender.send().notice("*A list of these people can be found here: https://github.com/FoxDev?tab=members");
+        sender.send().notice("**This may not be accurate, as it relies on the owner adding their name to the config as a bot owner.");
     }
 }

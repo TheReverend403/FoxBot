@@ -26,11 +26,11 @@ public class CommandPart extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Makes the bot leave a channel, or a list of channels.
-	 *
-	 * Usage: .part <channel> [channels]
-	 */
+    /**
+     * Makes the bot leave a channel, or a list of channels.
+     * <p/>
+     * Usage: .part <channel> [channels]
+     */
     public CommandPart(FoxBot foxbot)
     {
         super("part", "command.part", "leave");
@@ -49,16 +49,16 @@ public class CommandPart extends Command
             {
                 if (chan.startsWith("#"))
                 {
-	                Channel target = foxbot.bot().getUserChannelDao().getChannel(chan);
+                    Channel target = foxbot.bot().getUserChannelDao().getChannel(chan);
                     target.send().part(String.format("Part command used by %s", sender.getNick()));
-	                sender.send().notice(String.format("Left %s", chan));
+                    sender.send().notice(String.format("Left %s", chan));
                     continue;
                 }
-	            sender.send().notice(String.format("%s is not a channel...", chan));
+                sender.send().notice(String.format("%s is not a channel...", chan));
             }
             return;
         }
         channel.send().part();
-	    sender.send().notice(String.format("Left %s", channel.getName()));
+        sender.send().notice(String.format("Left %s", channel.getName()));
     }
 }

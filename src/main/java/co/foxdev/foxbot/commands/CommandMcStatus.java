@@ -23,7 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.pircbotx.*;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.IOException;
@@ -34,11 +36,11 @@ public class CommandMcStatus extends Command
     private String online = Colors.DARK_GREEN + "✔" + Colors.NORMAL;
     private String offline = Colors.RED + "✘" + Colors.NORMAL;
 
-	/**
-	 * Checks the status of various Mojang services.
-	 *
-	 * Usage: .mcstatus
-	 */
+    /**
+     * Checks the status of various Mojang services.
+     * <p/>
+     * Usage: .mcstatus
+     */
     public CommandMcStatus(FoxBot foxbot)
     {
         super("mcstatus", "command.mcstatus", "mcs");
@@ -55,33 +57,33 @@ public class CommandMcStatus extends Command
         {
             StringBuilder statusString = new StringBuilder(String.format("(%s) ", Utils.munge(sender.getNick())));
 
-	        Connection conn = Jsoup.connect("http://status.mojang.com/check").timeout(500).followRedirects(true).ignoreContentType(true);
-	        String json;
+            Connection conn = Jsoup.connect("http://status.mojang.com/check").timeout(500).followRedirects(true).ignoreContentType(true);
+            String json;
 
-	        try
-	        {
-		        json = conn.get().text();
-	        }
-	        catch (IOException ex)
-	        {
-		        foxbot.getLogger().error("Error occurred while fetching Mojang server status", ex);
-		        channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
-		        return;
-	        }
+            try
+            {
+                json = conn.get().text();
+            }
+            catch (IOException ex)
+            {
+                foxbot.getLogger().error("Error occurred while fetching Mojang server status", ex);
+                channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
+                return;
+            }
 
-	        JSONArray jsonArray = new JSONArray(json);
+            JSONArray jsonArray = new JSONArray(json);
 
-	        for (int i = 0; i < jsonArray.length(); i++)
-	        {
-		        JSONObject jsonObject = jsonArray.getJSONObject(i);
-		        String key = (String) jsonObject.keys().next();
-		        statusString.append("| ").append(key).append(" ").append(jsonObject.getString(key).equals("green") ? online : offline).append(" ");
-	        }
+            for (int i = 0; i < jsonArray.length(); i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String key = (String) jsonObject.keys().next();
+                statusString.append("| ").append(key).append(" ").append(jsonObject.getString(key).equals("green") ? online : offline).append(" ");
+            }
 
             statusString.append("|");
             channel.send().message(statusString.toString());
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %smcstatus", foxbot.getConfig().getCommandPrefix()));
     }
 }

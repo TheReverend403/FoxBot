@@ -26,11 +26,11 @@ public class CommandMessage extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Sends a private message to a specified user.
-	 *
-	 * Usage: .pm <user> <message>
-	 */
+    /**
+     * Sends a private message to a specified user.
+     * <p/>
+     * Usage: .pm <user> <message>
+     */
     public CommandMessage(FoxBot foxbot)
     {
         super("pm", "command.message", "message");
@@ -52,9 +52,9 @@ public class CommandMessage extends Command
                 message.append(" ").append(args[arg]);
             }
 
-	        target.send().message(Utils.colourise(message.toString()));
+            target.send().message(Utils.colourise(message.toString()));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %spm <user> <message>", foxbot.getConfig().getCommandPrefix()));
     }
 }

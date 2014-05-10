@@ -27,11 +27,11 @@ public class CommandGit extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Sends a link to the bot's Git repo.
-	 *
-	 * Usage: .git
-	 */
+    /**
+     * Sends a link to the bot's Git repo.
+     * <p/>
+     * Usage: .git
+     */
     public CommandGit(FoxBot foxbot)
     {
         super("git", "command.git");

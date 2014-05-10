@@ -27,14 +27,14 @@ public class CommandAction extends Command
 {
     private final FoxBot foxbot;
 
-	/**
-	 * Makes the bot send an action to a specified channel.
-	 * If the bot is not in the channel, it will join it, say the message, then leave.
-	 * The bot will stay in the channel if the -s flag is used.
-	 * If no channel is specified, the current channel will be used.
-	 *
-	 * Usage: .action [channel] <message> [-s]
-	 */
+    /**
+     * Makes the bot send an action to a specified channel.
+     * If the bot is not in the channel, it will join it, say the message, then leave.
+     * The bot will stay in the channel if the -s flag is used.
+     * If no channel is specified, the current channel will be used.
+     * <p/>
+     * Usage: .action [channel] <message> [-s]
+     */
     public CommandAction(FoxBot foxbot)
     {
         super("action", "command.action");
@@ -53,7 +53,7 @@ public class CommandAction extends Command
 
             if (args[0].startsWith("#"))
             {
-	            Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
+                Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
                 message = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
@@ -66,7 +66,7 @@ public class CommandAction extends Command
 
                 if (chan.isInviteOnly())
                 {
-	                sender.send().notice(String.format("%s is invite only!", args[0]));
+                    sender.send().notice(String.format("%s is invite only!", args[0]));
                     return;
                 }
 
@@ -76,11 +76,11 @@ public class CommandAction extends Command
                 {
                     chan.send().action(Utils.colourise(message.toString()));
                     chan.send().part();
-	                sender.send().notice(String.format("Action sent to %s, and channel has been left", args[0]));
+                    sender.send().notice(String.format("Action sent to %s, and channel has been left", args[0]));
                     return;
                 }
                 chan.send().action(Utils.colourise(message.toString()));
-	            sender.send().notice(String.format("Action sent to %s", args[0]));
+                sender.send().notice(String.format("Action sent to %s", args[0]));
                 return;
             }
 
@@ -96,6 +96,6 @@ public class CommandAction extends Command
             channel.send().action(Utils.colourise(message.toString()));
             return;
         }
-	    sender.send().notice(String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
     }
 }
