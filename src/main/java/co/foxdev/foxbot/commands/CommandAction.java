@@ -70,6 +70,7 @@ public class CommandAction extends Command
                 return;
             }
             channel.send().action(StringUtils.join(args, " "));
+            return;
         }
         sender.send().notice(String.format("Wrong number of args! Use %saction [#channel] <action>", foxbot.getConfig().getCommandPrefix()));
     }
