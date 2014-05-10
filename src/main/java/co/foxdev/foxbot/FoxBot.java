@@ -22,6 +22,7 @@ import co.foxdev.foxbot.config.Config;
 import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
+import com.google.common.base.Charsets;
 import com.maxmind.geoip.LookupService;
 import lombok.Getter;
 import org.pircbotx.*;
@@ -112,6 +113,7 @@ public class FoxBot
 		configBuilder = new Configuration.Builder();
 
 		configBuilder.setShutdownHookEnabled(true);
+        configBuilder.setEncoding(Charsets.UTF_8);
 		log("Setting bot info");
 		configBuilder.setAutoNickChange(config.getAutoNickChange());
 		log(String.format("Set auto nick change to %s", config.getAutoNickChange()));
