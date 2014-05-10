@@ -118,6 +118,7 @@ public class FoxBot
 		log(String.format("Set auto-reconnect to %s", config.getAutoReconnect()));
 		configBuilder.setMessageDelay(config.getMessageDelay());
 		log(String.format("Set message delay to %s", config.getMessageDelay()));
+        configBuilder.setCapEnabled(true);
 		configBuilder.setRealName(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
 		configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
 		log(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));

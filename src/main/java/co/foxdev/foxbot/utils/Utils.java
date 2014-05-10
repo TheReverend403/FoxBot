@@ -142,14 +142,14 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-	            foxbot.warn("Error while creating custom command folders!");
+	            foxbot.warn("Error occurred while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
 
             if (file.exists() && !file.delete())
             {
-	            foxbot.warn("Error while deleting old command!");
+	            foxbot.warn(String.format("Error occurred while deleting command '%s' for %s!", command, channel));
             }
 
             if (text.isEmpty() || text.equalsIgnoreCase("delete"))
