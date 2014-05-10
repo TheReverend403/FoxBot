@@ -145,7 +145,7 @@ public class FoxBot
 		}
 
 		log(String.format("Connecting to %s on port %s%s...", config.getServerAddress(), config.getServerPort(), config.getServerSsl() ? " with SSL" : " without SSL"));
-		log(String.format("Adding channels..."));
+		log("Adding channels...");
 
 		for (String channel : config.getChannels())
 		{
