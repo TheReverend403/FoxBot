@@ -53,7 +53,7 @@ public class CommandRandCommit extends Command
 	    }
 	    catch (Exception ex)
 	    {
-		    foxbot.log(ex);
+		    foxbot.getLogger().error("Error occurred while fetching random commit message", ex);
 		    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
 		    return;
 	    }

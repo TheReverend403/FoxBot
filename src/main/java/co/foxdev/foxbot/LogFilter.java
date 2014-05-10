@@ -36,7 +36,7 @@ public class LogFilter extends Filter<ILoggingEvent>
 
 		if (event.getMessage().contains("\u0003"))
 		{
-			FoxBot.getInstance().log(Level.parse(event.getLevel().levelStr), Colors.removeFormattingAndColors(event.getMessage()));
+			FoxBot.getInstance().getLogger().info(Colors.removeFormattingAndColors(event.getMessage()));
 			return FilterReply.DENY;
 		}
 		return FilterReply.NEUTRAL;

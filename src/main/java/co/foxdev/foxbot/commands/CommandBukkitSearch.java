@@ -64,8 +64,8 @@ public class CommandBukkitSearch extends Command
             }
             catch (IOException ex)
             {
-                foxbot.log(ex);
-                channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying the Bukget API!", Utils.munge(sender.getNick()))));
+                foxbot.getLogger().error("Error occurred while querying the BukGet API", ex);
+                channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying the BukGet API!", Utils.munge(sender.getNick()))));
                 return;
             }
 

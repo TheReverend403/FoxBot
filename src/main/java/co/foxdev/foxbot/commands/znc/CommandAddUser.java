@@ -103,7 +103,7 @@ public class CommandAddUser extends Command
             }
             catch (InterruptedException ex)
             {
-                foxbot.log(ex);
+                foxbot.getLogger().error("Thread was interrupted", ex);
             }
 
 	        String sendRaw = "*send_raw";

@@ -83,7 +83,7 @@ public class FoxBot
 
 		if (!path.exists() && !path.mkdirs())
 		{
-			log("Could not create required folders (data/custcmds/). Shutting down.");
+            logger.info("Could not create required folders (data/custcmds/). Shutting down.");
 			shutdown();
 			return;
 		}
@@ -99,7 +99,7 @@ public class FoxBot
 		}
 		catch (IOException ex)
 		{
-			warn("GeoIP database not found, GeoIP feature will be unavailable. Download a database from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
+            logger.warn("GeoIP database not found, GeoIP feature will be unavailable. Download a database from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
 		}
 
 		setBotInfo();
@@ -114,22 +114,22 @@ public class FoxBot
 
 		configBuilder.setShutdownHookEnabled(true);
         configBuilder.setEncoding(Charsets.UTF_8);
-		log("Setting bot info");
+        logger.info("Setting bot info");
 		configBuilder.setAutoNickChange(config.getAutoNickChange());
-		log(String.format("Set auto nick change to %s", config.getAutoNickChange()));
+        logger.info(String.format("Set auto nick change to %s", config.getAutoNickChange()));
 		configBuilder.setAutoReconnect(config.getAutoReconnect());
-		log(String.format("Set auto-reconnect to %s", config.getAutoReconnect()));
+        logger.info(String.format("Set auto-reconnect to %s", config.getAutoReconnect()));
 		configBuilder.setMessageDelay(config.getMessageDelay());
-		log(String.format("Set message delay to %s", config.getMessageDelay()));
+        logger.info(String.format("Set message delay to %s", config.getMessageDelay()));
         configBuilder.setCapEnabled(true);
 		configBuilder.setRealName(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
 		configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
-		log(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
+        logger.info(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
 		configBuilder.setAutoSplitMessage(true);
 		configBuilder.setName(config.getBotNick());
-		log(String.format("Set nick to '%s'", config.getBotNick()));
+        logger.info(String.format("Set nick to '%s'", config.getBotNick()));
 		configBuilder.setLogin(config.getBotIdent());
-		log(String.format("Set ident to '%s'", config.getBotIdent()));
+        logger.info(String.format("Set ident to '%s'", config.getBotIdent()));
 	}
 
 	private void connectToServer()
@@ -146,8 +146,8 @@ public class FoxBot
 			configBuilder.setNickservPassword(config.getNickservPassword());
 		}
 
-		log(String.format("Connecting to %s on port %s%s...", config.getServerAddress(), config.getServerPort(), config.getServerSsl() ? " with SSL" : " without SSL"));
-		log("Adding channels...");
+        logger.info(String.format("Connecting to %s on port %s%s...", config.getServerAddress(), config.getServerPort(), config.getServerSsl() ? " with SSL" : " without SSL"));
+		logger.info("Adding channels...");
 
 		for (String channel : config.getChannels())
 		{
@@ -168,7 +168,7 @@ public class FoxBot
 		}
 		catch (IOException | IrcException ex)
 		{
-			log(ex);
+			logger.error("Error occurred while connecting", ex);
 			shutdown();
 		}
 	}
@@ -185,12 +185,12 @@ public class FoxBot
 				ListenerAdapter listener = (ListenerAdapter) clazzConstructor.newInstance(this);
 
 				configBuilder.getListenerManager().addListener(listener);
-				log(String.format("Registered listener '%s'", listener.getClass().getSimpleName()));
+                logger.info(String.format("Registered listener '%s'", listener.getClass().getSimpleName()));
 			}
 		}
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
 		{
-			log(ex);
+            logger.error("Error registering listener", ex);
 		}
 	}
 
@@ -206,12 +206,12 @@ public class FoxBot
 				Command command = (Command) clazzConstructor.newInstance(this);
 
 				commandManager.registerCommand(command);
-				log(String.format("Registered command '%s'", command.getName()));
+				logger.info(String.format("Registered command '%s'", command.getName()));
 			}
 		}
 		catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex)
 		{
-			log(ex);
+			logger.error("Error registering command", ex);
 		}
 	}
 
@@ -219,65 +219,6 @@ public class FoxBot
 	{
 		bot.sendIRC().quitServer();
 		bot.stopBotReconnect();
-	}
-
-	public void log(String line)
-	{
-		log(Level.INFO, line);
-	}
-
-	public void log(Exception ex)
-	{
-		error(ex.getClass().getName() + ": " + ex.getLocalizedMessage());
-
-		for (StackTraceElement element : ex.getStackTrace())
-		{
-			error('\t' + element.toString());
-		}
-	}
-
-	public void debug(String line)
-	{
-		log(Level.FINE, line);
-	}
-
-	public void error(String line)
-	{
-		log(Level.SEVERE, line);
-	}
-
-	public void warn(String line)
-	{
-		log(Level.WARNING, line);
-	}
-
-	public void log(Level level, String line)
-	{
-		if (level == Level.INFO)
-		{
-			logger.info(line);
-			return;
-		}
-
-		if (level == Level.WARNING)
-		{
-			logger.warn(line);
-			return;
-		}
-
-		if (level == Level.SEVERE)
-		{
-			logger.error(line);
-			return;
-		}
-
-		if (level == Level.FINE)
-		{
-			logger.debug(line);
-			return;
-		}
-
-		logger.info(line);
 	}
 
 	public PircBotX bot()

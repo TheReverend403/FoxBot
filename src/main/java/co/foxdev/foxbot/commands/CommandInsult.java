@@ -63,7 +63,7 @@ public class CommandInsult extends Command
             }
             catch (Exception ex)
             {
-	            foxbot.log(ex);
+	            foxbot.getLogger().error("Error occurred while fetching random insult", ex);
 	            channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
                 return;
             }

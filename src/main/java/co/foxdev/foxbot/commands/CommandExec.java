@@ -50,7 +50,7 @@ public class CommandExec extends Command
 	    }
 	    catch (Exception ex)
 	    {
-		    foxbot.log(ex);
+		    foxbot.getLogger().error("Error occurred while preparing BeanShell interpreter", ex);
 	    }
     }
 
@@ -69,7 +69,7 @@ public class CommandExec extends Command
         }
         catch (EvalError ex)
         {
-	        foxbot.log(ex);
+            foxbot.getLogger().error("Error occurred while evaluating Java expression", ex);
             channel.send().message(ex.getLocalizedMessage());
         }
     }

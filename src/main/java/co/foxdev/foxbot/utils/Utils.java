@@ -91,7 +91,7 @@ public class Utils
         }
         catch (Exception ex)
         {
-	        foxbot.log(ex);
+	        foxbot.getLogger().error("Error occurred while parsing URL", ex);
         }
         return null;
     }
@@ -142,21 +142,21 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-	            foxbot.warn("Error occurred while creating custom command folders!");
+	            foxbot.getLogger().warn("Error occurred while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
 
             if (file.exists() && !file.delete())
             {
-	            foxbot.warn(String.format("Error occurred while deleting command '%s' for %s!", command, channel));
+                foxbot.getLogger().warn(String.format("Error occurred while deleting command '%s' for %s!", command, channel));
             }
 
             if (text.isEmpty() || text.equalsIgnoreCase("delete"))
             {
                 if (file.delete())
                 {
-	                foxbot.log(String.format("Command '%s' deleted for %s!", command, channel));
+                    foxbot.getLogger().warn(String.format("Command '%s' deleted for %s!", command, channel));
                 }
                 return false;
             }
@@ -167,11 +167,11 @@ public class Utils
             bw.write(text);
             bw.close();
             fw.close();
-	        foxbot.log(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
+            foxbot.getLogger().warn(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
         }
         catch (IOException ex)
         {
-	        foxbot.log(ex);
+	        foxbot.getLogger().error("Error occurred while adding custom command", ex);
         }
         return true;
     }

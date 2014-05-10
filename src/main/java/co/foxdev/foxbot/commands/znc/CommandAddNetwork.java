@@ -68,7 +68,7 @@ public class CommandAddNetwork extends Command
             }
             catch (InterruptedException ex)
             {
-                foxbot.log(ex);
+                foxbot.getLogger().error("Thread was interrupted", ex);
             }
 
             for (String channel : foxbot.getZncConfig().getChannels(network))

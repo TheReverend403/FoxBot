@@ -61,7 +61,7 @@ public class CommandRandomImgur extends Command
 		    }
 		    catch (IOException ex)
 		    {
-			    foxbot.log(ex);
+			    foxbot.getLogger().error("Error occurred while generating Imgur URL", ex);
 			    channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
 			    return;
 		    }
@@ -84,7 +84,7 @@ public class CommandRandomImgur extends Command
         }
 	    catch (IOException ex)
 	    {
-		    throw new IOException("Error occurred while generating random Imgur link.");
+		    throw new IOException();
 	    }
 	    return imgurLink;
     }

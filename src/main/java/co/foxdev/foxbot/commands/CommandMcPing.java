@@ -66,7 +66,7 @@ public class CommandMcPing extends Command
 			}
 			catch (IOException ex)
 			{
-				foxbot.log(ex);
+                foxbot.getLogger().error("Error occurred while pinging " + host, ex);
 				channel.send().message(String.format("(%s) Looks like %s:%s isn't up.", Utils.munge(sender.getNick()), host, port));
 				return;
 			}

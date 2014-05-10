@@ -67,7 +67,7 @@ public class CommandGoogle extends Command
 			}
 			catch (IOException ex)
 			{
-				foxbot.log(ex);
+				foxbot.getLogger().error("Error occurred while performing Google search", ex);
 				channel.send().message(Utils.colourise(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick()))));
 				return;
 			}

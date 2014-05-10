@@ -64,7 +64,7 @@ public class CommandMcStatus extends Command
 	        }
 	        catch (IOException ex)
 	        {
-		        foxbot.log(ex);
+		        foxbot.getLogger().error("Error occurred while fetching Mojang server status", ex);
 		        channel.send().message(Utils.colourise(String.format("(%s) &cAn error occurred while querying Mojang's status page!", Utils.munge(sender.getNick()))));
 		        return;
 	        }

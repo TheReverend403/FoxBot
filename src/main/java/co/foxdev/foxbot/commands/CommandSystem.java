@@ -104,7 +104,7 @@ public class CommandSystem extends Command
 			}
 			catch (IOException ex)
 			{
-				foxbot.log(ex);
+				foxbot.getLogger().error("Error occurred while executing system command", ex);
 			}
 			return;
 		}

@@ -66,7 +66,7 @@ public class CommandManager
 		    return false;
 	    }
 
-        foxbot.log(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
+        foxbot.getLogger().info(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
 
         String permission = command.getPermission();
 
@@ -74,7 +74,7 @@ public class CommandManager
         {
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
-	            foxbot.log(Level.WARNING, String.format("Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
+                foxbot.getLogger().warn(String.format("Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
 	            sender.send().notice("You do not have permission to do that!");
                 return false;
             }
@@ -89,8 +89,7 @@ public class CommandManager
         catch (Exception ex)
         {
             sender.send().notice("An internal error occurred whilst executing this command, please alert a bot admin.");
-	        foxbot.log("Error dispatching command: " + command.getName());
-	        foxbot.log(ex);
+	        foxbot.getLogger().error("Error dispatching command: " + command, ex);
         }
         return true;
     }
@@ -127,7 +126,7 @@ public class CommandManager
             }
             catch (IOException ex)
             {
-                foxbot.log(ex);
+                foxbot.getLogger().error(String.format("Error occurred while running command '%s' for %s", command, channel), ex);
                 return false;
             }
 

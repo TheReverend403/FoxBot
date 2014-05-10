@@ -53,7 +53,7 @@ public class CommandHaspaid extends Command
             }
             catch (Exception ex)
             {
-                foxbot.log(ex);
+                foxbot.getLogger().error("Error occurred while fetching account status of " + args[0], ex);
                 channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
             }
             return;

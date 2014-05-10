@@ -58,7 +58,7 @@ public class CommandResolve extends Command
             }
             catch (TextParseException ex)
             {
-	            foxbot.log(ex);
+	            foxbot.getLogger().error("Error occurred while parsing records for " + host, ex);
             }
 
             if (records == null || records.length == 0 || (args.length == 2 && args[1].equals("-4")))
@@ -69,7 +69,7 @@ public class CommandResolve extends Command
                 }
                 catch (TextParseException ex)
                 {
-	                foxbot.log(ex);
+                    foxbot.getLogger().error("Error occurred while parsing records for " + host, ex);
                 }
 
                 if (records == null || records.length == 0)

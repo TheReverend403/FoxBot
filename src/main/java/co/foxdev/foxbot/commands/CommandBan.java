@@ -61,7 +61,7 @@ public class CommandBan extends Command
             }
             catch (InterruptedException ex)
             {
-	            foxbot.log(ex);
+                foxbot.getLogger().error("Thread was interrupted", ex);
             }
 
             if (foxbot.getPermissionManager().userHasQuietPermission(target, "protection.ban") || args[0].equals(foxbot.bot().getNick()))
