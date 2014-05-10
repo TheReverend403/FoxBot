@@ -17,7 +17,9 @@
 
 package co.foxdev.foxbot.config.yamlconfig;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a section of a {@link Configuration}
@@ -65,7 +67,7 @@ public interface ConfigurationSection
      *
      * @param path Path to check for existence.
      * @return True if this section contains the requested path, either via
-     *         default or being set.
+     * default or being set.
      * @throws IllegalArgumentException Thrown when path is null.
      */
     public boolean contains(String path);
@@ -79,7 +81,7 @@ public interface ConfigurationSection
      *
      * @param path Path to check for existence.
      * @return True if this section contains the requested path, regardless of
-     *         having a default.
+     * having a default.
      * @throws IllegalArgumentException Thrown when path is null.
      */
     public boolean isSet(String path);

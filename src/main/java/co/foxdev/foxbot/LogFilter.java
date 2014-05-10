@@ -22,23 +22,21 @@ import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
 import org.pircbotx.Colors;
 
-import java.util.logging.Level;
-
 public class LogFilter extends Filter<ILoggingEvent>
 {
-	@Override
-	public FilterReply decide(ILoggingEvent event)
-	{
-		if (event.getMarker().getName().equals("pircbotx.output") && (event.getMessage().contains("NICKSERV IDENTIFY") || event.getMessage().contains("PASS ")))
-		{
-			return FilterReply.DENY;
-		}
+    @Override
+    public FilterReply decide(ILoggingEvent event)
+    {
+        if (event.getMarker().getName().equals("pircbotx.output") && (event.getMessage().contains("NICKSERV IDENTIFY") || event.getMessage().contains("PASS ")))
+        {
+            return FilterReply.DENY;
+        }
 
-		if (event.getMessage().contains("\u0003"))
-		{
-			FoxBot.getInstance().getLogger().info(Colors.removeFormattingAndColors(event.getMessage()));
-			return FilterReply.DENY;
-		}
-		return FilterReply.NEUTRAL;
-	}
+        if (event.getMessage().contains("\u0003"))
+        {
+            FoxBot.getInstance().getLogger().info(Colors.removeFormattingAndColors(event.getMessage()));
+            return FilterReply.DENY;
+        }
+        return FilterReply.NEUTRAL;
+    }
 }

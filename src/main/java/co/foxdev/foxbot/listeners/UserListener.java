@@ -22,9 +22,13 @@ import co.foxdev.foxbot.utils.Utils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.*;
+import org.pircbotx.hooks.events.InviteEvent;
+import org.pircbotx.hooks.events.JoinEvent;
+import org.pircbotx.hooks.events.KickEvent;
+import org.pircbotx.hooks.events.QuitEvent;
 
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class UserListener extends ListenerAdapter
@@ -45,12 +49,12 @@ public class UserListener extends ListenerAdapter
     @Override
     public void onInvite(InviteEvent event)
     {
-	    User user = foxbot.bot().getUserChannelDao().getUser(event.getUser());
+        User user = foxbot.bot().getUserChannelDao().getUser(event.getUser());
 
         if (foxbot.getConfig().getAutoJoinOnInvite() && foxbot.getPermissionManager().userHasPermission(user, "bot.invite"))
         {
             foxbot.bot().sendIRC().joinChannel(event.getChannel());
-	        user.send().notice(String.format("Joined %s", event.getChannel()));
+            user.send().notice(String.format("Joined %s", event.getChannel()));
         }
     }
 

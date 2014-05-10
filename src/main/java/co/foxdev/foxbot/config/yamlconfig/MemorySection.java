@@ -995,7 +995,6 @@ public class MemorySection implements ConfigurationSection
             return this.getParent() == null ? null : this.getParent().getComment(this.getName());
         }
 
-
         final char separator = root.options().pathSeparator();
         // i1 is the leading (higher) index
         // i2 is the trailing (lower) index

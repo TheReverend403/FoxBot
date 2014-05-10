@@ -198,7 +198,7 @@ public class Config
     public void reload()
     {
         loadConfig();
-	    foxbot.getZncConfig().reload();
+        foxbot.getZncConfig().reload();
     }
 
     // ---------
@@ -384,8 +384,15 @@ public class Config
     // Sounds Section
     // --------------
 
-    public String getSoundURL() { return soundURL; }
-    public String getSoundExtension() { return soundExtension; }
+    public String getSoundURL()
+    {
+        return soundURL;
+    }
+
+    public String getSoundExtension()
+    {
+        return soundExtension;
+    }
 
     // ------------
     // File objects

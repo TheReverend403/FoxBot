@@ -30,11 +30,9 @@ public class CommandInsult extends Command
 
     /**
      * Generates an insult from http://www.pangloss.com/seidel/Shaker and sends it to the specified channel.
-     * If the bot is not in the channel, it will join it, send the message, then leave.
-     * The bot will stay in the channel if the -s flag is used.
      * If no channel is specified, the current channel will be used.
      * <p/>
-     * Usage: .insult [channel] [-s]
+     * Usage: .insult [channel]
      */
     public CommandInsult(FoxBot foxbot)
     {
@@ -66,38 +64,34 @@ public class CommandInsult extends Command
                 return;
             }
 
-            if (args.length > 0)
+            if (args.length == 1)
             {
+                String targetChan;
+
                 if (args[0].startsWith("#"))
                 {
-                    String target = args[0];
-                    Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
+                    targetChan = args[0];
+                }
+                else
+                {
+                    targetChan = "#" + args[0];
+                }
 
-                    if (chan.isInviteOnly())
-                    {
-                        sender.send().notice(String.format("%s is invite only!", args[0]));
-                        return;
-                    }
+                channel = foxbot.bot().getUserChannelDao().getChannel(targetChan);
 
-                    foxbot.bot().sendIRC().joinChannel(target);
-
-                    if (!args[args.length - 1].equalsIgnoreCase("-s"))
-                    {
-                        chan.send().message(insult);
-                        chan.send().part();
-                        sender.send().notice(String.format("Insult sent to %s, and channel has been left", args[0]));
-                        return;
-                    }
-                    chan.send().message(insult);
-                    sender.send().notice(String.format("Insult sent to %s", args[0]));
+                if (!foxbot.bot().getUserBot().getChannels().contains(channel))
+                {
+                    sender.send().notice("I'm not in " + channel.getName());
                     return;
                 }
-                sender.send().notice(String.format("%s is not a channel...", args[0]));
+
+                channel.send().message(insult);
+                sender.send().notice("Insult sent to " + targetChan);
                 return;
             }
             channel.send().message(insult);
             return;
         }
-        sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel] [-s]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel]", foxbot.getConfig().getCommandPrefix()));
     }
 }

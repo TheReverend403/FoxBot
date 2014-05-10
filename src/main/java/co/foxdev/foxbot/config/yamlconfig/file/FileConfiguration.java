@@ -18,7 +18,9 @@
 package co.foxdev.foxbot.config.yamlconfig.file;
 
 import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.config.yamlconfig.*;
+import co.foxdev.foxbot.config.yamlconfig.Configuration;
+import co.foxdev.foxbot.config.yamlconfig.InvalidConfigurationException;
+import co.foxdev.foxbot.config.yamlconfig.MemoryConfiguration;
 import com.google.common.base.Preconditions;
 
 import java.io.*;
@@ -169,7 +171,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
         InputStreamReader reader = new InputStreamReader(stream);
         StringBuilder builder = new StringBuilder();
         BufferedReader input = new BufferedReader(reader);
-
 
         try
         {

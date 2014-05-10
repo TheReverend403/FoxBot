@@ -18,7 +18,7 @@
 package co.foxdev.foxbot.commands;
 
 import co.foxdev.foxbot.FoxBot;
-import co.foxdev.foxbot.utils.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -29,11 +29,9 @@ public class CommandAction extends Command
 
     /**
      * Makes the bot send an action to a specified channel.
-     * If the bot is not in the channel, it will join it, say the message, then leave.
-     * The bot will stay in the channel if the -s flag is used.
      * If no channel is specified, the current channel will be used.
      * <p/>
-     * Usage: .action [channel] <message> [-s]
+     * Usage: .action [channel] <message>
      */
     public CommandAction(FoxBot foxbot)
     {
@@ -47,55 +45,32 @@ public class CommandAction extends Command
         User sender = event.getUser();
         Channel channel = event.getChannel();
 
-        if (args.length > 0 && !(args[0].startsWith("#") && args.length == 1))
+        if (args.length > 0)
         {
-            StringBuilder message;
-
-            if (args[0].startsWith("#"))
+            if (args[0].startsWith("#") && args.length > 1)
             {
-                Channel chan = foxbot.bot().getUserChannelDao().getChannel(args[0]);
-                message = new StringBuilder(args[1]);
+                String targetChan = args[0];
+                channel = foxbot.bot().getUserChannelDao().getChannel(targetChan);
+
+                if (!foxbot.bot().getUserBot().getChannels().contains(channel))
+                {
+                    sender.send().notice("I'm not in " + channel .getName());
+                    return;
+                }
+
+                StringBuilder action = new StringBuilder(args[1]);
 
                 for (int arg = 2; arg < args.length; arg++)
                 {
-                    if (!args[arg].equalsIgnoreCase("-s"))
-                    {
-                        message.append(" ").append(args[arg]);
-                    }
+                    action.append(" ").append(args[arg]);
                 }
 
-                if (chan.isInviteOnly())
-                {
-                    sender.send().notice(String.format("%s is invite only!", args[0]));
-                    return;
-                }
-
-                foxbot.bot().sendIRC().joinChannel(channel.getName());
-
-                if (!args[args.length - 1].equalsIgnoreCase("-s"))
-                {
-                    chan.send().action(Utils.colourise(message.toString()));
-                    chan.send().part();
-                    sender.send().notice(String.format("Action sent to %s, and channel has been left", args[0]));
-                    return;
-                }
-                chan.send().action(Utils.colourise(message.toString()));
-                sender.send().notice(String.format("Action sent to %s", args[0]));
+                channel.send().action(action.toString());
+                sender.send().notice(String.format("Action sent to %s", targetChan));
                 return;
             }
-
-            message = new StringBuilder(args[0]);
-
-            for (int arg = 1; arg < args.length; arg++)
-            {
-                if (!args[arg].equalsIgnoreCase("-s"))
-                {
-                    message.append(" ").append(args[arg]);
-                }
-            }
-            channel.send().action(Utils.colourise(message.toString()));
-            return;
+            channel.send().action(StringUtils.join(args, " "));
         }
-        sender.send().notice(String.format("Wrong number of args! Use %saction [#channel] <action> [-s]", foxbot.getConfig().getCommandPrefix()));
+        sender.send().notice(String.format("Wrong number of args! Use %saction [#channel] <action>", foxbot.getConfig().getCommandPrefix()));
     }
 }

@@ -24,15 +24,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommandManager
 {
     private final FoxBot foxbot;
     private final Map<String, Command> commandMap = new HashMap<>();
-	private final char[] restrictedChars = new char[]{'.', '/', '\\', '~'};
+    private final char[] restrictedChars = new char[]{'.', '/', '\\', '~'};
 
     public CommandManager(FoxBot foxbot)
     {
@@ -56,15 +60,15 @@ public class CommandManager
         String commandName = split[0].toLowerCase();
         Command command = commandMap.get(commandName);
 
-	    if (runCustomCommand(event.getChannel().getName(), commandName))
-	    {
-		    return true;
-	    }
+        if (runCustomCommand(event.getChannel().getName(), commandName))
+        {
+            return true;
+        }
 
-	    if (command == null)
-	    {
-		    return false;
-	    }
+        if (command == null)
+        {
+            return false;
+        }
 
         foxbot.getLogger().info(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
 
@@ -75,7 +79,7 @@ public class CommandManager
             if (!foxbot.getPermissionManager().userHasPermission(sender, permission))
             {
                 foxbot.getLogger().warn(String.format("Permission denied for command '%s' used by %s", command.getName(), sender.getNick()));
-	            sender.send().notice("You do not have permission to do that!");
+                sender.send().notice("You do not have permission to do that!");
                 return false;
             }
         }
@@ -89,23 +93,23 @@ public class CommandManager
         catch (Exception ex)
         {
             sender.send().notice("An internal error occurred whilst executing this command, please alert a bot admin.");
-	        foxbot.getLogger().error("Error dispatching command: " + command, ex);
+            foxbot.getLogger().error("Error dispatching command: " + command, ex);
         }
         return true;
     }
 
     private boolean runCustomCommand(String channel, String command)
     {
-	    if (command == null || command.isEmpty())
-	    {
-		    return false;
-	    }
+        if (command == null || command.isEmpty())
+        {
+            return false;
+        }
 
-	    // Prevent filesystem access
-	    if (StringUtils.containsAny(channel, restrictedChars) || StringUtils.containsAny(command, restrictedChars))
-	    {
-		    return false;
-	    }
+        // Prevent filesystem access
+        if (StringUtils.containsAny(channel, restrictedChars) || StringUtils.containsAny(command, restrictedChars))
+        {
+            return false;
+        }
 
         File file = new File(String.format("data/custcmds/%s/%s", channel.substring(1), command));
         StringBuilder message = new StringBuilder();
@@ -138,7 +142,7 @@ public class CommandManager
 
                 for (int i = 0; i < lines.length && i < 3; i++)
                 {
-	                foxbot.bot().getUserChannelDao().getChannel(channel).send().message(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
+                    foxbot.bot().getUserChannelDao().getChannel(channel).send().message(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
                 return true;
             }
@@ -146,8 +150,8 @@ public class CommandManager
         return false;
     }
 
-	public ImmutableList<Command> getCommands()
-	{
-		return ImmutableList.copyOf(commandMap.values());
-	}
+    public ImmutableList<Command> getCommands()
+    {
+        return ImmutableList.copyOf(commandMap.values());
+    }
 }

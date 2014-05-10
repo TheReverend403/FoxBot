@@ -40,13 +40,13 @@ public class MessageListener extends ListenerAdapter
 
     public void onMessage(MessageEvent event)
     {
-	    User user = event.getUser();
+        User user = event.getUser();
 
-	    // Seems to be needed for bouncers
-	    if (user.getNick().equals(foxbot.bot().getNick()))
-	    {
-		    return;
-	    }
+        // Seems to be needed for bouncers
+        if (user.getNick().equals(foxbot.bot().getNick()))
+        {
+            return;
+        }
 
         String message = event.getMessage();
         Channel channel = event.getChannel();
@@ -56,7 +56,7 @@ public class MessageListener extends ListenerAdapter
             if (message.length() > 0 && (message.charAt(0) == foxbot.getConfig().getCommandPrefix() || message.startsWith(foxbot.bot().getNick() + ", ")))
             {
                 foxbot.getCommandManager().dispatchCommand(event, message.substring(message.charAt(0) == foxbot.getConfig().getCommandPrefix() ? 1 : foxbot.bot().getNick().length() + 2));
-	            return;
+                return;
             }
 
             Matcher matcher = URL_PATTERN.matcher(message);

@@ -22,34 +22,38 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.pircbotx.*;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class Utils
 {
-	private static FoxBot foxbot = FoxBot.getInstance();
+    private static FoxBot foxbot = FoxBot.getInstance();
 
     public static String parseChatUrl(String stringToParse, User sender)
     {
         try
         {
-	        Connection conn = Jsoup.connect(stringToParse);
+            Connection conn = Jsoup.connect(stringToParse);
 
-	        conn.followRedirects(true)
-	            .userAgent("FoxBot // http://foxbot.foxdev.co // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
-	            .timeout(3000)
-	            .maxBodySize(100000)
-	            .ignoreContentType(true);
+            conn.followRedirects(true)
+                .userAgent("FoxBot // http://foxbot.foxdev.co // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
+                .timeout(3000)
+                .maxBodySize(100000)
+                .ignoreContentType(true);
 
-	        Connection.Response response = conn.execute();
-	        Document doc = response.parse();
+            Connection.Response response = conn.execute();
+            Document doc = response.parse();
             String size = response.header("Content-Length") == null ? "Unknown" : (Integer.parseInt(response.header("Content-Length")) / 1024) + "kb";
-	        String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
-
+            String contentType = response.contentType().contains(";") ? response.contentType().split(";")[0] : response.contentType();
 
             if (response.statusCode() != 200 && response.statusCode() != 302 && response.statusCode() != 301)
             {
@@ -61,28 +65,28 @@ public class Utils
                 return colourise(String.format("(%s's URL) &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), contentType, size));
             }
 
-	        String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
+            String title = doc.title() == null || doc.title().isEmpty() ? "No title found" : doc.title();
 
-	        if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch.*"))
-	        {
-		        title = doc.select("span#eow-title").first().text();
-		        String views = doc.select("span.watch-view-count").first().text();
-		        String likes = doc.select("span.likes-count").first().text();
-		        String dislikes = doc.select("span.dislikes-count").first().text();
-		        String uploader = doc.select("a.g-hovercard.yt-uix-sessionlink.yt-user-name").first().text();
+            if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch.*"))
+            {
+                title = doc.select("span#eow-title").first().text();
+                String views = doc.select("span.watch-view-count").first().text();
+                String likes = doc.select("span.likes-count").first().text();
+                String dislikes = doc.select("span.dislikes-count").first().text();
+                String uploader = doc.select("a.g-hovercard.yt-uix-sessionlink.yt-user-name").first().text();
 
-		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Uploader: &r%s &2Views: &r%s &2Rating: &a%s&r/&c%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), uploader, views, likes, dislikes));
-	        }
+                return colourise(String.format("(%s's URL) &2Title: &r%s &2Uploader: &r%s &2Views: &r%s &2Rating: &a%s&r/&c%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), uploader, views, likes, dislikes));
+            }
 
-	        if (stringToParse.matches("^https?://(www\\.)?reddit\\.com/r/.*/comments/.*"))
-	        {
-		        String poster = doc.select("p.tagline").select("a.author").text().split(" ")[0];
-		        String comments = doc.select("a.comments").first().text().split(" ")[0];
-		        String likes = doc.select("span.upvotes").first().text().split(" ")[0];
-		        String dislikes = doc.select("span.downvotes").first().text().split(" ")[0];
+            if (stringToParse.matches("^https?://(www\\.)?reddit\\.com/r/.*/comments/.*"))
+            {
+                String poster = doc.select("p.tagline").select("a.author").text().split(" ")[0];
+                String comments = doc.select("a.comments").first().text().split(" ")[0];
+                String likes = doc.select("span.upvotes").first().text().split(" ")[0];
+                String dislikes = doc.select("span.downvotes").first().text().split(" ")[0];
 
-		        return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Rating: &6%s&r/&9%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, likes, dislikes));
-	        }
+                return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Rating: &6%s&r/&9%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, likes, dislikes));
+            }
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ignored)
@@ -91,7 +95,7 @@ public class Utils
         }
         catch (Exception ex)
         {
-	        foxbot.getLogger().error("Error occurred while parsing URL", ex);
+            foxbot.getLogger().error("Error occurred while parsing URL", ex);
         }
         return null;
     }
@@ -103,35 +107,35 @@ public class Utils
 
     public static String colourise(String stringToColour)
     {
-		return colourise(stringToColour, '&');
+        return colourise(stringToColour, '&');
     }
 
-	public static String colourise(String stringToColour, char colourChar)
-	{
-		return stringToColour.replace(colourChar + "0", Colors.BLACK)
-		                     .replace(colourChar + "1", Colors.DARK_BLUE)
-		                     .replace(colourChar + "2", Colors.DARK_GREEN)
-		                     .replace(colourChar + "3", Colors.TEAL)
-		                     .replace(colourChar + "4", Colors.RED)
-		                     .replace(colourChar + "5", Colors.PURPLE)
-		                     .replace(colourChar + "6", Colors.BROWN)
-		                     .replace(colourChar + "7", Colors.LIGHT_GRAY)
-		                     .replace(colourChar + "8", Colors.DARK_GRAY)
-		                     .replace(colourChar + "9", Colors.BLUE)
-		                     .replace(colourChar + "a", Colors.GREEN)
-		                     .replace(colourChar + "b", Colors.CYAN)
-		                     .replace(colourChar + "c", Colors.RED)
-		                     .replace(colourChar + "d", Colors.MAGENTA)
-		                     .replace(colourChar + "e", Colors.YELLOW)
-		                     .replace(colourChar + "f", Colors.WHITE)
-		                     .replace(colourChar + "r", Colors.NORMAL)
-		                     .replace(colourChar + "l", Colors.BOLD)
-		                     .replace(colourChar + "n", Colors.UNDERLINE)
-		                     .replace(colourChar + "m", "")
-		                     .replace(colourChar + "k", "")
-		                     .replace(colourChar + "o", "");
+    public static String colourise(String stringToColour, char colourChar)
+    {
+        return stringToColour.replace(colourChar + "0", Colors.BLACK)
+                             .replace(colourChar + "1", Colors.DARK_BLUE)
+                             .replace(colourChar + "2", Colors.DARK_GREEN)
+                             .replace(colourChar + "3", Colors.TEAL)
+                             .replace(colourChar + "4", Colors.RED)
+                             .replace(colourChar + "5", Colors.PURPLE)
+                             .replace(colourChar + "6", Colors.BROWN)
+                             .replace(colourChar + "7", Colors.LIGHT_GRAY)
+                             .replace(colourChar + "8", Colors.DARK_GRAY)
+                             .replace(colourChar + "9", Colors.BLUE)
+                             .replace(colourChar + "a", Colors.GREEN)
+                             .replace(colourChar + "b", Colors.CYAN)
+                             .replace(colourChar + "c", Colors.RED)
+                             .replace(colourChar + "d", Colors.MAGENTA)
+                             .replace(colourChar + "e", Colors.YELLOW)
+                             .replace(colourChar + "f", Colors.WHITE)
+                             .replace(colourChar + "r", Colors.NORMAL)
+                             .replace(colourChar + "l", Colors.BOLD)
+                             .replace(colourChar + "n", Colors.UNDERLINE)
+                             .replace(colourChar + "m", "")
+                             .replace(colourChar + "k", "")
+                             .replace(colourChar + "o", "");
 
-	}
+    }
 
     public static boolean addCustomCommand(String channel, String command, String text)
     {
@@ -142,7 +146,7 @@ public class Utils
         {
             if (!path.exists() && !path.mkdirs())
             {
-	            foxbot.getLogger().warn("Error occurred while creating custom command folders!");
+                foxbot.getLogger().warn("Error occurred while creating custom command folders!");
             }
 
             File file = new File(filePath + "/" + command);
@@ -171,7 +175,7 @@ public class Utils
         }
         catch (IOException ex)
         {
-	        foxbot.getLogger().error("Error occurred while adding custom command", ex);
+            foxbot.getLogger().error("Error occurred while adding custom command", ex);
         }
         return true;
     }
@@ -184,7 +188,7 @@ public class Utils
                     @Override
                     public void run()
                     {
-	                    channel.send().unBan(hostmask);
+                        channel.send().unBan(hostmask);
                     }
                 },
                 TimeUnit.SECONDS.toMillis(time)

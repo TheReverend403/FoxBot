@@ -17,15 +17,21 @@
 
 package co.foxdev.foxbot.config.yamlconfig.file;
 
-import co.foxdev.foxbot.config.yamlconfig.*;
+import co.foxdev.foxbot.config.yamlconfig.Configuration;
+import co.foxdev.foxbot.config.yamlconfig.ConfigurationSection;
+import co.foxdev.foxbot.config.yamlconfig.InvalidConfigurationException;
 import com.google.common.base.Preconditions;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
