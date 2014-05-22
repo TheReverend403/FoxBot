@@ -72,15 +72,12 @@ public class Config
     // User-punishment section
     // -----------------------
 
-    private boolean punishUsersOnKick;
-    private String punishmentKickReason;
     private int unbanTimer;
 
     // ------------
     // Misc section
     // ------------
 
-    private boolean debug;
     private char commandPrefix;
     private boolean autoJoinOnInvite;
     private boolean autoRejoinOnKick;
@@ -101,6 +98,12 @@ public class Config
 
     private String soundURL;
     private String soundExtension;
+
+    // ----
+    // Help
+    // ----
+
+    private List<String> helpLines;
 
     public Config(FoxBot foxbot)
     {
@@ -163,15 +166,12 @@ public class Config
         // User-punishment section
         // -----------------------
 
-        punishUsersOnKick = botConfig.getBoolean("user-punishment.punish-users-on-kick");
-        punishmentKickReason = botConfig.getString("user-punishment.punishment-kick-reason");
         unbanTimer = botConfig.getInt("user-punishment.unban-timer");
 
         // ------------
         // Misc section
         // ------------
 
-        debug = botConfig.getBoolean("misc.debug");
         commandPrefix = botConfig.getString("misc.command-prefix").toCharArray()[0];
         autoJoinOnInvite = botConfig.getBoolean("misc.auto-join-on-invite");
         autoRejoinOnKick = botConfig.getBoolean("misc.auto-rejoin-on-kick");
@@ -192,6 +192,12 @@ public class Config
 
         soundURL = botConfig.getString("sounds.sound-url");
         soundExtension = botConfig.getString("sounds.sound-extension");
+
+        // ----
+        // Help
+        // ----
+
+        helpLines = botConfig.getStringList("help");
 
     }
 
@@ -377,6 +383,15 @@ public class Config
     public String getSoundExtension()
     {
         return soundExtension;
+    }
+
+    // ----
+    // Help
+    // ----
+
+    public List<String> getHelpLines()
+    {
+        return helpLines;
     }
 
     // ------------
