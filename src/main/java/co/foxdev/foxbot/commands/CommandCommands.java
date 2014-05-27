@@ -40,7 +40,6 @@ public class CommandCommands extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-
         StringBuilder sb = new StringBuilder();
 
         for (Command command : foxbot.getCommandManager().getCommands())

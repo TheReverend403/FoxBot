@@ -84,7 +84,7 @@ public class CommandGoogle extends Command
             String resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getString("resultCount");
 
             String title = result.getString("titleNoFormatting");
-            String url = result.getString("url");
+            String url = result.getString("unescapedUrl");
 
             channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
             return;
