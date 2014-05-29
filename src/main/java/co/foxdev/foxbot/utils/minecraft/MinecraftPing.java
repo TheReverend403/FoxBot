@@ -82,8 +82,9 @@ public class MinecraftPing
         MinecraftPingUtil.writeVarInt(handshake, options.getHostname().length());
         handshake.writeBytes(options.getHostname());
         handshake.writeShort(options.getPort());
-        MinecraftPingUtil.writeVarInt(out, handshake_bytes.size());
         MinecraftPingUtil.writeVarInt(handshake, MinecraftPingUtil.STATUS_HANDSHAKE);
+
+        MinecraftPingUtil.writeVarInt(out, handshake_bytes.size());
         out.write(handshake_bytes.toByteArray());
 
         //> Status request
