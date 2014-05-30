@@ -169,7 +169,9 @@ public class Utils
             BufferedWriter bw = new BufferedWriter(fw);
 
             bw.write(text);
+            bw.flush();
             bw.close();
+            fw.flush();
             fw.close();
             foxbot.getLogger().warn(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
         }
