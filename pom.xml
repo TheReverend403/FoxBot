@@ -192,12 +192,6 @@
                             </includes>
                         </filter>
                         <filter>
-                            <artifact>com.google.guava:guava</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
-                        <filter>
                             <artifact>ch.qos.logback:logback-core</artifact>
                             <includes>
                                 <include>**</include>

@@ -34,77 +34,6 @@ public class Config
     private FileConfiguration botConfig;
     private FileConfiguration botPermissions;
 
-    // ---------
-    // Bot owner
-    // ---------
-
-    private String botOwner;
-
-    // -----------
-    // Bot section
-    // -----------
-
-    private String botNick;
-    private String botIdent;
-    private String botRealName;
-
-    // --------------
-    // Server section
-    // --------------
-
-    private String serverAddress;
-    private int serverPort;
-    private boolean serverSsl;
-    private boolean acceptInvalidSsl;
-    private String serverPassword;
-    private List<String> serverChannels;
-
-    // ------------
-    // Auth section
-    // ------------
-
-    private boolean useNickserv;
-    private String nickservPassword;
-    private boolean usersMustBeVerified;
-    private boolean matchUsersByHostmask;
-
-    // -----------------------
-    // User-punishment section
-    // -----------------------
-
-    private int unbanTimer;
-
-    // ------------
-    // Misc section
-    // ------------
-
-    private char commandPrefix;
-    private boolean autoJoinOnInvite;
-    private boolean autoRejoinOnKick;
-    private long autoRejoinDelay;
-    private long kickDelay;
-    private boolean autoNickChange;
-    private boolean autoReconnect;
-    private long messageDelay;
-    private boolean mungeUsernames;
-    private List<String> ignoredChannels;
-    private List<String> greetingChannels;
-    private String greetingMessage;
-    private boolean greetingNotice;
-
-    // --------------
-    // Sounds Section
-    // --------------
-
-    private String soundURL;
-    private String soundExtension;
-
-    // ----
-    // Help
-    // ----
-
-    private List<String> helpLines;
-
     public Config(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -127,78 +56,6 @@ public class Config
         {
             ex.printStackTrace();
         }
-
-        // ---------
-        // Bot owner
-        // ---------
-
-        botOwner = botConfig.getString("bot-owner");
-
-        // -----------
-        // Bot section
-        // -----------
-
-        botNick = botConfig.getString("bot.nick");
-        botIdent = botConfig.getString("bot.ident");
-        botRealName = botConfig.getString("bot.realname");
-
-        // --------------
-        // Server section
-        // --------------
-
-        serverAddress = botConfig.getString("server.address");
-        serverPort = botConfig.getInt("server.port");
-        serverSsl = botConfig.getBoolean("server.ssl");
-        acceptInvalidSsl = botConfig.getBoolean("server.accept-invalid-ssl-cert");
-        serverPassword = botConfig.getString("server.password");
-        serverChannels = botConfig.getStringList("server.channels");
-
-        // ------------
-        // Auth section
-        // ------------
-
-        useNickserv = botConfig.getBoolean("auth.use-nickserv");
-        nickservPassword = botConfig.getString("auth.nickserv-password");
-        usersMustBeVerified = botConfig.getBoolean("auth.users-must-be-verified");
-        matchUsersByHostmask = botConfig.getBoolean("auth.match-users-by-hostmask");
-
-        // -----------------------
-        // User-punishment section
-        // -----------------------
-
-        unbanTimer = botConfig.getInt("user-punishment.unban-timer");
-
-        // ------------
-        // Misc section
-        // ------------
-
-        commandPrefix = botConfig.getString("misc.command-prefix").toCharArray()[0];
-        autoJoinOnInvite = botConfig.getBoolean("misc.auto-join-on-invite");
-        autoRejoinOnKick = botConfig.getBoolean("misc.auto-rejoin-on-kick");
-        autoRejoinDelay = botConfig.getLong("misc.auto-rejoin-delay");
-        kickDelay = botConfig.getLong("misc.kick-delay");
-        autoNickChange = botConfig.getBoolean("misc.auto-nick-change");
-        autoReconnect = botConfig.getBoolean("misc.auto-reconnect");
-        messageDelay = botConfig.getLong("misc.message-delay");
-        mungeUsernames = botConfig.getBoolean("misc.munge-usernames");
-        ignoredChannels = botConfig.getStringList("misc.ignored-channels");
-        greetingChannels = botConfig.getStringList("misc.channels-to-greet");
-        greetingMessage = botConfig.getString("misc.greeting-message");
-        greetingNotice = botConfig.getBoolean("misc.send-greeting-as-notice");
-
-        // --------------
-        // Sounds Section
-        // --------------
-
-        soundURL = botConfig.getString("sounds.sound-url");
-        soundExtension = botConfig.getString("sounds.sound-extension");
-
-        // ----
-        // Help
-        // ----
-
-        helpLines = botConfig.getStringList("help");
-
     }
 
     public void reload()
@@ -213,7 +70,7 @@ public class Config
 
     public String getBotOwner()
     {
-        return botOwner;
+        return botConfig.getString("bot-owner");
     }
 
     // -----------
@@ -222,17 +79,17 @@ public class Config
 
     public String getBotNick()
     {
-        return botNick;
+        return botConfig.getString("bot.nick");
     }
 
     public String getBotIdent()
     {
-        return botIdent;
+        return botConfig.getString("bot.ident");
     }
 
     public String getBotRealName()
     {
-        return botRealName;
+        return botConfig.getString("bot.realname");
     }
 
     // --------------
@@ -241,32 +98,32 @@ public class Config
 
     public String getServerAddress()
     {
-        return serverAddress;
+        return botConfig.getString("server.address");
     }
 
     public int getServerPort()
     {
-        return serverPort;
+        return botConfig.getInt("server.port");
     }
 
     public boolean getServerSsl()
     {
-        return serverSsl;
+        return botConfig.getBoolean("server.ssl");
     }
 
     public boolean getAcceptInvalidSsl()
     {
-        return acceptInvalidSsl;
+        return botConfig.getBoolean("server.accept-invalid-ssl-cert");
     }
 
     public String getServerPassword()
     {
-        return serverPassword;
+        return botConfig.getString("server.password");
     }
 
     public List<String> getChannels()
     {
-        return serverChannels;
+        return botConfig.getStringList("server.channels");
     }
 
     // ------------
@@ -275,22 +132,22 @@ public class Config
 
     public boolean useNickserv()
     {
-        return useNickserv;
+        return botConfig.getBoolean("auth.use-nickserv");
     }
 
     public String getNickservPassword()
     {
-        return nickservPassword;
+        return botConfig.getString("auth.nickserv-password");
     }
 
     public boolean getUsersMustBeVerified()
     {
-        return usersMustBeVerified;
+        return botConfig.getBoolean("auth.users-must-be-verified");
     }
 
     public boolean getMatchUsersByHostmask()
     {
-        return matchUsersByHostmask;
+        return botConfig.getBoolean("auth.match-users-by-hostmask");
     }
 
     // -----------------------
@@ -299,7 +156,7 @@ public class Config
 
     public int getUnbanTimer()
     {
-        return unbanTimer;
+        return botConfig.getInt("user-punishment.unban-timer");
     }
 
     // ------------
@@ -308,67 +165,67 @@ public class Config
 
     public char getCommandPrefix()
     {
-        return commandPrefix;
+        return botConfig.getString("misc.command-prefix").toCharArray()[0];
     }
 
     public boolean getAutoJoinOnInvite()
     {
-        return autoJoinOnInvite;
+        return botConfig.getBoolean("misc.auto-join-on-invite");
     }
 
     public boolean getAutoRejoinOnKick()
     {
-        return autoRejoinOnKick;
+        return botConfig.getBoolean("misc.auto-rejoin-on-kick");
     }
 
     public long getAutoRejoinDelay()
     {
-        return autoRejoinDelay;
+        return botConfig.getLong("misc.auto-rejoin-delay");
     }
 
     public long getKickDelay()
     {
-        return kickDelay;
+        return botConfig.getLong("misc.kick-delay");
     }
 
     public boolean getAutoNickChange()
     {
-        return autoNickChange;
+        return botConfig.getBoolean("misc.auto-nick-change");
     }
 
     public boolean getAutoReconnect()
     {
-        return autoReconnect;
+        return botConfig.getBoolean("misc.auto-reconnect");
     }
 
     public Long getMessageDelay()
     {
-        return messageDelay;
+        return botConfig.getLong("misc.message-delay");
     }
 
     public boolean getMungeUsernames()
     {
-        return mungeUsernames;
+        return botConfig.getBoolean("misc.munge-usernames");
     }
 
     public List<String> getIgnoredChannels()
     {
-        return ignoredChannels;
+        return botConfig.getStringList("misc.ignored-channels");
     }
 
     public List<String> getGreetingChannels()
     {
-        return greetingChannels;
+        return botConfig.getStringList("misc.channels-to-greet");
     }
 
     public String getGreetingMessage()
     {
-        return greetingMessage;
+        return botConfig.getString("misc.greeting-message");
     }
 
     public boolean getGreetingNotice()
     {
-        return greetingNotice;
+        return botConfig.getBoolean("misc.send-greeting-as-notice");
     }
 
     // --------------
@@ -377,12 +234,12 @@ public class Config
 
     public String getSoundURL()
     {
-        return soundURL;
+        return botConfig.getString("sounds.sound-url");
     }
 
     public String getSoundExtension()
     {
-        return soundExtension;
+        return botConfig.getString("sounds.sound-extension");
     }
 
     // ----
@@ -391,7 +248,7 @@ public class Config
 
     public List<String> getHelpLines()
     {
-        return helpLines;
+        return botConfig.getStringList("help");
     }
 
     // ------------

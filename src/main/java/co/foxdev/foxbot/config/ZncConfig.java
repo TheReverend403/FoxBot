@@ -31,15 +31,6 @@ public class ZncConfig
     private File configFile = new File("znc.yml");
     private FileConfiguration zncConfig;
 
-    private String nick;
-    private String altNick;
-    private String ident;
-    private String quitMsg;
-    private int bufferCount;
-    private boolean denySetBindhost;
-    private List<String> modules;
-    public String defaultChanmodes;
-
     public ZncConfig(FoxBot foxbot)
     {
         this.foxbot = foxbot;
@@ -59,15 +50,6 @@ public class ZncConfig
         {
             ex.printStackTrace();
         }
-
-        nick = zncConfig.getString("users.nick");
-        altNick = zncConfig.getString("users.alt-nick");
-        ident = zncConfig.getString("users.ident");
-        quitMsg = zncConfig.getString("users.quit-message");
-        bufferCount = zncConfig.getInt("users.buffercount");
-        denySetBindhost = zncConfig.getBoolean("users.deny-set-bindhost");
-        modules = zncConfig.getStringList("users.modules");
-        defaultChanmodes = zncConfig.getString("users.default-chan-modes");
     }
 
     public boolean networkExists(String network)
@@ -81,42 +63,42 @@ public class ZncConfig
 
     public String getNick()
     {
-        return nick;
+        return zncConfig.getString("users.nick");
     }
 
     public String getAltNick()
     {
-        return altNick;
+        return zncConfig.getString("users.alt-nick");
     }
 
     public String getIdent()
     {
-        return ident;
+        return zncConfig.getString("users.ident");
     }
 
     public String getQuitMsg()
     {
-        return quitMsg;
+        return zncConfig.getString("users.quit-message");
     }
 
     public int getBufferCount()
     {
-        return bufferCount;
+        return zncConfig.getInt("users.buffercount");
     }
 
     public boolean isDenySetBindhost()
     {
-        return denySetBindhost;
+        return zncConfig.getBoolean("users.deny-set-bindhost");
     }
 
     public List<String> getModules()
     {
-        return modules;
+        return zncConfig.getStringList("users.modules");
     }
 
     public String getDefaultChanmodes()
     {
-        return defaultChanmodes;
+        return zncConfig.getString("users.default-chan-modes");
     }
 
     // ---------------
