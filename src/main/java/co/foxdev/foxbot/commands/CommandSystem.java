@@ -53,7 +53,8 @@ public class CommandSystem extends Command
 
         if (args.length > 0)
         {
-            StringBuilder command = new StringBuilder("/bin/bash -c ");
+            String shell = "/bin/bash -c";
+            StringBuilder command = new StringBuilder();
             boolean verbose = args[0].equals("-v");
 
             for (int i = verbose ? 1 : 0; i < args.length; i++)
@@ -63,7 +64,7 @@ public class CommandSystem extends Command
 
             try
             {
-                Process proc = runtime.exec(command.toString());
+                Process proc = runtime.exec(new String[]{shell, command.toString()});
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
                 BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
