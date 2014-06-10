@@ -53,7 +53,7 @@ public class CommandSystem extends Command
 
         if (args.length > 0)
         {
-            StringBuilder command = new StringBuilder();
+            StringBuilder command = new StringBuilder("/bin/bash -c ");
             boolean verbose = args[0].equals("-v");
 
             for (int i = verbose ? 1 : 0; i < args.length; i++)
