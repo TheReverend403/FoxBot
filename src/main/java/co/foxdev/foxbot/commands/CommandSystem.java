@@ -64,7 +64,7 @@ public class CommandSystem extends Command
 
             try
             {
-                Process proc = runtime.exec(new String[]{shell, command.toString()});
+                Process proc = runtime.exec(new String[]{shell, "\"" + command.toString() + "\""});
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
                 BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
