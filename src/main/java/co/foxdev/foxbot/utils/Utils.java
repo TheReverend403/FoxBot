@@ -69,8 +69,8 @@ public class Utils
 
             if (stringToParse.matches("^https?://(www\\.)?youtube\\.com/watch.*"))
             {
-                title = doc.select("span#eow-title").first().text();
-                String views = doc.select("span.watch-view-count").first().text();
+                title = doc.select("#eow-title").first().text();
+                String views = doc.select("#watch7-views-info > div.watch-view-count").first().text();
                 String likes = doc.select("span.likes-count").first().text();
                 String dislikes = doc.select("span.dislikes-count").first().text();
                 String uploader = doc.select("a.g-hovercard.yt-uix-sessionlink.yt-user-name").first().text();
@@ -91,7 +91,6 @@ public class Utils
         }
         catch (IllegalArgumentException ignored)
         {
-
         }
         catch (Exception ex)
         {
