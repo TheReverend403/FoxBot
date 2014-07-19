@@ -159,7 +159,7 @@ public class Utils
             {
                 if (file.delete())
                 {
-                    foxbot.getLogger().warn(String.format("Command '%s' deleted for %s!", command, channel));
+                    foxbot.getLogger().info(String.format("Command '%s' deleted for %s!", command, channel));
                 }
                 return false;
             }
@@ -172,7 +172,7 @@ public class Utils
             bw.close();
             fw.flush();
             fw.close();
-            foxbot.getLogger().warn(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
+            foxbot.getLogger().info(String.format("Command '%s' set for %s at %s", command, channel, file.getAbsolutePath()));
         }
         catch (IOException ex)
         {
