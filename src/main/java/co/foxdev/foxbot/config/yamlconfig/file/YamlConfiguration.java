@@ -55,6 +55,7 @@ public class YamlConfiguration extends FileConfiguration
         yamlRepresenter.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
         StringBuilder builder = new StringBuilder(buildHeader());
+
         if (builder.length() > 0)
         {
             builder.append('\n'); // newline after header, if present.
@@ -75,12 +76,14 @@ public class YamlConfiguration extends FileConfiguration
     public String saveConfigSectionWithComments(ConfigurationSection section, boolean depth)
     {
         StringBuilder builder = new StringBuilder();
-        for (Iterator<Map.Entry<String, Object>> i = section.getValues(false).entrySet().iterator(); i.hasNext(); )
+
+        for (Iterator<Map.Entry<String, Object>> i = section.getValues(false).entrySet().iterator(); i.hasNext();)
         {
             Map.Entry<String, Object> entry = i.next();
 
             // Output comment, if present
             String comment = this.getComment(entry.getKey());
+
             if (comment != null)
             {
                 builder.append(buildComment(comment));
@@ -90,6 +93,7 @@ public class YamlConfiguration extends FileConfiguration
             {
                 // output new line before ConfigurationSection. Pretier.
                 builder.append('\n');
+
                 // If it's a section, get it's string representation and append it to our builder.
                 // If the first character isn't alphanumeric, quote it !
                 if (Character.isLetterOrDigit(entry.getKey().codePointAt(0)))
@@ -100,6 +104,7 @@ public class YamlConfiguration extends FileConfiguration
                 {
                     builder.append("'" + entry.getKey() + "'");
                 }
+
                 builder.append(":" + yamlOptions.getLineBreak().getString());
                 builder.append(saveConfigSectionWithComments((ConfigurationSection) entry.getValue(), true));
                 // output new line after ConfigurationSection. Prettier.
@@ -111,6 +116,7 @@ public class YamlConfiguration extends FileConfiguration
                 builder.append(yaml.dump(Collections.singletonMap(entry.getKey(), entry.getValue())));
             }
         }
+
         String dump = builder.toString();
 
         // Prepend the indentation if we aren't the root configuration.
@@ -118,14 +124,17 @@ public class YamlConfiguration extends FileConfiguration
         {
             String[] lines = dump.split(Pattern.quote(yamlOptions.getLineBreak().getString()));
             StringBuilder indented = new StringBuilder();
+
             for (int i = 0; i < lines.length; i++)
             {
                 for (int indent = 0; indent < yamlOptions.getIndent(); indent++)
                 {
                     indented.append(" ");
                 }
+
                 indented.append(lines[i] + yamlOptions.getLineBreak().getString());
             }
+
             return indented.toString();
         }
         else
@@ -140,6 +149,7 @@ public class YamlConfiguration extends FileConfiguration
         Preconditions.checkNotNull(contents, "Contents cannot be null");
 
         Map<?, ?> input;
+
         try
         {
             input = (Map<?, ?>) yaml.load(contents);
@@ -154,6 +164,7 @@ public class YamlConfiguration extends FileConfiguration
         }
 
         String header = parseHeader(contents);
+
         if (header.length() > 0)
         {
             options().header(header);
@@ -342,12 +353,14 @@ public class YamlConfiguration extends FileConfiguration
     protected String buildComment(String comment)
     {
         StringBuilder builder = new StringBuilder();
+
         for (String line : comment.split("\r?\n"))
         {
             builder.append(COMMENT_PREFIX);
             builder.append(line);
             builder.append('\n');
         }
+
         return builder.toString();
     }
 }

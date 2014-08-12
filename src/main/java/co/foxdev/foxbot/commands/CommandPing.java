@@ -95,8 +95,10 @@ public class CommandPing extends Command
             {
                 sender.send().notice(String.format("%s is too high a number for a port!", port));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sping <address> [port]", foxbot.getConfig().getCommandPrefix()));
     }
 }

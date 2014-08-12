@@ -49,6 +49,7 @@ public class CommandHelp extends Command
             sender.send().notice("**This may not be accurate, as it relies on the owner adding their name to the config as a bot owner.");
             return;
         }
+
         for (String line : foxbot.getConfig().getHelpLines())
         {
             sender.send().notice(line);

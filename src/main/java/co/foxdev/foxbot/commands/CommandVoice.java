@@ -58,8 +58,10 @@ public class CommandVoice extends Command
                         channel.send().voice(user);
                     }
                 }
+
                 return;
             }
+
             sender.send().notice("You do not have permission to voice other users!");
             return;
         }
@@ -69,6 +71,7 @@ public class CommandVoice extends Command
             channel.send().voice(sender);
             return;
         }
+
         sender.send().notice("You are already voice!");
     }
 }

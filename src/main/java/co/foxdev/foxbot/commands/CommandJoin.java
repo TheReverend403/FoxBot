@@ -54,13 +54,17 @@ public class CommandJoin extends Command
                         sender.send().notice(String.format("Joined %s", chan));
                         continue;
                     }
+
                     sender.send().notice(String.format("%s is invite only!", chan));
                     continue;
                 }
+
                 sender.send().notice(String.format("%s is not a channel...", chan));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sjoin <#channel> [#channel2 #channel3 ... ]", foxbot.getConfig().getCommandPrefix()));
     }
 }

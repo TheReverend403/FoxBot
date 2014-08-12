@@ -66,8 +66,10 @@ public class CommandUptime extends Command
             {
                 sender.send().notice("File \"/proc/uptime\" not found. Are you sure you're using Linux?");
             }
+
             return;
         }
+
         sender.send().notice("This command is only supported on Unix based systems.");
     }
 }

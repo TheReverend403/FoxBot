@@ -49,13 +49,14 @@ public class CommandInsult extends Command
         if (args.length < 2)
         {
             String insult;
+
             try
             {
                 insult = Jsoup.connect("http://www.pangloss.com/seidel/Shaker/").timeout(500).execute().parse().select("font").first().text()
-                              .replace("\n", "")
-                              .replaceAll("^\\s", "")
-                              .replace("[", "")
-                              .replace("]", "");
+                         .replace("\n", "")
+                         .replaceAll("^\\s", "")
+                         .replace("[", "")
+                         .replace("]", "");
             }
             catch (Exception ex)
             {
@@ -89,9 +90,11 @@ public class CommandInsult extends Command
                 sender.send().notice("Insult sent to " + targetChan);
                 return;
             }
+
             channel.send().message(insult);
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sinsult [#channel]", foxbot.getConfig().getCommandPrefix()));
     }
 }

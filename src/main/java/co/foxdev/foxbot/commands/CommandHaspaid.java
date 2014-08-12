@@ -56,8 +56,10 @@ public class CommandHaspaid extends Command
                 foxbot.getLogger().error("Error occurred while fetching account status of " + args[0], ex);
                 channel.send().message(String.format("(%s) &cSomething went wrong...", Utils.munge(sender.getNick())));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %shaspaid <user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

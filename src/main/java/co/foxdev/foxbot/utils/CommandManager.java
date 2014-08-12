@@ -36,7 +36,7 @@ public class CommandManager
 {
     private final FoxBot foxbot;
     private final Map<String, Command> commandMap = new HashMap<>();
-    private final char[] restrictedChars = new char[]{'.', '/', '\\', '~'};
+    private final char[] restrictedChars = new char[] {'.', '/', '\\', '~'};
 
     public CommandManager(FoxBot foxbot)
     {
@@ -95,6 +95,7 @@ public class CommandManager
             sender.send().notice("An internal error occurred whilst executing this command, please alert a bot admin.");
             foxbot.getLogger().error("Error dispatching command: " + command, ex);
         }
+
         return true;
     }
 
@@ -126,6 +127,7 @@ public class CommandManager
                 {
                     message.append(line);
                 }
+
                 reader.close();
             }
             catch (IOException ex)
@@ -144,9 +146,11 @@ public class CommandManager
                 {
                     foxbot.bot().getUserChannelDao().getChannel(channel).send().message(foxbot.getConfig().getCommandPrefix() + command + ": " + lines[i]);
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 

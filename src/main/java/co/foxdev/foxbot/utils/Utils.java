@@ -45,10 +45,10 @@ public class Utils
             Connection conn = Jsoup.connect(stringToParse);
 
             conn.followRedirects(true)
-                .userAgent("FoxBot // http://foxbot.foxdev.co // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
-                .timeout(3000)
-                .maxBodySize(100000)
-                .ignoreContentType(true);
+            .userAgent("FoxBot // http://foxbot.foxdev.co // Seeing this? It means your web address was posted on IRC and FoxBot is getting page info (title, size, content type) to send to the channel. Nothing to worry about.")
+            .timeout(3000)
+            .maxBodySize(100000)
+            .ignoreContentType(true);
 
             Connection.Response response = conn.execute();
             Document doc = response.parse();
@@ -87,6 +87,7 @@ public class Utils
 
                 return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Rating: &6%s&r/&9%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, likes, dislikes));
             }
+
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s", munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), contentType, size));
         }
         catch (IllegalArgumentException ignored)
@@ -96,6 +97,7 @@ public class Utils
         {
             foxbot.getLogger().error("Error occurred while parsing URL", ex);
         }
+
         return null;
     }
 
@@ -112,27 +114,27 @@ public class Utils
     public static String colourise(String stringToColour, char colourChar)
     {
         return stringToColour.replace(colourChar + "0", Colors.BLACK)
-                             .replace(colourChar + "1", Colors.DARK_BLUE)
-                             .replace(colourChar + "2", Colors.DARK_GREEN)
-                             .replace(colourChar + "3", Colors.TEAL)
-                             .replace(colourChar + "4", Colors.RED)
-                             .replace(colourChar + "5", Colors.PURPLE)
-                             .replace(colourChar + "6", Colors.BROWN)
-                             .replace(colourChar + "7", Colors.LIGHT_GRAY)
-                             .replace(colourChar + "8", Colors.DARK_GRAY)
-                             .replace(colourChar + "9", Colors.BLUE)
-                             .replace(colourChar + "a", Colors.GREEN)
-                             .replace(colourChar + "b", Colors.CYAN)
-                             .replace(colourChar + "c", Colors.RED)
-                             .replace(colourChar + "d", Colors.MAGENTA)
-                             .replace(colourChar + "e", Colors.YELLOW)
-                             .replace(colourChar + "f", Colors.WHITE)
-                             .replace(colourChar + "r", Colors.NORMAL)
-                             .replace(colourChar + "l", Colors.BOLD)
-                             .replace(colourChar + "n", Colors.UNDERLINE)
-                             .replace(colourChar + "m", "")
-                             .replace(colourChar + "k", "")
-                             .replace(colourChar + "o", "");
+               .replace(colourChar + "1", Colors.DARK_BLUE)
+               .replace(colourChar + "2", Colors.DARK_GREEN)
+               .replace(colourChar + "3", Colors.TEAL)
+               .replace(colourChar + "4", Colors.RED)
+               .replace(colourChar + "5", Colors.PURPLE)
+               .replace(colourChar + "6", Colors.BROWN)
+               .replace(colourChar + "7", Colors.LIGHT_GRAY)
+               .replace(colourChar + "8", Colors.DARK_GRAY)
+               .replace(colourChar + "9", Colors.BLUE)
+               .replace(colourChar + "a", Colors.GREEN)
+               .replace(colourChar + "b", Colors.CYAN)
+               .replace(colourChar + "c", Colors.RED)
+               .replace(colourChar + "d", Colors.MAGENTA)
+               .replace(colourChar + "e", Colors.YELLOW)
+               .replace(colourChar + "f", Colors.WHITE)
+               .replace(colourChar + "r", Colors.NORMAL)
+               .replace(colourChar + "l", Colors.BOLD)
+               .replace(colourChar + "n", Colors.UNDERLINE)
+               .replace(colourChar + "m", "")
+               .replace(colourChar + "k", "")
+               .replace(colourChar + "o", "");
 
     }
 
@@ -161,6 +163,7 @@ public class Utils
                 {
                     foxbot.getLogger().info(String.format("Command '%s' deleted for %s!", command, channel));
                 }
+
                 return false;
             }
 
@@ -178,21 +181,22 @@ public class Utils
         {
             foxbot.getLogger().error("Error occurred while adding custom command", ex);
         }
+
         return true;
     }
 
     public static void scheduleUnban(final Channel channel, final String hostmask, final int time)
     {
         new Timer().schedule(
-                new TimerTask()
-                {
-                    @Override
-                    public void run()
-                    {
-                        channel.send().unBan(hostmask);
-                    }
-                },
-                TimeUnit.SECONDS.toMillis(time)
+            new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                channel.send().unBan(hostmask);
+            }
+        },
+        TimeUnit.SECONDS.toMillis(time)
         );
     }
 }

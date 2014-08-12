@@ -89,6 +89,7 @@ public class CommandGoogle extends Command
             channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sgoogle <query>", foxbot.getConfig().getCommandPrefix()));
     }
 }

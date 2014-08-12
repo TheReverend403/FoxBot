@@ -61,6 +61,7 @@ public class CommandGeoip extends Command
             channel.send().message(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sgeoip <host|user>", foxbot.getConfig().getCommandPrefix()));
     }
 }

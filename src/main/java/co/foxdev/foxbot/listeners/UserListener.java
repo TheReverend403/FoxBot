@@ -95,15 +95,15 @@ public class UserListener extends ListenerAdapter
             if (foxbot.getConfig().getAutoRejoinOnKick() && !foxbot.getPermissionManager().userHasQuietPermission(kicker, "bot.allowkick"))
             {
                 new Timer().schedule(
-                        new TimerTask()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                foxbot.bot().sendIRC().joinChannel(channel.getName());
-                            }
-                        },
-                        TimeUnit.SECONDS.toMillis(foxbot.getConfig().getAutoRejoinDelay())
+                    new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        foxbot.bot().sendIRC().joinChannel(channel.getName());
+                    }
+                },
+                TimeUnit.SECONDS.toMillis(foxbot.getConfig().getAutoRejoinDelay())
                 );
             }
         }

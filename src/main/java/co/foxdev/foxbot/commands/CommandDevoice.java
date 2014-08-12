@@ -52,13 +52,16 @@ public class CommandDevoice extends Command
                 for (String target : args)
                 {
                     User toDeVoice = foxbot.bot().getUserChannelDao().getUser(target);
+
                     if (channel.hasVoice(toDeVoice))
                     {
                         channel.send().deVoice(toDeVoice);
                     }
                 }
+
                 return;
             }
+
             sender.send().notice("You do not have permission to devoice other users!");
             return;
         }
@@ -68,6 +71,7 @@ public class CommandDevoice extends Command
             channel.send().deVoice(sender);
             return;
         }
+
         sender.send().notice("You are not voice!");
     }
 }

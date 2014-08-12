@@ -81,6 +81,7 @@ public class CommandKick extends Command
             channel.send().kick(target, String.format("Kick requested by %s - %s", sender.getNick(), Utils.colourise(reason.toString()) + Colors.NORMAL));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %skick <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

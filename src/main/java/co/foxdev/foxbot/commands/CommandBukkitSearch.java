@@ -107,6 +107,7 @@ public class CommandBukkitSearch extends Command
             channel.send().message(Utils.colourise(String.format("(%s) &2Name:&r %s &2Description:&r %s &2URL:&r %s", Utils.munge(sender.getNick()), name, description, pluginUrl)));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sbukkitsearch <plugin>", foxbot.getConfig().getCommandPrefix()));
     }
 }

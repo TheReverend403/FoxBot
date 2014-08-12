@@ -62,12 +62,15 @@ public class CommandSetCmd extends Command
                         builder.append(" ").append(args[arg]);
                     }
                 }
+
                 sender.send().notice(String.format("Command '%s' %s for %s", command, Utils.addCustomCommand(channel.getName(), command, builder.toString()) ? "set" : "deleted", channel.getName()));
                 return;
             }
+
             sender.send().notice(String.format("Only channel half-ops and above can set custom commands!"));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %ssetcmd <command> [text]", foxbot.getConfig().getCommandPrefix()));
     }
 }

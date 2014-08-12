@@ -54,6 +54,7 @@ public class CommandAddNetwork extends Command
 
                 foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
+
             // Send a message to the partyline user
             foxbot.bot().sendIRC().message("?" + user, String.format("The network '%s' has been added to your account!", networkName));
 
@@ -78,8 +79,10 @@ public class CommandAddNetwork extends Command
                 sender.send().notice(String.format("Network '%s' added to %s's account!", networkName, user));
                 foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %szncaddnetwork <name> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }

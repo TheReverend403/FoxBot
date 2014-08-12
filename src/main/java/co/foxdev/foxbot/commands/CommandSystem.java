@@ -85,6 +85,7 @@ public class CommandSystem extends Command
                         count++;
                     }
                 }
+
                 stdInput.close();
 
                 while ((line = stdError.readLine()) != null)
@@ -101,6 +102,7 @@ public class CommandSystem extends Command
                         count++;
                     }
                 }
+
                 stdError.close();
                 proc.destroy();
             }
@@ -108,8 +110,10 @@ public class CommandSystem extends Command
             {
                 foxbot.getLogger().error("Error occurred while executing system command", ex);
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %ssystem [-v] <command>", foxbot.getConfig().getCommandPrefix()));
     }
 }

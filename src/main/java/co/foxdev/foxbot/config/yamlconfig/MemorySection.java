@@ -87,6 +87,7 @@ public class MemorySection implements ConfigurationSection
         Set<String> result = new LinkedHashSet<String>();
 
         Configuration root = getRoot();
+
         if (root != null && root.options().copyDefaults())
         {
             ConfigurationSection defaults = getDefaultSection();
@@ -107,6 +108,7 @@ public class MemorySection implements ConfigurationSection
         Map<String, Object> result = new LinkedHashMap<String, Object>();
 
         Configuration root = getRoot();
+
         if (root != null && root.options().copyDefaults())
         {
             ConfigurationSection defaults = getDefaultSection();
@@ -130,14 +132,17 @@ public class MemorySection implements ConfigurationSection
     public boolean isSet(String path)
     {
         Configuration root = getRoot();
+
         if (root == null)
         {
             return false;
         }
+
         if (root.options().copyDefaults())
         {
             return contains(path);
         }
+
         return get(path, null) != null;
     }
 
@@ -166,14 +171,17 @@ public class MemorySection implements ConfigurationSection
         Preconditions.checkNotNull(path, "Path cannot be null");
 
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot add default without root");
         }
+
         if (root == this)
         {
             throw new UnsupportedOperationException("Unsupported addDefault(String, Object) implementation");
         }
+
         root.addDefault(createPath(this, path), value);
     }
 
@@ -198,6 +206,7 @@ public class MemorySection implements ConfigurationSection
         Preconditions.checkArgument(!path.isEmpty(), "Cannot set to an empty path");
 
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot use section without a root");
@@ -208,10 +217,12 @@ public class MemorySection implements ConfigurationSection
         // i2 is the trailing (lower) index
         int i1 = -1, i2;
         ConfigurationSection section = this;
+
         while ((i1 = path.indexOf(separator, i2 = i1 + 1)) != -1)
         {
             String node = path.substring(i2, i1);
             ConfigurationSection subSection = section.getConfigurationSection(node);
+
             if (subSection == null)
             {
                 section = section.createSection(node);
@@ -223,6 +234,7 @@ public class MemorySection implements ConfigurationSection
         }
 
         String key = path.substring(i2);
+
         if (section == this)
         {
             if (value == null)
@@ -255,6 +267,7 @@ public class MemorySection implements ConfigurationSection
         }
 
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot access section without a root");
@@ -265,9 +278,11 @@ public class MemorySection implements ConfigurationSection
         // i2 is the trailing (lower) index
         int i1 = -1, i2;
         ConfigurationSection section = this;
+
         while ((i1 = path.indexOf(separator, i2 = i1 + 1)) != -1)
         {
             section = section.getConfigurationSection(path.substring(i2, i1));
+
             if (section == null)
             {
                 return def;
@@ -275,11 +290,13 @@ public class MemorySection implements ConfigurationSection
         }
 
         String key = path.substring(i2);
+
         if (section == this)
         {
             Object result = map.get(key);
             return (result == null) ? def : result;
         }
+
         return section.get(key, def);
     }
 
@@ -287,6 +304,7 @@ public class MemorySection implements ConfigurationSection
     {
         Preconditions.checkArgument(!path.isEmpty(), "Cannot create section at empty path");
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot create section without a root");
@@ -297,10 +315,12 @@ public class MemorySection implements ConfigurationSection
         // i2 is the trailing (lower) index
         int i1 = -1, i2;
         ConfigurationSection section = this;
+
         while ((i1 = path.indexOf(separator, i2 = i1 + 1)) != -1)
         {
             String node = path.substring(i2, i1);
             ConfigurationSection subSection = section.getConfigurationSection(node);
+
             if (subSection == null)
             {
                 section = section.createSection(node);
@@ -312,12 +332,14 @@ public class MemorySection implements ConfigurationSection
         }
 
         String key = path.substring(i2);
+
         if (section == this)
         {
             ConfigurationSection result = new MemorySection(this, key);
             map.put(key, result);
             return result;
         }
+
         return section.createSection(key);
     }
 
@@ -441,7 +463,7 @@ public class MemorySection implements ConfigurationSection
     public List<?> getList(String path, List<?> def)
     {
         Object val = get(path, def);
-        return (List<?>) ((val instanceof List) ? val : def);
+        return (List<?>)((val instanceof List) ? val : def);
     }
 
     public boolean isList(String path)
@@ -501,7 +523,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((int) ((Character) object).charValue());
+                result.add((int)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -574,7 +596,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((double) ((Character) object).charValue());
+                result.add((double)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -614,7 +636,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((float) ((Character) object).charValue());
+                result.add((float)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -654,7 +676,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((long) ((Character) object).charValue());
+                result.add((long)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -694,7 +716,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((byte) ((Character) object).charValue());
+                result.add((byte)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -733,7 +755,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Number)
             {
-                result.add((char) ((Number) object).intValue());
+                result.add((char)((Number) object).intValue());
             }
         }
 
@@ -769,7 +791,7 @@ public class MemorySection implements ConfigurationSection
             }
             else if (object instanceof Character)
             {
-                result.add((short) ((Character) object).charValue());
+                result.add((short)((Character) object).charValue());
             }
             else if (object instanceof Number)
             {
@@ -804,6 +826,7 @@ public class MemorySection implements ConfigurationSection
     public ConfigurationSection getConfigurationSection(String path)
     {
         Object val = get(path, null);
+
         if (val != null)
         {
             return (val instanceof ConfigurationSection) ? (ConfigurationSection) val : null;
@@ -822,9 +845,9 @@ public class MemorySection implements ConfigurationSection
     protected boolean isPrimitiveWrapper(Object input)
     {
         return input instanceof Integer || input instanceof Boolean
-                || input instanceof Character || input instanceof Byte
-                || input instanceof Short || input instanceof Double
-                || input instanceof Long || input instanceof Float;
+               || input instanceof Character || input instanceof Byte
+               || input instanceof Short || input instanceof Double
+               || input instanceof Long || input instanceof Float;
     }
 
     protected Object getDefault(String path)
@@ -926,13 +949,16 @@ public class MemorySection implements ConfigurationSection
     {
         Preconditions.checkNotNull(section, "Cannot create path without a section");
         Configuration root = section.getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot create path without a root");
         }
+
         char separator = root.options().pathSeparator();
 
         StringBuilder builder = new StringBuilder();
+
         if (section != null)
         {
             for (ConfigurationSection parent = section; (parent != null) && (parent != relativeTo); parent = parent.getParent())
@@ -964,13 +990,13 @@ public class MemorySection implements ConfigurationSection
     {
         Configuration root = getRoot();
         return new StringBuilder()
-                .append(getClass().getSimpleName())
-                .append("[path='")
-                .append(getCurrentPath())
-                .append("', root='")
-                .append(root == null ? null : root.getClass().getSimpleName())
-                .append("']")
-                .toString();
+               .append(getClass().getSimpleName())
+               .append("[path='")
+               .append(getCurrentPath())
+               .append("', root='")
+               .append(root == null ? null : root.getClass().getSimpleName())
+               .append("']")
+               .toString();
     }
 
     /**
@@ -984,6 +1010,7 @@ public class MemorySection implements ConfigurationSection
         Preconditions.checkNotNull(path, "Path cannot be null");
 
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot access section without a root");
@@ -1000,9 +1027,11 @@ public class MemorySection implements ConfigurationSection
         // i2 is the trailing (lower) index
         int i1 = -1, i2;
         ConfigurationSection section = this;
+
         while ((i1 = path.indexOf(separator, i2 = i1 + 1)) != -1)
         {
             section = section.getConfigurationSection(path.substring(i2, i1));
+
             if (section == null)
             {
                 return null;
@@ -1010,10 +1039,12 @@ public class MemorySection implements ConfigurationSection
         }
 
         String key = path.substring(i2);
+
         if (section == this)
         {
             return comments.get(key);
         }
+
         return section.getComment(key);
     }
 
@@ -1029,6 +1060,7 @@ public class MemorySection implements ConfigurationSection
         Preconditions.checkArgument(!path.isEmpty(), "Cannot set to an empty path");
 
         Configuration root = getRoot();
+
         if (root == null)
         {
             throw new IllegalStateException("Cannot use section without a root");
@@ -1039,10 +1071,12 @@ public class MemorySection implements ConfigurationSection
         // i2 is the trailing (lower) index
         int i1 = -1, i2;
         ConfigurationSection section = this;
+
         while ((i1 = path.indexOf(separator, i2 = i1 + 1)) != -1)
         {
             String node = path.substring(i2, i1);
             ConfigurationSection subSection = section.getConfigurationSection(node);
+
             if (subSection == null)
             {
                 section = section.createSection(node);
@@ -1054,6 +1088,7 @@ public class MemorySection implements ConfigurationSection
         }
 
         String key = path.substring(i2);
+
         if (section == this)
         {
             if (comment != null && comment.length > 0)
@@ -1091,6 +1126,7 @@ public class MemorySection implements ConfigurationSection
     public void setComments(Map<String, String> comments)
     {
         this.comments.clear();
+
         if (comments != null)
         {
             this.comments.putAll(comments);

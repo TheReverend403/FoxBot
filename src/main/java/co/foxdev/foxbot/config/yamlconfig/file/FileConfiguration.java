@@ -70,6 +70,7 @@ public abstract class FileConfiguration extends MemoryConfiguration
         Preconditions.checkNotNull(file, "File cannot be null");
 
         File parent = file.getCanonicalFile().getParentFile();
+
         if (parent == null)
         {
             /*
@@ -81,7 +82,9 @@ public abstract class FileConfiguration extends MemoryConfiguration
              */
             return;
         }
+
         parent.mkdirs();
+
         if (!parent.isDirectory())
         {
             throw new IOException("Unable to create parent directories of " + file);
@@ -286,10 +289,12 @@ public abstract class FileConfiguration extends MemoryConfiguration
                 OutputStream out = new FileOutputStream(outFile);
                 byte[] buf = new byte[1024];
                 int len;
+
                 while ((len = in.read(buf)) > 0)
                 {
                     out.write(buf, 0, len);
                 }
+
                 out.close();
                 in.close();
             }

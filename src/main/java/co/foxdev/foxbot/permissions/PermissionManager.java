@@ -63,6 +63,7 @@ public class PermissionManager
                 {
                     return !permissions.getStringList(authType).contains("-" + permission);
                 }
+
                 return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
             }
 
@@ -70,12 +71,15 @@ public class PermissionManager
             {
                 user.send().notice("You must be logged into nickserv to use bot commands.");
             }
+
             return false;
         }
+
         if (permissions.getStringList("default").contains(permission))
         {
             return !permissions.getStringList(authType).contains("-" + permission);
         }
+
         return permissions.getStringList(authType).contains(permission) || permissions.getStringList(authType).contains("*");
     }
 

@@ -112,8 +112,10 @@ public class CommandAddUser extends Command
             {
                 foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %szncadduser <name> <bindhost> <network>", foxbot.getConfig().getCommandPrefix()));
     }
 }

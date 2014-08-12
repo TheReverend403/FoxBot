@@ -46,6 +46,7 @@ public class CommandDelUser extends Command
             sender.send().notice(String.format("%s has been deleted!", user));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %szncdeluser <name>", foxbot.getConfig().getCommandPrefix()));
     }
 }

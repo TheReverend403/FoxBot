@@ -37,6 +37,7 @@ public class LogFilter extends Filter<ILoggingEvent>
             FoxBot.getInstance().getLogger().info(Colors.removeFormattingAndColors(event.getMessage()));
             return FilterReply.DENY;
         }
+
         return FilterReply.NEUTRAL;
     }
 }

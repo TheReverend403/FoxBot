@@ -47,6 +47,7 @@ public class CommandJump extends Command
             sender.send().notice(String.format("%s is reconnecting!", user));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %szncjump <name> [network]", foxbot.getConfig().getCommandPrefix()));
     }
 }

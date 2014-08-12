@@ -30,13 +30,13 @@ public final class NumberConversions
     public static int floor(double num)
     {
         final int floor = (int) num;
-        return floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
+        return floor == num ? floor : floor - (int)(Double.doubleToRawLongBits(num) >>> 63);
     }
 
     public static int ceil(final double num)
     {
         final int floor = (int) num;
-        return floor == num ? floor : floor + (int) (~Double.doubleToRawLongBits(num) >>> 63);
+        return floor == num ? floor : floor + (int)(~Double.doubleToRawLongBits(num) >>> 63);
     }
 
     public static int round(double num)
@@ -61,6 +61,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 
@@ -81,6 +82,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 
@@ -101,6 +103,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 
@@ -121,6 +124,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 
@@ -141,6 +145,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 
@@ -161,6 +166,7 @@ public final class NumberConversions
         catch (NullPointerException e)
         {
         }
+
         return 0;
     }
 }

@@ -73,6 +73,7 @@ public class CommandHash extends Command
             channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), byteArrayToHexString(digest.digest(stringToHash.toString().getBytes()))));
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %shash <SHA-1|SHA-256|MD5> <text>", foxbot.getConfig().getCommandPrefix()));
     }
 
@@ -84,6 +85,7 @@ public class CommandHash extends Command
         {
             result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
         }
+
         return result;
     }
 }

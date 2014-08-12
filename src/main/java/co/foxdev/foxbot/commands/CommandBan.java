@@ -88,8 +88,10 @@ public class CommandBan extends Command
             {
                 Utils.scheduleUnban(channel, hostmask, foxbot.getConfig().getUnbanTimer());
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sban <user> <reason>", foxbot.getConfig().getCommandPrefix()));
     }
 }

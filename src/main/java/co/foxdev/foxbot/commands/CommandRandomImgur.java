@@ -67,6 +67,7 @@ public class CommandRandomImgur extends Command
                 return;
             }
         }
+
         channel.send().message(Utils.colourise(String.format("(%s) &2Random Imgur: &r%s", Utils.munge(sender.getNick()), link)));
     }
 
@@ -87,6 +88,7 @@ public class CommandRandomImgur extends Command
         {
             throw new IOException();
         }
+
         return imgurLink;
     }
 }

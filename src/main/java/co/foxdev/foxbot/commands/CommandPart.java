@@ -54,10 +54,13 @@ public class CommandPart extends Command
                     sender.send().notice(String.format("Left %s", chan));
                     continue;
                 }
+
                 sender.send().notice(String.format("%s is not a channel...", chan));
             }
+
             return;
         }
+
         channel.send().part();
         sender.send().notice(String.format("Left %s", channel.getName()));
     }

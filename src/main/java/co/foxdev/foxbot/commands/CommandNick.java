@@ -48,6 +48,7 @@ public class CommandNick extends Command
             foxbot.bot().sendIRC().changeNick(nick);
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %snick <nick>", foxbot.getConfig().getCommandPrefix()));
     }
 }

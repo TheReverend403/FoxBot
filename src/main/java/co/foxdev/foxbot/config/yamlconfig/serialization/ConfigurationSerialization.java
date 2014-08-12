@@ -53,6 +53,7 @@ public class ConfigurationSerialization
             {
                 return null;
             }
+
             if (Modifier.isStatic(method.getModifiers()) != isStatic)
             {
                 return null;
@@ -104,9 +105,9 @@ public class ConfigurationSerialization
         catch (Throwable ex)
         {
             Logger.getLogger(ConfigurationSerialization.class.getName()).log(
-                    Level.SEVERE,
-                    "Could not call method '" + method.toString() + "' of " + clazz + " for deserialization",
-                    ex instanceof InvocationTargetException ? ex.getCause() : ex);
+                Level.SEVERE,
+                "Could not call method '" + method.toString() + "' of " + clazz + " for deserialization",
+                ex instanceof InvocationTargetException ? ex.getCause() : ex);
         }
 
         return null;
@@ -121,9 +122,9 @@ public class ConfigurationSerialization
         catch (Throwable ex)
         {
             Logger.getLogger(ConfigurationSerialization.class.getName()).log(
-                    Level.SEVERE,
-                    "Could not call constructor '" + ctor.toString() + "' of " + clazz + " for deserialization",
-                    ex instanceof InvocationTargetException ? ex.getCause() : ex);
+                Level.SEVERE,
+                "Could not call constructor '" + ctor.toString() + "' of " + clazz + " for deserialization",
+                ex instanceof InvocationTargetException ? ex.getCause() : ex);
         }
 
         return null;
@@ -215,7 +216,9 @@ public class ConfigurationSerialization
                 {
                     throw new IllegalArgumentException("Cannot have null alias");
                 }
+
                 clazz = getClassByAlias(alias);
+
                 if (clazz == null)
                 {
                     throw new IllegalArgumentException("Specified class does not exist ('" + alias + "')");

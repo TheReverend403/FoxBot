@@ -157,6 +157,7 @@ public class FoxBot
                 configBuilder.addAutoJoinChannel(parts[0], parts[1]);
                 continue;
             }
+
             configBuilder.addAutoJoinChannel(channel);
         }
 
@@ -176,6 +177,7 @@ public class FoxBot
     private void registerListeners()
     {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
         try
         {
             for (Class clazz : reflections.getSubTypesOf(ListenerAdapter.class))
@@ -198,6 +200,7 @@ public class FoxBot
     private void registerCommands()
     {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
         try
         {
             for (Class clazz : reflections.getSubTypesOf(Command.class))

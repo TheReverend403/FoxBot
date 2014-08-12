@@ -86,6 +86,7 @@ public class CommandResolve extends Command
                     channel.send().message(Utils.colourise(String.format("(%s) &2A record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aRecord.getType(), aRecord.getAddress()).replace("/", "")));
                     channel.send().message(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
                 }
+
                 return;
             }
 
@@ -97,8 +98,10 @@ public class CommandResolve extends Command
                 channel.send().message(Utils.colourise(String.format("(%s) &2AAAA record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aaaaRecord.getType(), aaaaRecord.getAddress()).replace("/", "")));
                 channel.send().message(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
             }
+
             return;
         }
+
         sender.send().notice(String.format("Wrong number of args! Use %sresolve <host|user> [-4]", foxbot.getConfig().getCommandPrefix()));
     }
 }
