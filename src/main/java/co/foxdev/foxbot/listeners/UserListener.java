@@ -70,15 +70,21 @@ public class UserListener extends ListenerAdapter
             return;
         }
 
-        if (!foxbot.getConfig().getGreetingChannels().isEmpty() && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore") && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
+        if (!foxbot.getConfig().getGreetingChannels().isEmpty()
+                && !foxbot.getPermissionManager().userHasQuietPermission(user, "greetings.ignore")
+                && foxbot.getConfig().getGreetingChannels().contains(channel.getName()))
         {
             if (foxbot.getConfig().getGreetingNotice())
             {
-                user.send().notice(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                user.send().notice(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick)
+                                                         .replace("{CHANNEL}", channel.getName())
+                                                         .replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
             else
             {
-                channel.send().message(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick).replace("{CHANNEL}", channel.getName()).replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
+                channel.send().message(Utils.colourise(foxbot.getConfig().getGreetingMessage().replace("{USER}", nick)
+                                                             .replace("{CHANNEL}", channel.getName())
+                                                             .replace("{CHANUSERS}", String.valueOf(channel.getUsers().size()))));
             }
         }
     }

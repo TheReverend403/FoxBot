@@ -57,8 +57,8 @@ public class CommandGeoip extends Command
             String ip = user.getHostmask().isEmpty() ? args[0] : user.getHostmask();
             String country = foxbot.getLookupService().getLocation(ip).countryName;
             String city = foxbot.getLookupService().getLocation(ip).city;
-
-            channel.send().message(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city, country == null ? "" : city == null ? country : ", " + country)));
+            channel.send().message(Utils.colourise(String.format("(%s) &2GeoIP info for %s:&r %s%s", Utils.munge(sender.getNick()), ip, city == null ? "" : city,
+                                                   country == null ? "" : city == null ? country : ", " + country)));
             return;
         }
 

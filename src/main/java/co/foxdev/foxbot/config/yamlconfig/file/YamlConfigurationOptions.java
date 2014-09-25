@@ -91,7 +91,6 @@ public class YamlConfigurationOptions extends FileConfigurationOptions
     {
         Preconditions.checkArgument(value >= 2, "Indent must be at least 2 characters");
         Preconditions.checkArgument(value <= 9, "Indent cannot be greater than 9 characters");
-
         this.indent = value;
         return this;
     }

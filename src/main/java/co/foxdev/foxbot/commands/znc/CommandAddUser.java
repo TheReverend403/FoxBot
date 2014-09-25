@@ -45,13 +45,10 @@ public class CommandAddUser extends Command
             String bindhost = args[1];
             String network = foxbot.getZncConfig().networkExists(args[2]) ? args[2] : "default";
             String networkName = foxbot.getZncConfig().getNetworkName(network);
-
             // ---------------
             // Basic user info
             // ---------------
-
             String controlPanel = "*controlpanel";
-
             foxbot.bot().sendIRC().message(controlPanel, String.format("adduser %s %s", user, password));
             foxbot.bot().sendIRC().message(controlPanel, String.format("set nick %s %s", user, foxbot.getZncConfig().getNick().replace("{NAME}", user)));
             foxbot.bot().sendIRC().message(controlPanel, String.format("set altnick %s %s", user, foxbot.getZncConfig().getAltNick().replace("{NAME}", user)));
@@ -62,18 +59,15 @@ public class CommandAddUser extends Command
             foxbot.bot().sendIRC().message(controlPanel, String.format("set denysetbindhost %s %s", user, foxbot.getZncConfig().isDenySetBindhost()));
             foxbot.bot().sendIRC().message(controlPanel, String.format("set defaultchanmodes %s %s", user, foxbot.getZncConfig().getDefaultChanmodes()));
             foxbot.bot().sendIRC().message(controlPanel, String.format("set prependtimestamp %s true", user));
-
             // -----------
             // Add servers
             // -----------
-
             foxbot.bot().sendIRC().message(controlPanel, String.format("addnetwork %s %s", user, networkName));
 
             for (String server : foxbot.getZncConfig().getServers(network))
             {
                 String host = server.split(":")[0];
                 String port = server.split(":")[1];
-
                 foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
 
@@ -89,7 +83,6 @@ public class CommandAddUser extends Command
             // -----------------------------------
             // Send information to the adding user
             // -----------------------------------
-
             sender.send().notice(String.format("User added! Send this info to the user - Username: %s - Password: %s", user, password));
 
             // ------------

@@ -56,7 +56,6 @@ public class CommandMcStatus extends Command
         if (args.length == 0)
         {
             StringBuilder statusString = new StringBuilder(String.format("(%s) ", Utils.munge(sender.getNick())));
-
             Connection conn = Jsoup.connect("http://status.mojang.com/check").timeout(500).followRedirects(true).ignoreContentType(true);
             String json;
 

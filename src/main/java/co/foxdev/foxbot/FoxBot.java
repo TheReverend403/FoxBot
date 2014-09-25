@@ -111,7 +111,6 @@ public class FoxBot
     private void setBotInfo()
     {
         configBuilder = new Configuration.Builder();
-
         configBuilder.setEncoding(Charsets.UTF_8);
         logger.info("Setting bot info");
         configBuilder.setAutoNickChange(config.getAutoNickChange());
@@ -122,8 +121,10 @@ public class FoxBot
         logger.info(String.format("Set message delay to %s", config.getMessageDelay()));
         configBuilder.setCapEnabled(true);
         configBuilder.setRealName(config.getBotRealName());
-        configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(), config.getCommandPrefix()));
-        logger.info(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(), config.getCommandPrefix()));
+        configBuilder.setVersion(String.format("FoxBot - A Java IRC bot written by FoxDev and owned by %s - http://foxbot.foxdev.co - Use %shelp for more info", config.getBotOwner(),
+                                               config.getCommandPrefix()));
+        logger.info(String.format("Set version to 'FoxBot - A Java IRC bot written by FoxDev and owned by %s - https://github.com/FoxDev/FoxBot - Use %shelp for more info'", config.getBotOwner(),
+                                  config.getCommandPrefix()));
         configBuilder.setAutoSplitMessage(true);
         configBuilder.setName(config.getBotNick());
         logger.info(String.format("Set nick to '%s'", config.getBotNick()));
@@ -153,7 +154,6 @@ public class FoxBot
             if (channel.contains(":"))
             {
                 String[] parts = channel.split(":");
-
                 configBuilder.addAutoJoinChannel(parts[0], parts[1]);
                 continue;
             }
@@ -185,7 +185,6 @@ public class FoxBot
                 classLoader.loadClass(clazz.getName());
                 Constructor clazzConstructor = clazz.getConstructor(getClass());
                 ListenerAdapter listener = (ListenerAdapter) clazzConstructor.newInstance(this);
-
                 configBuilder.getListenerManager().addListener(listener);
                 logger.info(String.format("Registered listener '%s'", listener.getClass().getSimpleName()));
             }
@@ -208,7 +207,6 @@ public class FoxBot
                 classLoader.loadClass(clazz.getName());
                 Constructor clazzConstructor = clazz.getConstructor(getClass());
                 Command command = (Command) clazzConstructor.newInstance(this);
-
                 commandManager.registerCommand(command);
                 logger.info(String.format("Registered command '%s'", command.getName()));
             }

@@ -51,7 +51,6 @@ public class CommandRandomImgur extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-
         String link = null;
 
         while (link == null)
@@ -73,7 +72,8 @@ public class CommandRandomImgur extends Command
 
     private String generateLink() throws IOException
     {
-        String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(7));
+        String imgurLink = rand.nextBoolean() ? String.format("http://imgur.com/gallery/%s", RandomStringUtils.randomAlphanumeric(5)) : String.format("http://imgur.com/gallery/%s",
+                           RandomStringUtils.randomAlphanumeric(7));
 
         try
         {

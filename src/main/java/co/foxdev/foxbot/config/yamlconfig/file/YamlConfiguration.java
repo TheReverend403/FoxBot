@@ -53,7 +53,6 @@ public class YamlConfiguration extends FileConfiguration
         yamlOptions.setIndent(options().indent());
         yamlOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         yamlRepresenter.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-
         StringBuilder builder = new StringBuilder(buildHeader());
 
         if (builder.length() > 0)
@@ -62,7 +61,6 @@ public class YamlConfiguration extends FileConfiguration
         }
 
         builder.append(saveConfigSectionWithComments(this, false));
-
         String dump = builder.toString();
 
         if (dump.equals(BLANK_CONFIG))
@@ -80,7 +78,6 @@ public class YamlConfiguration extends FileConfiguration
         for (Iterator<Map.Entry<String, Object>> i = section.getValues(false).entrySet().iterator(); i.hasNext();)
         {
             Map.Entry<String, Object> entry = i.next();
-
             // Output comment, if present
             String comment = this.getComment(entry.getKey());
 
@@ -147,7 +144,6 @@ public class YamlConfiguration extends FileConfiguration
     public void loadFromString(String contents) throws InvalidConfigurationException
     {
         Preconditions.checkNotNull(contents, "Contents cannot be null");
-
         Map<?, ?> input;
 
         try
@@ -302,7 +298,6 @@ public class YamlConfiguration extends FileConfiguration
     public static YamlConfiguration loadConfiguration(File file)
     {
         Preconditions.checkNotNull(file, "File cannot be null");
-
         YamlConfiguration config = new YamlConfiguration();
 
         try
@@ -330,7 +325,6 @@ public class YamlConfiguration extends FileConfiguration
     public static YamlConfiguration loadConfiguration(InputStream stream)
     {
         Preconditions.checkNotNull(stream, "Stream cannot be null");
-
         YamlConfiguration config = new YamlConfiguration();
 
         try

@@ -54,7 +54,6 @@ public class CommandBukkitSearch extends Command
         {
             String plugin = args[0].toLowerCase();
             String url = String.format("http://api.bukget.org/3/search/plugin_name/like/%s%s", plugin, (args.length) == 1 ? "" : ("?size=" + args[1]));
-
             Connection conn = Jsoup.connect(url).timeout(500).followRedirects(true).ignoreContentType(true);
             String json;
 

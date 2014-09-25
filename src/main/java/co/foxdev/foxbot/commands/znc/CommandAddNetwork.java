@@ -44,14 +44,12 @@ public class CommandAddNetwork extends Command
             String networkName = foxbot.getZncConfig().getNetworkName(network);
             // ZNC module
             String controlPanel = "*controlpanel";
-
             foxbot.bot().sendIRC().message(controlPanel, String.format("addnetwork %s %s", user, networkName));
 
             for (String server : foxbot.getZncConfig().getServers(network))
             {
                 String host = server.split(":")[0];
                 String port = server.split(":")[1];
-
                 foxbot.bot().sendIRC().message(controlPanel, String.format("addserver %s %s %s %s", user, networkName, host, port));
             }
 
@@ -75,7 +73,6 @@ public class CommandAddNetwork extends Command
             for (String channel : foxbot.getZncConfig().getChannels(network))
             {
                 String sendRaw = "*send_raw";
-
                 sender.send().notice(String.format("Network '%s' added to %s's account!", networkName, user));
                 foxbot.bot().sendIRC().message(sendRaw, String.format("server %s %s JOIN %s", user, networkName, channel));
             }

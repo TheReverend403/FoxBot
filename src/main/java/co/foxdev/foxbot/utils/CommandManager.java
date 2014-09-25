@@ -71,7 +71,6 @@ public class CommandManager
         }
 
         foxbot.getLogger().info(String.format("Dispatching command '%s' used by %s", command.getName(), sender.getNick()));
-
         String permission = command.getPermission();
 
         if (permission != null && !permission.isEmpty())
@@ -120,7 +119,6 @@ public class CommandManager
             try
             {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
-
                 String line;
 
                 while ((line = reader.readLine()) != null)

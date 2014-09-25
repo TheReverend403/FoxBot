@@ -69,7 +69,6 @@ public class MinecraftPingUtil
         while (true)
         {
             int k = in.readByte();
-
             i |= (k & 0x7F) << j++ * 7;
 
             if (j > 5)

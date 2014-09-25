@@ -50,7 +50,6 @@ public class CommandSetCmd extends Command
             if (!channel.getNormalUsers().contains(sender) && !channel.hasVoice(sender))
             {
                 StringBuilder builder = new StringBuilder("");
-
                 String command = args[0];
 
                 if (args.length > 1)

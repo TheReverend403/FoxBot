@@ -39,7 +39,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface SerializableAs
 {
-
     /**
      * This is the name your class will be stored and retrieved as.
      * <p/>

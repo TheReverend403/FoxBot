@@ -43,7 +43,6 @@ public class CommandSound extends Command
         if (args.length == 1)
         {
             String soundname = args[0];
-
             channel.send().message(String.format("%s%s.%s", foxbot.getConfig().getSoundURL(), soundname, foxbot.getConfig().getSoundExtension()));
             return;
         }

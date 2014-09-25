@@ -133,7 +133,6 @@ public class ConfigurationSerialization
     public ConfigurationSerializable deserialize(Map<String, Object> args)
     {
         Preconditions.checkNotNull(args, "Args must not be null");
-
         ConfigurationSerializable result = null;
         Method method = null;
 

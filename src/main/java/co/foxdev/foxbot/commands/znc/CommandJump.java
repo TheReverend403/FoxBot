@@ -42,7 +42,6 @@ public class CommandJump extends Command
             String user = args[0];
             String network = args.length == 2 ? args[1] : foxbot.getZncConfig().getNetworkName("default");
             String controlPanel = "*controlpanel";
-
             foxbot.bot().sendIRC().message(controlPanel, String.format("reconnect %s %s", user, network));
             sender.send().notice(String.format("%s is reconnecting!", user));
             return;

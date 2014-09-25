@@ -44,7 +44,6 @@ public class CommandRandCommit extends Command
     {
         User sender = event.getUser();
         Channel channel = event.getChannel();
-
         String commitMessage;
 
         try

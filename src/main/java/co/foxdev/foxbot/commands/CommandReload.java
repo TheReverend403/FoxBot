@@ -40,7 +40,6 @@ public class CommandReload extends Command
     public void execute(final MessageEvent event, final String[] args)
     {
         User sender = event.getUser();
-
         sender.send().notice("Reloading...");
         foxbot.getConfig().reload();
         sender.send().notice("Reloaded! Some options will only take effect when you restart the bot.");

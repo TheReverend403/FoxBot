@@ -128,11 +128,6 @@
             <version>0.9.9-RC2</version>
         </dependency>
         <dependency>
-            <groupId>org.beanshell</groupId>
-            <artifactId>bsh</artifactId>
-            <version>2.0b5</version>
-        </dependency>
-        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.13</version>
@@ -185,12 +180,6 @@
                     <finalName>${project.artifactId}</finalName>
                     <minimizeJar>true</minimizeJar>
                     <filters>
-                        <filter>
-                            <artifact>org.beanshell:bsh</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
                         <filter>
                             <artifact>ch.qos.logback:logback-core</artifact>
                             <includes>

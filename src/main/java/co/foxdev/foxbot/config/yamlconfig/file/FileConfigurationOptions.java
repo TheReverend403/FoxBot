@@ -136,7 +136,6 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions
     public FileConfigurationOptions copyHeader(boolean value)
     {
         copyHeader = value;
-
         return this;
     }
 }

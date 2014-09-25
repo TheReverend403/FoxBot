@@ -77,14 +77,12 @@ public class MemoryConfiguration extends MemorySection implements Configuration
     public void addDefaults(Configuration defaults)
     {
         Preconditions.checkNotNull(defaults, "Defaults may not be null");
-
         addDefaults(defaults.getValues(true));
     }
 
     public void setDefaults(Configuration defaults)
     {
         Preconditions.checkNotNull(defaults, "Defaults may not be null");
-
         this.defaults = defaults;
     }
 

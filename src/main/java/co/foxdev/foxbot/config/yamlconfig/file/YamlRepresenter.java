@@ -55,7 +55,6 @@ public class YamlRepresenter extends Representer
             Map<String, Object> values = new LinkedHashMap<String, Object>();
             values.put(ConfigurationSerialization.SERIALIZED_TYPE_KEY, ConfigurationSerialization.getAlias(serializable.getClass()));
             values.putAll(serializable.serialize());
-
             return super.representData(values);
         }
     }

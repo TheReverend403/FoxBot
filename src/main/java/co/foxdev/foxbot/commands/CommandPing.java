@@ -75,7 +75,6 @@ public class CommandPing extends Command
                 long start = System.currentTimeMillis();
                 socket.connect(new InetSocketAddress(host, port), 500);
                 long end = System.currentTimeMillis();
-
                 socket.close();
                 channel.send().message(Utils.colourise(String.format("(%s) &2Ping response time: &r%sms", Utils.munge(sender.getNick()), end - start)));
             }

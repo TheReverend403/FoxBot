@@ -56,9 +56,7 @@ public class CommandGoogle extends Command
         {
             String query = StringUtils.join(args, " ");
             String address = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" + query;
-
             Connection conn = Jsoup.connect(address).ignoreContentType(true).followRedirects(true).timeout(1000);
-
             JSONObject jsonObject;
 
             try
@@ -82,11 +80,10 @@ public class CommandGoogle extends Command
 
             JSONObject result = jsonArray.getJSONObject(0);
             String resultCount = jsonObject.getJSONObject("responseData").getJSONObject("cursor").getString("resultCount");
-
             String title = result.getString("titleNoFormatting");
             String url = result.getString("unescapedUrl");
-
-            channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url, resultCount)));
+            channel.send().message(Utils.colourise(String.format("(%s's Google Search) &2Title: &r%s &2URL: &r%s &2Results: &r%s", Utils.munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), url,
+                                                   resultCount)));
             return;
         }
 

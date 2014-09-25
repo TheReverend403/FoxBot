@@ -44,7 +44,6 @@ public class CommandNick extends Command
         if (args.length == 1)
         {
             String nick = args[0];
-
             foxbot.bot().sendIRC().changeNick(nick);
             return;
         }

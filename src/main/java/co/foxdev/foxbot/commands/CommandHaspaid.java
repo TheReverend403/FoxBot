@@ -49,7 +49,9 @@ public class CommandHaspaid extends Command
         {
             try
             {
-                channel.send().message(Jsoup.connect("https://minecraft.net/haspaid.jsp?user=" + args[0]).timeout(500).get().text().contains("true") ? Utils.colourise(String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", Utils.munge(sender.getNick()), args[0])) : Utils.colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", Utils.munge(sender.getNick()), args[0])));
+                channel.send().message(Jsoup.connect("https://minecraft.net/haspaid.jsp?user=" + args[0]).timeout(500).get().text().contains("true") ? Utils.colourise(
+                                           String.format("(%s) The account \"%s\" is a &2premium&r Minecraft account!", Utils.munge(sender.getNick()),
+                                                   args[0])) : Utils.colourise(String.format("(%s) The account \"%s\" is &cNOT&r a premium Minecraft account!", Utils.munge(sender.getNick()), args[0])));
             }
             catch (Exception ex)
             {

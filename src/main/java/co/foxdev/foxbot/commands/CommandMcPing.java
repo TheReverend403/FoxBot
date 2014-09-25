@@ -79,7 +79,6 @@ public class CommandMcPing extends Command
             String players = mcping.getPlayers().getOnline() + "/" + mcping.getPlayers().getMax();
             String version = mcping.getVersion().getName();
             String finalPing = String.format("%s%s - %s - %s", motd, Colors.NORMAL, players, version);
-
             channel.send().message(Utils.colourise(String.format("(%s) %s", Utils.munge(sender.getNick()), finalPing), '\u00A7'));
             return;
         }

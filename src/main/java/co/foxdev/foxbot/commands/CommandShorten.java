@@ -56,7 +56,6 @@ public class CommandShorten extends Command
         if (args.length == 1)
         {
             String linkToShorten = args[0];
-
             channel.send().message(String.format("(%s) %s", Utils.munge(sender.getNick()), shorten(linkToShorten)));
             return;
         }
@@ -75,20 +74,16 @@ public class CommandShorten extends Command
         {
             URL url = new URL("https://www.googleapis.com/urlshortener/v1/url");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
             String postData = "{\"longUrl\": \"" + longUrl + "\"}";
-
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.addRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Content-Length", Integer.toString(postData.getBytes().length));
             connection.connect();
-
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes(postData);
             wr.flush();
             wr.close();
-
             BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
@@ -99,7 +94,6 @@ public class CommandShorten extends Command
             }
 
             String json = sb.toString();
-
             connection.disconnect();
             return json.substring(json.indexOf("http"), json.indexOf("\"", json.indexOf("http")));
         }

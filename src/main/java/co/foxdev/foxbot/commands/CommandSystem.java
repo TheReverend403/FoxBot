@@ -66,7 +66,6 @@ public class CommandSystem extends Command
                 Process proc = runtime.exec(command.toString());
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
                 BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-
                 // Prevent spam on long results
                 int count = 0;
                 String line;

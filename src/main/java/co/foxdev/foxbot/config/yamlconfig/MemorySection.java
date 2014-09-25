@@ -72,20 +72,16 @@ public class MemorySection implements ConfigurationSection
     {
         Preconditions.checkNotNull(parent, "Parent cannot be null");
         Preconditions.checkNotNull(path, "Path cannot be null");
-
         this.path = path;
         this.parent = parent;
         this.root = parent.getRoot();
-
         Preconditions.checkNotNull(root, "Path cannot be orphaned");
-
         this.fullPath = createPath(parent, path);
     }
 
     public Set<String> getKeys(boolean deep)
     {
         Set<String> result = new LinkedHashSet<String>();
-
         Configuration root = getRoot();
 
         if (root != null && root.options().copyDefaults())
@@ -99,14 +95,12 @@ public class MemorySection implements ConfigurationSection
         }
 
         mapChildrenKeys(result, this, deep);
-
         return result;
     }
 
     public Map<String, Object> getValues(boolean deep)
     {
         Map<String, Object> result = new LinkedHashMap<String, Object>();
-
         Configuration root = getRoot();
 
         if (root != null && root.options().copyDefaults())
@@ -120,7 +114,6 @@ public class MemorySection implements ConfigurationSection
         }
 
         mapChildrenValues(result, this, deep);
-
         return result;
     }
 
@@ -169,7 +162,6 @@ public class MemorySection implements ConfigurationSection
     public void addDefault(String path, Object value)
     {
         Preconditions.checkNotNull(path, "Path cannot be null");
-
         Configuration root = getRoot();
 
         if (root == null)
@@ -204,7 +196,6 @@ public class MemorySection implements ConfigurationSection
     public void set(String path, Object value)
     {
         Preconditions.checkArgument(!path.isEmpty(), "Cannot set to an empty path");
-
         Configuration root = getRoot();
 
         if (root == null)
@@ -853,7 +844,6 @@ public class MemorySection implements ConfigurationSection
     protected Object getDefault(String path)
     {
         Preconditions.checkNotNull(path, "Path cannot be null");
-
         Configuration root = getRoot();
         Configuration defaults = root == null ? null : root.getDefaults();
         return (defaults == null) ? null : defaults.get(createPath(this, path));
@@ -956,7 +946,6 @@ public class MemorySection implements ConfigurationSection
         }
 
         char separator = root.options().pathSeparator();
-
         StringBuilder builder = new StringBuilder();
 
         if (section != null)
@@ -1008,7 +997,6 @@ public class MemorySection implements ConfigurationSection
     public String getComment(String path)
     {
         Preconditions.checkNotNull(path, "Path cannot be null");
-
         Configuration root = getRoot();
 
         if (root == null)
@@ -1058,7 +1046,6 @@ public class MemorySection implements ConfigurationSection
     public void setComment(String path, String... comment)
     {
         Preconditions.checkArgument(!path.isEmpty(), "Cannot set to an empty path");
-
         Configuration root = getRoot();
 
         if (root == null)

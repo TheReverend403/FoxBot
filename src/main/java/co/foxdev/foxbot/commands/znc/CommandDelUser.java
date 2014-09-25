@@ -41,7 +41,6 @@ public class CommandDelUser extends Command
         {
             String user = args[0];
             String controlPanel = "*controlpanel";
-
             foxbot.bot().sendIRC().message(controlPanel, String.format("deluser %s", user));
             sender.send().notice(String.format("%s has been deleted!", user));
             return;

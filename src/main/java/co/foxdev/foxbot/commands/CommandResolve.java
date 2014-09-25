@@ -82,7 +82,6 @@ public class CommandResolve extends Command
                 {
                     ARecord aRecord = (ARecord) record;
                     PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aRecord.getAddress()), aRecord.getDClass(), aRecord.getTTL(), aRecord.getName());
-
                     channel.send().message(Utils.colourise(String.format("(%s) &2A record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aRecord.getType(), aRecord.getAddress()).replace("/", "")));
                     channel.send().message(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
                 }
@@ -94,8 +93,8 @@ public class CommandResolve extends Command
             {
                 AAAARecord aaaaRecord = (AAAARecord) record;
                 PTRRecord ptr = new PTRRecord(ReverseMap.fromAddress(aaaaRecord.getAddress()), aaaaRecord.getDClass(), aaaaRecord.getTTL(), aaaaRecord.getName());
-
-                channel.send().message(Utils.colourise(String.format("(%s) &2AAAA record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aaaaRecord.getType(), aaaaRecord.getAddress()).replace("/", "")));
+                channel.send().message(Utils.colourise(String.format("(%s) &2AAAA record for %s:&r %s. %s IN %s", Utils.munge(sender.getNick()), host, host, aaaaRecord.getType(), aaaaRecord.getAddress()).replace("/",
+                                                       "")));
                 channel.send().message(Utils.colourise(String.format("(%s) &2PTR record for %s:&r %s IN PTR %s", Utils.munge(sender.getNick()), host, ptr.getName(), ptr.getTarget())));
             }
 

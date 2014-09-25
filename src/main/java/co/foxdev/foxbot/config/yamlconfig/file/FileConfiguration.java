@@ -68,7 +68,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
     public void save(File file) throws IOException
     {
         Preconditions.checkNotNull(file, "File cannot be null");
-
         File parent = file.getCanonicalFile().getParentFile();
 
         if (parent == null)
@@ -91,7 +90,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
         }
 
         String data = saveToString();
-
         FileWriter writer = new FileWriter(file);
 
         try
@@ -119,7 +117,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
     public void save(String file) throws IOException
     {
         Preconditions.checkNotNull(file, "File cannot be null");
-
         save(new File(file));
     }
 
@@ -150,7 +147,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
     public void load(File file) throws FileNotFoundException, IOException, InvalidConfigurationException
     {
         Preconditions.checkNotNull(file, "File cannot be null");
-
         load(new FileInputStream("config/" + file));
     }
 
@@ -170,7 +166,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
     public void load(InputStream stream) throws IOException, InvalidConfigurationException
     {
         Preconditions.checkNotNull(stream, "Stream cannot be null");
-
         InputStreamReader reader = new InputStreamReader(stream);
         StringBuilder builder = new StringBuilder();
         BufferedReader input = new BufferedReader(reader);
@@ -213,7 +208,6 @@ public abstract class FileConfiguration extends MemoryConfiguration
     public void load(String file) throws FileNotFoundException, IOException, InvalidConfigurationException
     {
         Preconditions.checkNotNull(file, "File cannot be null");
-
         load(new File(file));
     }
 
