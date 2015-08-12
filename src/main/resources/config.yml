@@ -1,7 +1,7 @@
 # This is the main configuration for FoxBot. All lines have a short explanation.
 # For further info, use the below links.
 #
-# IRC: http://webchat.seion.us/?channels=foxbot
+# IRC: https://kiwiirc.com/client/fox.seion.us/foxbot
 # Issue Tracker: https://github.com/FoxDev/FoxBot/issues
 
 # Used to identify the bot's owner in CTCP version replies. Has no effect on bot operation.
