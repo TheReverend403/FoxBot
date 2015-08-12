@@ -13,7 +13,7 @@
 # We use maven!
 /build.xml
 /*/build.xml
-pom.xml*
+pom.xml.*
 
 # Maven
 /target
