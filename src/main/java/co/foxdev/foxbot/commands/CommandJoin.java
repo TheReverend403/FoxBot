@@ -46,7 +46,7 @@ public class CommandJoin extends Command
         {
             for (String chan : args)
             {
-                if (chan.startsWith("#"))
+                if (chan.startsWith("#") || chan.startsWith("~#"))
                 {
                     if (!foxbot.bot().getUserChannelDao().getChannel(chan).isInviteOnly())
                     {
