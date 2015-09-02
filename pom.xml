@@ -6,7 +6,7 @@
 
     <groupId>FoxBot</groupId>
     <artifactId>FoxBot</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +34,7 @@
             <organization>FoxDev</organization>
             <organizationUrl>http://foxdev.co</organizationUrl>
             <roles>
-                <role>lead developer</role>
+                <role>Lead Developer</role>
             </roles>
         </developer>
     </developers>

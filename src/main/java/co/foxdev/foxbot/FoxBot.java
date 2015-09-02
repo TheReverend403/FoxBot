@@ -19,7 +19,6 @@ package co.foxdev.foxbot;
 
 import co.foxdev.foxbot.commands.Command;
 import co.foxdev.foxbot.config.Config;
-import co.foxdev.foxbot.config.ZncConfig;
 import co.foxdev.foxbot.permissions.PermissionManager;
 import co.foxdev.foxbot.utils.CommandManager;
 import com.google.common.base.Charsets;
@@ -43,7 +42,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * FoxBot - A highly configurable IRC bot
  *
- * @author TheReverend403 (Lee Watson) - http://revthefox.co.uk
+ * @author TheReverend403 (Lee Watson) - https://revthefox.co.uk
  * @website http://foxbot.foxdev.co
  * @repo https://github.com/FoxDev/FoxBot
  */
@@ -60,8 +59,6 @@ public class FoxBot
     private Logger logger;
     @Getter
     private PermissionManager permissionManager;
-    @Getter
-    private ZncConfig zncConfig;
     @Getter
     private CommandManager commandManager;
     @Getter
@@ -89,7 +86,6 @@ public class FoxBot
         }
 
         config = new Config(this);
-        zncConfig = new ZncConfig(this);
         permissionManager = new PermissionManager(this);
         commandManager = new CommandManager(this);
 
@@ -99,7 +95,8 @@ public class FoxBot
         }
         catch (IOException ex)
         {
-            logger.warn("GeoIP database not found, GeoIP feature will be unavailable. Download a database from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz");
+            logger.warn("GeoIP database not found, GeoIP feature will be unavailable.");
+            logger.warn("Download a database from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz and extract it to data/GeoLiteCity.dat");
         }
 
         setBotInfo();

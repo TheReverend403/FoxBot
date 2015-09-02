@@ -61,7 +61,6 @@ public class Config
     public void reload()
     {
         loadConfig();
-        foxbot.getZncConfig().reload();
     }
 
     // ---------
