@@ -83,11 +83,10 @@ public class Utils
             {
                 String poster = doc.select("p.tagline").select("a.author").text().split(" ")[0];
                 String comments = doc.select("a.comments").first().text().split(" ")[0];
-                String likes = doc.select("span.upvotes").first().text().split(" ")[0];
-                String dislikes = doc.select("span.downvotes").first().text().split(" ")[0];
+                String score = doc.select("div.score").select("span.number").first().text().split(" ")[0];
                 
-                return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Rating: &6%s&r/&9%s",
-                        munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, likes, dislikes));
+                return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Score: &6%s",
+                        munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, acore));
             }
 
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s",
