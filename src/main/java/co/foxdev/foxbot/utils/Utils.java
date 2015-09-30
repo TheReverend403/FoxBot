@@ -86,7 +86,7 @@ public class Utils
                 String score = doc.select("div.score").select("span.number").first().text().split(" ")[0];
                 
                 return colourise(String.format("(%s's URL) &2Title: &r%s &2Poster: &r%s &2Comments: &r%s &2Score: &6%s",
-                        munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, acore));
+                        munge(sender.getNick()), StringEscapeUtils.unescapeHtml4(title), poster, comments, score));
             }
 
             return colourise(String.format("(%s's URL) &2Title: &r%s &2Content Type: &r%s &2Size: &r%s",
